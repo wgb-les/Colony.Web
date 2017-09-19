@@ -1,0 +1,27 @@
+﻿@model WalkerGreenbank.Modules.Studio.Areas.Models.StudioListViewModel
+<ul class="results">
+
+
+    <li class="scrapItem">
+        <article class="user-options">
+            <h3>Scrapbook</h3>
+            <a href="@Url.Action("Detail", "Scrapbook", new {area = "Scrapbook"})" class="button left medium">Create Moodboards</a>
+            <a href="@Url.Action("IndexForAccountArea", "Scrapbook", new {area = "Scrapbook"})" class="button left medium">My Moodboards</a>
+        </article>
+    </li>
+
+    @foreach (var studioItem in Model.Items)
+    {
+        Html.RenderPartial("StudioItem", studioItem);
+    }
+
+    @for (var i = 0; i < 10; i++)
+    {
+        <li>
+            <div class="details">
+                <span class="icon-drag-here-scrapbook"></span>
+                <h4>Drag an item here to save it into your scrapbook.</h4>
+            </div>
+        </li>
+    }
+</ul>

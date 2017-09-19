@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.Homepage.Areas.Models.Menu>
+@foreach (var menu in Model)
+{
+    <li class="@if (menu.HasMegaMenu)
+               {
+                   <text>has-mega-dropdown</text>
+               }">
+
+        <a href="@menu.Uri" class="mega-dropdown-link" alt="@menu.Name">
+            <span class="mega-dropdown-label">@menu.Name</span>
+        </a>
+        @if (menu.HasMegaMenu)
+        {
+            <div class="mega-dropdown @if (menu.MegaMenu.ImageAssetId.HasValue)
+                                      {
+                                          <text>mega-dropdown-with-promo</text>
+                                      }">
+                <div class="mega-dropdown-inner">
+                    <ul class="mega-dropdown-grid">
+                        @foreach (var megaMenuItem in menu.MegaMenu.MegaMenuItems.Take(5))
+                        {
+                            <li>
+                                @Html.Raw(megaMenuItem.HtmlContent)
+                            </li>
+                        }
+                    </ul>
+                    @if (menu.MegaMenu.ImageAssetId.HasValue)
+                    {
+                        <a href="@menu.MegaMenu.PromoUrl" class="mega-dropdown-promo">
+                            <img src="@Url.ImageUrl(menu.MegaMenu.ImageAssetId, "Homepages", "MegaMenuPromoThumbnail")" alt=""/>
+                            <span class="mega-dropdown-promo-overlay">@menu.MegaMenu.PromoName</span>
+                        </a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(menu.MegaMenu.ButtonText))
+                    {
+                        <a href="@menu.MegaMenu.ButtonUrl" class="mega-dropdown-button">
+                            <span class="@menu.MegaMenu.ButtonIconClass"></span>
+                            @menu.MegaMenu.ButtonText
+                        </a>
+                        <a href="" class="mega-dropdown-button second-mega-button">
+                            <span class="@menu.MegaMenu.ButtonIconClass"></span>
+                            @menu.MegaMenu.ButtonText
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    </li>
+}
+
+<script>
+    $(".second-mega-button:contains('Fabric')").text("View Fabric Collections").attr("href", "/shop/fabric/");
+    $(".second-mega-button:contains('Wallpaper')").text("View Wallpaper Collections").attr("href", "/shop/wallpaper/");
+    $(".second-mega-button:contains('Trimmings')").text("View Trimmings Collections").attr("href", "/shop/trimmings/");
+</script>

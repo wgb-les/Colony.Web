@@ -1,0 +1,725 @@
+﻿<aside class="sideCol leftCol">
+	<a href="#" class="toggleFilters button show-for-small">Filter Products</a>
+
+	<div class="filterAccordion">
+		<section id="productFilters" class="medium">
+			<header class="header-reveal-modal">
+				<h2>Product Filters</h2>
+				<a class="close-reveal-modal icon-remove"><span>Close</span></a>
+			</header>
+			<div class="bd-reveal-modal">
+
+				<form action="" class="filterAccordion" id="searchProducts" novalidate="novalidate">
+                    <input type="hidden" id="searchHandle" value="<%= rc.model.SearchHandle %>" />
+
+					<% if (rc.model.IsProductGroupFilterVisible && rc.model.ProductGroup.length > 0) { %>
+						<section class="boxSection filterCategory filterProductGroup accordion-always-open">
+							<div class="header">
+								<a href="#" class="toggle-filterAccordion">
+									<h2>Product Type</h2>
+								</a>
+								<a href="#" class="clearFilter">Clear</a>
+							</div>
+							<div class="content-filterAccordion">
+								<fieldset class="optionList">
+									<legend>Filter by Product Type</legend>
+									<h3>Filter by Product Type</h3>
+									<ul>
+									    <% _.each(rc.model.ProductGroup, function(item) { %>
+                                        
+											<% if (_.contains(rc.model.SelectedProductGroups, item.Id.toString()) === true) { %>
+											<li data-order="<%=item.Order%>">
+                                                <input type="checkbox" name="SelectedProductGroups" id="productGroup_filterCategory_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                                <label for="productGroup_filterCategory_<%=item.CelebrosId%>" class="selected">
+                                                    <span><%=item.Name%><% if (item.Id.toString() == "6508") { %> - <i><strong>buy online</strong></i> <% } else { if (item.CelebrosId.toString() == "144") { %> - <i>colour search</i> <% } else {%> - <i>samples</i> <%}}%></span>
+                                                </label>
+											</li>
+											<% } else { %>
+											<li data-order="<%=item.Order%>">
+                                                <input type="checkbox" name="SelectedProductGroups" id="productGroup_filterCategory_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+												<label for="productGroup_filterCategory_<%=item.Id%>">
+												    <span><%=item.Name%><% if (item.CelebrosId.toString() == "6508") { %> - <i><strong>buy online</strong></i> <% } else { if (item.CelebrosId.toString() == "144") {%> - <i>colour search</i> <%} else {%> - <i>samples</i> <%}}%></span>
+												</label>
+											</li>
+											<% } %>
+										<% }); %>
+									</ul>
+								</fieldset>
+							</div>
+						</section>
+					<% } %>
+
+					<fieldset class="boxSection filterTags">
+						<div class="header">
+							<a href="#" class="toggle-filterAccordion">
+								<h2>Name or keyword</h2>
+							</a>
+							<a href="#" class="clearFilter">Clear</a>
+						</div>
+						<div class="content-filterAccordion">
+							<div class="details">
+								<div class="field tagpicker">
+									<label for="keywords">
+										Enter tag name
+									</label>
+									<div class="tagpickerSearch">
+										<select name="keywords" id="keywords">
+											<% if (rc.model.Keywords != null) { %>
+												<% _.each(rc.model.Keywords.split(' '), function(keyword) { %>
+													<option value="<%=keyword%>" id="Option1" class="selected" selected="selected"><%=keyword%></option>
+												<% }); %>
+											<% } %>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+                    <% if (rc.model.Colours.length > 0) { %>
+                    <section class="boxSection filterCategory filterColours">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Colour</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by Colour</legend>
+                                <h3>Filter by Colour</h3>
+                                <ul>
+                                    <% _.each(rc.model.Colours, function(colour) { %>
+                                    <li>
+                                        <% if (_.contains(rc.model.SelectedColours, colour.CelebrosId) === true) { %>
+                                        <input type="checkbox" name="SelectedColours" value="<%=colour.CelebrosId%>" id="SelectedColours_<%=colour.CelebrosId%>" checked="checked" />
+                                        <label for="SelectedColours_<%=colour.CelebrosId%>" class="selected">
+                                            <span><%=colour.Name%> (<%=colour.RecordCount%>)</span>
+                                        </label>
+                                        <%} else { %>
+                                        <input type="checkbox" name="SelectedColours" value="<%=colour.CelebrosId%>" id="SelectedColours_<%=colour.CelebrosId%>" />
+                                        <label for="SelectedColours_<%=colour.CelebrosId%>">
+                                            <span><%=colour.Name%> (<%=colour.RecordCount%>)</span>
+                                        </label>
+                                        <% } %>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </section>
+                    <% } %>
+					<% if (rc.model.IsPatternsFilterVisible && rc.model.Patterns.length > 0) { %>
+					<section class="boxSection filterCategory filterPattern">
+						<div class="header">
+							<a href="#" class="toggle-filterAccordion">
+								<h2>Design Style</h2>
+							</a>
+							<a href="#" class="clearFilter">Clear</a>
+						</div>
+						<div class="content-filterAccordion">
+							<fieldset class="optionList ">
+								<legend>Filter by Design Style</legend>
+								<h3>Filter by Design Style</h3>
+								<ul>
+									<% _.each(rc.model.Patterns, function(pattern) { %>
+										<li>
+											<% if (_.contains(rc.model.SelectedPatterns, pattern.CelebrosId.toString()) === true) { %>
+                                            <input type="checkbox" name="SelectedPatterns" id="type_filterPattern_<%=pattern.CelebrosId%>" value="<%=pattern.CelebrosId%>" checked="checked" />
+                                            <label for="type_filterPattern_<%=pattern.CelebrosId%>" class="selected">
+                                                <span><%=pattern.Name%></span>
+                                            </label>
+											<% } else { %>
+                                            <input type="checkbox" name="SelectedPatterns" id="type_filterPattern_<%=pattern.CelebrosId%>" value="<%=pattern.CelebrosId%>" />
+                                            <label for="type_filterPattern_<%=pattern.CelebrosId%>">
+                                                <span><%=pattern.Name%></span>
+                                            </label>
+											<% } %>
+										</li>
+									<% }); %>
+								</ul>
+							</fieldset>
+						</div>
+					</section>
+					<% } %>
+		
+					<% if (rc.model.IsTypeFilterVisible && rc.model.Type.length > 0) { %>
+						<section class="boxSection filterCategory filterType">
+							<div class="header">
+								<a href="#" class="toggle-filterAccordion">
+									<h2>Type</h2>
+								</a>
+								<a href="#" class="clearFilter">Clear</a>
+							</div>
+							<div class="content-filterAccordion">
+								<fieldset class="optionList ">
+									<legend>Filter by type</legend>
+									<h3>Filter by type</h3>
+									<ul>
+										<% _.each(rc.model.Type, function (item) { %>
+											<% if (_.contains(rc.model.SelectedType, item.Id.toString()) === true) { %>
+											<li>
+                                                <input type="checkbox" name="SelectedType" id="type_filterType_<%=item.CelebrosId%>" value="<%=item.Id%>" checked="checked" />
+                                                <label for="type_filterType_<%=item.CelebrosId%>" class="selected">
+                                                    <span><%=item.Name%></span>
+                                                </label>
+											</li>
+											<% } else { %>
+											<li>
+                                                <input type="checkbox" name="SelectedType" id="type_filterType_<%=item.CelebrosId%>" value="<%=item.Id%>" />
+                                                <label for="type_filterType_<%=item.CelebrosId%>">
+                                                    <span><%=item.Name%></span>
+                                                </label>
+											</li>
+											<% } %>
+										<% }); %>
+									</ul>
+								</fieldset>
+
+							</div>
+						</section>
+					<% } %>
+                    <% if (rc.model.IsWallpaperTypesVisible && rc.model.WallpaperTypes.length > 0) { %>
+                    <section class="boxSection filterCategory filterWallpaperType">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Wallpaper Type</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Reset</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by type</legend>
+                                <h3>Filter by type</h3>
+                                <ul>
+                                    <% _.each(rc.model.WallpaperTypes, function (item) { %>
+                                    <% if (_.contains(rc.model.SelectedWallpaperTypes, item.Id.toString()) === true) { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedWallpaperTypes" id="WallpaperTypes_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                        <label for="WallpaperTypes_<%=item.CelebrosId%>" class="selected">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedWallpaperTypes" id="WallpaperTypes_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+                                        <label for="WallpaperTypes_<%=item.CelebrosId%>">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } %>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <% } %>
+
+
+                    <% if (rc.model.IsTrimmingTypesVisible && rc.model.TrimmingTypes.length > 0) { %>
+                    <section class="boxSection filterCategory filterTrimmingType">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Trimming Type</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Reset</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by type</legend>
+                                <h3>Filter by type</h3>
+                                <ul>
+                                    <% _.each(rc.model.TrimmingTypes, function (item) { %>
+                                    <% if (_.contains(rc.model.SelectedTrimmingTypes, item.Id.toString()) === true) { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedTrimmingTypes" id="TrimmingTypes_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                        <label for="TrimmingTypes_<%=item.CelebrosId%>" class="selected">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedTrimmingTypes" id="TrimmingTypes_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+                                        <label for="TrimmingTypes_<%=item.CelebrosId%>">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } %>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <% } %>
+
+                    <% if (rc.model.IsFabricTypesVisible && rc.model.FabricTypes.length > 0) { %>
+                    <section class="boxSection filterCategory filterFabricType">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Fabric Type</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Reset</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by type</legend>
+                                <h3>Filter by type</h3>
+                                <ul>
+                                    <% _.each(rc.model.FabricTypes, function (item) { %>
+                                    <% if (_.contains(rc.model.SelectedFabricTypes, item.CelebrosId.toString()) === true) { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedFabricType" id="FabricTypes_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                        <label for="FabricTypes_<%=item.Id%>" class="selected">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedFabricTypes" id="FabricTypes_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+                                        <label for="FabricTypes_<%=item.CelebrosId%>">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } %>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <% } %>
+
+
+                    <% if (rc.model.IsUpholsteryClothDesignationVisible && rc.model.UpholsteryClothDesignation.length > 0) { %>
+                    <section class="boxSection filterCategory UpholsteryClothDesignation">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Upholstery Cloth Designation</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Reset</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by type</legend>
+                                <h3>Filter by type</h3>
+                                <ul>
+                                    <% _.each(rc.model.UpholsteryClothDesignation, function (item) { %>
+                                    <% if (_.contains(rc.model.SelectedUpholsteryClothDesignation, item.CelebrosId.toString()) === true) { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedUpholsteryClothDesignation" id="UpholsteryClothDesignation_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                        <label for="UpholsteryClothDesignation_<%=item.CelebrosId%>" class="selected">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedUpholsteryClothDesignation" id="UpholsteryClothDesignation_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+                                        <label for="UpholsteryClothDesignation_<%=item.CelebrosId%>">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } %>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <% } %>
+
+
+
+                    <% if (rc.model.IsWallpaperCareInstructionsVisible && rc.model.WallpaperCareInstructions.length > 0) { %>
+                    <section class="boxSection filterCategory WallpaperCareInstructions">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Upholstery Cloth Designation</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Reset</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by type</legend>
+                                <h3>Filter by type</h3>
+                                <ul>
+                                    <% _.each(rc.model.WallpaperCareInstructions, function (item) { %>
+                                    <% if (_.contains(rc.model.SelectedWallpaperCareInstructions, item.CelebrosId.toString()) === true) { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedWallpaperCareInstructions" id="WallpaperCareInstructions_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                        <label for="WallpaperCareInstructions_<%=item.CelebrosId%>" class="selected">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedWallpaperCareInstructions" id="WallpaperCareInstructions_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+                                        <label for="WallpaperCareInstructions_<%=item.CelebrosId%>">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } %>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <% } %>
+
+
+                    <% if (rc.model.IsFabricCareInstructionsVisible && rc.model.FabricCareInstructions.length > 0) { %>
+                    <section class="boxSection filterCategory FabricCareInstructions">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Upholstery Cloth Designation</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Reset</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by type</legend>
+                                <h3>Filter by type</h3>
+                                <ul>
+                                    <% _.each(rc.model.FabricCareInstructions, function (item) { %>
+                                    <% if (_.contains(rc.model.SelectedFabricCareInstructions, item.CelebrosId.toString()) === true) { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedFabricCareInstructions" id="FabricCareInstructions_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                        <label for="FabricCareInstructions_<%=item.CelebrosId%>" class="selected">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="checkbox" name="SelectedFabricCareInstructions" id="FabricCareInstructions_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" />
+                                        <label for="FabricCareInstructions_<%=item.CelebrosId%>">
+                                            <span><%=item.Name%></span>
+                                        </label>
+                                    </li>
+                                    <% } %>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <% } %>
+
+					<% if (rc.model.IsMartindaleFilterVisible) { %>
+                    <section class="boxSection filterCategory filterMartindale">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Martindale</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList">
+                                <legend for="martindale">
+                                    Filter by rubs
+                                </legend>
+                                <!--<input type="text" name="martindale" id="martindale" value="<%= rc.model.Martindale %>" data-min-value="0" data-max-value="40000" data-step="1000"/>
+                <div class="sliderBar" data-unit="rubs" data-unit-pos="after"></div>-->
+                                <ul>
+
+                                    <!--<input type="text" name="martindale" id="martindale" value="<%= rc.model.Martindale %>" data-min-value="0" data-max-value="40000" data-step="1000"/>-->
+                                    <% if (rc.model.Martindale == 4000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale4000" checked="checked" value="4000" /><label for="martindale4000"><span>&nbsp;4,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale4000" value="4000" /><label for="martindale4000"><span>&nbsp;4,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (rc.model.Martindale == 8000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale8000" checked="checked" value="8000" /><label for="martindale8000"><span>&nbsp;8,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale8000" value="8000" /><label for="martindale8000"><span>&nbsp;8,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (rc.model.Martindale == 20000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale20000" checked="checked" value="20000" /><label for="martindale20000"><span>&nbsp;20,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale20000" value="20000" /><label for="martindale20000"><span>&nbsp;20,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (rc.model.Martindale == 30000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale30000" checked="checked" value="30000" /><label for="martindale30000"><span>&nbsp;30,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale30000" value="30000" /><label for="martindale30000"><span>&nbsp;30,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (rc.model.Martindale == 40000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale40000" checked="checked" value="40000" /><label for="martindale40000"><span>&nbsp;40,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale40000" value="40000" /><label for="martindale40000"><span>&nbsp;40,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (rc.model.Martindale == 50000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale50000" checked="checked" value="50000" /><label for="martindale50000"><span>&nbsp;50,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale50000" value="50000" /><label for="martindale50000"><span>&nbsp;50,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (rc.model.Martindale == 100000) { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale100000" checked="checked" value="100000" /><label for="martindale100000"><span>&nbsp;100,000 or more</span></label>
+                                    </li>
+                                    <% } else { %>
+                                    <li>
+                                        <input type="radio" name="martindale" id="martindale100000" value="100000" /><label for="martindale100000"><span>&nbsp;100,000 or more</span></label>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </section>
+					<% } %>
+			
+					<% if (rc.model.IsUsageFilterVisible && rc.model.Usage.length > 0) { %>
+						<section class="boxSection filterCategory filterUsage">
+							<div class="header">
+								<a href="#" class="toggle-filterAccordion">
+									<h2>Usage</h2>
+								</a>
+								<a href="#" class="clearFilter">Clear</a>
+							</div>
+							<div class="content-filterAccordion">
+								<fieldset class="optionList">
+									<legend>Filter by Usage</legend>
+									<h3>Filter by Usage</h3>
+									<ul>
+										<% _.each(rc.model.Usage, function(item) { %>
+											<% if (_.contains(rc.model.SelectedUsage, item.CelebrosId.toString()) === true) { %>
+											<li>
+                                                <input type="checkbox" name="SelectedUsage" id="usage_<%=item.CelebrosId.toString()%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                                <label for="usage_<%=item.CelebrosId%>" class="selected">
+                                                    <span><%=item.Name%></span>
+                                                </label>
+											</li>
+											<% } else { %>
+											<li>
+                                                <input type="checkbox" name="SelectedUsage" id="usage_<%=item.CelebrosId.toString()%>" value="<%=item.CelebrosId%>" />
+                                                <label for="usage_<%=item.CelebrosId%>">
+                                                    <span><%=item.Name%></span>
+                                                </label>
+											</li>
+											<% } %>
+										<% }); %>
+									</ul>
+								</fieldset>
+							</div>
+						</section>
+					<% } %>
+
+					
+					<% if (rc.model.IsCompositionFilterVisible && rc.model.Composition.length > 0) { %>
+						<section class="boxSection filterCategory filterComposition">
+							<div class="header">
+								<a href="#" class="toggle-filterAccordion">
+									<h2>Composition</h2>
+								</a>
+								<a href="#" class="clearFilter">Clear</a>
+							</div>
+							<div class="content-filterAccordion">
+								<fieldset class="optionList">
+									<legend>Filter by Composition</legend>
+									<h3>Filter by Composition</h3>
+									<ul>
+										<% _.each(rc.model.Composition, function(item) { %>
+											<% if (_.contains(rc.model.SelectedComposition, item.Id.toString()) === true) { %>
+											<li>
+                                                <input type="checkbox" name="SelectedComposition" id="composition_<%=item.CelebrosId.toString()%>" value="<%=item.CelebrosId%>" checked="checked" />
+                                                <label for="composition_<%=item.CelebrosId.toString()%>" class="selected">
+                                                    <span><%=item.Name%></span>
+                                                </label>
+											</li>
+											<% } else { %>
+											<li>
+                                                <input type="checkbox" name="SelectedComposition" id="composition_<%=item.CelebrosId.toString()%>" value="<%=item.CelebrosId%>" />
+                                                <label for="composition_<%=item.CelebrosId.toString()%>">
+                                                    <span><%=item.Name%></span>
+                                                </label>
+											</li>
+											<% } %>
+										<% }); %>
+									</ul>
+								</fieldset>
+							</div>
+						</section>
+				<% } %>
+
+
+                    <% if (rc.model.IsFRInherentVisible && rc.model.FRInherent.length > 0) { %>
+                    <section class="boxSection filterCategory filterFRInherent">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>FR Inherent</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by FR Inherent</legend>
+                                <h3>Filter by FR Inherent</h3>
+                                <ul>
+                                    <% _.each(rc.model.FRInherent, function(FRInherent) { %>
+                                    <li>
+                                        <% if (_.contains(rc.model.SelectedFRInherent, FRInherent.CelebrosId.toString()) === true) { %>
+                                        <input type="checkbox" name="SelectedFRInherent" id="FRInherent_<%=FRInherent.CelebrosId%>" value="<%=FRInherent.CelebrosId%>" checked="checked" />
+                                        <label for="FRInherent_<%=FRInherent.CelebrosId%>" class="selected">
+                                            <span><%=FRInherent.Name%></span>
+                                        </label>
+                                        <% } else { %>
+                                        <input type="checkbox" name="SelectedFRInherent" id="FRInherent_<%=FRInherent.CelebrosId%>" value="<%=FRInherent.CelebrosId%>" />
+                                        <label for="FRInherent_<%=FRInherent.CelebrosId%>">
+                                            <span><%=FRInherent.Name%></span>
+                                        </label>
+                                        <% } %>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </section>
+                    <% } %>
+
+				<% if (rc.model.isFRTreatedVisible && rc.model.FRTreated.length > 0) { %>
+                    <section class="boxSection filterCategory filterFRTreated">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>FR Treated</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by FR Treated</legend>
+                                <h3>Filter by FR Treated</h3>
+                                <ul>
+                                    <% _.each(rc.model.FRTreated, function(FRTreated) { %>
+                                    <li>
+                                        <% if (_.contains(rc.model.SelectedFRTreated, FRTreated.CelebrosId.toString()) === true) { %>
+                                        <input type="checkbox" name="SelectedFRTreated" id="FRTreated_<%=FRTreated.CelebrosId%>" value="<%=FRTreated.CelebrosId%>" checked="checked" />
+                                        <label for="FRTreated_<%=FRTreated.CelebrosId%>" class="selected">
+                                            <span><%=FRTreated.Name%></span>
+                                        </label>
+                                        <% } else { %>
+                                        <input type="checkbox" name="SelectedFRTreated" id="FRTreated_<%=FRTreated.CelebrosId%>" value="<%=FRTreated.CelebrosId%>" />
+                                        <label for="FRTreated_<%=FRTreated.CelebrosId%>">
+                                            <span><%=FRTreated.Name%></span>
+                                        </label>
+                                        <% } %>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </section>
+                    <% } %>
+
+
+
+
+
+
+
+                    <% if (rc.model.IsFRTreatableVisible && rc.model.FRTreatable.length > 0) { %>
+                    <section class="boxSection filterCategory filterFRTreatable">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>FR Treatable</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+                            <fieldset class="optionList ">
+                                <legend>Filter by FR Treatable</legend>
+                                <h3>Filter by FR Treatable</h3>
+                                <ul>
+                                    <% _.each(rc.model.FRTreatable, function(FRTreatable) { %>
+                                    <li>
+                                        <% if (_.contains(rc.model.SelectedFRTreatable, FRTreatable.CelebrosId.toString()) === true) { %>
+                                        <input type="checkbox" name="SelectedFRTreatable" id="FRTreatable_<%=FRTreatable.CelebrosId%>" value="<%=FRTreatable.CelebrosId%>" checked="checked" />
+                                        <label for="FRTreatable_<%=FRTreatable.CelebrosId%>" class="selected">
+                                            <span><%=FRTreatable.Name%></span>
+                                        </label>
+                                        <% } else { %>
+                                        <input type="checkbox" name="SelectedFRTreatable" id="FRTreatable_<%=FRTreatable.CelebrosId%>" value="<%=FRTreatable.CelebrosId%>" />
+                                        <label for="FRTreatable_<%=FRTreatable.CelebrosId%>">
+                                            <span><%=FRTreatable.Name%></span>
+                                        </label>
+                                        <% } %>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </section>
+                    <% } %>
+				
+
+				<% if ((sitekey.toLowerCase() == 'contracts' || sitekey.toLowerCase() == 'wg' || sitekey.toLowerCase() == 'style-library-contract') && (rc.model.IsBrandFilterVisible && (rc.model.Brands.length > 1 || rc.model.SelectedBrands.length > 0 ))) { %>
+						<section class="boxSection filterBrands">
+							<div class="header">
+								<a href="#" class="toggle-filterAccordion">
+									<h2>Brand</h2>
+								</a>
+								<a href="#" class="clearFilter">Clear</a>
+							</div>
+							<div class="content-filterAccordion">
+								<div class="brands">
+									<ul>
+										<% _.each(rc.model.Brands, function(item)  { %>
+											<% if (_.contains(rc.model.SelectedBrands, item.CelebrosId.toString()) === true) { %>
+											<li>
+												<label for="brand_<%=item.Id%>" class="<%=item.Name.toLowerCase()%> selected">
+													<span><%=item.Name%></span>
+                                                    <input type="checkbox" name="brand" id="brand_<%=item.CelebrosId%>" value="<%=item.CelebrosId%>" checked="checked" />
+												</label>
+											</li>
+											<% } else { %>
+											<li>
+                                                <label for="brand_<%=item.CelebrosId%>" class="<%=item.Name.toLowerCase()%>">
+                                                    <span><%=item.Name%></span>
+                                                    <input type="checkbox" name="brand" id="brand_<%=item.Id%>" value="<%=item.Id%>" />
+                                                </label>
+											</li>
+											<% } %>
+										<% }); %>
+									</ul>
+								</div>
+							</div>
+						</section>
+					<% } %>
+					<a class="button clearAllFilters" href="#">Clear All</a>
+				</form>
+
+			 </div>
+		</section>
+	</div>
+	
+</aside>

@@ -1,0 +1,18 @@
+﻿@model Colony.CMS.Areas.CRM.Models.AddressViewModel
+<article class="boxSection">
+    <header class="header">
+        <h2 class="left">@Model.Description</h2>
+        <a href="@Url.Action("EditAddress", "AccountArea", new {area = "AccountArea", addressId = @Model.AddressId})">
+            <span>Edit</span></a>
+        <div class="clear"></div>
+    </header>
+    <ul>
+        <li>
+            <strong>@Model.Title @Model.FirstName @Model.LastName</strong>
+        </li>
+        <li><strong>@Model.Line1</strong>, @(!string.IsNullOrWhiteSpace(Model.Line2) ? Model.Line2 + "," : "") @Model.Town, @(!string.IsNullOrWhiteSpace(Model.County) ? Model.County + "," : "") @Model.Postcode, @Model.CountryName</li>
+        <li>
+            <a href="@Url.Action("DeleteAddress", "AccountArea", new {area = "AccountArea", addressId = @Model.AddressId})">Remove address</a>
+        </li>
+    </ul>
+</article>

@@ -1,0 +1,1003 @@
+.slideContainer span{
+    font-family: "square721_ex_btroman",arial,sans-serif;
+    text-transform: uppercase;
+    color: #444;
+    font-size: 1.4em;
+    background: rgba(255,255,255,0.8);
+}
+
+.site-nav-list > li > a{
+  font-size:14px;
+}
+
+.productList > .item h3.itemTitle, .productCollections > .item h3.itemTitle, .collectionCategory > .item h3.itemTitle, .qtip-content > .item h3.itemTitle{
+  padding: 20px 15px 15px 0px !important;
+}
+
+#brands .bd-reveal-modal li:nth-child(1){
+    display: none;
+}
+
+/*li.theme-style-library{
+    display: none !important;
+}*/
+
+#whereToBuy {
+    border: 1px solid #ccc;
+}
+
+    #whereToBuy header {
+        color: #606060;
+        background-color: #ededed !important;
+    }
+
+        #whereToBuy .button {
+            background:#d5ce27;
+            color:#fff;
+            border:0px;
+            font-size: 1.2em
+        }
+
+
+
+.searchPanel .searchOptions .colours {
+    width:270px;
+}
+
+.filterColours .colours {
+    padding:15px 30px;
+}
+
+.colours .toggleAll .toggleColours span {
+    width:100%;
+}
+
+.filterColours .colours .toggleAll .toggleColours {
+    height:32px;
+}
+
+.colours .colourBand {
+    margin-right:0px;
+}
+
+.colours .toggleAll {
+    margin-right:0px;
+}
+
+.colourBand label[data-colour-code = 'C3'], .toggleColours span[data-colour-code = 'C3'] {
+    background:#7c6992 !important;
+}
+
+.colourBand label[data-colour-code = 'A7'], .toggleColours span[data-colour-code = 'A7'] {
+    background:#daaa00 !important;
+}
+
+.colourBand label[data-colour-code = 'A9'], .toggleColours span[data-colour-code = 'A9'] {
+    border:1px solid #ccc;
+}
+
+.newColourSelect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -9px;
+   display:none;
+}
+
+.boxSection .alertInfo {
+    border-radius:5px;
+}
+
+.actionLoader {
+    position: fixed;
+    top: 50%;
+    width: 52px;
+    height:52px;
+    left: 50%;
+    margin-top:-26px;
+    margin-left: -26px;
+    background: #fff;
+    padding: 10px;
+    z-index: 9;
+    border-radius: 5px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width:1024px) {
+  .global-brands-all {
+    display: none; }
+}
+
+@media only screen and (min-width:1024px) {
+    .global-brands .global-brands-list {
+        display: block; }
+    .global-brands .global-brands-toggles {
+        display: inline-block; }
+    .global-brands li, .global-brands .global-brands-hide {
+        display: none; }
+    .global-brands.brands-open li, .global-brands.brands-open .global-brands-hide {
+        display: block; }
+    .global-brands.brands-open .global-brands-show {
+        display: none; }
+}
+
+.basketTotals > button.checkout {
+    background: #d5ce27 ;
+    color: #fff;
+    border: 0px;
+}
+
+.harButton {
+    font-family: "square721_ex_btroman",arial,sans-serif;
+    text-transform: uppercase;
+    /* margin: 0; */
+    float: left;
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -4px 0 0 10px;
+    line-height: 1.2;
+    -webkit-transition: none;
+    transition: none;
+    padding: 0.6em 0.8em 0.55em 0.8em;
+    font-size: 1em;
+    color: #606060;
+    border: 1px solid #dadada;
+    background: #dadada;
+}
+
+.printButton {
+    float: left;
+}
+
+.notification {
+  z-index: 100;
+}
+
+
+
+.productDetails td:last-child{
+  width: auto !important;
+}
+
+td{
+  background: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+.loginRegister .field.formControls button{
+font-size:1em !important;
+}
+
+#featured .scroller .results li figure{
+margin-right:0px !important;
+}
+
+
+#featured p{
+text-align:justify !important;}
+
+
+
+@media screen and (max-width: 600px) {
+  .container{
+  width:100%;
+  margin:0 auto;
+}
+}
+
+.imageList{
+width:103.3% !important;
+}
+
+.container{
+  width:100%;
+  margin:0 auto;
+}
+
+.copyCarouselContainer{
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
+margin-top:20px;
+}
+
+.copyContainer{
+  float:left;
+  width:40%;
+padding: 0 20px 0 0;
+text-align:justify;
+}
+
+.copyContainer h1{
+  float:left;
+  width: 100%;
+  margin-top: 0px;
+display:none;
+}
+
+.carouselContainer{
+  width:60%;
+  float: left;
+}
+
+.carouselContainer li{
+list-style:none;
+}
+
+.carouselContainer img{
+  width: 100%;
+  float: left;
+}
+
+.collectionsContainer{
+  width: 100%;
+  float: left;
+  padding-top: 20px;
+border-top: 1px solid #e2e2e2;
+}
+
+.collectionItem{
+  float: left;
+  width: 32.3%;
+display:none;
+  margin-left: 18px;
+  padding: 10px 10px 0 10px;
+cursor:pointer;
+  border: 1px solid #e2e2e2;
+transition: border-color 0.5s ease;
+}
+
+
+.collectionItem:hover {
+border-color: #858585;
+}
+
+.collectionImage{
+  width: 100%;
+  float: left;
+}
+
+.collectionImage img{
+  float: left;
+  width: 100%;
+}
+
+.collectionCaption {
+  width:100%;
+  float: left;
+  font-family:"square721_ex_btroman",arial,sans-serif !important;
+  background: #fff;
+}
+
+
+.collectionCaption p{
+  float: left;
+  padding:20px 0;
+  margin: 0px;
+font-size:17px;
+
+}
+
+.leavndeLogo{
+padding: 0 0 20px 0;
+width: 52%;
+}
+
+.comingSoonTab{
+position: absolute;
+background: rgba(255,255,255,0.9);
+top: 151px;
+display: none;
+padding: 15px 10px 10px 15px;
+text-transform: uppercase;
+box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+left: -5px;
+border-radius: 5px;
+font-family: "square721_ex_btroman",arial,sans-serif;
+z-index: 6;
+}
+
+
+
+
+
+.imageList .item{
+margin-bottom:3% !important;}
+
+#content h1{
+margin:25px 0 !important;}
+
+.sortOptions{
+box-shadow:none !important;
+}
+
+.imageList .item .figure img{
+ height:200px !important;
+ border-width:1px;
+}
+
+.imageList .action{
+ background: #fbfbfb !important;
+ box-shadow:none !Important;
+ border:0 !Important;
+}
+
+.thumb p{
+display:none;
+}
+
+.imageList .thumb h3{
+ margin-top:61px;
+}
+
+a.button.icon-eye-open:before, a.button.icon-file:before{
+display:none;
+}
+
+a.button.icon-eye-open{
+background:#cbc3b6 !important;
+color:#fff !important;
+padding: 10px 20px !important;
+border:none;
+font-size: 1.2em !important;
+}
+
+
+a.button.icon-eye-open:hover, a.button.icon-file:hover{
+background: #d5ce27 !important;
+}
+
+a.button.icon-file{
+background:#cbc3b6 !important;
+color:#fff !important;
+margin-right:10px;
+padding: 10px 20px !important;
+border:none;
+font-size: 1.2em !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.amex{
+display:none !important ;
+}
+
+li.faq_paint{
+display:none;
+}
+
+
+
+
+
+.inspirationList.typeStyle a{
+background-color: #eee;
+}
+
+.socialFooter{
+height:40px;
+position:absolute;
+z-index:100;
+bottom:0px;
+left:90px;
+}
+
+.socialFooter li{
+float:left;
+margin:7px 10px 0 0;
+width:30px;
+list-style:none;
+}
+
+
+.brandcontainer{
+float: left;
+width:572px;
+height:640px;
+margin: 8px 8px 0 0;
+padding: 10px;
+border: 1px solid #999;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before:hover{
+color:#d5ce27 !important;}
+
+.houseb {
+position:relative !important;
+}
+
+.houseb img{
+position:absolute !important;
+}
+
+.housebtext{
+position:absolute; !important;
+top:100px !important;
+}
+
+
+@media all and (min-width: 100px) and (max-width: 1024px){
+  .brandcontainer {
+    width:100%;
+height:auto;
+  }
+
+
+.moreInfo{
+height:100px !important;
+}
+
+
+.linkAndImage a{
+ bottom:-95px !important;
+}
+
+.four img{
+top:0px !important;
+}
+.linkAndImage img{
+bottom:-100px !important;
+width:150px !important;
+}
+
+.houseb img{
+float:left !important;
+position:static !important;
+}
+
+.housebtext{
+position:static !important;
+float:left !important;
+width:60% !important;
+margin:5px 0 0 20px !important;
+}
+
+.zopim{
+  right:104px !important;
+    bottom:42px !important;
+}
+
+#whereToBuy {
+  overflow: visible !important;
+  bottom: 50%;
+  display: none;
+  left: 50%;
+margin-left: -580px;
+max-width: 1160px;
+width: 100%;
+display: none;
+box-shadow:none;
+opacity: 1;
+
+}
+
+#whereToBuy header {
+    display: block;
+    color: #606060;
+    background-color: #e2e2e2;
+    border-bottom: 1px solid #c9c9c9;
+    background-image: -webkit-linear-gradient(#fbfbfb, #e2e2e2);
+    background-image: linear-gradient(#fbfbfb, #e2e2e2);
+    padding: 1em;
+    position: relative;
+}
+
+#whereToBuy .closeWTB {
+    position: absolute;
+    right: 10px;
+    top: 10px !important;
+}
+
+ .reveal-modal .header-reveal-modal h2, #whereToBuy header h2 {
+    margin: 0;
+    line-height: 18px;
+    padding-top: 6px; }
+
+#whereToBuy {
+    margin-left: -580px;
+    max-width: 1160px;
+}
+
+img.imagebrands{width:100%;}
+}
+
+#header .toggle:hover, #header .toggle:active, #header .toggle:hover {
+COLOR: #FFF;}
+
+#header a.search-toggle span{
+font-size:14px !important;}
+
+
+.button:hover{
+  background:#d5ce27;
+  color:#fff;
+}
+
+.productDetails h1{
+margin-top:8px}
+
+
+.moduleList .details dl dt{
+width: 8% !Important;
+}
+
+  .basketTotals li {
+    display: inline-block;
+    vertical-align: middle;
+    word-spacing: normal;
+    width: 16.6%;
+    padding:2px;
+    text-align: center;
+    float: left; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*--------------------------------------------- HOMEPAGE ---------------------------------------------*/
+
+    /*header, .global-nav,  footer{
+      display:none;
+    }*/
+
+    #fp-nav {
+        position:fixed;
+        top:50%;
+        left:0px;
+        background:#fff;
+        border-radius: 0 5px 5px 0;
+    }
+
+      .pagInner{
+        padding:5px 0;
+      }
+
+        .pagItem{
+          padding:5px 10px;
+        }
+
+          .pagItem a{
+            width:12px;
+            height:12px;
+            background:#cbc3b6;
+            display:block;
+            border-radius:2px;
+          }
+
+            .pagItem a.active{
+              background:#d5ce27;
+            }
+
+          .pagItem .fp-tooltip{
+            display:none;
+          }
+
+        /*#fp-nav ul{
+          float:left;
+          width:100%;
+          margin:0;
+          list-style:none;
+        }
+
+          #fp-nav ul li{
+            float:left;
+            width:100%;
+          }
+
+            #fp-nav ul li .fp-tooltip{
+              display:none;
+            }
+
+            #fp-nav ul li a{
+              float:left;
+              width:32px;
+              height:20px;
+              padding:4px 10px;
+              background:#fff
+            }
+
+            #fp-nav ul li:nth-of-type(1) a{
+              padding-top:10px;
+              height:26px;
+              border-radius:0 5px 0 0;
+            }
+
+              #fp-nav ul li:nth-of-type(1) a span{
+                background:none !important;
+              }
+
+                #fp-nav ul li:nth-of-type(1) a span:before{
+                  content:"\f015";
+                  font-family: "FontAwesome";
+                  font-size: 1.3em;
+                  top: -7px;
+                  left: -2px;
+                  position: absolute;
+                  color: #d5ce27;
+                }
+
+            .shareHeart{
+              padding-bottom:10px;
+              height:26px;
+              border-radius:0 0 5px 0;
+              background:#fff;
+              float:left;
+            }
+
+                .shareHeart:before{
+                  content:"\f004";
+                  font-family: "FontAwesome";
+                  font-size: 1.1em;
+                  top: -4px;
+                  left: -1px;
+                  position: absolute;
+                  color: #cbc3b6;
+                }
+
+            #fp-nav ul li a.active span{
+              background:#d5ce27;
+            }
+
+              #fp-nav ul li a span{
+                float:left;
+                background:#cbc3b6;
+                border-radius:3px;
+                width:100%;
+                position:relative;
+                height:100%;
+              }*/
+
+    /*.fp-slidesNav{
+        position: absolute;
+        z-index: 4;
+        left: 50%;
+        opacity: 1;
+    }
+    #fp-nav ul,
+    .fp-slidesNav ul {
+      margin: 0;
+      padding: 0;
+    }
+    #fp-nav ul li,
+    .fp-slidesNav ul li {
+        display: block;
+        width: 14px;
+        height: 13px;
+        margin: 7px;
+        position:relative;
+    }
+    .fp-slidesNav ul li {
+        display: inline-block;
+    }
+    #fp-nav ul li a,
+    .fp-slidesNav ul li a {
+        display: block;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    #fp-nav ul li a.active span,
+    .fp-slidesNav ul li a.active span,
+    #fp-nav ul li:hover a.active span,
+    .fp-slidesNav ul li:hover a.active span{
+        height: 12px;
+        width: 12px;
+        margin: -6px 0 0 -6px;
+        border-radius: 100%;
+     }
+    #fp-nav ul li a span,
+    .fp-slidesNav ul li a span {
+        border-radius: 50%;
+        position: absolute;
+        z-index: 1;
+        height: 4px;
+        width: 4px;
+        border: 0;
+        background: #333;
+        left: 50%;
+        top: 50%;
+        margin: -2px 0 0 -2px;
+        -webkit-transition: all 0.1s ease-in-out;
+        -moz-transition: all 0.1s ease-in-out;
+        -o-transition: all 0.1s ease-in-out;
+        transition: all 0.1s ease-in-out;
+    }
+    #fp-nav ul li:hover a span,
+    .fp-slidesNav ul li:hover a span{
+        width: 10px;
+        height: 10px;
+        margin: -5px 0px 0px -5px;
+    }
+    #fp-nav ul li .fp-tooltip {
+        position: absolute;
+        top: -2px;
+        color: #fff;
+        font-size: 14px;
+        font-family: arial, helvetica, sans-serif;
+        white-space: nowrap;
+        max-width: 220px;
+        overflow: hidden;
+        display: block;
+        opacity: 0;
+        width: 0;
+        cursor: pointer;
+    }
+    #fp-nav ul li:hover .fp-tooltip,
+    #fp-nav.fp-show-active a.active + .fp-tooltip {
+        -webkit-transition: opacity 0.2s ease-in;
+        transition: opacity 0.2s ease-in;
+        width: auto;
+        opacity: 1;
+    }
+    #fp-nav ul li .fp-tooltip.right {
+        right: 20px;
+    }
+    #fp-nav ul li .fp-tooltip.left {
+        left: 20px;
+    }*/
+
+    #fullpage{
+      width:100%;
+      height:100%;
+      position:absolute !important;
+      top:0px;
+      left:0px;
+    }
+
+      .homeSliderContainer{
+        width:100%;
+        float:left;
+      }
+
+        .fullpageColumn{
+          height:100%;
+          float:left;
+        }
+
+          .fullpageBlockItem{
+            float:left;
+            background-repeat:no-repeat;
+            border:2px solid #fff;
+            position: relative;
+            cursor: pointer;
+          }
+
+            .fullLink{
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              z-index: 1;
+            }
+
+            .fullpageBlockItem .gridCaption{
+              position: absolute;
+              top: 20px;
+              right:0px;
+              display: none;
+              background: #fff;
+              font-family: "square721_ex_btroman", arial, sans-serif;
+              padding: 15px 15px 13px 15px;
+              border-radius: 5px 0 0 5px;
+            }
+
+    /*---------------------------- SECTION 1 ----------------------------*/
+
+          .column01{
+            width:32%;
+          }
+
+            .block01{
+              width:100%;
+              height:65%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Tomoko-Fabric-Hung-Grid.png');
+              background-size:cover;
+              background-position:center;
+            }
+
+            .block02{
+              width:100%;
+              height:35%;
+              float:right;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Tomoko-Fabric-Layed-Fold.png');
+              background-size:cover;
+              background-position:center;
+            }
+
+          .column02{
+            width:68%;
+          }
+
+            .block03{
+              width:100%;
+              height:100%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Tomoko-Fabric-New.png');
+              background-size:cover;
+              background-position:right bottom;
+            }
+
+    /*---------------------------- SECTION 2 ----------------------------*/
+
+            .block04{
+              width:100%;
+              height:100%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Lokho-Main-Fabrics-Wallpaper-wLogo-v4.png');
+              background-size:cover;
+              background-position:right bottom;
+            }
+
+    /*---------------------------- SECTION 3 ----------------------------*/
+
+          .column03{
+            width:45%;
+          }
+
+            .block05{
+              width:100%;
+              height:60%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Fabric-Bedding-Bedeck-Cushions-v2.png');
+              background-size:cover;
+              background-position:bottom;
+            }
+
+            .block06{
+              width:35%;
+              height:40%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Lamp-Sage-Living-Rugs-v2.png');
+              background-size:auto 150%;
+              background-position:right bottom;
+            }
+
+            .block07{
+              width:65%;
+              height:40%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Towels-New-Living.png');
+              background-size:cover;
+              background-position:center;
+            }
+
+          .column04{
+            width:20%;
+          }
+
+            .block08{
+              width:100%;
+              height:60%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Fresh-Ideas-Background-Plant-v3.png');
+              background-size:100% auto;
+              background-position:bottom;
+            }
+
+            .block09{
+            display:none;
+            }
+
+            .block10{
+              width:100%;
+              height:40%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Cushions-Fabric-Stacked-v2.png');
+              background-size:cover;
+              background-position:center;
+            }
+
+          .column05{
+            width:35%;
+          }
+
+            .block11{
+              /*width:100%;
+              height:28%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Mugs-Hedgehog-Living.png');
+              background-size:cover;
+              background-position:bottom;*/
+              display: none;
+            }
+
+            .block12{
+              width:100%;
+              height:100%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Fabric-Chair-Cushion-Hung-Plants.png');
+              background-size:cover;
+              background-position:center;
+            }
+
+    /*---------------------------- SECTION 2 ----------------------------*/
+
+            .block13{
+              width:100%;
+              height:100%;
+              background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Scion%20Homepage/August%2016/Scion-Guess-Who-Main-wLogo-Master-v2.png');
+              background-size:cover;
+              background-position:right bottom;
+            }
+
+    @media only screen and (max-width: 768px){
+      .section{
+        padding-top: 95px !important;
+      }
+
+        .column01{
+          width:100%;
+          height:30%;
+        }
+
+          .block01{
+            width: 60%;
+            height:100%;
+          }
+
+          .block02{
+            width: 40%;
+            height:100%;
+          }
+
+        .column02{
+          width:100%;
+          height:70%;
+        }
+
+        .column03{
+          width:100%;
+          height:40%;
+        }
+
+          .column03 .fullpageBlockItem{
+            width:33.33%;
+            height:100%;
+          }
+
+        .column04{
+          width:40%;
+          height:60%;
+        }
+
+        .column05{
+          width:60%;
+          height:60%;
+        }
+    }

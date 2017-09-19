@@ -1,0 +1,314 @@
+﻿@using Colony.Util.Configuration;
+@model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+@{
+    Html.AppendTitle("Cushions");
+
+    var useraccount = Colony.CMS.Security.Helpers.AuthenticationHelpers.GetLoggedInUser();
+}
+@if (!Model.IsAjax)
+{
+    <div id="container">
+        @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml");}
+
+        <script src="/_js/shared/ajax-cushion-search.js?v=3" type="text/javascript"></script>
+        <form id="initializeSearch" action="#" method="get">
+            <input id="keywords" name="keywords" type="hidden" value="@Model.Keywords"/>
+            <input id="sortBy" name="sortBy" type="hidden" value="@Request.QueryString["SortBy"]"/>
+            <input id="page" name="page" type="hidden" value="@Request.QueryString["Page"]"/>
+            <input id="categoryId" name="categoryId" type="hidden" value="@Request.QueryString["categoryId"]"/>
+            <input id="categoryName" name="categoryName" type="hidden" value="@Request.QueryString["categoryName"]"/>
+            <input id="brand" name="brand" type="hidden" value="@Request.QueryString["brand"]"/>
+            <input id="SelectedColours" name="SelectedColours" type="hidden" value="@string.Join(",", Model.SelectedColours.ToArray())"/>
+            <input id="SelectedProductGroups" name="SelectedProductGroups" type="hidden" value="2979"/>
+            <input id="searchhandle" name="searchhandle" type="hidden" value="@Model.SearchHandle">
+        </form>
+        <div id="paint-search-placeholder"></div>
+
+    </div>
+
+
+
+    <aside class="sideCol leftCol">
+        <a href="#" class="toggleFilters button show-for-small">Filter Products</a>
+
+        <div class="filterAccordion">
+            <section id="productFilters" class="medium">
+                <header class="header-reveal-modal">
+                    <h2>Product Filters</h2>
+                    <a class="close-reveal-modal icon-remove"><span>Close</span></a>
+                </header>
+                <div class="bd-reveal-modal">
+
+                    <form action="" class="filterAccordion" id="searchProducts" novalidate="novalidate">
+
+
+                        <fieldset class="boxSection filterTags">
+                            <div class="header">
+                                <a href="#" class="toggle-filterAccordion">
+                                    <h2>Name or keyword</h2>
+                                </a>
+                                <a href="#" class="clearFilter">Clear</a>
+                            </div>
+                            <div class="content-filterAccordion">
+                                <div class="details">
+                                    <div class="field tagpicker">
+                                        <label for="keywords">
+                                            Enter tag name
+                                        </label>
+                                        <div class="tagpickerSearch">
+                                            <select name="keywords" id="keywords">
+                                                @if (Model.Keywords != null) {
+                                                // _.each(Model.Keywords.split(' ') { 
+                                                //<option value="<%=keyword%>" id="Option1" class="selected" selected="selected"><%=keyword%></option>
+                                                // }); 
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <section class="boxSection filterColours">
+                            <div class="header">
+                                <a href="#" class="toggle-filterAccordion">
+                                    <h2>Colour</h2>
+                                </a>
+                                <a href="#" class="clearFilter">Clear</a>
+                            </div>
+                            <div class="content-filterAccordion">
+                                <div class="colours">
+                                    @foreach (var colour in Model.ColourFilter.Groups) {
+                                        <div class="colourBand">
+                                            <div class="toggleAll">
+                                                <label for="colourgroup_@colour.Name" data-colour-group-all="colourgroup_@colour.Name" >
+                                                    <span>Select all @colour.Name</span>
+                                                    <span class="toggleColours">
+                                                        @foreach (var col in colour.Colours)
+                                                        {
+                                                            <img src="/_images/bg/selected-ok-tick.png" id="@colour.Name" class="newColourSelect" />
+                                                            <span data-colour-code="@col.Code" onclick="$(#@(colour.Name)).hide();"></span>
+                                                        }
+                                                    </span>
+                                                    <input type="checkbox" name="colourgroup_<%=group.Name%>" id="Checkbox12">
+                                                </label>
+                                            </div>
+                                            <ul style="display: none;">
+                                                @foreach (var col in colour.Colours) {
+                                                    <li>
+                                                        @if (Model.SelectedColours.Contains(col.Code))
+                                                        {
+                                                            <label for="SelectedColours_@col.Code" data-colour-group="colourgroup_@colour.Name" data-colour-code="@col.Code" class="selected">
+                                                                <span>@col.Name</span>
+                                                                <input type="checkbox" name="SelectedColours" value="<%=colour.Code%>" data-colour-group="colourgroup_@colour.Name" data-colour-code="@col.Code" id="SelectedColours_@col.Code" checked="checked" />
+                                                            </label>
+                                                        }
+                                                        else
+                                                        {
+                                                        <label for="SelectedColours_@col.Code" data-colour-group="colourgroup_@colour.Name" data-colour-code="@col.Code">
+                                                            <span>@col.Name</span>
+                                                            <input type="checkbox" name="SelectedColours" value="@col.Code" data-colour-group="colourgroup_@colour.Name" data-colour-code="@col.Code" id="SelectedColours_@col.Code"/>
+                                                        </label>
+                                                        }
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </section>
+
+                        @if (Model.IsPatternsFilterVisible && Model.Patterns.Count > 0) {
+                        <section class="boxSection filterCategory filterPattern">
+                            <div class="header">
+                                <a href="#" class="toggle-filterAccordion">
+                                    <h2>Design Style</h2>
+                                </a>
+                                <a href="#" class="clearFilter">Clear</a>
+                            </div>
+                            <div class="content-filterAccordion">
+                                <fieldset class="optionList ">
+                                    <legend>Filter by Design Style</legend>
+                                    <h3>Filter by Design Style</h3>
+                                    <ul>
+                                        @foreach(var Pattern in Model.Patterns){
+                                        <li>
+                                            @if (Model.SelectedPatterns.Contains(Pattern.Id.ToString())) {
+                                            <input type="checkbox" name="SelectedPatterns" id="type_filterPattern_@Pattern.Id" value="@Pattern.Id" checked="checked"/>
+                                            <label for="type_filterPattern_<%=pattern.Id%>" class="selected">
+                                                <span>@Pattern.Name</span>
+                                            </label>
+                                            } else {
+                                            <input type="checkbox" name="SelectedPatterns" id="type_filterPattern_@Pattern.Id" value="@Pattern.Id"/>
+                                            <label for="type_filterPattern_@Pattern.Id">
+                                                <span>@Pattern.Name</span>
+                                            </label>
+                                            }
+                                        </li>
+                                        }
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </section>
+                        }
+                        @if (Model.IsCompositionFilterVisible) {
+                        <section class="boxSection filterCategory filterComposition">
+                            <div class="header">
+                                <a href="#" class="toggle-filterAccordion">
+                                    <h2>Composition</h2>
+                                </a>
+                                <a href="#" class="clearFilter">Clear</a>
+                            </div>
+                            <div class="content-filterAccordion">
+                                <fieldset class="optionList">
+                                    <legend>Filter by Composition</legend>
+                                    <h3>Filter by Composition</h3>
+                                    <ul>
+                                        @foreach (var Composition in Model.Composition) { 
+                                            if (Model.SelectedComposition.Contains(Composition.Id.ToString())) { 
+                                        <li>
+                                            <input type="checkbox" name="SelectedComposition" id="composition_@Composition.Id.ToString()" value="@Composition.Id" checked="checked"/>
+                                            <label for="composition_@Composition.Id.ToString()" class="selected">
+                                                <span>@Composition.Name</span>
+                                            </label>
+                                        </li>
+                                        } else {
+                                        <li>
+                                            <input type="checkbox" name="SelectedComposition" id="composition_@Composition.Id.ToString()" value="@Composition.Id"/>
+                                            <label for="composition_@Composition.Id.ToString()">
+                                                <span>@Composition.Name</span>
+                                            </label>
+                                        </li>
+                                            }
+                                        }
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </section>
+                        }
+                        <a class="button clearAllFilters" href="#">Clear All</a>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </aside>
+    <div id="content">
+        <div class="scrapBookAdd" style="overflow: visible; display: none;">
+            <div class="indicator"></div>
+            <header>
+                <h2>Select Scrapbook</h2></header>
+            <div class="inner" style="overflow: hidden; outline: none;" tabindex="5000">
+                <div class="field text ">
+                    <label for=""></label>
+                    <input type="text" name="" id="" placeholder="new scrapbook">
+                </div>
+                <a href="#" class="addSrapbookButton button small icon-plus"></a>
+                <ul>
+                    <li><a href="#">Kitchen Ideas</a></li>
+                    <li><a href="#">Green Theme</a></li>
+                    <li><a href="#">Katies Bedroom</a></li>
+                    <li><a href="#">Kitchen Ideas</a></li>
+                    <li><a href="#">Green Theme</a></li>
+                    <li><a href="#">Katies Bedroom</a></li>
+                    <li><a href="#">Kitchen Ideas</a></li>
+                    <li><a href="#">Green Theme</a></li>
+                    <li><a href="#">Katies Bedroom</a></li>
+                    <li><a href="#">Kitchen Ideas</a></li>
+                    <li><a href="#">Green Theme</a></li>
+                    <li><a href="#">Katies Bedroom</a></li>
+                    <li><a href="#">Kitchen Ideas</a></li>
+                    <li><a href="#">Green Theme</a></li>
+                    <li><a href="#">Katies Bedroom</a></li>
+                </ul>
+            </div>
+        </div>
+
+                    <h1>Cushions</h1>
+                    @{
+            if (Model.ProductSearchResults.Count() > 0)
+            {
+                <div class="listing-options">
+                    @{
+                    if (Model.Keywords != "" && Model.Keywords != null) {
+                        <div class="listing-group result-count">
+                            <p> Showing <strong>@Model.TotalResultCount</strong> results for <strong> @Model.Keywords </strong></p>
+                        </div>
+                    } else {
+                        <div class="listing-group result-count">
+                            <p> Showing <strong>@Model.TotalResultCount</strong> results. </p>
+                        </div>
+                    }
+
+                    if (Model.NoResults) {
+                        <div class="alertInfo message"> Sorry, we could not find any results for you chosen colour.Similar products are shown below.</div>
+                    }
+
+                    <div class="listing-group listing-group-actions">
+                        <div class="result-layout">
+                            <ul class="layout-options">
+                                <li class="active"><a href="#" class="layout-option" id="setLayoutOptionGrid"> Grid View </a></li>
+                                <li><a href="#" class="layout-option" id="setLayoutOptionList"> List View </a></li>
+                            </ul>
+                        </div>
+
+                        <div class="result-sort">
+                            <div class="field select">
+                                <label for="SortBy" style="display: none;"> Sort results by </label>
+                                <select id="SortBy" name="SortBy">
+                                    <option value="default" selected="selected"> Sort results by</option>
+                                    <option value="colourhigh"> Colour(light to dark)</option>
+                                    <option value="colourlow"> Colour(dark to light)</option>
+                                    <option value="alphaasc"> Design Name(A - Z) </option>
+                                    <option value="alphadesc"> Design Name(Z - A) </option>
+                                    <option value="datedesc"> Recent </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                        <div class="productList searchResults">
+                            @{
+                foreach (var rc in Model.ProductSearchResults)
+                {
+                    <div class="item" data-quick-view-id="@rc.ProductId" data-productcode="@rc.ProductCode" data-skuid="@rc.SkuId" data-noprice="true" itemscope itemtype="http://schema.org/Product">
+                        <a href="@rc.Uri">
+                            @if (rc.Images != null ) {
+                                <img src="@rc.ImageUri" alt="@rc.Attributes["Brand"] @rc.Attributes["Product Group"] - @rc.Name" itemprop="image" />
+                                }
+                            <h4 class="itemTitle @rc.Attributes["Brand"]">
+                                <span itemprop="name"><strong>@rc.Name Cushion</strong></span>
+                            </h4>
+                            <p class="itemSubTitle">By <span itemprop="brand">@rc.Attributes["Brand"]</span></p>
+                            <ul>
+                                @if(Model.IsB2B) {
+                                    <li>@rc.Attributes["Design Code"] || rc.Code %></li>
+                                    }
+                                <li><span itemprop="description">@rc.Attributes["Descriptive Colour"]</span></li>
+                                @if (rc.PriceInc != '0' && !Model.IsB2B) {
+
+                                    <li><span itemprop="offers" itemscope itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="GBP" />£<span itemprop="price">@rc.PriceInc.ToString("N2") </span></span></li>
+                                    }
+                            </ul>
+                            @if (rc.IsNew) {
+                                <span class="itemNew">New</span>
+                                }
+                        </a>
+                    </div>
+                }
+                            }
+
+                        </div>
+            } else {
+                <div class="alertInfo message"> Your search did not return any results.</div>
+            }
+                    }
+                </div>
+           if (useraccount != null)
+           {
+               Html.RenderAction("ScrapbookList", "Scrapbook", new { area = "Scrapbook" });
+           }
+           Html.RenderAction("OrderPaintCard", "Enquiries", new { area = "CustomShops" });
+}

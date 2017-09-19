@@ -1,0 +1,61 @@
+﻿@using Colony.Commerce.Areas.ShopPurchase.Models
+@using Colony.Web.Helpers
+@model Colony.Commerce.Areas.ShopPurchase.Models.CheckoutViewModel
+
+@{
+    Layout = "";
+}
+
+
+<div class="mediumColumn">
+    <div class="blockSection wide1">
+        <div class="inner">
+            <div class="heading">
+                <h2 class="fa fa-gift">Order Confirmation @Model.OrderNumber</h2>
+            </div>
+            <div class="content form">
+                <form id="deliveryOptionsForm" action="@Url.Action("DeliveryOptions", "Checkout", new {area = "ShopPurchase", edit = "delivery-options"})" method="post">
+                    @Html.AntiForgeryToken()                    
+                    <div class="message success">
+                        Thank you for your order!
+                    </div>
+                    @Html.Action("ConfirmationDeliveryOptions", "Checkout", new { transactionId = Model.Basket.TransactionId })
+                    <div class="message neutral">
+                        Need to cancel you order? Use the <a href="http://downloads.harlequin.uk.com/Cancel%20Form/CancelForm_v1.docx">Cancellation Form</a> or call our cancellation team between 8am-6pm Mon-Fri 01895 221 099
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="smallColumn">
+    @Html.Partial("Confirmation/_DeliveryInformation", Model)
+</div>
+
+<script src="/_js/shared/checkout-confirmation.js" type="text/javascript"></script>
+
+<script>
+    if (dataLayer === 'undefined') {
+        console.error('GTM _Confirmation: dataLayer not defined');
+    } else {
+        dataLayer.push(
+        {
+            'event': 'ga-ee',
+            'eventAction': 'transaction',
+            'ecommerce': {
+                'currencyCode': '@Model.Delivery.CurrencyRegion.RegionInfo.ISOCurrencySymbol',
+                'purchase': {
+                    'actionField': {
+                        'id': '@Model.Basket.TransactionId',
+                        'revenue': '@(Model.Basket.TotalInc + Model.DeliveryCost)',
+                        'tax': '@Model.Basket.TotalVat',
+                        'shipping': '@Model.DeliveryCost',
+                        'coupon': '@(Model.Basket != null && Model.Basket.Checkout != null ? Model.Basket.Checkout.VoucherCode : "")',
+                        'affiliation': 'Online Store'
+                    },
+                    'products': @(Html.CreateBasketProductsJson(Model.Confirmation.Basket.BasketLines))
+                }
+            }
+        });
+    }
+</script>

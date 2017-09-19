@@ -1,0 +1,357 @@
+﻿
+// from collections-test.css
+
+.filter-top {
+    padding: 5px;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+        font-size: 28px;
+        padding: 0px 0px 6px 10px;
+        margin: 0px 20px 0px 0px;
+        float: left;
+    }
+    span {
+        font-size: 13px;
+        letter-spacing: 2px;
+        line-height:15px;
+        float: right;
+        text-transform: none;
+        letter-spacing:1px;
+        font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+        padding-right:14px;
+        text-align:right;
+    }
+}
+#collectionsSearchFilter {
+    float: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .show-new {
+        width: 12%;
+        padding-top: 10px;
+        height: 46px;
+        border: 0px solid red;
+        float: left;
+        margin-left: 4px;
+        display:none;
+    }
+    .show-new label {
+        width: 80%;
+        display: inline-block;
+        float: right;
+        margin-top: 0px;
+    }
+    .show-new input[type="checkbox"] {
+        margin-right: 10px;
+        margin-top: 6px;
+        margin-bottom: 12px;
+    }
+}
+#collectionsFilterHolder {
+    width: 100%;
+}
+#parentCategoryId,
+#BrandKey,
+#collectionsWordSearch {
+    width: 32%;
+    margin-right: 10px;
+    height: 46px;
+}
+.inspire-filters,
+.inspire-filters span {
+    display: none;
+}
+ul#pagination {
+    margin: -2px 0px 0px auto;
+    display:inline-block;
+    float:right;
+}
+ul#pagination li a {
+    width: auto;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+ul#pagination li:last-child {
+    margin-right: 0px;
+   // direction
+}
+#InspireSearchbar {
+    padding-right: 0.7em;
+    padding-left: 0.7em;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    padding-top:0px;
+    padding-bottom:0px;
+    min-height:50px;
+    span, select.sorter {
+        display:inline-block;
+        float:left;
+        white-space:nowrap;
+        margin-right:10px;
+    }
+    select.sorter {
+        padding:3px 0px 3px 0px;
+        margin:0px 0px 0px 0px;
+        width:auto;
+    }
+}
+.itemNew {
+    background: #e2e2e2 none repeat scroll 0 0;
+    padding: 0.3em 0.7em;
+    position: absolute;
+    right: 26px;
+    text-transform: uppercase;
+    top: 5px;
+}
+
+.collection-caption h2 {
+     margin-bottom:6px;
+}
+
+.InspireArticle::before {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin:5px 5px -22px 0px;
+    content: " ";
+    display: block;
+}
+.InspireArticle.zoffany::before {
+    background:url('../../../_images/brands/zoffany/zoffany-z.svg') center center #454545 no-repeat;
+    background-size: 10px;
+    }
+
+.InspireArticle.sanderson::before {
+    background:url('../../../_images/brands/sanderson/sanderson-s.svg') center center #003263 no-repeat;
+    background-size: 8px;
+    }
+
+.InspireArticle.scion::before {
+    background:url('../../../_images/brands/scion/scion-s.svg') center center #d4d00e no-repeat;
+    background-size: 37%;
+    }
+
+.InspireArticle.anthology::before {
+    background:url('../../../_images/brands/anthology/anthology-a.svg') center center #696158 no-repeat;
+    background-size: 10px;
+    }
+
+.InspireArticle.harlequin::before {
+    background:url('../../../_images/brands/harlequin/harlequin-h.svg') center center #a7a9ac no-repeat;
+    background-size: 10px;
+    }
+
+.InspireArticle.morris::before {
+    background:url('../../../_images/brands/morris/morris-m.svg') center center #778a6e no-repeat;
+    background-size: 10px;
+    }
+
+
+
+
+
+
+@media only screen and (max-width: 1024px) {
+    .filter-top {
+        align-items: flex-start;
+    }
+    #parentCategoryId,
+    #BrandKey,
+    #collectionsWordSearch {
+        width: 31%;
+        height: 42px;
+        padding-top: 8px;
+        margin: 10px 13px 10px 0px;
+    }
+    #collectionsSearchFilter {
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        .show-new {
+                width: 40%;
+                height: 20px;
+                float: right;
+                text-align: right;
+                padding: 6px 30px 26px 0px;
+            }
+        .show-new label {
+                width: auto;
+                display: inline-block;
+                float: right;
+                top: 0px;
+            }
+        .show-new input[type="checkbox"] {
+                width: 16px;
+                margin-right: 6px;
+                margin-top: 3px;
+                margin-bottom: 0px;
+                padding: 0px 0px 0px 0px;
+                float: none;
+            }
+        }
+}
+
+@media only screen and (max-width: 768px) {
+    #collectionsSearchFilter {
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .filter-top {
+        flex-direction: column;
+        padding: 5px 10px 7px 10px;
+        h1 {
+            width: 100%;
+            float: none;
+            text-align: center;
+            padding: 10px 0px 6px 0px;
+            margin: 0px 0px 0px 0px;
+        }
+        span {
+            font-size: 16px;
+            text-align: center;
+            float: left;
+            width: 100%;
+            padding: 0px 0px 0px 0px;
+            margin: 8px 0px 6px 0px;
+        }
+    }
+    #collectionsSearchFilter .show-new {
+        width: 50%;
+        height: 40px;
+        float: left;
+        margin-left: 0px;
+        text-align: center;
+        label {
+            width: auto;
+            float: none;
+            top: -2px;
+        }
+        input[type="checkbox"] {
+            width: 16px;
+            margin-right: 6px;
+            margin-top: 3px;
+            margin-bottom: 0px;
+            padding: 0px 0px 0px 0px;
+            float: none;
+        }
+    }
+    #parentCategoryId,
+    #BrandKey,
+    #collectionsWordSearch {
+        width: 49%;
+        height: 40px;
+        padding-top: 8px;
+        margin: 10px 0px 10px 0px;
+    }
+    #parentCategoryId {
+        margin: 10px 12px 10px 0px;
+    }
+    #collectionsWordSearch {
+        width: 100%;
+    }
+    #collectionsSearchFilter .show-new {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .filter-top {
+        flex-direction: column;
+        padding: 5px 10px 7px 10px;
+        h1 {
+            float: none;
+            text-align: center;
+            padding: 10px 0px 6px 0px;
+            margin: 0px 0px 0px 0px;
+        }
+        span {
+            font-size: 16px;
+            text-align: center;
+            float: left;
+            width: 100%;
+            padding: 0px 0px 0px 0px;
+            margin: 8px 0px 6px 0px;
+        }
+    }
+    #collectionsSearchFilter {
+        .show-new {
+        width: 100%;
+        height: 40px;
+        float: left;
+        margin-left: 0px;
+        text-align: center;
+        }
+        .show-new label {
+            width: auto;
+            display: inline-block;
+            float: none;
+            top: -2px;
+        }
+        .show-new input[type="checkbox"] {
+            width: 16px;
+            margin-right: 6px;
+            margin-top: 3px;
+            margin-bottom: 0px;
+            padding: 0px 0px 0px 0px;
+            float: none;
+        }
+    }
+    #parentCategoryId,
+    #BrandKey,
+    #collectionsWordSearch {
+        width: 100%;
+        height: 40px;
+        padding-top: 8px;
+    }
+    #InspireSearchbar {
+        padding-right: 0.7em;
+        padding-left: 0.7em;
+        display: flex;
+        flex-direction: row;
+        flex-wrap:wrap;
+        align-items: center;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        /*min-height: 100px;*/
+        span,  select.sorter {
+            display: inline-block;
+            float: left;
+            white-space: nowrap;
+            margin-right: 10px;  
+        }
+        span {
+            text-align:center;
+            width:30%;
+        }
+        select.sorter {
+            padding: 3px 0px 3px 0px;
+            margin: 0px 0px 0px 0px;
+            width:65%;
+        }
+    }
+    // fix for Inspire page
+    #InspireSearchbar.Collections {
+                min-height: 100px;
+                }
+    //
+    ul#pagination {
+        margin: 0px 0px 0px auto;
+        display:inline-block;
+        float:right;
+        width:100%;
+        text-align:center;
+    }
+}
+
+// fix for most popular images
+.collection img {
+    width: 100%;
+}

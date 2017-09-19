@@ -1,0 +1,107 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryGroupViewModel
+@Html.HiddenFor(model => model.TransactionDeliveryId)
+@Html.CustomStyledValidationMessageFor(model => model.DeliveryMethod)
+@if (Model.DeliveryOptions.Any())
+{
+    <fieldset class="optionList delivery-options-list">
+        <legend>Delivery Service</legend>
+        <h3>Delivery Service</h3>
+        <p>
+            <i>FREE Delivery on Cushion orders over £100</i>
+        </p>
+        <ul>
+            @foreach (var deliveryOption in Model.DeliveryOptions)
+            {
+                <li>
+                    @{ var radioButtonId = ViewData.TemplateInfo.GetFullHtmlFieldId(string.Format("_{0}", deliveryOption.Id)); }
+
+                    @if (deliveryOption.IsFreeDelivery)
+                    {
+                        @Html.RadioButtonFor(model => model.DeliveryMethod, deliveryOption.Id, new {id = radioButtonId, @checked = true})
+                    }
+                    else
+                    {
+                        @Html.RadioButtonFor(model => model.DeliveryMethod, deliveryOption.Id, new {id = radioButtonId})
+                    }
+
+                    @{
+                        var labelText = "";
+                        var labelCuttOff = "";
+                        if (deliveryOption.Id == 1)
+                        {
+                            var today = DateTime.Today.DayOfWeek;
+                            var delDay = "";
+
+                            if (DateTime.Now.Hour >= 14)
+                            {
+                                if (today >= DayOfWeek.Thursday)
+                                {
+                                    labelCuttOff = " <span>Your order will be delivered on Monday</span>";
+                                }
+                                else
+                                {
+                                    var delDays = DateTime.Now.DayOfWeek + 2;
+                                    labelCuttOff = " <span>(Your order will be delivered on " + delDays + ")</span>";
+                                }
+                            }
+                            else
+                            {
+                                labelCuttOff = " <span>(Order before 2pm for next working day delivery)</span>";
+                            }
+                        }
+                        else
+                        {
+                            labelCuttOff = "";
+                        }
+                        if (deliveryOption.Id == 2)
+                        {
+                            if (DateTime.Now.Hour >= 14)
+                            {
+                                var today = DateTime.Today.DayOfWeek;
+                                if (today >= DayOfWeek.Friday && today < DayOfWeek.Sunday)
+                                {
+                                    labelCuttOff = " <span> (Your order will be delivered next Sat)</span>";
+                                }
+                                else
+                                {
+                                    labelCuttOff = " <span> (Order by 2pm Friday for delivery this Saturday)</span>";
+                                }
+                            }
+                        }
+                        if (deliveryOption.IsSplitDeliveryCharge)
+                        {
+                            labelText = string.Format("<span><span class=\"confirmation-color\"><strong>{0}{1}</strong> Split delivery discount</span> {2}</span>",
+                                Model.RegionInfo.CurrencySymbol,
+                                deliveryOption.Price.ToString("#0.00"),
+                                deliveryOption.Name);
+                        }
+                        else
+                        {
+                            if (deliveryOption.IsFreeDelivery)
+                            {
+                                labelText = string.Format("<span>Free {0}</span>", deliveryOption.Name) + labelCuttOff;
+                            }
+                            else
+                            {
+                                labelText = string.Format("<span>{0}{1} {2}</span>",
+                                    Model.RegionInfo.CurrencySymbol,
+                                    deliveryOption.Price.ToString("#0.00"),
+                                    deliveryOption.Name) + labelCuttOff;
+                            }
+                        }
+                    }
+                    <label for="@radioButtonId">
+                        @Html.Raw(labelText)
+                    </label>
+                </li>
+            }
+        </ul>
+    </fieldset>
+}
+else
+{
+    <div class="alertInfo message">
+        Unfortunately we are unable to deliver these products to your chosen delivery address.
+        Please either <a href="/basket/summary/">remove these products</a> from your basket or <a href="/checkout/?edit=delivery">change the delivery address</a>.
+    </div>
+}

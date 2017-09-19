@@ -1,0 +1,58 @@
+﻿<div class="miniBasket b2b" style="display: none;">
+    <div class="items">
+        <div class="order active">
+            <div class="hd">
+                <h2 class="name"><%=basket.CurrentCustomerName%></h2>
+                <span class="count">&#160;</span>
+                <span class="price"><%=basket.CurrentCustomerCurrency%> <%=basket.TotalValueOfCurrentBasket.toFixed(2)%></span>
+            </div>
+            <div class="bd">
+                <ul>
+                    <% _.each(basket.BasketItems, function(orderline) { %>
+                    <li>
+                        <span class="name"><%=orderline.Description%><br /><%=basket.CurrentCustomerCurrency%> <%=orderline.Unit_Price%><br /><%if (orderline.Sample_Indicator == 'C' || orderline.Sample_Indicator == 'S' || orderline.Sample_Indicator == 'L' || orderline.Sample_Indicator == 'R') {%>Sample Order <%}%></span>
+                        <span class="count">
+							<%=orderline.Quantity_Ordered%> <% if (orderline.UNITSTOCK != null) { %><%=orderline.UNITSTOCK%>&#160 <% } %>
+						</span>
+                        <% if (orderline.Sample_Indicator != null) { %>
+                        <a href="#" class="button b2beditsamplebasket small" data-linenumber="<%= orderline.Line_Number %>">Edit</a>
+                        <% } else { %>
+                        <a href="#" class="button b2beditbasket small" data-linenumber="<%= orderline.Line_Number %>">Edit</a>
+                        <% } %>
+                        <span class="price"><%=basket.CurrentCustomerCurrency%> <%=(orderline.Quantity_Ordered * orderline.Unit_Price).toFixed(2)%></span>
+                    </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <% _.each(_.chain(basket.AvailableBaskets).groupBy(function(basket) { return basket.CUSNAME + '(' + basket.CUSREF + ')'; }).map(function(key, value) { return { Baskets: key, CUSREF: _.pluck(key, 'CUSREF')[0], Total: _.reduce(_.map(key, function(b) { return Number(b.Unit_Price) * Number(b.Quantity_Ordered); }), function(x, y) { return Number(x + y).toFixed(2); }), Name: value };}).value(), function(customer) { %>
+        <% if (customer.CUSREF != basket.CurrentCustomerRef && customer.CUSREF != null) { %>
+
+        <div class="order">
+            <div class="hd">
+                <a href="#">
+                    <h2 class="name"><%=customer.Name%></h2>
+                    <span class="count">&#160;</span>
+                    <span class="price"><%=basket.CurrentCustomerCurrency%> <%=Number(customer.Total).toFixed(2) %></span>
+                </a>
+            </div>
+        </div>
+        <% } %>
+        <% }); %>
+    </div>
+    <div class="totals">
+        <span class="count">&#160;</span>
+        <span class="price"><%=basket.CurrentCustomerCurrency%> <%=basket.TotalValueOfCurrentBasket.toFixed(2)%></span>
+    </div>
+    <div class="row delivery-info">
+        <div class="column large-12">
+            <p class="quick-purchase-cta">
+                <span class="icon-shopping-cart icon-2x"></span><a href="/shop/quick-order/">Order samples by product code using Quick Order</a>
+            </p>
+        </div>
+    </div>
+    <div class="field formControls">
+        <button id="b2bGoToBasket" class="button">
+            <span>Go to Basket</span></button>
+    </div>
+</div>

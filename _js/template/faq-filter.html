@@ -1,0 +1,122 @@
+﻿<% if (rc.reRenderKeywords) { %>
+<fieldset class="boxSection filterTags">
+    <div class="header" id="byKeyword">
+        <a href="#" class="toggle-filterAccordion">
+            <h2>Find a FAQ</h2>
+        </a>
+    </div>
+    <div class="content-filterAccordion" style="display: block;">
+        <div class="details">
+            <div class="field tagpicker ">
+                <form class="tagpickerSearch">
+                    <input type="text" class="maininput" id="faqFilterSearch" size="6" autocomplete="off" style="width: 78px;" value="<%=rc.searchParams.keywords%>">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<% } %>
+<section class="boxSection faq-categories filterCategory">
+    <div class="header" id="byType">
+        <a href="#" class="toggle-filterAccordion">
+            <h2>Type of FAQ</h2>
+        </a>
+    </div>
+    <div class="content-filterAccordion">
+        <fieldset class="optionList ">
+            <legend>Filter by category</legend>
+            <h3>Filter by category</h3>
+            <ul>
+                <li class="faq_fabric">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_1" value="fabric" <%= (_.findWhere(rc.filters, 'fabric')) ? 'checked="checked"' : '' %> />
+                    <label for="flameRetardant_filterCategory_1">
+                        <span><i class="icon icon-slack icon-fabric"></i>Fabric (<%=_.where(rc.faqs, { fabric: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_wallpaper">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_2" value="wallpaper" <%= (_.findWhere(rc.filters, 'wallpaper')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_2">
+                        <span><i class="icon icon-reorder icon-wallpaper"></i>Wallpaper (<%=_.where(rc.faqs, { wallpaper: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_trimmings">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_3" value="trimmings" <%= (_.findWhere(rc.filters, 'trimmings')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_3">
+                        <span><i class="icon icon-fire icon-trimmings"></i>Trimmings (<%=_.where(rc.faqs, { trimmings: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_paint">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_4" value="paint" <%= (_.findWhere(rc.filters, 'paint')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_4">
+                        <span><i class="icon icon-tint icon-paint"></i>Paint (<%=_.where(rc.faqs, { paint: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_homeaccessories">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_5" value="homeaccessories" <%= (_.findWhere(rc.filters, 'homeaccessories')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_5">
+                        <span><i class="icon icon-beer icon-homeaccessories"></i>Home accessories (<%=_.where(rc.faqs, { homeaccessories: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_technicalhelp">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_6" value="technical" <%= (_.findWhere(rc.filters, 'technical')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_6">
+                        <span><i class="icon icon-cogs icon-technicalhelp"></i>Technical help (<%=_.where(rc.faqs, { technical: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_websitehelp">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_7" value="website" <%= (_.findWhere(rc.filters, 'website')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_7">
+                        <span><i class="icon icon-desktop icon-websitehelp"></i>Website help (<%=_.where(rc.faqs, { website: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_account">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_8" value="account" <%= (_.findWhere(rc.filters, 'account')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_8">
+                        <span><i class="icon icon-user icon-account"></i>Account (<%=_.where(rc.faqs, { account: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_orders">
+                    <input type="checkbox" name="flameRetardant_filterCategory" id="flameRetardant_filterCategory_9" value="orders" <%= (_.findWhere(rc.filters, 'orders')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCategory_9">
+                        <span><i class="icon icon-paste icon-orders"></i>Orders (<%=_.where(rc.faqs, { orders: true }).length%>)</span>
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+</section>
+
+<section class="boxSection filterCountry filterCategory">
+    <div class="header" id="byRegion">
+        <a href="#" class="toggle-filterAccordion">
+            <h2>Region covered by FAQ</h2>
+        </a>
+    </div>
+    <div class="content-filterAccordion">
+        <fieldset class="optionList ">
+            <legend>Filter by country/region</legend>
+            <h3>Filter by country/region</h3>
+            <ul>
+                <li class="faq_ukeurope">
+                    <input type="checkbox" name="flameRetardant_filterCountry" id="flameRetardant_filterCountry_1" value="europe" <%= (_.findWhere(rc.countryFilters, 'europe')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCountry_1">
+                        <span><!-- <i class="icon icon-slack icon-fabric"></i> -->UK &amp; Europe (<%=_.where(rc.faqs, { europe: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_usacanada">
+                    <input type="checkbox" name="flameRetardant_filterCountry" id="flameRetardant_filterCountry_2" value="usa" <%= (_.findWhere(rc.countryFilters, 'usa')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCountry_2">
+                        <span><!-- <i class="icon icon-reorder icon-wallpaper"></i> -->USA &amp; Canada (<%=_.where(rc.faqs, { usa: true }).length%>)</span>
+                    </label>
+                </li>
+                <li class="faq_restofworld">
+                    <input type="checkbox" name="flameRetardant_filterCountry" id="flameRetardant_filterCountry_3" value="world" <%= (_.findWhere(rc.countryFilters, 'world')) ? 'checked="checked"' : '' %>>
+                    <label for="flameRetardant_filterCountry_3">
+                        <span><!-- <i class="icon icon-fire icon-trimmings"></i> -->Rest of the world (<%=_.where(rc.faqs, { world: true }).length%>)</span>
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+</section>

@@ -1,0 +1,151 @@
+.basketTotals {
+    float: left;
+    word-spacing: normal;
+    padding: 0;
+    background: inherit;
+    border: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.tickbox{
+  label{
+    width: 100%;
+
+    span{
+      // white-space: nowrap;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      width: 100%;
+    }
+  }
+}
+
+
+
+@media only screen and (max-width:768px) {
+
+.basketLineDetails{
+  width: 100%;
+  float: left;
+}
+
+.tableHeadings{
+  display: none;
+}
+
+.basketTableItem{
+  margin: 0 !important;
+  padding: 10px !important;
+  width: 33.33%;
+  word-spacing: normal;
+}
+
+.basketTableOption{
+  position: absolute;
+  right: 0px;
+  top: 10px;
+}
+
+.basketTableOption.edit{
+  right: 33px;
+}
+}
+table.b2b {
+
+   tbody tr td  {
+            font-weight:bold;
+        }
+    td.productCode {
+        img.thumb{
+            width:13%;
+            float:left;
+            margin:0px 10px 0px 0px;
+        }
+
+        .detail {
+            float:left;
+
+            h2 {
+                margin:2px 0px 5px 0px;
+                padding:0px 0px 0px 0px;
+                font-size:1.1em;
+                line-height:0.7em;
+                font-weight:900;
+                border:0px;
+
+                    span {
+                        font-size:0.8em;
+                        font-weight:500;
+                    }
+            }
+            h3 {
+                font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+                font-weight:500;
+                margin-bottom:8px;
+                padding:0;
+            }
+            dl {
+
+                dt {
+                    width:4.5em;
+                    clear:left;
+                    font-weight:900;
+                }
+
+                dt, dd{
+                    margin:0px 0px 6px 0px;
+                    padding:0;
+                    font-size:12px;
+                    line-height:12px;
+                    float:left;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:510px) {
+    table.b2b {
+
+        thead tr th, tbody tr td  {
+            padding:6px;
+        }
+
+       
+        td.productCode {
+            img.thumb{
+                width:60%;
+                margin:0px 10px 10px 0px;
+            }
+
+            .detail {
+
+                h3 {
+                    margin-bottom:6px;
+                }
+ 
+                dl {
+
+                    dt {
+                        width:4.5em;
+                        clear:left;
+                        font-weight:900;
+                        margin:0px 0px 6px 0px;
+                    }
+
+                    dt, dd{
+                        padding:0;
+                        font-size:12px;
+                        float:left;
+                    }
+                }
+            }
+        }
+    }
+
+}
+h3.autocomplete-subtitle {
+  padding-left:6px;
+}
+

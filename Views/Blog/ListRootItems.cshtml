@@ -1,0 +1,100 @@
+﻿@model Colony.Modules.Blog.Areas.Models.ListRootItemsViewModel
+<div id="container" role="main" class="col-1">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <h1>Blogs</h1>
+        @{ Html.RenderPageSections(); }
+        @if (Model.BlogCategories.Any())
+        {
+            <section class="categorySection blogs">
+                <h2>Categories</h2>
+                <ul class="categoryList">
+
+                    @foreach (var cat in Model.BlogCategories)
+                    {
+                        <li>
+                            <article>
+                                <a href="@Url.SanitiseUrl("blogs", cat.Uri)" class="thumbnail">
+                                    <img src="@Url.ImageUrl(cat.ImageAssetId, "Blogs", "CategoryThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@cat.Name"/>
+                                </a>
+                                <div class="details">
+                                    <h3>
+                                        <a href="@Url.SanitiseUrl("blogs", cat.Uri)">@cat.Name</a>
+                                    </h3>
+                                    <p>@cat.ShortDescription</p>
+                                </div>
+                            </article>
+                        </li>
+                    }
+                </ul>
+            </section>
+            <!-- categoryList -->
+        }
+        @if (Model.BlogPosts.Any())
+        {
+            <section class="moduleSection">
+                <h2>Blogs</h2>
+                <ul class="articleList">
+                    @foreach (var blog in Model.BlogPosts)
+                    {
+                        <li>
+                            <article class="media">
+                                <a href="@Url.SanitiseUrl("blogs", blog.Uri)" class="thumbnail img">
+                                    @if (blog.ImageAssetId != null)
+                                    {
+                                        <img src="@Url.ImageUrl(blog.ImageAssetId, "Blogs", "ModuleListThumbnail")" alt="@blog.Name"/>
+                                    }
+                                    else
+                                    {
+                                        //TODO: REPLACE WITH A PLACEHOLDER 
+                                        <img src="/_images/placeholders/moduleList.jpg" alt="@blog.Name"/>
+                                    }
+                                </a>
+                                <div class="details bd">
+                                    <header>
+                                        <h3>
+                                            <a href="@Url.SanitiseUrl("blogs", blog.Uri)">@blog.Name</a>
+                                        </h3>
+                                        <dl>
+                                            <dt>Date</dt>
+                                            <dd>
+                                                <time datetime="@((blog.PublishStart ?? blog.Created).Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz"))">@((blog.PublishStart ?? blog.Created).Value.ToString("dd MMMM yyyy"))</time>
+                                            </dd>
+                                            <dt class="hidden">Comments</dt>
+                                            <dd></dd>
+                                            <dt>Tags</dt>
+                                            <dd>@blog.Tags</dd>
+                                        </dl>
+                                    </header>
+                                    @blog.ShortDescription
+                                </div>
+                            </article>
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+    </div>
+    @if (Model.Tags.Any())
+    {
+        <aside class="sideCol rightCol">
+            <section class="boxSection tagList">
+                <header class="header">
+                    <h2 class="icon-tag">Tags</h2>
+                </header>
+                <div class="bd">
+                    <ul>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <li>
+                                <a href="/blogs/bytag/@tag" class="button">@tag</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </section>
+
+        </aside>
+    }
+
+</div>

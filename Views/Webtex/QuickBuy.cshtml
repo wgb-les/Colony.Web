@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Quick Purchase";
+}
+<div id="content">
+    <h1>@ViewBag.Title</h1>
+    <div class="alertInfo message">
+        <p>Start typing a product code/description or scan the barcode in the field below and select the item you wish to add to your basket.</p>
+        <p>Once you have added all of your items to the list, select whether you want a cutting, short length, long length or returnable sample.</p>
+        <p>Once you're happy with your basket, click the Place Order button to generate the appropriate order that will be created using your default Webtex details.</p>
+    </div>
+    <form action="" class="contentForm" method="get">
+        <table class="quickPurchase">
+            <col/>
+            <col/>
+            <col/>
+            <col/>
+            <thead>
+            <tr>
+                <th scope="col">Product name or code</th>
+                <th scope="col">Sample Type</th>
+                <th scope="col">Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="autoCompleteRow">
+                <td colspan="4">
+                    <div class="contentForm">
+                        <div class="field text autocomplete">
+                            <label for="Keywords">
+                                Find a product<span class="required">Required</span>
+                            </label>
+                            <input id="Keywords" type="text" name="Keywords" placeholder="Start typing a product code / description or scan the barcode"/>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="field formControls">
+            <button class="button" id="placeOrder">Place Order</button>
+        </div>
+    </form>
+
+    <script type="text/template" class="template" id="quickbuytemplate">
+    <tr>
+        <td class="productCode"><%- product.productName %><input type="hidden" class="referenceProductCode" value="<%=product.productCode%>" /><input type="hidden" class="webAccount" value="<%=product.item.WebAccount%>" /><input type="hidden" class="searchTerm" value="<%=product.searchTerm%>" /></td>
+        <td class="cuttingType">
+            <fieldset>
+                <legend>Cutting Type</legend>
+                <h3>Cutting Type</h3>
+                <ul>
+                    <% if (product.item.Cutting_Status != null) { %>
+
+                    <li>
+                        <label for="radio_cutting_<%=product.productCode%>" class="selected">
+                            <abbr title="Cutting">C</abbr>
+                            <input type="checkbox" name="cuttingtype_<%=product.productCode%>" id="radio_cutting_<%=product.productCode%>" value="C" checked="checked"/>
+                        </label>
+                    </li>
+
+                    <% } %>
+                    <% if (product.item.Short_Length_Status != null) { %>
+
+                    <li>
+                        <label for="radio_short_<%=product.productCode%>">
+                            <abbr title="Short">S</abbr>
+                            <input type="checkbox" name="cuttingtype_<%=product.productCode%>" id="radio_short_<%=product.productCode%>" value="S"/>
+                        </label>
+                    </li>
+
+                    <% } %>
+                    <% if (product.item.Long_Length_Status != null) { %>
+
+                    <li>
+                        <label for="radio_long_<%=product.productCode%>">
+                            <abbr title="Cutting">L</abbr>
+                            <input type="checkbox" name="cuttingtype_<%=product.productCode%>" id="radio_long_<%=product.productCode%>" value="L"/>
+                        </label>
+                    </li>
+
+                    <% } %>
+                    <% if (product.item.Returnable_Status != null) { %>
+
+                    <li>
+                        <label for="radio_returnable_<%=product.productCode%>">
+                            <abbr title="Cutting">R</abbr>
+                            <input type="checkbox" name="cuttingtype_<%=product.productCode%>" id="radio_returnable_<%=product.productCode%>" value="R" />
+                        </label>
+                    </li>
+
+                    <% } %>
+                </ul>
+            </fieldset>
+        </td>
+        <td data-productcode="<%- product.productCode %>"></td>
+        <td class="removeItem">
+            <a href="#" class="remove">Remove</a></td>
+    </tr>
+</script>
+</div>
+
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('b2b');
+    $(document).ready(function() {
+        b2bNavigation();
+    });
+</script>

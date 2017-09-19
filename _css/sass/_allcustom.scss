@@ -1,0 +1,487 @@
+﻿.filterBrands .brands label.anthology{
+        background-image: url("/_images/logos/filter/anthology.png");
+}
+
+
+.galleryToggles a img{
+    max-width: 122px;
+}
+
+.brand-anthology {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    height: 20px;
+    width: 20px;
+    margin-top: -2px;
+    margin-right: 5px;
+    text-indent: 100%;
+    overflow: hidden;
+
+    background-image: url('/_images/icons/brands/20/anthology.png');
+}
+
+.colours > .button{
+    float: left;
+}
+
+.searchResults > .item{
+    padding:3px;
+}
+
+.collectionLogo{
+    padding-bottom: 10px;
+}
+
+
+    .searchPanel .colours h2 {
+        text-align:left !important;
+    }
+
+    .printOnly{
+        display: none;
+    }
+
+.required{
+    color: red;
+}
+
+.home .global-nav-inner, .home .site-header-inner{
+    max-width: 100% !important;
+}
+
+.filterColours .colours li, .filterColours .colours .toggleAll{
+    overflow: hidden;
+}
+
+.mobileStockist {
+    display:none !important;
+}
+
+li.theme-style-library-contract {
+    display: none !important;
+}
+
+.leftMenu#whereToBuy {
+    /*top: 104px !important;*/
+    top: 0px !important;
+    margin-left: 0px !important;
+}
+
+.colourBand label[data-colour-code = 'B9'], .toggleColours span[data-colour-code = 'B9'], .colourBand label[for=colourgroup_metalic]{
+    display: none !important;
+}
+
+#deepLinks .scroller .results li, #explore .scroller .results li{
+    width:222px !important;
+}
+
+form#stockistSearch {
+
+}
+
+
+
+/* -----------------Where to Buy---------------------*/ 
+
+#whereToBuy {
+    width: 80%;
+    margin-left: 10%;
+    left:0% !important;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+
+#whereToBuy header {
+    display: block;
+    background-image:none;
+    border:0px !important;
+    padding: 1em;
+    position: relative;
+}
+
+    #whereToBuy header h2 {
+        text-transform:uppercase;
+        padding:0px;
+    }
+
+@media all and (min-width: 0px) and (max-width: 1024px) {
+    #whereToBuy {
+        width: 94% !important;
+        margin: 0px;
+        left: 3% !important;
+    }
+}
+
+.closeWTB {
+    cursor:pointer;
+}
+
+#whereToBuy .closeWTB {
+    position: absolute;
+    right: 10px;
+    top: 10px !important;
+}
+
+.checkoutDelivery fieldset {
+    width:100%
+}
+
+.basketTotals li {
+    width:16.6% !important;
+    padding:3px !important;
+}
+
+.productCollections .selectedItem .productList > .item a, .inspirationCategories .selectedItem .productList > .item a {
+    min-height:230px;
+}
+
+.selectedItemContainer {
+    padding: 0 1px 0 25px;
+    margin-bottom:20px;
+}
+
+.footerToggles span {
+    text-transform:uppercase;
+}
+
+.searchPanel .searchOptions .colours {
+    width:290px;
+}
+
+.filterColours .colours {
+    padding:15px 30px;
+}
+
+.colours .toggleAll .toggleColours span {
+    width:100%;
+}
+
+.filterColours .colours .toggleAll .toggleColours {
+    height:32px;
+}
+
+.colours .colourBand {
+    margin-right:0px;
+}
+
+.colours .toggleAll {
+    margin-right:0px;
+}
+
+.colourBand label[data-colour-code = 'C3'], .toggleColours span[data-colour-code = 'C3'] {
+    background:#7c6992 !important;
+}
+
+.colourBand label[data-colour-code = 'A7'], .toggleColours span[data-colour-code = 'A7'] {
+    background:#daaa00 !important;
+}
+
+.colourBand label[data-colour-code = 'A9'], .toggleColours span[data-colour-code = 'A9'] {
+    border:1px solid #ccc;
+}
+
+.newColourSelect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -9px;
+    display:none;
+}
+
+.checkoutAbout .field {
+    width:100%;
+}
+
+.miniBasket .formControls, .miniBasket .switchCustomer {
+    margin-top:-1px;
+}
+
+.basketUpdate {
+    /*margin-top:20px;*/
+    margin-top:0px;
+}
+
+.boxSection .alertInfo {
+    border-radius:0px;
+}
+
+#addressSelection.highlighted {
+    padding:0px;
+    box-shadow:none;
+}
+
+.active .layout-option:before {
+    content: "\f00c";
+    font-family:FontAwesome;
+    margin-right:5px;
+}
+
+.product-totals {
+    width:100%;
+    margin:10px 0 15px 0;
+}
+
+.incVAT {
+    font-size:0.8em;
+    font-weight:100;
+}
+
+.icon-ok-sign:before, .alertInfo.confirmation:before {
+    content: "\f00c";
+}
+.product-option.active {
+    /*padding-left:40px;*/
+    padding-left:5px;
+}
+
+.printButton {
+    float: left;
+}
+
+.searchBanner {
+    z-index: 0;
+}
+
+.zopim{
+	right:104px !important;
+    bottom:42px !important;
+}
+
+@media only screen and (min-width: 48.125em){
+    .b2b .pageHeader {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 1024px) {
+    .product-totals {
+        width:50%;
+        margin:0 0 15px 0;
+    }
+    
+    .filterColours .colours .colourBand{
+        width: auto !important;
+    }
+
+    /*.large-4 a {
+        font-size: 1.2em !important;
+    }*/
+
+    .desktopStockist {
+        display:none !important;
+    }
+
+    .mobileStockist {
+        display:block !important;
+    }
+
+}
+
+@media all and (min-width: 0px) and (max-width: 1000px) {
+
+    .large-6, .large-4 {
+        margin-bottom: 10px;
+    }
+
+    .sandersonHome img{
+        padding: 5px;
+        background: #fff;
+    }
+
+}
+
+@media only screen and (min-width:1024px) {
+    .global-brands-all {
+        display: none;
+    } 
+    .global-brands .global-brands-list {
+        display: block;
+    }
+    .global-brands .global-brands-toggles {
+        display: inline-block;
+    }
+    .global-brands li, .global-brands .global-brands-hide {
+        display: none;
+    }
+    .global-brands.brands-open li, .global-brands.brands-open .global-brands-hide {
+        display: block;
+    }
+    .global-brands.brands-open .global-brands-show {
+        display: none;
+    } 
+}
+
+.sideCol.rightCol {
+    float: left;
+    margin-top: 20px;
+}
+
+
+/*--------------------- Cushion Upsell CSS ---------------------*/
+
+ #sanderson-container {
+        margin-top: 20px;
+        /*padding: 15px; */
+        max-width:1283px;
+    }
+
+    #sanderson-inner {        
+        border: 1px solid #002d59;
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/sanderson-upsell-cushions.png');
+        background-repeat:no-repeat;
+        background-attachment: inherit;
+    background-position: center bottom;
+    }
+
+    /*@media all and (min-width:1285px){
+        #sanderson-inner {
+            
+            background-image: url('../_assets/images/sanderson-cushions.jpg');
+        }
+    }*/
+    .sanderson-cushion-text {
+        width: 50%;
+        
+        padding: 20px;
+        padding-top:5px;
+        color: #003263;
+        background-color: black /*fallback*/;
+        background-color: rgba(0, 0, 0, 0.6);
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+        @media all and (min-width: 0px) and (max-width: 654px){
+        .sanderson-cushion-text {
+            width: 100%;
+        }
+    }
+    .sanderson-cushion-text > h1 { margin-bottom: 15px !important; 
+        color: #fff;
+    }
+    .sanderson-cushion-text > p {
+        color: #fff;
+        text-align:justify;
+    }
+        #default-container {
+        margin-top: 20px;
+        /*padding: 15px; */
+    }
+
+    #default-inner {
+        border: 3px solid #EDEDED;
+    }
+
+    .default-cushion-header {
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+        border-bottom: 3px solid #EDEDED;
+    }
+
+    dark {
+        color: #686C6C;
+        display: inline;
+        font-weight: bolder;
+    }
+
+    light {
+        color: #A7ABAB;
+        display: inline;
+        font-weight: bolder;
+    }
+
+        #harlequin-container {
+       margin-top: 20px;
+        padding-bottom: 20px;     
+    }
+
+    #harlequin-inner {
+        border: 1px solid #d9d9d9;
+        padding-bottom:20px;
+    }
+
+    .harlequin-cushion-header {
+        width: 100%;
+        padding: 5px 20px;
+        text-align:justify;
+        /*background-color: rgba(184, 157, 24, 0.3);*/
+        
+    }
+    .harlequin-cushion-header>h1{
+        margin-bottom: 15px !important;
+    }
+        .harlequin-cushion-header > p {
+            color: #999999;
+        }
+
+    .slick-prev, .slick-next {
+        font-size: 0;
+        line-height: 0;
+        position: absolute;
+        top: 50%;
+        display: block;
+        width: 20px;
+
+        //This is to accomodate the SHOP THE LOOK "i" block (top right) of slider and allows it to be clickable
+        //height: 20px;
+        height: 90% !important;
+        margin-top: 10px;
+        padding: 0;
+        cursor: pointer;
+        color: transparent;
+        border: none;
+        outline: none;
+        background: transparent;
+    }
+
+    .slick-next {
+        /*right: -25px;*/
+    }
+    .slick-prev:before, .slick-next:before {
+        font-size:50px;
+        opacity:1;
+    }
+
+        #morris-container {
+        margin-top: 20px;
+        /*padding: 15px; */
+        font-family: "ITCGoldenTypeW01-Origin 827093", arial, sans-serif;
+    }
+
+#morris-inner {
+    
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Morris-and-Co-Cushions-Forest-Hare-Forest-Fox-Tulip-The-Brook-Snakeshead-Seaweed-Strawberry-Thief.png');
+    border: 1px solid #778A6E;
+    background-repeat: no-repeat;
+    background-attachment: inherit;
+    background-position: center bottom;
+}
+
+    .morris-cushion-text {
+        width: 100%;        
+        padding: 10px;
+        color: #251A06;
+        background-color: rgb(119, 138, 110);
+    }
+
+    #morris-cushion >img{
+        width: 100%;
+        height:165px;
+        vertical-align: bottom;
+       
+    }
+
+   .morris-cushion-text > h1 {
+        color: #251A06;
+        margin-bottom: 15px !important;
+        font-family: "ITCGoldenTypeW01-Origin 827093", arial, sans-serif !important;
+    }
+   #morris-cushion{
+       padding:90px;
+   }

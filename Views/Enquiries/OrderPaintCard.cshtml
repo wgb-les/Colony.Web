@@ -1,0 +1,86 @@
+﻿@model Colony.Web.Areas.Shop.Models.OrderPaintCardViewModel
+
+<div class="sl-modal-popup sl-paintchart-modal" style="display: none">
+    <header>
+        <span class="sl-heading like-h1">
+            Paint Chart
+        </span>
+        <span class="sl-heading sl-close like-h1">
+            &times;
+        </span>
+    </header>
+    <div class="sl-modal-content" id="PaintCardModal" tabindex="-1">
+        <form action="@Url.Action("OrderPaintCard", "Enquiries", new { area = "CustomShops", returnUrl = Request.Url.AbsoluteUri})" id="EnquiryFormPaint" method="post">
+            @Html.AntiForgeryToken()
+            
+            <div class="sl-modal-image-option @(Model.SelectedBrand == "Zoffany" ? "selected" : "")" id="ZoffanySelector">
+                <div class="inner">
+                    <div class="selectedTag">Selected</div>
+                    <span class="like-h2">Zoffany Chart</span>
+                    <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/ZoffanyRequest-Paint-Card.jpg" alt="Zoffany Paint Chart">
+                </div>
+            </div>
+
+            <div class="sl-modal-image-option @(Model.SelectedBrand == "Sanderson" ? "selected" : "")" id="SandersonSelector">
+                <div class="inner">
+                    <div class="selectedTag">Selected</div>
+                    <span class="like-h2">Sanderson Chart</span>
+                    <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson-paint-chart-2017.jpg" alt="Sanderson Paint Chart">
+                </div>
+            </div>
+
+            <fieldset class="sl-fieldset">
+                @Html.HiddenFor(model => model.SelectedBrand)
+                <p style="color: white">
+                    @Html.ValidationMessageFor(model => model.SelectedBrand)
+                </p>
+
+                @Html.EditorFor(model => model.Address.Title)
+                @Html.EditorFor(model => model.Address.FirstName)
+                @Html.EditorFor(model => model.Address.LastName)
+                @Html.EditorFor(model => model.Person.Email)
+                @Html.EditorFor(model => model.Person.PhoneNumber)
+
+                <div style="width: 100%;">
+                    <div>
+                        <div style="width: 100%;">
+                            @Html.EditorFor(model => model.Address.Postcode, "Postcode", new { style = "width: 70% !important" })
+
+                            <div style="width: 30%; display: block; float: left">
+                                <button type="button" class="button" id="FindPaintAddress" style="margin-left: 10px;">
+                                    <span class="fa-map-marker"> Find Address</span>
+                                </button>
+                            </div>
+                            <div id="PaintAddressSelection" style="width: 68%; float: left; margin: -5px 0;">
+                                <select name="SelectPaintAddress" id="SelectPaintAddress" style="display: none"></select>
+                            </div>
+
+                            <div style="width: 100%; float: left; margin: 10px">
+                                <span id="PaintAddressError" style="display: none; color: red; margin-left: 10px;">* There was a problem looking up your post code</span>
+                            </div>
+                        </div>
+
+                        @Html.EditorFor(model => model.Address.Line1)
+                        @Html.EditorFor(model => model.Address.Line2)
+                        @Html.EditorFor(model => model.Address.Town, new { @class = "medium" })
+                        @Html.EditorFor(model => model.Address.County, new { @class = "medium" })
+                        @Html.EditorFor(model => model.Address.CountryISO2, new { options = Model.Address.CountiresList, @class = "country" })
+                        <br /><br />
+                        <div style="width: 100%;">
+                            <label for="MarkettingOptIn" style="width: 95%;">
+                                <input type="checkbox" name="MarkettingOptIn" checked="@Model.MarkettingOptIn" id="MarkettingOptIn" style="width: 5%; margin:0;">
+                                I would like to receive marketing communications from Style Library
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="width: 95%; margin: 5px" />
+                <div style="width: 100%; margin-top: 5px">
+                    <button type="button" id="SendRequest" style="margin: 8px; float: right">Submit</button>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>

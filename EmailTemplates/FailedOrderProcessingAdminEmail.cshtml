@@ -1,0 +1,19 @@
+@using Colony.Util.Web
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>Order Failed</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>Order Failed</h2>
+<p>The order @Model.Transaction.OrderNumber has failed to be sent to Mertex for processing.</p>
+
+<h3>Error:</h3>
+<p>@Model.Error</p>
+
+<a href="@UriExtensions.AbsoluteUrl("/edit#transactions/edit/?id=" + Model.Transaction.Id)">Click here</a> to view the transaction.
+
+</body>
+</html>

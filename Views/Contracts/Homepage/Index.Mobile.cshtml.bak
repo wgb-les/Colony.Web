@@ -1,0 +1,116 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#fullpage').fullpage({
+			navigation: true,
+			navigationPosition: 'left'
+		});
+		$(".fullpageBlockItem").hover(function(){
+			$(this).children(".gridCaption").fadeToggle();
+	  });
+	});
+</script>
+<div id="fullpage">
+    <!-- slide 1 -->
+    <div class="section active" id="section0">
+        <div class="fullpageColumn column01">
+            <div class="fullpageBlockItem block01">
+                <a class="fullLink" href=""></a>
+                <div class="gridCaption">DISCOVER THE NEW MORRIS &amp; CO. COLLECTION</div>
+            </div>
+        </div>
+        @*<div class="fullpageColumn column02">
+                <div class="fullpageBlockItem block02">
+                    <a class="fullLink" href="/shop/wallpaper/definition-wallpapers/"></a>
+                    <div class="gridCaption">DISCOVER ANTHOLOGY DEFINITION</div>
+                </div>
+            </div>*@
+    </div>
+    <!-- slide 2 -->
+    <div class="section" id="section1">
+        <div class="fullpageColumn column03">
+            <div class="fullpageBlockItem block03">
+                <a class="fullLink" href="/shop/wallpaper/damask-wallpapers/"></a>
+                <div class="gridCaption">LUXURIOUS DAMASKS FROM ZOFFANY</div>
+            </div>
+        </div>
+        <div class="fullpageColumn column04">
+            <div class="fullpageBlockItem block04">
+                <a class="fullLink" href=""></a>
+                <div class="gridCaption">HERITAGE INSPIRED SCHEMES</div>
+            </div>
+        </div>
+    </div>
+    <!-- slide 3 -->
+    <div class="section" id="section2">
+        <div class="fullpageColumn column05">
+            <div class="fullpageBlockItem block05">
+                <a class="fullLink" href="/shop/wallpaper/entity-wallpapers/"></a>
+                <div class="gridCaption">ARCHITECTURAL WALLS</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<ul class="brand-list @(Colony.Commerce.ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA" ? "brand-list-7" : "brand-list-8")">
+	<li data-brand="contract">
+		<a href="/about-us" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/contract-tab.png" alt="Style Library Contract" style="max-width:50%;"/>
+			</span>
+		</a>
+	</li>
+	<li data-brand="zoffany">
+		<a href="/zoffany" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/zoffany-tab.png" alt="Zoffany" style="max-width:50%;"/>
+			</span>
+		</a>
+	</li>
+	<li data-brand="harlequin">
+		<a href="/harlequin" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/harlequin-tab.png" alt="Harlequin" style="max-width:65%;"/>
+			</span>
+		</a>
+	</li>
+	<li data-brand="anthology">
+		<a href="/anthology" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/anthology-tab.png" alt="Anthology" style="max-width:65%;"/>
+			</span>
+		</a>
+	</li>
+	<li data-brand="sanderson">
+		<a href="/sanderson" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/sanderson-tab.png" alt="Sanderson" style="max-width:55%;"/>
+			</span>
+		</a>
+	</li>
+	<li data-brand="morris">
+		<a href="/morris" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/morris-tab.png" alt="Morris &amp; Co" style="max-width:50%;"/>
+			</span>
+		</a>
+	</li>
+	<li data-brand="scion">
+		<a href="/scion" class="brand-toggle">
+			<span class="brand-toggle-inner">
+				<img src="/_images/brands/contracts/home/scion-tab.png" alt="Scion" style="max-width:25%;"/>
+			</span>
+		</a>
+	</li>
+    @if (Colony.Commerce.ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName != "USA")
+    {
+	<li data-brand="frone">
+        <a href="/frone" class="brand-toggle">
+            <span class="brand-toggle-inner">
+                <img src="/_images/brands/contracts/home/logo_FR_one.png" alt="FR One" style="max-width:50%;" />
+            </span>
+        </a>
+	</li>
+    }
+</ul>

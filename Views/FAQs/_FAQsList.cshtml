@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Colony.Modules.FAQs.Models.FAQ>
+@{
+    ViewContext.Controller.TempData["HasFAQs"] = Model.Any();
+}
+<ul class="moduleList faqAccordion">
+    @foreach (var faq in Model)
+    {
+        <li>
+            @{ Html.RenderPartial("Detail", faq); }
+        </li>
+    }
+</ul>

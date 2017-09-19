@@ -1,0 +1,936 @@
+{
+	"page": {
+		"label": "Edit Site",
+		"back": "/sites/",
+		"backdescription": "sites",
+		"messages": [{
+			"message": "EditSite",
+			"behaviourId": "CmsEditSite",
+			"trigger": "submit"
+		}]
+	},
+	"components": [{
+		"type": "datatable",
+		"label": "Test table",
+		"componentId": "datatable1",
+		"dataCollection": "sites",
+		"map": [
+            {
+              "friendlyName": "Name",
+              "source": "name"
+            },
+            {
+              "friendlyName": "Default Language",
+              "source": "languageId"
+            },
+            {
+              "friendlyName": "Type",
+              "source": "isMobile"
+            }
+          ],
+		  "actions": [
+            {
+              "icon": "pencil",
+              "url": "/edit/#/sites/edit/?id=<%=id%>",
+              "name": "Edit Site"
+            },
+            {
+              "icon": "sitemap",
+              "url": "/edit/#/pages/index/?siteId=<%=id%>",
+              "name": "Site Structure"
+            },
+            {
+              "icon": "globe",
+              "url": "/edit/#/sitedomains/index/?siteId=<%=id%>",
+              "name": "Domains"
+            },
+            {
+              "icon": "share-alt",
+              "url": "/edit/#/redirects/index/?siteId=<%=id%>",
+              "name": "Redirects"
+            }
+          ]
+		}, 
+		{
+		"type": "treeview",
+		"label": "Test table",
+		"componentId": "treeview1",
+		"dataCollection": "page",
+		"map": [
+            {
+              "friendlyName": "Page name",
+              "source": "name"
+            }
+          ],
+          "actions": [
+            {
+              "icon": "edit",
+              "url": "/edit/#/pages/edit/?id=<%=id%>"
+            },
+            {
+              "icon": "list-ul",
+              "url": "/edit/#/pagesections/index/?pageId=<%=id%>"
+            }
+          ]
+		}, {
+		"type": "file",
+		"label": "Upload File",
+		"componentId": "FileUpload1"
+		}, {
+		"type": "datetime",
+		"label": "Publish Start Date",
+		"componentId": "PublishStart"
+		}, {
+		"type": "number",
+		"label": "Numeric Field",
+		"componentId": "Numeric1"
+		}, {
+		"type": "image",
+		"label": "Upload Image",
+		"componentId": "ImageUpload1"
+		}, {
+		"type": "imagelibrary",
+		"label": "Upload Image",
+		"componentId": "ImageUpload2"
+		}, {
+		"type": "fieldset",
+		"label": "Basic Details",
+		"componentId": "BasicDetails",
+		"className": "half",
+		"components": [{
+			"type": "text",
+			"label": "Name",
+			"componentId": "Name",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.name"
+			}],
+			"validation": {
+				"required": true,
+				"minlength": 1,
+				"maxlength": 5
+			}
+		}, {
+			"type": "dropdown",
+			"label": "Language ID",
+			"componentId": "LanguageID",
+			"dataCollection": "languages",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.languageId"
+			}]
+		}, {
+			"type": "yesno",
+			"label": "Is this a mobile site",
+			"componentId": "IsMobile",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.isMobile"
+			}]
+		}, {
+			"type": "dropdown",
+			"label": "Mobile Site ID",
+			"componentId": "MobileSiteId",
+			"dataCollection": "sites",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.mobileSiteId"
+			}]
+		}, {
+			"type": "switch",
+			"label": "Is this site a Facebook tab application",
+			"componentId": "IsFacebook",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.isFacebook"
+			}]
+		}, {
+			"type": "text",
+			"label": "Facebook Application URL",
+			"componentId": "FacebookApplicationUrl",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.facebookApplicationUrl"
+			}]
+		}]
+	}, {
+		"type": "fieldset",
+		"label": "",
+		"componentId": "BasicDetails2",
+		"className": "half",
+		"components": [{
+			"type": "text",
+			"label": "Window Title",
+			"componentId": "WindowTitle",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.windowTitle"
+			}]
+		}, {
+			"type": "textarea",
+			"label": "Meta Description",
+			"componentId": "MetaDescription",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.metaDescription"
+			}],
+			"validation": {
+				"required": true,
+				"minlength": 1,
+				"maxlength": 5
+			}
+		}, {
+			"type": "text",
+			"label": "Meta Keywords",
+			"componentId": "MetaKeywords",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.metaKeywords"
+			}]
+		}, {
+			"type": "textarea",
+			"label": "Analytics Code",
+			"componentId": "SiteAnalyticsCode",
+			"map": [{
+				"friendlyName": "Value",
+				"source": "site.siteAnalyticsCode"
+			}]
+		}]
+	}, {
+		"type": "text",
+		"label": "Page Not Found Heading",
+		"componentId": "PageNotFoundHeading",
+		"map": [{
+			"friendlyName": "Value",
+			"source": "site.pageNotFoundHeading"
+		}]
+	}, {
+		"type": "richtext",
+		"label": "Page Not Found Content",
+		"componentId": "PageNotFoundContent",
+		"map": [{
+			"friendlyName": "Value",
+			"source": "site.pageNotFoundContent"
+		}]
+	}, {
+		"type": "hidden",
+		"label": "Site ID",
+		"componentId": "Id",
+		"map": [{
+			"friendlyName": "Value",
+			"source": "site.id"
+		}]
+	}, {
+		"type": "button",
+		"label": "Save",
+		"componentId": "SaveButton"		
+    }],
+    "data": {
+        "site": {
+            "name": "Test Site 1",
+            "isMobile": false,
+            "metaDescription": "meta desc",
+            "metaKeywords": "meta key",
+            "pageNotFoundContent": "<p>404 content</p>\r\n",
+            "pageNotFoundHeading": "404 heading",
+            "windowTitle": "Test Site 1",
+            "isFacebook": false,
+            "siteKey": "Harlequin",
+            "id": 1,
+            "created": "2013-05-01T00:00:00",
+            "deleted": false,
+            "name": "Test Site 1",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 1
+        },
+        "sites": [{
+            "isMobile": false,
+            "metaDescription": "meta desc",
+            "metaKeywords": "meta key",
+            "pageNotFoundContent": "<p>404 content</p>\r\n",
+            "pageNotFoundHeading": "404 heading",
+            "windowTitle": "Test Site 1",
+            "isFacebook": false,
+            "siteKey": "Harlequin",
+            "id": 1,
+            "created": "2013-05-01T00:00:00",
+            "deleted": false,
+            "name": "Test Site 1",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 1
+        }, {
+            "isMobile": false,
+            "metaDescription": "Lorem ipsum dolor sit amet consectetuer",
+            "metaKeywords": "chris,test,site,behaviour",
+            "pageNotFoundContent": "Lorem ipsum dolor sit amet consectetuer",
+            "pageNotFoundHeading": "404 Page Not Found",
+            "siteAnalyticsCode": "<script>alert('here');</script>",
+            "windowTitle": "Test Site Page",
+            "isFacebook": false,
+            "id": 3,
+            "created": "2013-06-20T11:51:01.02",
+            "deleted": false,
+            "name": "Test Site",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 1
+        }, {
+            "isMobile": false,
+            "metaDescription": "TEST 2",
+            "metaKeywords": "TEST",
+            "pageNotFoundContent": "404 content",
+            "pageNotFoundHeading": "404",
+            "siteAnalyticsCode": "<script>alert('here');</script>",
+            "windowTitle": "TEST 2 Title",
+            "isFacebook": false,
+            "id": 4,
+            "created": "2013-06-20T14:22:02.36",
+            "deleted": false,
+            "name": "TEST 2",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 2
+        }, {
+            "isMobile": false,
+            "metaDescription": "TEST 2",
+            "metaKeywords": "TEST",
+            "pageNotFoundContent": "404 content",
+            "pageNotFoundHeading": "404",
+            "siteAnalyticsCode": "<script>alert('here');</script>",
+            "windowTitle": "TEST 2 Title",
+            "isFacebook": false,
+            "id": 5,
+            "created": "2013-06-20T14:23:37.147",
+            "deleted": false,
+            "name": "TEST 2",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 2
+        }],
+        "languages": [{
+            "isMobile": false,
+            "metaDescription": "meta desc",
+            "metaKeywords": "meta key",
+            "pageNotFoundContent": "<p>404 content</p>\r\n",
+            "pageNotFoundHeading": "404 heading",
+            "windowTitle": "Test Site 1",
+            "isFacebook": false,
+            "siteKey": "Harlequin",
+            "id": 1,
+            "created": "2013-05-01T00:00:00",
+            "deleted": false,
+            "name": "Test Language 1",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 1
+        }, {
+            "isMobile": false,
+            "metaDescription": "Lorem ipsum dolor sit amet consectetuer",
+            "metaKeywords": "chris,test,site,behaviour",
+            "pageNotFoundContent": "Lorem ipsum dolor sit amet consectetuer",
+            "pageNotFoundHeading": "404 Page Not Found",
+            "siteAnalyticsCode": "<script>alert('here');</script>",
+            "windowTitle": "Test Site Page",
+            "isFacebook": false,
+            "id": 3,
+            "created": "2013-06-20T11:51:01.02",
+            "deleted": false,
+            "name": "Test Site",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 1
+        }, {
+            "isMobile": false,
+            "metaDescription": "TEST 2",
+            "metaKeywords": "TEST",
+            "pageNotFoundContent": "404 content",
+            "pageNotFoundHeading": "404",
+            "siteAnalyticsCode": "<script>alert('here');</script>",
+            "windowTitle": "TEST 2 Title",
+            "isFacebook": false,
+            "id": 4,
+            "created": "2013-06-20T14:22:02.36",
+            "deleted": false,
+            "name": "TEST 2",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 2
+        }, {
+            "isMobile": false,
+            "metaDescription": "TEST 2",
+            "metaKeywords": "TEST",
+            "pageNotFoundContent": "404 content",
+            "pageNotFoundHeading": "404",
+            "siteAnalyticsCode": "<script>alert('here');</script>",
+            "windowTitle": "TEST 2 Title",
+            "isFacebook": false,
+            "id": 5,
+            "created": "2013-06-20T14:23:37.147",
+            "deleted": false,
+            "name": "TEST 2",
+            "dataTypeName": "Colony.Models.Core.Sites.Site",
+            "displayName": "Site",
+            "languageId": 2
+        }],
+		"page": [
+		  {
+			"heading": "Homepage",
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 0,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 4,
+			"created": "2013-05-01T00:00:00",
+			"deleted": false,
+			"uri": "/",
+			"name": "Home",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 209,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 7,
+			"created": "2013-05-13T15:58:43.46",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 15:58:43",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 210,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 8,
+			"created": "2013-05-13T17:42:36.06",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 17:41:58",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"heading": "Test Page heading",
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 211,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 9,
+			"created": "2013-05-13T18:19:13.647",
+			"deleted": false,
+			"uri": "/Test-page-13-05-2013-18-19-13/",
+			"name": "Test page 13/05/2013 18:19:13",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 212,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 10,
+			"created": "2013-05-13T18:19:13.81",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:19:14",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 213,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 11,
+			"created": "2013-05-13T18:19:56.47",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:19:56",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 214,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 12,
+			"created": "2013-05-13T18:19:56.543",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:19:56",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 215,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 13,
+			"created": "2013-05-13T18:23:55.023",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:23:55",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 216,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 14,
+			"created": "2013-05-13T18:23:55.08",
+			"deleted": false,
+			"uri": "",
+			"name": "Updated",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 217,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 15,
+			"created": "2013-05-13T18:28:24.21",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:28:24",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 218,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 16,
+			"created": "2013-05-13T18:28:24.243",
+			"deleted": false,
+			"uri": "",
+			"name": "Updated",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 219,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 17,
+			"created": "2013-05-13T18:28:56.477",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:28:56",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 220,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 18,
+			"created": "2013-05-13T18:28:56.51",
+			"deleted": false,
+			"uri": "",
+			"name": "Updated",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 221,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 19,
+			"created": "2013-05-13T18:29:58.337",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:29:58",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 222,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 20,
+			"created": "2013-05-13T18:29:58.373",
+			"deleted": false,
+			"uri": "",
+			"name": "Updated",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 223,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 21,
+			"created": "2013-05-13T18:31:23.743",
+			"deleted": false,
+			"uri": "",
+			"name": "Test page 13/05/2013 18:31:14",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"showInMenu": 0,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": false,
+			"httpsRequired": false,
+			"order": 224,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 0,
+			"moderationStatus": 0,
+			"moderationDescription": "Page",
+			"id": 22,
+			"created": "2013-05-13T18:31:32.943",
+			"deleted": false,
+			"uri": "",
+			"name": "Updated",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"parentId": 4,
+			"showInMenu": 1,
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": true,
+			"httpsRequired": false,
+			"order": 225,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 5,
+			"moderationStatus": 5,
+			"moderationDescription": "Page",
+			"id": 53,
+			"created": "2013-05-30T00:00:00",
+			"deleted": false,
+			"uri": "/edit/members/authentication/login/",
+			"name": "Login",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  },
+		  {
+			"parentId": 4,
+			"showInMenu": 1,
+			"moduleActionUri": "shops/shop/browse",
+			"showInSiteMap": false,
+			"showInSearch": false,
+			"isVisible": true,
+			"httpsRequired": false,
+			"order": 226,
+			"pageSections": [],
+			"userId": "00000000-0000-0000-0000-000000000000",
+			"moderationStatusId": 5,
+			"moderationStatus": 5,
+			"moderationDescription": "Page",
+			"id": 61,
+			"created": "2013-07-05T00:00:00",
+			"deleted": false,
+			"uri": "/shop",
+			"name": "Shop",
+			"dataTypeName": "Colony.Models.Core.Pages.Page",
+			"displayName": "Page",
+			"siteId": 1,
+			"site": {
+			  "isMobile": false,
+			  "isFacebook": false,
+			  "id": 0,
+			  "deleted": false,
+			  "dataTypeName": "Colony.Models.Core.Sites.Site",
+			  "displayName": "Site"
+			}
+		  }
+		]
+    }
+}

@@ -1,0 +1,48 @@
+﻿@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model WalkerGreenbank.Modules.Studio.Areas.Models.StudioItemViewModel
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+
+<li class="scrapItem">
+    <article class="details recentlyViewedPod no-drag" data-productcode="@(Model.SkuId != null ? Model.Code : Model.Attributes.GetValueOrNull("Design Code"))">
+        <figure class="left">
+            <img src="@Url.ImageUrl(Model.ImageAssetId, "ProductCatalogue", "ProductThumbnail")" alt="@Model.Name">
+        </figure>
+        <div class="left rightCol">
+            @if (Model.Product != null)
+            {
+                <a href="/shop/@Url.ProductUrl(Model.Product)?code=@Model.Sku.Code">
+                    <h3>
+                        <span>@Model.Name</span></h3>
+                </a>
+            }
+            else
+            {
+                <h3>@Model.Name</h3>
+            }
+            <br/>
+            <br/>
+            <h4>@Model.Attributes.GetValueOrNull("Design Code")</h4>
+            <h4>@Model.Attributes.GetValueOrNull("Product Group")</h4>
+            <h4>
+                <span class="price">&nbsp;</span></h4>
+            @if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+            {
+                <a class="block button left b2baddtobasket b2bdisabled" style="margin-bottom: 10px;" href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", skuId = Model.SkuId})">Add to Basket</a>
+                <br/>
+                <br/>
+            }
+            @if (Model.SkuId != null && (int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0))
+            {
+                <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.SkuId})" class="block button left addToBasket @if (isB2B)
+                                                                                                                                                                                                                 {
+                                                                                                                                                                                                                     <text>b2baddsampletobasket</text>
+                                                                                                                                                                                                                 }">
+                    Order a sample
+                </a>
+            }
+            <a href="@Url.Action("DeleteScrap", "Studio", new {area = "Studio", studioItemId = Model.StudioItemId, returnUrl = Request.Url.AbsoluteUri.IndexOf("savescrap") > 0 ? "" : Request.Url.AbsoluteUri})" class="deleteScrap button-close"></a>
+        </div>
+    </article>
+</li>

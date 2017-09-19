@@ -1,0 +1,48 @@
+﻿@model IEnumerable<object>
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+    var options = ViewData["options"] as MultiSelectList;
+}
+
+<fieldset class="optionList">
+    <legend>@fieldName</legend>
+    <div class="label">
+        <h2>
+            @displayText
+            @if (isRequired)
+            {
+                <span class="required">Required</span>
+            }
+        </h2>
+    </div>
+    @*@Html.CustomStyledValidationMessageFor(x => x)*@
+
+    @Html.ValidationMessageFor(t => t)
+    @if (options != null)
+    {
+        <ul>
+            @{
+                var i = 1;
+
+                foreach (var item in options)
+                {
+                    var itemId = fieldName + "_" + i;
+                    var selected = Model != null && Model.Contains(item.Value);
+                    <li>
+                        <input type="checkbox" value="@item.Value" id="@itemId" name="@fieldName" @if (selected)
+                                                                                                  {
+                                                                                                      <text>checked="checked"</text>
+                                                                                                  }/>
+                        <label for="@itemId">@item.Text</label>
+                    </li>
+
+                    i++;
+                }
+            }
+        </ul>
+    }
+</fieldset>

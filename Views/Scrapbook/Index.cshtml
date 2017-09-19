@@ -1,0 +1,14 @@
+﻿@model List<WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel>
+@{
+    ViewBag.Title = "Scrapbooks";
+}
+@Html.Partial("~/Views/AccountArea/AccountMenu.cshtml", "Scrapbooks")
+<div id="content" class="">
+    <h1>Your Scrapbooks</h1>
+
+    @foreach (var scrapbook in Model)
+    {
+        <a href="@Url.Action("Detail", new {id = scrapbook.Id})" title="@scrapbook.Name">@scrapbook.Name</a>
+    }
+
+</div>

@@ -1,0 +1,21 @@
+<div class="item scrapAdd" data-studioitemid="<%=rc.StudioItemId%>" data-skuid="<%=rc.SkuId%>" data-imageassetid="<%=rc.ImageAssetId%>" style="">
+    <a>
+        <img src="/_assets/images/cloud/<%=rc.ImageAssetId%>/productcatalogue/productdetailzoom/" alt="<%=rc.Name%>" data-image-zoom="/_assets/images/cloud/<%=rc.ImageAssetId%>/productcatalogue/productdetailzoom/">
+        <h3 class="itemTitle Harlequin"><%=rc.Name%></h3>
+        <ul>
+            <% if (rc.Attributes && rc.Attributes["Design Code"]) { %>
+            <li><%=rc.Attributes["Design Code"] %></li>
+            <% } %>
+            <% if (rc.Attributes && rc.Attributes["Product Group"]) { %>
+            <li><%=rc.Attributes["Product Group"] %></li>
+            <% } %>
+        </ul>
+    </a>
+    <div class="actions">
+        <a href="#" class="plus">
+            <span>Add</span></a>
+        <a href="/scrapbook/scraps/deletescrap/?studioItemId=<%=rc.StudioItemId%>" class="remove">
+            <span>Remove</span>
+        </a>
+    </div>
+</div>

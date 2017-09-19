@@ -1,0 +1,55 @@
+﻿@model Colony.Modules.Timeline.Areas.Models.ViewModels.Edit.ListTimelineItemsViewModel
+
+@{
+    ViewBag.Title = "Manage Timeline";
+}
+
+<div id="content">
+    @if (Model.TimelineItems != null && Model.TimelineItems.Any())
+    {
+        <ul class="manageList">
+            @foreach (var timelineItem in Model.TimelineItems)
+            {
+                <li class="item">
+                    <span class="title">@timelineItem.Name (@timelineItem.StartDate.ToShortDateString())</span>
+                    <ul class="actions">
+                        <li>
+                            <a class="button" href="@Url.Action("Edit", new {timelineItemId = timelineItem.Id})">Edit</a>
+                        </li>
+                        <li>
+                            <a class="button delete" href="@Url.Action("Delete", new {timelineItemId = timelineItem.Id})">Delete</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="alertInfo message">
+            There are currently no timeline events.
+        </div>
+    }
+
+    <div id="addSection" class="contentForm">
+        <form action="?" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <header>
+                <h1>Add an Event</h1>
+            </header>
+
+            @Html.EditorFor(x => x.NewTimelineItem)
+
+            <fieldset class="formControls">
+                <legend>Form actions</legend>
+                <ul>
+                    <li>
+                        <input type="submit" value="Add Event" name="Add Event" class="formButton">
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </div>
+</div>
+@*@Html.Partial("MediaItemJavascript")*@

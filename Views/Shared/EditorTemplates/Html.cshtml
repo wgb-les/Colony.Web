@@ -1,0 +1,28 @@
+﻿@model string
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var fieldId = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+}
+<script type="text/ecmascript" src="~/Scripts/ColonyCMS/libs/ckeditor/ckeditor.js"></script>
+<div class="field textarea">
+    <label for="@fieldName">
+        @displayText
+        @if (isRequired)
+        {
+            <span class="required">Required</span>
+        }
+    </label>
+    <div class="clear"></div>
+    @*@Html.CustomStyledValidationMessageFor(x => x)*@
+
+    @Html.ValidationMessageFor(t => t)
+    @Html.TextAreaFor(x => x)
+</div>
+<script type="text/javascript">
+    $(function() {
+        CKEDITOR.replace('@fieldId');
+    });
+</script>

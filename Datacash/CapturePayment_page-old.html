@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Payment Page</title>
+    <link href="__DYNAMIC_DATA_FIELD_1__" type="text/css" rel="Stylesheet"/>
+    <link href="__DYNAMIC_DATA_FIELD_2__" type="text/css" rel="Stylesheet"/>
+    <!--[if IE]>
+        <link href="__DYNAMIC_DATA_FIELD_3__" type="text/css" rel="Stylesheet"/>
+        <link href="__DYNAMIC_DATA_FIELD_4__" type="text/css" rel="Stylesheet"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body class="harlequinSite">
+<div id="container" role="main">
+    <div id="content">
+        <div class="boxSection checkoutPayment editable">
+            <div class="header">
+                <h2>Payment Details</h2>
+            </div>
+            <form action="?" method="post" autocomplete="off" class="contentForm">
+                <fieldset>
+                    <legend>Payment Details</legend>
+                    <div class="alertInfo message">
+                        <span>Your card will be debited with __AMOUNT__ __CURRENCY__ when you click the continue button. This will be refunded if your offer is refused.
+								<br />
+								<br />
+							Please complete the fields below and click pay now
+								<br />
+								<br />
+							__ERROR_MESSAGE__
+							</span>
+                    </div>
+                    <div class="field text">
+                        <label for="card_number">
+                            Card number
+                            <span class="required">Required</span>
+                        </label>
+                        <input name="card_number" id="card_number" maxlength="23" size="26" type="text" style="width: 180px;" placeholder="e.g. 123412341234"/>
+                    </div>
+                    <div class="field text">
+                        <label for="exp_month">
+                            Expiry date <span>(MM/YYYY)</span>
+                            <span class="required">Required</span>
+                        </label>
+                        <input name="exp_month" id="exp_month" style="width: 30px;" placeholder="MM" type="text" maxlength="2"/><span class="divider">/</span><input name="exp_year" id="exp_year" style="width: 40px;" placeholder="YYYY" type="text" maxlength="4"/>
+                    </div>
+                    <div class="field text">
+                        <label for="cv2_number">
+                            Card security code
+                            <span class="required">Required</span>
+                        </label>
+                        <input type="text" name="cv2_number" style="width: 40px;" maxlength="4" id="cv2_number"/>
+                    </div>
+                    <div class="field text">
+                        <label for="issue_number">Issue number</label>
+                        <input type="text" name="issue_number" style="width: 40px;" maxlength="4"/>
+                        <span>(if available)</span>
+                    </div>
+
+                    <input value="__SESSION_ID__" name="HPS_SessionID" type="hidden"/>
+                    <input value="confirm" name="action" type="hidden"/>
+                </fieldset>
+                <div class="basketTotals">
+                    <dl>
+                        <!--<dt>Payment reference</dt>
+                        <dd>__MERCHANT_REF__</dd>-->
+                        <dt class="even total">Total</dt>
+                        <dd class="even total">__AMOUNT__ __CURRENCY__</dd>
+                    </dl>
+                    <ul>
+                        <li>
+                            <img src="https://www.stylelibrary.com/_images/icons/payment/maestro.png" alt="Maestro"/>
+                        </li>
+                        <li>
+                            <img src="https://www.stylelibrary.com/_images/icons/payment/mastercard.png" alt="Mastercard"/>
+                        </li>
+                        <li>
+                            <img src="https://www.stylelibrary.com/_images/icons/payment/amex.png" alt="American Express"/>
+                            <span style="font-size: 0.9em;">(USA ONLY)</span>
+                        </li>
+                        <li>
+                            <img src="https://www.stylelibrary.com/_images/icons/payment/paypal.png" alt="Paypal"/>
+                        </li>
+                        <li>
+                            <img src="https://www.stylelibrary.com/_images/icons/payment/visa.png" alt="Visa"/>
+                        </li>
+                        <li>
+                            <img src="https://www.stylelibrary.com/_images/icons/payment/visa-electron.png" alt="Visa Electron"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="field formControls">
+                    <input type="submit" name="continue" value="Pay Now" id="continue" class="button"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

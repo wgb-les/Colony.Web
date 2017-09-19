@@ -1,0 +1,15 @@
+﻿@model WalkerGreenbank.Modules.AsSeenIn.Models.AsSeenInCategory
+
+<li>
+    <article>
+        <a href="/as-seen-in@(Model.Uri)" class="thumbnail">
+            <img src="@Url.ImageUrl(Model.ImageAssetId, "AsSeenIn", "ProductCategoryThumbnail", @"/_images/placeholders/moduleList.jpg")" alt="@Model.Name">
+        </a>
+        <div class="details">
+            <h3>
+                <a href="/as-seen-in@(Model.Uri)">@Model.Name</a>
+            </h3>
+            <p>@Model.ShortDescription</p>
+        </div>
+    </article>
+</li>

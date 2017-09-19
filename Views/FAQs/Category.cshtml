@@ -1,0 +1,30 @@
+﻿@model Colony.Modules.FAQs.Areas.Models.CategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.WindowTitle);
+    Html.AppendMetaKeywords(Model.Category.MetaKeywords);
+    Html.SetMetaDescription(Model.Category.MetaDescription);
+}
+<script type="text/javascript">
+    $('body').addClass('faqs');
+</script>
+<div id="content" class="">
+
+    <header class="pageHeader">
+        <h1>@Model.Category.Name</h1>
+        @Html.Raw(Model.Category.LongDescription)
+    </header>
+    @{ Html.RenderPartial("_CategoryList", Model.FAQCategories); }
+
+    <section class="moduleSection faqs">
+        <h2>FAQs</h2>
+        @{ Html.RenderPartial("_FAQsList", Model.FAQs); }
+    </section>
+    <nav class="pageOptions" role="navigation">
+        <ul>
+            <li>
+                <a href="@ViewBag.PreviousUrl" class="prev">
+                    <span>Back to List</span></a>
+            </li>
+        </ul>
+    </nav>
+</div>

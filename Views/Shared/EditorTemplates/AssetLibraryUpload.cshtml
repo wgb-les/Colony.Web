@@ -1,0 +1,45 @@
+﻿@model Colony.Util.Web.Upload.AssetLibraryUpload
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var assetUrlFieldName = fieldName + "_AssetUrl";
+    var uploadFieldName = fieldName;
+    var removeFieldName = fieldName + "_Remove";
+
+    var currentAssetUrl = string.Empty;
+    var currentRemove = false;
+
+    if (Model != null)
+    {
+        currentAssetUrl = Model.AssetUrl;
+        currentRemove = Model.RemoveFile;
+    }
+}
+
+<div class="file field">
+    @Html.CustomLabelFor(x => x)
+
+    @Html.CustomStyledValidationMessageFor(x => x)
+
+    @*@if (!string.IsNullOrEmpty(currentAssetUrl))
+	{
+		<div class="imgPreview">
+			<img alt="Preview" src="@Url.AssetLibraryImage(currentAssetUrl)" />
+			<input id="@assetUrlFieldName" name="@assetUrlFieldName" type="hidden" value="@currentAssetUrl" />
+			@if (!isRequired)
+			{
+			<div class="checkbox">
+				<input type="checkbox" value="1" id="@removeFieldName" name="@removeFieldName" />
+				<label for="@removeFieldName">
+					Delete current file.
+				</label>
+			</div>
+			}
+		</div>
+	}*@
+    <input type="file" name="@uploadFieldName" id="@uploadFieldName"/>
+</div>

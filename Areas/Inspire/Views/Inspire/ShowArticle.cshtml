@@ -1,0 +1,76 @@
+﻿@model Colony.Web.Areas.Inspire.Models.InspireArticleViewModel
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Areas/Inspire/Views/Shared/InspireTemplate.cshtml";
+}
+<div class="breadcrumbsContainer">
+    <ul>
+        <li class="fa-angle-right"><a href="/">Home</a></li>
+        <li class="fa-angle-right"><a href="/inspire">Inspire</a></li>
+    </ul>
+</div>
+<div style="clear:both;"></div>
+<div class="row">
+    <div id="sl-modal" class="modal">
+        <!-- ---------- Share Popup ---------- -->
+            @{Html.RenderAction("Share", "Share", new { area = "Sharing"});}
+        </div>
+
+        <div class="large-12 columns">
+            @{
+                if (Model.Article.Count() > 0)
+                {
+                    var displayArticle = Model.Article.FirstOrDefault();
+                    <div id="inspire-article" class="row">
+                        <div class="medium-12 large-8 columns">
+
+                            <ul class="articleOptions pull-right moduleShare">
+                                <div class="sl-trigger-share sl-icon sl-trigger-modal fa-share-alt"></div>
+                            </ul>
+
+                            <div class="InspireArticleBody">
+                                @Html.Raw(displayArticle.ArticleBody)
+                            </div>
+                        </div>
+
+                        <div class="medium-12 large-4 columns">
+                            <div class="InspireArticleArchive">
+                                <h2>Archive</h2>
+                                    @foreach (var articleType in Model.ArticleTypes)
+                                    {
+                                        <span class="InspireArchiveArticleTitle">@articleType.ArticleType</span><br />
+
+                                        <div class="InspireArchiveLink">
+                                            <ul>
+                                                @foreach (var article in articleType.Articles)
+                                                {
+                                                    <li class="InspireArchiveArticle">
+                                                        <a href="@article.ArticleURL">
+                                                            <img src="@article.Thumbnail" alt="@article.Title"/>
+                                                            <div>
+                                                                <p>
+                                                                    <span class="InspireArchiveArticleTitle">@article.Title</span><br/>
+                                                                    <span class="InspireArchiveArticleDate">Published on @(article.DateCreated.Day)/@(article.DateCreated.Month)/@article.DateCreated.Year</span>
+                                                                    <br/><span>@article.ShortDescription</span>
+                                                                </p>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="Error">An error has occured</div>
+                }
+            }
+        </div>
+    </div>
+

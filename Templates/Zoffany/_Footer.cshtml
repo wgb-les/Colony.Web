@@ -1,0 +1,260 @@
+﻿@using Colony.CMS
+@using StackExchange.Profiling
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+<!-- Country Selection Begin -->
+<div class="reveal-modal medium" id="selectCountry">
+</div>
+<!-- Country Selection End-->
+@{ Html.RenderAction("BrandNavigation", "GlobalNavigation", new {area = "Homepages", isMobile = true}); }
+<div class="bottomMenu" id="explore">
+    <div class="scroller">
+        @Html.Action("Index", "DeepLinks", new {area = "DeepLinks"})
+    </div>
+</div>
+<div class="bottomMenu" id="studio">
+    <div class="scroller">
+        @{ Html.RenderAction("List", "Studio", new {area = "Studio"}); }
+    </div>
+</div>
+<div class="bottomMenu" id="deepLinks">
+    <div class="scroller">
+        <div class="inspirationCategories">
+            <div class="intro i-section">
+                <h2>Inspire</h2>
+                <p>Zoffany’s styling team go to great lengths to create aspirational interiors of exquisite taste. Search by style, room or colour for some of our favourite images taken in recent years to inspire and invigorate you to create beautiful rooms.</p>
+            </div>
+            @{ Html.RenderAction("Footer", "Inspirations", new {area = "Inspirations"}); }
+        </div>
+    </div>
+</div>
+<div class="bottomMenu" id="featured">
+    @{ Html.RenderAction("FeaturedContent", "Featured", new {area = "Featured"}); }
+</div>
+@Html.Action("RecentlyViewedProducts", "WgShop", new {area = "CustomShops"})
+<div id="map_content">
+    <a class="closeMaps button">Close Maps</a>
+    <div id="map_canvas"></div>
+</div>
+@Html.Action("Footer", "Stockist", new {area = "Stockists"})
+<div id="cookiePolicy">
+    <a href="/privacy-policy/" title="Privacy policy">
+        <h2>Privacy Policy & Cookies</h2>
+    </a>
+    <p>This website uses cookies to provide you with the best possible user experience. </p>
+    <p>
+        <a href="/privacy-policy/" title="Privacy Policy">Read more</a>
+    </p>
+    <a id="cookieClose" class="icon-remove" href="#">Close</a>
+</div>
+<a class="back-to-top icon icon-arrow-up" href="#top">
+    <span>Back to top</span></a>
+
+<div id="corporateInfo">
+    <div class="footerInner">
+        <p class="copyright">&copy; zoffany&nbsp;@DateTime.UtcNow.Year - Zoffany is A Trading Division of Abaris Holdings Limited, Company No. 1167325. A Company Registered in England &amp; Wales.</p>
+        <ul class="ulInline">
+            <li>
+                <a href="/about/" class="">About Us</a>
+            </li>
+            <li>
+                <a href="/contact-us/" class="">Contact Us</a>
+            </li>
+            <li>
+                <a href="/jobs/" class="">Careers</a>
+            </li>
+            <li>
+                <a href="/accessibility/" class="">Accessibility</a>
+            </li>
+            <li>
+                <a href="/terms-and-conditions/" class="">Terms & Conditions</a>
+            </li>
+            <li>
+                <a href="/trade/" class="">Trade Area</a>
+            </li>
+            <li>
+                <a href="/press/" class="">Press Area</a>
+            </li>
+            <li>
+                <a href="/brochures/" class="">Download Brochures</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<ul class="mobileCorporateMenu mobMoreInfo">
+    <li>
+        <p class="copyright">&copy; zoffany&nbsp;@DateTime.UtcNow.Year - Zoffany is A Trading Division of Abaris Holdings Limited, Company No. 1167325. A Company Registered in England &amp; Wales.</p>
+    </li>
+    <li>
+        <a href="/about/" class="">
+            <span class="icon-angle-right">ABOUT US</a>
+    </li>
+    <li>
+        <a href="/contact-us/" class="">
+            <span class="icon-angle-right">CONTACT US</a>
+    </li>
+    <li>
+        <a href="/jobs/" class="">
+            <span class="icon-angle-right">CAREERS</a>
+    </li>
+    <li>
+        <a href="/accessibility/" class="">
+            <span class="icon-angle-right">ACCESSIBILITY</a>
+    </li>
+    <li>
+        <a href="/terms-and-conditions/" class="">
+            <span class="icon-angle-right">TERMS &amp; CONDITIONS</a>
+    </li>
+    <li>
+        <a href="/trade/" class="">
+            <span class="icon-angle-right">TRADE AREA</a>
+    </li>
+    <li>
+        <a href="/press/" class="">
+            <span class="icon-angle-right">PRESS AREA</a>
+    </li>
+    <li>
+        <a href="/brochures/" class="">
+            <span class="icon-angle-right">TRADE AREA</a>
+    </li>
+</ul>
+
+<footer id="footer">
+    <div class="socialFooter">
+        <a target="_blank" href="https://www.facebook.com/ZoffanyFabricsandWallpapers">
+            <li class="footerFacebook"></li>
+        </a>
+        <a target="_blank" href="https://twitter.com/ZoffanyFW">
+            <li class="footerTwitter"></li>
+        </a>
+        <a target="_blank" href="https://www.pinterest.com/ZoffanyFW/">
+            <li class="footerPinterest"></li>
+        </a>
+        <a target="_blank" href="https://instagram.com/zoffanyfw/">
+            <li class="footerInstagram"></li>
+        </a>
+    </div>
+    <div class="footerInner">
+        <ul class="footerToggles corporateToggle left">
+            <li>
+                <a href="#" class="toggleMoreInfo">
+                    <span><b class="icon-caret-up"></b>More</span></a>
+            </li>
+        </ul>
+        <a href="#" class="toggleMoreInfoMob">
+            <span><b class="icon-caret-up"></b>More</span></a>
+        <a href="#" class="toggle">
+            <span>Footer Toggle</span></a>
+        <ul class="footerToggles long">
+            <li>
+                <a href="#" class="toggleExplore">
+                    <span>Explore</span></a>
+            </li>
+            <li>
+                <a href="/inspirations" class="">
+                    <span>Inspire</span></a>
+            </li>
+            <li>
+                <a href="#" class="toggleScrapbook">
+                    <span>Scrapbook</span></a>
+            </li>
+            <li>
+                <a href="#" class="toggleRecent">
+                    <span>Recently Viewed</span></a>
+            </li>
+            <li>
+                <a href="/stockists" class="toggleStockist">
+                    <span>Where to Buy</span></a>
+            </li>
+            <li>
+                <a href="#" class="toggleFeatured">
+                    <span>Featured</span></a>
+            </li>
+        </ul>
+        <ul class="footerToggles short">
+            <li>
+                <a href="#" class="toggleExplore">
+                    <span>Explore</span></a>
+            </li>
+            <li>
+                <a href="/inspirations" class="">
+                    <span>Inspire</span></a>
+            </li>
+            <li>
+                <a href="#" class="toggleScrapbook">
+                    <span>Scrapbook</span></a>
+            </li>
+            <li>
+                <a href="#" class="toggleRecent">
+                    <span>Recent</span></a>
+            </li>
+            <li>
+                <a href="/stockists" class="toggleStockist">
+                    <span>Where to Buy</span></a>
+            </li>
+            <li>
+                <a href="#" class="toggleFeatured">
+                    <span>Featured</span></a>
+            </li>
+        </ul>
+
+    </div>
+</footer>
+
+@Scripts.Render("~/_js/bundle")
+@if (Request.Url.AbsolutePath == "/" && ViewContext.HttpContext.IsTablet())
+{
+    <script src="/_js/brands/zoffany/ipad.js" type="text/javascript"></script>
+}
+else if (Request.Url.AbsolutePath == "/" && !ViewContext.HttpContext.IsMobile())
+{
+    <script src="/_js/brands/zoffany/desktop.js" type="text/javascript"></script>
+}
+@if (HttpContext.Current.IsDebuggingEnabled)
+{
+    @MiniProfiler.RenderIncludes()
+}
+@*<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js" type="text/javascript"></script>*@
+@if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+{
+    <script src="~/_js/shared/b2b.js?v=1"></script>
+}
+<script src="~/_js/shared/jquery.fullPage.js"></script>
+<script>
+    $(document).foundation();
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".closeMaps").click(function() {
+            $("#whereToBuy").hide();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var MTIProjectId = '12f9cc66-8fc6-40a3-bd8a-050837a8d95b';
+    (function() {
+        var mtiTracking = document.createElement('script');
+        mtiTracking.type = 'text/javascript';
+        mtiTracking.async = 'true';
+        mtiTracking.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//fast.fonts.net/t/trackingCode.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mtiTracking);
+    })();
+</script>
+<script type="text/javascript">
+    if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+        document.write('<link rel="stylesheet" type="text/css" href="/_css/brands/mac.css" />');
+    }
+</script>
+
+@*<script type="text/javascript">
+	$(window).load(function(){
+		$('.freetile').freetile({
+			animate: true,
+			elementDelay: 20
+		});
+	});
+</script>*@
+
+@Html.Partial("~/Templates/_TimeTravelNotice.cshtml")
+@Html.Hidden("SiteKey", ColonyContext.Current.CurrentSite.SiteKey, new {id = "SiteKey"})

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Colony.Modules.Blog.Models.BlogPost>
+@{
+    ViewContext.Controller.TempData["HasBlogs"] = Model.Any();
+}
+<ul class="articleList">
+    @foreach (var blog in Model)
+    {
+        <li>
+            <article class="media">
+                <a href="@Url.SanitiseUrl("blogs", blog.Uri)" class="thumbnail img">
+                    @if (blog.ImageAssetId != null)
+                    {
+                        <img src="@Url.ImageUrl(blog.ImageAssetId, "Blogs", "ModuleListThumbnail", @"/_images/placeholders/moduleList.jpg")" alt="@blog.Name"/>
+                    }
+                    else
+                    {
+                        //TODO: REPLACE WITH A PLACEHOLDER 
+                        <img src="/_images/placeholders/moduleList.jpg" alt="@blog.Name"/>
+                    }
+                </a>
+                <div class="details bd">
+                    <header>
+                        <h3>
+                            <a href="@Url.SanitiseUrl("blogs", blog.Uri)">@blog.Name</a>
+                        </h3>
+                        <dl>
+                            <dt>Date</dt><dd>
+                                <time datetime="@((blog.PublishStart ?? blog.Created).Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz"))">@((blog.PublishStart ?? blog.Created).Value.ToString("dd MMMM yyyy"))</time>
+                            </dd>
+                            <dt class="hidden">Comments</dt><dd></dd>
+                            @if (!string.IsNullOrWhiteSpace(blog.Tags))
+                            {
+                                <dt>Tags</dt>
+                                <dd>@blog.Tags</dd>
+                            }
+                        </dl>
+                    </header>
+                    @blog.ShortDescription
+                </div>
+            </article>
+        </li>
+    }
+</ul>

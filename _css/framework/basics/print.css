@@ -1,0 +1,46 @@
+#header {
+    padding: 0 0 1.5em 0;
+    position: static;
+}
+
+#header .inner { height: auto !important; }
+
+#header .logo {
+    height: auto !important;
+    text-indent: 0;
+    width: auto !important;
+}
+
+#header .logo img { width: 50%; }
+
+#container { padding: 0; }
+
+#container.articleCol { width: 100%; }
+
+#content { width: 100% !important; }
+
+#content h1 {
+    margin: 0 0 1em 0;
+    padding: 0;
+}
+
+.infoContainer, .content-furnitureAccordion { display: block !important; }
+
+.carousel li { float: none; }
+
+.productDetails h1 { margin: 0.5em 0 0 0; }
+
+.productPage .productDetails .productList { display: none; }
+
+.productPage .productList {
+    float: left;
+    width: 100%;
+}
+
+.productPage .productList img { width: 100px; }
+
+.galleryContainer { margin-bottom: 1em; }
+
+.inspirationCarousel { page-break-after: always; }
+
+#footer, #corporateInfo, #siteLinks, #nav, .searchSite, .searchPanel, .bottomMenu, #map_content, .notification, .breadcrumb, .leftCol, #comments .button, #postComment, .pageOptions, .morrisHistory, .inspirationActions, .inspirationHeader .toggle, .orbit-prev, .orbit-next, .orbit-bullets, .inspirationContent, a.print, .articleOptions, .productOptions, .pagination, .imageMiniBasket, .show-for-small, #productFilters, .imageSizeOptions, .galleryToggles, .tabs, #cookiePolicy { display: none !important; }

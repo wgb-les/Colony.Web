@@ -1,0 +1,43 @@
+﻿@model object
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var options = ViewData["options"] as SelectList;
+}
+
+<fieldset class="optionList">
+    <legend>@fieldName</legend>
+    @displayText
+    @if (isRequired)
+    {
+        <span class="required">Required</span>
+    }
+	    @*@Html.CustomStyledValidationMessageFor(x => x)*@@Html.ValidationMessageFor(t => t)
+    @if (options != null)
+    {
+        <ul>
+            @{
+                var i = 1;
+
+                foreach (var item in options)
+                {
+                    var itemId = fieldName + "_" + i;
+                    var selected = Model != null && Model.ToString() == item.Value;
+                    <li>
+                        <input type="radio" value="@item.Value" id="@itemId" name="@fieldName" @if (selected)
+                                                                                               {
+                                                                                                   <text>checked="checked"</text>
+                                                                                               }/>
+                        <label for="@itemId">@item.Text</label>
+                    </li>
+
+                    i++;
+                }
+            }
+        </ul>
+    }
+</fieldset>

@@ -1,0 +1,166 @@
+﻿@model DateTime?
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+    var dayFieldName = fieldName + "_Day";
+    var monthFieldName = fieldName + "_Month";
+    var yearFieldName = fieldName + "_Year";
+    var hourFieldName = fieldName + "_Hour";
+    var minuteFieldName = fieldName + "_Minute";
+
+    int? currentDay = null;
+    int? currentMonth = null;
+    int? currentYear = null;
+    int? currentHour = null;
+    int? currentMinute = null;
+
+    if (Model.HasValue && Model.Value != default(DateTime))
+    {
+        currentDay = Model.Value.Day;
+        currentMonth = Model.Value.Month;
+        currentYear = Model.Value.Year;
+        currentHour = Model.Value.Hour;
+        currentMinute = Model.Value.Minute;
+    }
+
+    var startYear = DateTime.Now.Year;
+    var endYear = DateTime.Now.Year;
+    var monthYearOnly = false;
+
+    if (metaData.AdditionalValues.ContainsKey("StartYear"))
+    {
+        startYear = (int) metaData.AdditionalValues["StartYear"];
+    }
+
+    if (metaData.AdditionalValues.ContainsKey("EndYear"))
+    {
+        endYear = (int) metaData.AdditionalValues["EndYear"];
+    }
+
+    if (metaData.AdditionalValues.ContainsKey("StartYearOffset"))
+    {
+        startYear += (int) metaData.AdditionalValues["StartYearOffset"];
+    }
+    else
+    {
+        startYear -= 90;
+    }
+
+    if (metaData.AdditionalValues.ContainsKey("EndYearOffset"))
+    {
+        endYear += (int) metaData.AdditionalValues["EndYearOffset"];
+    }
+    else
+    {
+        endYear += 1;
+    }
+
+    if (currentYear.HasValue)
+    {
+        startYear = Math.Min(startYear, currentYear.Value);
+        endYear = Math.Max(endYear, currentYear.Value);
+    }
+    if (metaData.AdditionalValues.ContainsKey("MonthYearOnly"))
+    {
+        monthYearOnly = (bool) metaData.AdditionalValues["MonthYearOnly"];
+    }
+
+    var days = Enumerable.Range(1, 31).Select(x => new SelectListItem {Value = x.ToString("00"), Text = x.ToString()});
+    var months = Enumerable.Range(1, 12).Select(x => new SelectListItem {Value = x.ToString("00"), Text = x.ToString()});
+    var years = Enumerable.Range(startYear, endYear + 1 - startYear).Select(x => new SelectListItem {Value = x.ToString(), Text = x.ToString()});
+
+    var result = ViewData.ModelState[ViewData.TemplateInfo.HtmlFieldPrefix];
+    if (result != null && result.Value != null)
+    {
+        var values = result.Value.RawValue as string[];
+        years = new SelectList(years, "Value", "Text", values[2]);
+        months = new SelectList(months, "Value", "Text", values[1]);
+        days = new SelectList(days, "Value", "Text", values[0]);
+        result.Value = null;
+    }
+}
+
+<fieldset class="date">
+    <legend>@displayText</legend>
+
+    <h3>
+        @displayText
+
+        @if (isRequired)
+        {
+            <span class="required">Required</span>
+        }
+    </h3>
+
+    @Html.CustomStyledValidationMessageFor(t => t)
+    @if (!monthYearOnly)
+    {
+        <div class="field select day">
+
+            @Html.Label("", "Day")
+
+            @Html.DropDownList("", days, "DD")
+        </div>
+    }
+    <div class="field select month">
+
+        @Html.Label("", "Month")
+
+        @Html.DropDownList("", months, "MM")
+    </div>
+    <div class="field select year">
+
+        @Html.Label("", "Year")
+
+        @Html.DropDownList("", years, "YYYY")
+    </div>
+
+    @{
+
+        var showTime = ViewData["ShowTime"] as bool?;
+
+        if (showTime == true)
+        {
+            <div class="field select hour">
+                <div class="label">
+                    <label for="@hourFieldName">Hour</label>
+                </div>
+                <select id="@hourFieldName" name="@hourFieldName">
+                    <option value="">HH</option>
+                    @{
+                        for (var i = 0; i <= 23; i++)
+                        {
+                            <option value="@i" @if (currentHour == i)
+                                               {
+                                                   <text>selected="selected"</text>
+                                               }>
+                                @i</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="field select minute">
+                <div class="label">
+                    <label for="@minuteFieldName">Minute</label>
+                </div>
+                <select id="@minuteFieldName" name="@minuteFieldName">
+                    <option value="">MM</option>
+                    @{
+                        for (var i = 0; i <= 60; i++)
+                        {
+                            <option value="@i" @if (currentMinute == i)
+                                               {
+                                                   <text>selected="selected"</text>
+                                               }>
+                                @i</option>
+                        }
+                    }
+                </select>
+            </div>
+        }
+    }
+</fieldset>

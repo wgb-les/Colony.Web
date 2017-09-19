@@ -1,0 +1,108 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.Homepage.Areas.ViewModels.GlobalNavigationBrandsViewModel
+@{
+    var isOpen = Model.ActiveSiteKey != "Wg" && Model.ActiveSiteKey != "Contracts";
+}
+<div class="global-brands @if (isOpen)
+                          {
+                              <text>brands-open</text>
+                          }">
+    <ul class="global-brands-list">
+        @foreach (var item in Model.Items)
+        {
+            var logo = item.LightLogoUri;
+            var tooltipLogo = item.DarkLogoUri;
+            var isActive = Model.ActiveSiteKey.Equals(item.SiteKey, StringComparison.InvariantCultureIgnoreCase);
+
+            if (Model.ActiveSiteKey.Equals("zoffany", StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (item.SiteKey.Equals("zoffany", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    logo = item.DarkLogoUri;
+                    tooltipLogo = item.LightLogoUri;
+                }
+                else
+                {
+                    logo = item.LightLogoUri;
+                    if (item.SiteKey.Equals("sanderson", StringComparison.InvariantCultureIgnoreCase) ||
+                        item.SiteKey.Equals("scion", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        tooltipLogo = item.DarkLogoUri;
+                    }
+                    else
+                    {
+                        tooltipLogo = item.LightLogoUri;
+                    }
+                }
+            }
+            if (ColonyContext.Current.CurrentSite.SiteKey != "Contracts")
+            {
+                <li class="@item.ThemeClassName @if (isActive)
+                                                {
+                                                    <text>active</text>
+                                                }">
+                    <a href="//@item.Uri" class="global-brand-item">
+                        <img src="@logo" alt="@item.Name"/>
+                    </a>
+                    @*                    <div class="global-brand-tooltip">
+                        <div class="table">
+                            <div class="td">
+                                <p>@item.TooltipText</p>
+                            </div>
+                        </div>
+                    </div>*@
+
+                </li>
+            }
+            else
+            {
+                <li class="globalNavItem @item.ThemeClassName @if (isActive)
+                                                              {
+                                                                  <text>active</text>
+                                                              }">
+                    <a href="#" class="global-brand-item">
+                        <img src="@logo" alt="@item.Name"/>
+                    </a>
+                    @*<div class="global-brand-tooltip">
+                        <div class="table">
+                            <div class="td">
+                                <p>@item.TooltipText</p>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="leavingSite">
+                        <div class="boxHeading">
+                            <h2>You are now leaving Style Library Contract</h2>
+                            <img src="/_images/bg/exit.png" class="closeBox"/>
+                        </div>
+                        <p>
+                            <b>Please note:</b> Not all products on @item.Name are suitable for Contract, so if you are specifically looking for contractable products, please stay on Style Library Contract.
+                        </p>
+                        <p>To stay on Style Library Contract please click "Stay on Contract" or close this box.</p>
+                        <a href="#" class="closeLeavingBox">
+                            <button style="margin-left: 0px;">Stay on Contract</button>
+                        </a>
+                        <a href="//@item.Uri">
+                            <button class="actionButton">Continue to @item.Name</button>
+                        </a>
+                    </div>
+                </li>
+                <div class="leavingSite-bg"></div>
+            }
+        }
+    </ul>
+    @if (ColonyContext.Current.CurrentSite.SiteKey == "Contracts" || ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+    {
+        <div class="global-brands-toggles">
+            <a href="#" class="global-brands-toggle global-brands-show js-global-brands-show">
+                <span class="brands-toggle-label">Brands</span>
+            </a>
+            <a href="#" class="global-brands-toggle global-brands-hide js-global-brands-hide">
+                <span class="brands-toggle-label">Hide</span>
+            </a>
+        </div>
+    }
+    <a href="#" data-reveal-id="brands" class="global-brands-all">
+        <span class="brands-toggle-label">Brands</span>
+    </a>
+</div>

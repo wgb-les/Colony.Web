@@ -1,0 +1,30 @@
+﻿@using Colony.CMS
+@model Colony.CMS.Areas.CRM.Models.PersonViewModel
+@using (Html.BeginForm("BasicDetails", "AccountArea", new {area = "AccountArea"}, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h2>Basic details</h2>
+
+    @Html.EditorFor(model => model.Title, new {size = "short"})
+
+    @Html.EditorFor(model => model.FirstName)
+
+    @Html.EditorFor(model => model.LastName)
+
+    @Html.EditorFor(model => model.Email)
+
+    @Html.EditorFor(model => model.AllowMarketing, new {labelText = "I'm happy to receive marketing/promotional material from " + ColonyContext.Current.CurrentSite.Name})
+
+    @Html.EditorFor(model => model.AllowThirdParty, new {labelText = "I'm happy to receive emails containing offers and promotions from other companies"})
+
+    if (Model.Newsletter == false)
+    {
+        @Html.EditorFor(model => model.Newsletter)
+        ;
+    }
+
+    <div class="field formControls">
+        <button class="button">Save changes</button>
+    </div>
+}

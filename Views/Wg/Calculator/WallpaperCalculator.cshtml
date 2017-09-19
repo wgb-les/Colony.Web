@@ -1,0 +1,87 @@
+﻿@model Colony.Models.Core.WGModels.WgViewModels.Calculator.WallPaperViewModel
+
+<!DOCTYPE html>
+<link href="~/_css/brands/wg/Calculator/Calculator.css" rel="stylesheet" />
+
+<h2 class="pageTitle">Wallpaper Calculator</h2>
+<section class="contentContainer container-flex">
+    <form>
+        <fieldset>
+            <div>
+                @if (Model.RollDimensions.DefaultsUsed)
+                {
+                    <p>Please check the dimensions of your wallpaper - we've started you off with our standard role sizes below:</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label id="roll-width-label">Roll width in cm</label>
+                        <input id="roll-width" type="text" value="@Model.RollDimensions.Width" />
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label id="roll-height-label">Roll length in m</label>
+                        <input id="roll-height" type="text" value="@Model.RollDimensions.Height" />
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label id="roll-match-label">Pattern Match</label>
+                        <select id="roll-pattern-match" class="col-sm-6 col-xs-12">
+                            <option value="">Default</option>
+                            <option value="Straight Match">Straight Match</option>
+                            <option value="Random Match">Random Match</option>
+                            <option value="Half Drop Match">Half Drop Match</option>
+                            <option value="Reverse Hang Alternative Lengths">Reverse Hang Alternative Lengths</option>
+                            <option value="Third Drop Match">Third Drop Match</option>
+                            <option value="No Pattern Match">No Pattern Match</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label id="roll-repeat-label">Pattern Repeat in cm</label>
+                        <input id="roll-repeat" type="text" value="@Model.RollDimensions.PatternRepeat" />
+                    </div>
+                    <input type="hidden" id="loadedPatternMatch" value="@Model.RollDimensions.PatternMatch"/>
+                    <input type="hidden" id="Ssp" value="@Model.Ssp.AsDecimal(0)" />
+                </div>
+            </div>
+            <p id="error-message-2" class="error-message"></p>
+            <hr />
+            <p>Please select units of measurement</p>
+            <div class="form-group unit-selection">
+
+                <div>
+                    <input name="units" id="input-metres" type="radio" value="metres" checked="checked" />
+                    <label class="radio " for="input-metres"> Metres </label>
+                </div>
+
+                <div>
+                    <input name="units" id="input-feet" type="radio" value="feet" />
+                    <label class="radio " for="input-feet">Feet and Inches</label>
+                </div>
+
+                <div>
+                    <input name="units" id="input-inches" type="radio" value="inches" />
+                    <label class="radio " for="input-inches">Inches</label>
+                </div>
+            </div>
+            <p>Please enter the dimensions of each wall you wish to decorate.</p>
+            <div id="wall-group">
+            </div>
+            <div class="button-group">
+                <p id="error-message" class="error-message"></p>
+                <button id="add-row-btn" type="button" class="primaryButton"><span class="fa fa-plus" aria-hidden="true"></span>Add another wall</button>
+
+                <button id="calculate-rolls-btn" type="submit" class="actionButton"><span class="fa fa-calculator" aria-hidden="true"></span>Calculate Rolls</button>
+                <button id="reset-btn" type="button" class="secondaryButton"><span class="fa fa-refresh" aria-hidden="true"></span>Reset</button>
+
+            </div>
+        </fieldset>
+    </form>
+
+</section>
+<section id="result">
+    <div id="roll-result">
+        <p>*You will need approximately <actual>0 rolls</actual></p>
+    </div>
+    <div id="disclaimer">
+        <p>*This calculator provides an approximate roll recommendation only. Style Library advise that you always consult your decorator before ordering wallpaper as we cannot be held responsible for any incorrect quantities of wallpaper ordered.</p>
+    </div>
+</section>
+<script src="~/_js/brands/wg/Calculator/WallpaperCalculator.js"></script>

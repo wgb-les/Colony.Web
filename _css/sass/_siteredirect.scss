@@ -1,0 +1,516 @@
+
+/*******************************************************/
+//           Site redirect popup
+/*******************************************************/
+
+#redirectPop {
+    bottom: 50%;
+    display: block;
+    opacity: 1;
+    width: 65%;
+    margin-left: 10%;
+    left:10% !important;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    background: #fff;
+    text-align:center;
+    padding:0px 10px 30px 10px;
+    position:fixed;
+    z-index:9;
+
+    header {
+    display: block;
+    background-image:none;
+    border:0px !important;
+    padding: 0em;
+    position: relative;
+        
+        a.close-reveal-modal {
+        background-size:60%;
+        }
+        
+        h2{
+        text-transform:uppercase;
+        padding:0px;
+        }
+    }
+    
+    .triptic-holder {
+       display:inline-flex;
+       flex-direction:row;
+       justify-content:space-around;
+       flex-wrap:nowrap;
+       width:65%;
+       margin:30px 0px 26px 0px;
+       max-height:50px;
+
+       &.anthology-trip {
+           img:nth-of-type(1) {
+               width:38%;
+           }
+           img:nth-of-type(2) {
+               width:4%;
+               padding-top:0px;
+           }
+           img:nth-of-type(3) {
+               height:46px;
+           }
+       }
+
+       &.scion-trip {
+           img:nth-of-type(1) {
+               width:20%;
+           }
+           img:nth-of-type(2) {
+               width:6%;
+               padding-top:6px;
+           }
+           img:nth-of-type(3) {
+               height:57px;
+           }
+        }
+
+         &.sanderson-trip {
+           img:nth-of-type(1) {
+               width:34%;
+           }
+           img:nth-of-type(2) {
+               width:6%;
+               padding-top:6px;
+           }
+           img:nth-of-type(3) {
+               height:57px;
+           }
+        }
+
+          &.morris-trip {
+           img:nth-of-type(1) {
+               width: 35%;
+               margin-top: 5px;
+           }
+           img:nth-of-type(2) {
+               width:6%;
+               padding-top:6px;
+               margin: 0px 30px 0px 30px;
+           }
+           img:nth-of-type(3) {
+               height:50px;
+           }
+        }
+
+          &.zoffany-trip {
+           img:nth-of-type(1) {
+               width: 35%;
+               margin-top: 5px;
+           }
+           img:nth-of-type(2) {
+               width:6%;
+               padding-top:6px;
+               margin: 0px 30px 0px 30px;
+           }
+           img:nth-of-type(3) {
+               height:50px;
+           }
+        }
+
+        &.harlequin-trip {
+           img:nth-of-type(1) {
+               width: 40%;
+               margin-top: 12px;
+           }
+           img:nth-of-type(2) {
+               width:6%;
+               padding-top:6px;
+               margin: 0px 30px 0px 30px;
+           }
+           img:nth-of-type(3) {
+               height:50px;
+           }
+        }
+    }
+
+
+    p {
+        text-align:center;
+        font-size: 1.05em;
+    }
+
+    a.sl-button {
+        margin: auto;
+        float: none;
+        width: 36%;
+        display: block;
+        background-color:#d4bc60;
+        color:#fff;
+        margin-top:10px;
+    }
+}
+@media all and (min-width: 1024px) and (max-width: 1280px){
+     #redirectPop {
+
+          .triptic-holder {
+
+            &.anthology-trip {
+               img:nth-of-type(1) {
+               width:51%;
+               }
+               img:nth-of-type(2) {
+                   width:6%;
+                   padding-top:0px;
+                   margin:0px 30px 0px 30px;
+               }
+               img:nth-of-type(3) {
+                   height:44px;
+                   padding-top:0px;
+               }
+             }
+
+            &.scion-trip {
+               img:nth-of-type(1) {
+                   width: 26%;
+                   padding-right: 10px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   margin:0px 30px 0px 30px;
+
+               }
+               img:nth-of-type(3) {
+                   height: 55px;
+                   padding-top: 0px;
+               }
+            }
+
+            &.sanderson-trip {
+               img:nth-of-type(1) {
+                   width: 38%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+               }
+               img:nth-of-type(3) {
+                   height: 45px;
+                   margin-top: 6px;
+                   margin-left: 12px;
+               }
+            }
+
+             &.morris-trip {
+               img:nth-of-type(1) {
+                   width: 39%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 42px;
+                   margin-top: 4px;
+                   margin-left: 12px;
+               }
+            }
+
+              &.zoffany-trip {
+               img:nth-of-type(1) {
+                   width: 39%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 42px;
+                   margin-top: 5px;
+                   margin-left: 12px;
+               }
+            }
+
+              &.harlequin-trip {
+               img:nth-of-type(1) {
+                   width: 47%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 10px 0px 10px;
+               }
+               img:nth-of-type(3) {
+                   height: 46px;
+                   margin-top:4px;
+                   margin-left: 12px;
+               }
+            }
+        }
+    }
+}
+
+
+
+@media all and (min-width: 654px) and (max-width: 768px){
+    #redirectPop {
+        bottom: 50%;
+        left:10% !important;
+        display: block;
+        opacity: 1;
+        width: 80%;
+        margin-left: 0%;
+        
+
+          .triptic-holder {
+              justify-content:space-between;
+              margin-left:0px;
+
+            &.anthology-trip {
+               img:nth-of-type(1) {
+               width:50%;
+               }
+               img:nth-of-type(2) {
+                   width:6%;
+                   padding-top:0px;
+               }
+               img:nth-of-type(3) {
+                   height:42px;
+                   padding-top:2px;
+               }
+             }
+
+            &.scion-trip {
+               img:nth-of-type(1) {
+                   width: 28%;
+                   padding-right: 17px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+               }
+               img:nth-of-type(3) {
+                   height: 56px;
+                   padding-top: 0px;
+               }
+            }
+
+            &.sanderson-trip {
+               img:nth-of-type(1) {
+                   width: 39%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+               }
+               img:nth-of-type(3) {
+                   height: 45px;
+                   margin-top: 3px;
+                   margin-left: 12px;
+               }
+            }
+
+             &.morris-trip {
+               img:nth-of-type(1) {
+                   width: 41%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 42px;
+                   margin-top: 4px;
+                   margin-left: 12px;
+               }
+            }
+
+              &.zoffany-trip {
+               img:nth-of-type(1) {
+                   width: 41%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 42px;
+                   margin-top: 4px;
+                   margin-left: 12px;
+               }
+            }
+
+              &.harlequin-trip {
+               img:nth-of-type(1) {
+                   width: 41%;
+                   margin-right: 30px;
+               }
+               img:nth-of-type(2) {
+                   width: 8%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 42px;
+                   margin-top: 4px;
+                   margin-left: 12px;
+               }
+            }
+        }
+    }
+}
+
+
+@media all and (min-width: 0px) and (max-width: 653px){
+    #redirectPop {
+        bottom: 40%;
+        display: block;
+        opacity: 1;
+        width: 90%;
+        margin-left: 5%;
+        left:0% !important;
+
+          .triptic-holder {
+              margin-left:0px;
+              margin-bottom:10px;
+              width:90%;
+
+          &.anthology-trip {
+               img:nth-of-type(1) {
+                   width:50%;
+                   padding-right:10px;
+                    }
+               img:nth-of-type(2) {
+                   width:8%;
+                   padding-top:0px;
+                   padding-right:8px;
+                    }
+               img:nth-of-type(3) {
+                   height:28px;
+                   margin-top:10px;
+               }
+           }    
+
+          &.scion-trip {
+               img:nth-of-type(1) {
+                   width:36%;
+                   padding-right:17px;
+                   padding-left:16px;
+               }
+               img:nth-of-type(2) {
+                   width:10%;
+                   padding-top:6px;
+                   padding-right:0px;
+               }
+               img:nth-of-type(3) {
+                   height:46px;
+                   padding-top:8px;
+               }
+            }
+
+          &.sanderson-trip {
+               img:nth-of-type(1) {
+                   width:51%;
+                   padding-right:22px;
+                   padding-left:20px;
+               }
+               img:nth-of-type(2) {
+                   width:6%;
+                   padding-top:6px;
+                   padding-right:0px;
+               }
+               img:nth-of-type(3) {
+                   height:42px;
+                   padding-top:12px;
+               }
+            }
+
+           &.morris-trip {
+               img:nth-of-type(1) {
+                   width:51%;
+                   padding-right:22px;
+                   padding-left:20px;
+               }
+               img:nth-of-type(2) {
+                   width:6%;
+                   padding-top:6px;
+                   padding-right:0px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height:42px;
+                   padding-top:12px;
+               }
+            }
+
+         &.zoffany-trip {
+               img:nth-of-type(1) {
+                   width: 38%;
+                   margin-right: 26px;
+               }
+               img:nth-of-type(2) {
+                   width: 9%;
+                   padding-top: 6px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 33px;
+                   margin-top: 9px;
+                   margin-left: 8px;
+               }
+            }
+
+             &.harlequin-trip {
+               img:nth-of-type(1) {
+                   width: 42%;
+                   margin-right: 20px;
+                   margin-top: 4px;
+               }
+               img:nth-of-type(2) {
+                   width: 9%;
+                   padding-top: 0px;
+                   padding-right: 12px;
+                   margin: 0px 0px 0px 0px;
+               }
+               img:nth-of-type(3) {
+                   height: 29px;
+                   margin-top: 9px;
+                   margin-left: 8px;
+               }
+            }
+        }
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 320px){
+     #redirectPop {
+        bottom: 30%;
+     }
+
+}
+
+
+#redirectPop .closeWTB {
+    position: absolute;
+    right: 0px;
+    top: 10px !important;
+}
+
+
+
+

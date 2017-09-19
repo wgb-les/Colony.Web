@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Colony.Modules.Careers.Models.Job>
+@if (Model.Any())
+{
+    <section class="moduleSection jobs">
+        <h2>Jobs</h2>
+        <ul class="moduleList">
+            @foreach (var job in Model)
+            {
+                <li>
+                    <article>
+                        <div class="details">
+                            <header>
+                                <h2>
+                                    <a href="/jobs@(job.Uri)">@job.Name</a>
+                                </h2>
+                                <dl>
+                                    @if (!string.IsNullOrWhiteSpace(job.Salary))
+                                    {
+                                        if (job.Salary.IsNumeric())
+                                        {
+                                            <dd>&pound;@string.Format("{0:0,0}", job.Salary.AsDecimal(0))</dd>
+                                        }
+                                        else
+                                        {
+                                            <dd>@job.Salary</dd>
+                                        }
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(job.Location))
+                                    {
+                                        <dt>Location</dt>
+                                        <dd>@job.Location</dd>
+                                    }
+                                    @if (job.Deadline != null)
+                                    {
+                                        <dt>Deadline</dt>
+                                        <dd>
+                                            <time datetime="@job.Deadline.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@job.Deadline.Value.ToString("dd MMMM yyyy")</time>
+                                        </dd>
+                                    }
+                                </dl>
+                            </header>
+                            <p>@job.ShortDescription</p>
+                        </div>
+                    </article>
+                </li>
+            }
+        </ul>
+    </section>
+}

@@ -1,0 +1,120 @@
+﻿@using Colony.CMS
+@model string
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var fieldId = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var prefix = fieldId.Substring(0, fieldId.LastIndexOf('_') + 1) ?? string.Empty;
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var size = ViewData["size"] ?? string.Empty;
+    var allowPostCodeLookup = ColonyContext.Current.CurrentSite.SiteKey != "Wg";
+    if (ViewData.ContainsKey("AllowPostCodeLookup"))
+    {
+        allowPostCodeLookup = ViewData["AllowPostcodeLookup"].AsBool(allowPostCodeLookup);
+    }
+}
+<div class="field text @size">
+    @Html.CustomLabelFor(x => x, labelText: ColonyContext.Current.CurrentSite.SiteKey != "Wg" ? "Postcode" : "Post / ZIP code")
+    @if (!allowPostCodeLookup)
+    {
+        <div class="alertInfo message">Postcode lookup is not available outside of the UK.</div>
+    }
+    <div class="alertInfo error" id="findAddressError" style="display: none;">There was a problem looking up your post code, please enter your address manually.</div>
+    @Html.ValidationMessageFor(t => t)
+    @Html.TextBoxFor(x => x, new {autocomplete = "off"})
+    @if (allowPostCodeLookup)
+    {
+        @Html.ActionLink("Find", "Lookup", "Address", new {area = "CRM"}, new {@class = "button", id = "findAddress"})
+    }
+</div>
+
+<div id="addressSelection" style="display: none;">
+    <div class="field select long">
+        <label for="selectAddress">
+            Select address
+        </label>
+        <select name="SelectAddress" id="selectAddress"></select>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+
+        $('#@fieldId').keydown(function(event) {
+            if (event.keyCode == 13) {
+                $('#findAddress').trigger('click');
+                return false;
+            }
+        });
+
+        $('#findAddress').on("click", function(e) {
+            e.preventDefault();
+
+            var url = this.href;
+
+            $.ajax(url, {
+                data: { postcode: $('#@fieldId').val() },
+                success: function(data) {
+                    $('#selectAddress')
+                        .find('option')
+                        .remove()
+                        .end();
+                    if (data.Success) {
+                        $('#findAddressError').hide();
+                        $('#selectAddress')
+                            .append($('<option></option>')
+                                .attr('value', "")
+                                .text("Please Choose"));
+                        if (data.Addresses.length > 0) {
+                            $.each(data.Addresses, function(key, value) {
+                                $('#selectAddress')
+                                    .append($('<option></option>')
+                                        .attr('value', value.Id)
+                                        .text(value.StreetAddress));
+                            });
+                            $('#addressSelection').addClass('highlighted').show();
+                        } else {
+                            $('#findAddressError').show();
+                            $('#addressSelection').hide().removeClass('highlighted');
+                        }
+                    } else {
+                        $('#findAddressError').show();
+                    }
+                }
+            });
+        });
+
+        function isNullOrEmpty(str) {
+            return str == null || str == undefined || str == '';
+        }
+
+        $('#selectAddress').bind('change', function(e) {
+            $.ajax({
+                url: "@Url.Action("RetrieveSelectedAddress", "Address", new {area = "CRM"})",
+                data: { id: $('#selectAddress').val() },
+                success: function(data) {
+                    if (data.Success) {
+                        if (data.SelectedAddress != null) {
+                            console.log(data.SelectedAddress);
+                            if (isNullOrEmpty(data.SelectedAddress.BuildingName) && isNullOrEmpty(data.SelectedAddress.BuildingNumber) && !isNullOrEmpty(data.SelectedAddress.Company))
+                                $('#@(prefix)Line1').val(data.SelectedAddress.Company + ', ' + data.SelectedAddress.Line1);
+                            else
+                                $('#@(prefix)Line1').val(data.SelectedAddress.Line1);
+                            $('#@(prefix)Line2').val(data.SelectedAddress.Line2);
+                            $('#@(prefix)Town').val(data.SelectedAddress.PostTown);
+                            $('#@(prefix)County').val(data.SelectedAddress.County);
+                            $('#@(prefix)Postcode').val(data.SelectedAddress.Postcode);
+                            $('#@(prefix)CountryISO2').val(data.SelectedAddress.CountryISO2);
+                            $('#addressSelection').hide();
+                        } else {
+                            $('#addressSelection').show();
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>

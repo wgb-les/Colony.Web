@@ -1,0 +1,217 @@
+﻿@using Colony.CMS.Security.Helpers
+@using Colony.Commerce
+@using Colony.Commerce.Areas.ShopPurchase.Models
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryOptionsViewModel
+@{
+    ViewBag.Title = "Delivery Options";
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+@if (ViewBag.State == CheckoutSectionState.Active)
+{
+    <form id="deliveryOptionsForm" action="@Url.Action("DeliveryOptions", "Checkout", new {area = "ShopPurchase", edit = "delivery-options"})" method="post">
+        @Html.AntiForgeryToken()
+        <div class="boxSection deliveryOptions">
+            <div class="header">
+                <h2>Delivery Options</h2>
+            </div>
+            <div class="boxSection-content" id="delivery-options">
+                <div class="row">
+                    <div class="columns small-12 medium-12 large-8">
+                        @{
+                            var totalDeliveryGroups = Model.DeliveryGroups.Count();
+                            var deliveryGroupCount = 0;
+                        }
+                        @if (Model.DeliveryGroups.Count() > 0)
+                        {
+                            foreach (var deliveryGroup in Model.DeliveryGroups)
+                            {
+                                deliveryGroupCount++;
+                                <div class="delivery-group">
+                                    <h3 class="delivery-group-heading">Delivery <strong>@deliveryGroupCount</strong> of @totalDeliveryGroups</h3>
+                                    <ul class="delivery-summary">
+                                        @foreach (var deliveryItem in deliveryGroup.BasketLines)
+                                        {
+                                            <li class="delivery-item">
+                                                <img src="@Url.ImageUrl(deliveryItem.ImageAssetId, "ShopPurchase", "ImageDownloadThumbnail")" alt="@deliveryItem.Name" class="delivery-item-thumb">
+                                                <div class="delivery-item-details">
+                                                    <h4 class="delivery-item-heading h2-size">
+                                                        <span class="delivery-item-name">@deliveryItem.Name</span>
+                                                        <span class="delivery-item-price">@(deliveryItem.TotalInc.AsDecimal(0) > 0 ? Model.RegionInfo.CurrencySymbol + deliveryItem.TotalInc.AsDecimal(0).ToString("#.00") : "FREE")</span>
+                                                    </h4>
+                                                    <dl class="delivery-item-options">
+                                                        <dt>Quantity</dt>
+                                                        <dd>@deliveryItem.Quantity</dd>
+                                                        @if (deliveryItem.Category != null)
+                                                        {
+                                                            <dt>Collection</dt>
+                                                            <dd>@deliveryItem.Category.Name</dd>
+                                                        }
+                                                        <dt>Colour</dt>
+                                                        <dd>@(deliveryItem.Attributes.GetValueOrNull("Descriptive Colour"))</dd>
+                                                    </dl>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                    @if (ViewBag.MissingDelivery != null)
+                                    {
+                                        <p>Please select a delivery type.</p>
+                                    }
+                                    @using (Html.BeginCollectionItem("deliveryGroups"))
+                                    {
+                                        Html.RenderPartial("_DeliveryGroup", deliveryGroup);
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="delivery-group">
+                                <h3>These items cannot be delivered to the country selected.</h3>
+                            </div>
+                        }
+                    </div>
+                    <div class="columns small-12 medium-12 large-4">
+                        <div class="alertInfo secure-alert">
+                            <h2>Safe and Speedy Shopping</h2>
+                            <p>Our checkout is 100% secure and we use the latest technologies to ensure your details are safe. We'll only ask you to enter the details we need to complete your order so within a few minutes you'll be all done and we can start preparing your delivery.</p>
+                        </div>
+                        <div class="basketTotals delivery-totals js-fixed-scroll" data-fs-container="#delivery-options" style="top: 0px;">
+                            <dl>
+                                <dt>Sub Total</dt>
+                                <dd>@Model.CurrencyRegion.Currency.Code @Model.RegionInfo.CurrencySymbol@Model.Total.AsDecimal(0).ToString("#0.00")</dd>
+                                <dt class="total">@Model.CurrencyRegion.Currency.Code Total</dt>
+                                <dd class="total">@Model.CurrencyRegion.Currency.Code @Model.RegionInfo.CurrencySymbol@Model.Total.AsDecimal(0).ToString("#0.00")</dd>
+                                <dt class="total">&nbsp;</dt>
+                                <dd class="total">All prices include VAT</dd>
+                            </dl>
+                            <ul>
+                                <li>
+                                    <img src="/_images/icons/payment/maestro.png" alt="Maestro">
+                                </li>
+                                <li>
+                                    <img src="/_images/icons/payment/mastercard.png" alt="Mastercard">
+                                </li>
+                                @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+                                {
+                                    <li>
+                                        <img src="/_images/icons/payment/amex.png" alt="American Express">
+                                    </li>
+                                }
+                                <li>
+                                    <img src="/_images/icons/payment/paypal.png" alt="Paypal">
+                                </li>
+                                <li>
+                                    <img src="/_images/icons/payment/visa.png" alt="Visa">
+                                </li>
+                                <li>
+                                    <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron">
+                                </li>
+                            </ul>
+                            <input type="submit" value="Continue" class="button actionButton"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else if (ViewBag.State == CheckoutSectionState.Completed)
+{
+    <div id="deliveryOptions" class="boxSection deliveryOptions completed">
+
+        <div class="header">
+            <h2 class="icon-ok left">Delivery Options</h2>
+            <a href="@Url.Action("Summary", "Checkout", new {area = "ShopPurchase", edit = "delivery-options"})">
+                <span>Edit</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="boxSection-content" id="delivery-options">
+            <div class="row">
+                <div class="columns small-12 medium-12 large-12">
+                    @{
+                        var totalDeliveryGroups = Model.DeliveryGroups.Count();
+                        var deliveryGroupCount = 0;
+                    }
+                    @foreach (var deliveryGroup in Model.DeliveryGroups)
+                    {
+                        deliveryGroupCount++;
+                        <div class="delivery-group">
+                            <h3 class="delivery-group-heading">Delivery <strong>@deliveryGroupCount</strong> of @totalDeliveryGroups</h3>
+                            <ul class="delivery-summary">
+                                @foreach (var deliveryItem in deliveryGroup.BasketLines)
+                                {
+                                    <li class="delivery-item">
+                                        <img src="@Url.ImageUrl(deliveryItem.ImageAssetId, "ShopPurchase", "ImageDownloadThumbnail")" alt="@deliveryItem.Name" class="delivery-item-thumb">
+                                        <div class="delivery-item-details">
+                                            <h4 class="delivery-item-heading h2-size">
+                                                <span class="delivery-item-name">@deliveryItem.Name</span>
+                                                <span class="delivery-item-price">@(deliveryItem.TotalInc.AsDecimal(0) > 0 ? Model.RegionInfo.CurrencySymbol + deliveryItem.TotalInc.AsDecimal(0).ToString("#.00") : "FREE")</span>
+                                            </h4>
+                                            <dl class="delivery-item-options">
+                                                <dt>Quantity</dt>
+                                                <dd>@deliveryItem.Quantity</dd>
+                                                @if (deliveryItem.Category != null)
+                                                {
+                                                    <dt>Collection</dt>
+                                                    <dd>@deliveryItem.Category.Name</dd>
+                                                }
+                                                <dt>Colour</dt>
+                                                <dd>@(deliveryItem.Attributes.GetValueOrNull("Descriptive Colour"))</dd>
+                                            </dl>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                            @{
+                                var deliveryOption = deliveryGroup.DeliveryOptions.FirstOrDefault(x => x.Id == deliveryGroup.DeliveryMethod.Value);
+                            }
+                            @if (deliveryOption != null)
+                            {
+                                <fieldset class="optionList delivery-options-list">
+                                    <legend>Delivery Service</legend>
+                                    <h3>Delivery Service</h3>
+                                    <ul>
+                                        <li>
+                                            @{
+
+                                                var labelText = "";
+                                                if (deliveryOption.IsSplitDeliveryCharge)
+                                                {
+                                                    labelText = string.Format("<span><span class=\"confirmation-color\"><strong>{0}{1}</strong> Split delivery discount</span> {2}</span>",
+                                                        Model.RegionInfo.CurrencySymbol,
+                                                        deliveryOption.Price.ToString("#0.00"),
+                                                        deliveryOption.Name);
+                                                }
+                                                else
+                                                {
+                                                    labelText = string.Format("<span>{0}{1} {2}</span>",
+                                                        Model.RegionInfo.CurrencySymbol,
+                                                        deliveryOption.Price.ToString("#0.00"),
+                                                        deliveryOption.Name);
+                                                }
+                                            }
+                                            @Html.Raw(labelText)
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="delivery" class="boxSection checkoutDelivery editable">
+        <div class="header">
+            <h2>Delivery Options</h2>
+        </div>
+
+    </div>
+}

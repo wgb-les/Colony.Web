@@ -1,0 +1,18 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.ConvertGuestAccountViewModel
+
+<form action="@Url.Action("Convert", "Guest", new {area = "Members", returnUrl = Request.Url.AbsoluteUri})" method="post" class="boxSection loginRegister">
+    <header>
+        <h2>Create an account<span> to track your order and check out faster next time</span></h2>
+    </header>
+    @Html.AntiForgeryToken()
+    @Html.CustomValidationSummary(false)
+
+    @Html.EditorFor(model => model.Email)
+    @Html.EditorFor(model => model.Password)
+    @Html.EditorFor(model => model.ConfirmPassword)
+
+    @Html.HiddenFor(model => model.PersonId)
+    <div class="field formControls">
+        <button class="button">Create Account</button>
+    </div>
+</form>

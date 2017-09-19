@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Colony.Modules.Events.Models.EventCategory>
+
+@if (Model.Any())
+{
+    <h2>Categories</h2>
+    <ul class="categoryList events">
+        @foreach (var category in Model)
+        {
+            <li>
+                <article>
+                    <a href="/events/@category.Uri" class="thumbnail">
+                        <img src="@Url.ImageUrl(category.ImageAssetId, "Events", "FurnitureCollectionThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@category.Name"/>
+                    </a>
+                    <div class="details">
+                        <h3>
+                            <a href="/events/@category.Uri">@category.Name</a>
+                        </h3>
+                        <p>@category.ShortDescription</p>
+                    </div>
+                </article>
+            </li>
+        }
+    </ul>
+}

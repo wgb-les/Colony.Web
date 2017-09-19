@@ -1,0 +1,14 @@
+﻿@using Colony.Util.Web.ReCaptcha
+@if (!string.IsNullOrEmpty(HttpContext.Current.Items["recaptcha_failed"] as string))
+{
+    <div class="alertInfo error">
+        Please ensure you enter the characters exactly as they appear in the box below
+    </div>
+}
+<script type="text/javascript" src="@(ReCaptchaSettings.GetApiUrl(HttpContext.Current))/challenge?k=@(ReCaptchaSettings.PublicKey)"></script>
+<noscript>
+    <iframe src="@(ReCaptchaSettings.GetApiUrl(HttpContext.Current))/noscript?k=@(ReCaptchaSettings.PublicKey)" height="300" width="500" frameborder="0"></iframe>
+    <br/>
+    <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+</noscript>

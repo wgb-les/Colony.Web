@@ -1,0 +1,83 @@
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+
+@{
+var isContract = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current));
+var currencyRegion = ViewBag.currencyRegionId.ToString();
+}
+
+<div class="productBuyingSectiony">
+  <div class="sl-options-container sl-small-pad">
+    @if (Model.ProductOptions.Count > 0){
+      foreach (var productOption in Model.ProductOptions.Where(x => x.Price.PriceInc > 0 || 1==1))
+      {
+        <div class="sl-option @if(Model.Attributes.GetValueOrNull("Product Group") != "Paint"){<text>furniture-option</text>} sl-wide-1 sl-small-pad product-option" data-product-option="@productOption.Sku.Code.GetLast(3)" data-product-option-price="@productOption.Price.PriceInc.AsDecimal(0)" data-producti-option-skuid="@productOption.Sku.Id">
+          <div class="sl-option-inner">
+            <div class="sl-field-group">
+              <div class="sl-field">
+                <text class="sl-text">@productOption.Sku.Name</text>
+              </div>
+            </div>
+            <div class="sl-field-group sl-right">
+              @if (productOption.PriceWas != null && productOption.PriceWas.PriceInc > productOption.Price.PriceInc)
+              {
+                <div class="sl-field">
+                  <text class="sl-text">SSP</text>
+                  <!-- Add disabled class if sale active -->
+                  <text class="sl-text disabled" data-value="productRRP">&pound;@productOption.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                  <!-- If sale active then... -->
+                  <text class="sl-text" data-value="productSale">&pound;@productOption.Price.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                </div>
+              } else {
+                  if (@productOption.PriceWas.PriceInc.AsDecimal(0) > 0) {
+                      <div class="sl-field">
+                          <text class="sl-text">SSP</text>
+                          <text class="sl-text" data-value="productRRP">&pound;@productOption.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                      </div>
+                  } else {
+                    <div class="sl-field">
+                        <text class="sl-text">TBC</text>
+                    </div>
+                  }
+              }
+            </div>
+          </div>
+        </div>
+      }
+      if (Model.ProductOptions.Count > 6){
+      <a href="#" class="sl-button wide">
+          <div class="toggleOptions fa-angle-down fa-before sl-inner sl-level-2">
+              <text>Show more options</text>
+          </div>
+      </a>
+      }
+    }
+    else{
+        <div class="sl-option sl-wide-1 sl-small-pad product-option" data-product-option-price="@Model.Price.PriceInc.AsDecimal(0)" data-product-option-skuid="@Model.SelectedSku.Id">
+            <div class="sl-option-inner">
+
+                <div class="sl-field-group">
+                    <div class="sl-field">
+                        <text class="sl-text">
+                            @Model.SelectedSku.Name
+                        </text>
+                    </div>
+                </div>
+                <div class="sl-field-group sl-right">
+                    @if (currencyRegion == "1" && !isContract && Model.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00") != "0.00")
+                    {
+                    <div class="sl-field">
+                        <text class="sl-text">SSP</text>
+                        <!-- Add disabled class if sale active -->
+                        <text class="sl-text" data-value="productRRP">&pound;@Model.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                        <!-- If sale active then... -->
+                        <!-- <text class="sl-text" data-value="productSale">&pound;33.00</text> -->
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+  </div>
+</div>

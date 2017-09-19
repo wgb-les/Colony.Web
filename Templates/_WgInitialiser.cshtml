@@ -1,0 +1,8 @@
+﻿<div style="display:none;">
+    @{
+        Html.RenderAction("CountriesSelector", "Currencies", new { area = "Currencies", isInitiasliser=true });
+
+        Html.RenderAction("MiniBasketPartial", "Basket", new { area = "ShopPurchase", isInitiasliser = true });
+                }
+      
+</div>

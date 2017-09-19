@@ -1,0 +1,20 @@
+﻿@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel
+@{
+    var imageUrl = Model.Items.FirstOrDefault() != null ? Model.Items.First().ImageUrl : "/_images/placeholders/thumbnail.jpg";
+}
+<li>
+    <a href="@Url.Action("Detail", "Scrapbook", new {area = "Scrapbook", id = Model.Id})" class="item">
+        <div class="thumb">
+            <img src="@imageUrl" alt="@Model.Name"/>
+        </div>
+        <span class="title">@Model.Name</span>
+    </a>
+    <div class="actions">
+        <a href="@Url.Action("Delete", "Scrapbook", new {area = "Scrapbook", id = Model.Id})" class="remove">
+            <span>Remove</span>
+        </a>
+        <a href="@Url.Action("ScrapbookShare", "Scrapbook", new {area = "Scrapbook", id = Model.Id})" data-reveal-id="share" data-reveal-ajax="true" class="share">
+            <span>Share</span>
+        </a>
+    </div>
+</li>

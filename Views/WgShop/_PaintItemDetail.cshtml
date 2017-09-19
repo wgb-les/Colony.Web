@@ -1,0 +1,47 @@
+﻿@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+<article class="selectedItem" style="background: #daeef5">
+    <div class="details">
+        <h2>
+            <a href="#">@Model.Name</a>
+        </h2>
+        <ul>
+            <li>
+                <a href="/shop/@Url.ProductUrl(Model.Product)">Product Details</a>
+            </li>
+            <li>
+                <a href="#" data-reveal-id="orderPaintCard">Order a paint chart</a>
+            </li>
+        </ul>
+        <footer>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span>Add to your studio</span></a>
+                </li>
+                <li>
+                    <a href="#" class="pinterest">
+                        <span>Pin it</span></a>
+                </li>
+                <li>
+                    <a href="#" class="share">
+                        <span>Share it</span></a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+    <ul class="relatedImages">
+        @foreach (var relatedProduct in Model.RelatedProducts)
+        {
+            var defaultImage = relatedProduct.Images.OrderBy(x => x.Order).FirstOrDefault();
+            var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "PaintProductDetailThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+
+            <li>
+                <a href="/shop/@Url.ProductUrl(relatedProduct.Product)">
+                    <img src="@defaultImageUrl"/>
+                </a>
+            </li>
+        }
+    </ul>
+    <a href="#" class="close">
+        <span>Close</span></a>
+</article>

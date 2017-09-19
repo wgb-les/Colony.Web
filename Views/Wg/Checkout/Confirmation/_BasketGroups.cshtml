@@ -1,0 +1,24 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryOptionsViewModel
+@{
+    Layout = "";
+    var deliveryNo = 0;
+}
+
+@foreach (var delivery in Model.DeliveryGroups)
+{
+    {
+        deliveryNo++;
+    }
+
+    <div class="blockSection wide1">
+        <div class="inner">
+            <div class="heading thin">
+                <h3>Delivery @deliveryNo of @Model.DeliveryGroups.Count()</h3>
+            </div>
+            @Html.Partial("Confirmation/_BasketGroup", delivery)
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<sxform xmlns="http://bitecms.co.uk/SxForms">
+
+	<form id="Redirect" title="Redirect Details">
+		<fieldset id="Users" title="Enter the details of this page redirect">
+
+			<field id="OldUrl" type="text" mandatory="true" max="1000">
+				<title>Redirect From</title>
+				<helpmessage>Enter the old address that you would like to redirect from. You do not need to include 'http://' or the site name at the beginning.)</helpmessage>
+			</field>
+
+			<field id="NewUrl" mandatory="true" max="1000" type="text">
+				<title>Redirect To</title>
+				<helpmessage>Enter the new address that you would like to redirect to. You do not need to include 'http://' or the site name at the beginning.)</helpmessage>
+			</field>
+
+			<field id="Type" mandatory="true" type="dropbox">
+				<title>Type of Redirection</title>
+				<option>
+					<title>Permanent</title>
+					<id>301</id>
+				</option>
+				<option>
+					<title>Temporary</title>
+					<id>302</id>
+				</option>
+				<value>301</value>
+			</field>
+
+		</fieldset>
+		<button type="submit" id="Save" title="Save" />
+	</form>
+
+</sxform>

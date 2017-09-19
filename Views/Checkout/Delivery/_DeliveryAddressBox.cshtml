@@ -1,0 +1,63 @@
+﻿@using Colony.CMS
+@using Fasterflect
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryAddressViewModel
+@{
+  Layout = "";
+}
+
+<div class="addressItem @(Model.Selected ? "selected" : "") wide2">
+  <div class="inner">
+    <div class="details">
+      <h3 data-editaddressfield="Address.Description">@Model.Address.Description</h3>
+      <address>
+        <span data-editaddressfield="Address.Line1">@Model.Address.Line1</span>
+        <span data-editaddressfield="Address.Line2">@Model.Address.Line2</span>
+        <span data-editaddressfield="Address.Town">@Model.Address.Town</span>
+        <span data-editaddressfield="Address.County">@Model.Address.County</span>
+        <span data-editaddressfield="Address.Postcode">@Model.Address.Postcode</span>
+      </address>
+      @if (Model.CanBeDeleted)
+      {
+
+        <div class="button level4 deleteAddress">
+          <button class="fa fa-times inner address-trash" name="btnDelete" value="@Model.Address.AddressId"></button>
+        </div>
+      }
+    </div>
+    @if (!Model.Selected)
+    {
+      <div class="status">
+        <span class="wide2">
+          <a data-showaddress="true" data-showaddress-title="Edit this address" data-editaddressid="@Model.Address.AddressId" href="#" class="link-button fa fa-pencil">
+            Edit
+          </a>
+        </span>
+        <span class="wide2">
+          <button href="#" name="btnSelect" value="@Model.Address.AddressId" class="link-button fa fa-check">
+            Select This
+          </button>
+        </span>
+      </div>
+      <!-- <div class="address-actions">
+        <a data-showaddress="true" data-showaddress-title="Edit this address" data-editaddressid="@Model.Address.AddressId" href="#" class="link-button">Edit this address</a>
+        <span class="show-for-sr">Not selected</span>
+        <button class="button expanded secondary-button" style="width: 100%;" name="btnSelect" value="@Model.Address.AddressId">Select this address</button>
+      </div> -->
+    }
+    else
+    {
+      <div class="status">
+        <span class="wide2">
+          <a data-showaddress="true" data-showaddress-title="Edit this address" data-editaddressid="@Model.Address.AddressId" href="#" class="link-button fa fa-pencil">
+            Edit
+          </a>
+        </span>
+        <span class="wide2 selected">
+          <a href="#" class="link-button fa fa-check">
+            Selected
+          </a>
+        </span>
+      </div>
+    }
+  </div>
+</div>

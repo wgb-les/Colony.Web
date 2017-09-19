@@ -1,0 +1,21 @@
+﻿
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10" lang="en"><![endif]-->
+<!--[if gt IE 10]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    @{Html.RenderPartial("_Head.cshtml");}
+</head>
+
+<body class="sandersonSite b2c">
+    @{Html.RenderPartial("_Header.cshtml", "Sanderson");}
+    @{Html.RenderPartial("_Breadcrumbs.cshtml");}
+    @RenderBody()
+    @Html.Partial("_Footer.cshtml")
+</body>
+</html>

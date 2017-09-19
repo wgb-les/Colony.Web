@@ -1,0 +1,175 @@
+﻿@using Colony.CMS.Security.Helpers
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model WalkerGreenbank.Modules.HomeAccessories.Areas.Models.HomeAccessoryViewModel
+@{
+    var title = Model.HomeAccessory.Name;
+    title += Model.ParentCategory != null ? " " + Model.ParentCategory.Name : "";
+    Html.AppendTitle(title);
+
+    Html.SetPageData(Model.HomeAccessory.AnalyticsCode, Model.HomeAccessory.MetaTitle, Model.HomeAccessory.MetaKeywords, Model.HomeAccessory.MetaDescription, Model.HomeAccessory.MetaCustomTags);
+}
+@{
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageZoomUrl = defaultImageZoom != null ? @Url.ImageUrl(defaultImageZoom.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageUrl).AbsoluteUri;
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('productPage');
+</script>
+<div class="galleryContainer">
+
+    <div class="carousel imageCarousel productDetailsCarousel">
+        <div class="scroll-pane"></div>
+        <div class="zoom-helper">
+            <h3>Pinch the image to zoom</h3>
+        </div>
+
+        <span class="itemNew tap-to-zoom">Enable Zoom</span>
+        <ul class="items">
+            @if (Model.Images.Any())
+            {
+                var canvasId = 0;
+                foreach (var image in Model.Images)
+                {
+                    canvasId++;
+                    var imageUrl = Url.ImageUrl(image.ImageAssetID, "HomeAccessories", "HomeAccessoriesDetail", @"/_images/placeholders/article.jpg");
+                    var imageZoomUrl = Url.ImageUrl(image.ImageAssetID, "HomeAccessories", "HomeAccessoriesDetailZoom", @"/_images/placeholders/article.jpg");
+                    var imageThumbnailUrl = Url.ImageUrl(image.ImageAssetID, "HomeAccessories", "HomeAccessoriesThumbnail", @"/_images/placeholders/article.jpg");
+
+                    <li>
+                        <div class="canvas_container" style="width: 100%;" data-img="@imageZoomUrl">
+                            <canvas id="mycanvas@(canvasId)" class="canvasZoom" style="height: 100%; width: 100%;"></canvas>
+                        </div>
+                        <img id="zoom@(image.ImageAssetID)"class="mainZoom" src="@imageUrl" data-zoom-image="@imageZoomUrl"/>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <img id="zoom99999"class="mainZoom" src="@defaultImageUrl" data-zoom-image="@defaultImageZoomUrl"/>
+                </li>
+            }
+        </ul>
+        @if (Model.Images.Count() > 1)
+        {
+            <a href="#" class="prev">
+                <span></span>
+                Previous
+            </a>
+            <a href="#" class="next">
+                <span></span>
+                Next
+            </a>
+            <div class="bullets">
+                <span class="icon icon-play"></span>
+                <ul></ul>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="productDetails no-drag row" data-productcode="" data-productname="@Model.HomeAccessory.Name" data-skuid="" @if (defaultImage != null)
+                                                                                                                       {
+                                                                                                                           <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                       } data-productimage="@defaultImageUrl">
+    <div class="large-6 columns noPad">
+        <h1>@Model.HomeAccessory.Name</h1>
+    </div>
+    <div class="large-6 columns noPad">
+
+        <ul class="articleOptions pull-right">
+            <li>
+                @if (useraccount != null)
+                {
+                    @*<a href="#" id="addToScrapbookPopup" class="button small scrapbook addToScrapbookPopup" data-noprice="true" data-productcode="" data-productname="@Model.HomeAccessory.Name" data-skuid="" @if (defaultImage != null)
+                                                                                                                                                                                                               {
+                                                                                                                                                                                                                   <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                                                               } data-productimage="@defaultImageUrl">
+                        Add to Moodboard
+                    </a>*@
+                }
+                else
+                {
+                    @*<a href="#" id="addToScrapbook" class="button small scrapbook no-drag" data-noprice="true" data-productcode="" data-productname="@Model.HomeAccessory.Name" data-skuid="" @if (defaultImage != null)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                  <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                                              } data-productimage="@defaultImageUrl">
+                        Add to Scrapbook
+                    </a>*@
+                }
+            </li>
+            <li>
+                <a href="#" class="share" data-reveal-id="share">
+                    <span>Share</span></a>
+            </li>
+        </ul>
+    </div>
+    @if (isB2B)
+    {
+        <div class="clear"></div>
+        <span class="price"></span>
+    }
+    <hr/>
+    @if (useraccount != null)
+    {
+        Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+    }
+    <p class="productDescription">@Html.Raw(Model.HomeAccessory.LongDescription)</p>
+
+    @if (Model.Images.Any())
+    {
+        <div class="shopExtraProducts inspirationProducts">
+            @if (Model.Images.Count() > 3)
+            {
+                <div class="header">
+                    <span href="#" class="next right icon-angle-right "></span>
+                    <span href="#" class="prev right icon-angle-left disabled"></span>
+                </div>
+            }
+            else
+            {
+                <hr/>
+            }
+            <section class="boxSection colourWays">
+                <div class="bd">
+                    <div class="galleryToggles carousel productCarousel">
+                        <div class="items productList">
+                            @foreach (var productImage in Model.Images)
+                            {
+                                var imageUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg");
+                                var imageZoomUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg");
+                                var imageThumbnailUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+
+                                <div class="item @if (Model.Images.IsFirst(productImage))
+                                                 {
+                                                     <text>selected</text>
+                                                 }">
+                                    <a href="#" data-image="@imageUrl" data-zoom-image="@imageZoomUrl" @if (Model.Images.IsFirst(productImage))
+                                                                                                       {
+                                                                                                           <text>class="selected"</text>
+                                                                                                       } data-productname="@Model.HomeAccessory.Name" data-imageAssetId="@productImage.ImageAssetID" data-productimage="@imageThumbnailUrl" data-url="@Request.Url.AbsoluteUri">
+                                        <img src="@imageThumbnailUrl" alt="">
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+
+</div>
+<div class="clear"></div>
+<section id="share" class="reveal-modal medium">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.HomeAccessory.Name}); }
+</section>

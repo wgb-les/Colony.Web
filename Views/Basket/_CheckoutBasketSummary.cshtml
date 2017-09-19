@@ -1,0 +1,116 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.BasketViewModel
+
+
+<div class="blockSection wide1">
+    <div class="inner">
+        <div class="heading">
+            <h2>Order Summary</h2>
+        </div>
+        <div class="content summary">
+            <div class="line">
+                <div class="inner">
+                    <div class="details wide1">
+                        <div class="table">
+                            <div class="leftValue">Subtotal:</div>
+                            <div class="rightValue">@Model.CurrencyRegion.RegionInfo.CurrencySymbol@Model.TotalInc.ToString("#0.00")</div>
+
+                            <div class="leftValue">Delivery total:</div>
+                            <div class="rightValue">@Model.CurrencyRegion.RegionInfo.CurrencySymbol@Model.DeliveryCost.ToString("#0.00")</div>
+
+                            @if (Model.Discount > 0)
+                            {
+                                <div class="leftValue">Discount:</div>
+                                <div class="rightValue">@(Model.CurrencyRegion.RegionInfo.CurrencySymbol + "-" + Model.Discount.ToString("#0.00"))</div>
+                            }
+                            @if (Model.DeliveryDiscount > 0)
+                            {
+                                <div class="leftValue">Delivery Discount:</div>
+                                <div class="rightValue">@(Model.CurrencyRegion.RegionInfo.CurrencySymbol + "-" + Model.DeliveryDiscount.ToString("#0.00"))</div>      
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line">
+                <div class="inner">
+                    <div class="details wide1">
+                        <div class="table">
+                            <div class="leftValue">Total:</div>
+                            <div class="rightValue">@Model.CurrencyRegion.RegionInfo.CurrencySymbol@Model.GrandTotal.ToString("#0.00")</div>
+
+                            <div class="rightValue wide1">All prices include VAT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="boxSection">
+    <div class="header">
+        <h2 class="">Order Summary</h2>
+    </div>
+    <div class="card-content">
+        <div class="totals">
+
+            <div class="totals-row">
+                <div class="totals-label">
+                    Subtotal:
+                </div>
+                <div class="totals-value">
+                    @Model.CurrencyRegion.RegionInfo.CurrencySymbol<span data-delivery-subtotal="true">@Model.TotalInc.ToString("#0.00")</span>
+                </div>
+            </div>
+
+            <div class="totals-row">
+                <div class="totals-label">
+                    Delivery total:
+                </div>
+                <div class="totals-value hide" data-delivery-display="true">
+                    @Model.CurrencyRegion.RegionInfo.CurrencySymbol<span data-delivery-total="true">@Model.DeliveryCost.ToString("#0.00")</span>
+                </div>
+                <div class="totals-value hide" data-delivery-display-free="true">
+                    Free Delivery
+                </div>
+            </div>
+
+            @if (Model.Discount > 0)
+            {
+                <div class="totals-row">
+                    <div class="totals-label">
+                        Discount:
+                    </div>
+                    <div class="totals-value">
+                        @(Model.CurrencyRegion.RegionInfo.CurrencySymbol + "-" + Model.Discount.ToString("#0.00"))
+                    </div>
+                </div>
+            }
+
+            @if (Model.DeliveryDiscount > 0)
+            {
+                <div class="totals-row">
+                    <div class="totals-label">
+                        Delivery Discount:
+                    </div>
+                    <div class="totals-value">
+                        @(Model.CurrencyRegion.RegionInfo.CurrencySymbol + "-" + Model.DeliveryDiscount.ToString("#0.00"))
+                    </div>
+                </div>
+            }
+
+            <div class="totals-row totals-grand">
+                <div class="totals-label">
+                    Total:
+                </div>
+                <div class="totals-value">
+                    @Model.CurrencyRegion.RegionInfo.CurrencySymbol<span data-delivery-grandtotal="true">@Model.GrandTotal.ToString("#0.00")</span>
+                </div>
+                <div class="totals-message">
+                    All prices include VAT.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+

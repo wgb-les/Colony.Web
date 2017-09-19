@@ -1,0 +1,18 @@
+﻿@model bool
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var labelText = ViewData["labelText"] ?? displayText;
+}
+
+
+<div class="section tickbox">
+    @Html.CustomStyledValidationMessageFor(t => t)
+    @Html.CheckBoxFor(t => t)
+    @*@Html.CheckBoxFor(t => t)*@
+    @Html.CustomLabelFor(x => x, null, labelText.ToString())
+</div>

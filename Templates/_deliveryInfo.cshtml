@@ -1,0 +1,23 @@
+﻿@using Colony.Util
+@model Colony.Commerce.Areas.ShopPurchase.Models.BasketViewModel
+@if (Model != null)
+{
+    if (Model.DeliveryCharge != null)
+    {
+        if (Model.DeliveryCharge.AllowSamples)
+        {
+    <div class="del-info">
+        @if (!Colony.Commerce.ColonyCommerceContext.Current.Shop.CurrentShop.FreeSamples)
+        {
+            <p>Sample Delivery is charged at @Model.CurrencyRegion.RegionInfo.CurrencySymbol@Model.DeliveryCharge.MinimumChargeForSamples.AsDecimal(0).ToString("#0.00"), up to and including the first @Model.DeliveryCharge.NumberOfSamplesIncludedInMinimumCharge samples per order. For additional samples, delivery is charged at @Model.CurrencyRegion.RegionInfo.CurrencySymbol@Model.DeliveryCharge.PricePerSample.AsDecimal(0).ToString("#0.00") each. </p>
+        }
+        else
+        {
+            <p class="eatra-info">
+                You will not be charged for delivery of samples.
+            </p>
+        }
+    </div>
+        }
+    }
+}

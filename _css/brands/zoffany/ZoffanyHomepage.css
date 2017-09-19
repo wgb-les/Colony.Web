@@ -1,0 +1,345 @@
+﻿
+@font-face {
+    font-family: 'MinervaAntiqua';
+    src: url('../../../_fonts/MinervaAntiqua.eot') format('embedded-opentype'), url('../../../_fonts/MinervaAntiqua.ttf') format('truetype'), url('../../../_fonts/MinervaAntiqua.woff') format('woff');
+}
+.morVideo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-size: cover;
+    transition: 1s opacity;
+}
+#fp-nav {
+    position: fixed;
+    top: 50%;
+    left: 0px;
+    background: black;
+}
+
+.pagInner {
+    padding: 5px 0;
+}
+
+.pagItem {
+    padding: 5px 10px;
+}
+
+    .pagItem a {
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        display: block;
+        border-radius: 50%;
+    }
+
+        .pagItem a.active {
+            background: #bbb;
+        }
+
+    .pagItem .fp-tooltip {
+        display: none;
+    }
+
+#fullpage {
+    width: 100%;
+    height: 100%;
+    position: absolute !important;
+    top: 0px;
+    left: 0px;
+    font-family: 'T-26 - MinervaAntiqua';
+}
+
+.homeSliderContainer {
+    width: 100%;
+    float: left;
+}
+
+.fullpageColumn {
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.fullpageBlockItem {
+    float: left;
+    background-repeat: no-repeat;
+    border:none;
+    position: relative;
+}
+
+.fullLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.fullpageBlockItem .gridCaption {
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #333;
+    color:#837d76;
+    font-family: "Gill Sans W04 Light", arial, sans-serif;
+    padding: 15px;
+    font-size: 1.6em;
+    text-transform: uppercase;
+}
+
+/*.fullpageBlockItem .autumnPanel {
+    position: relative;
+    top: 80px;
+    left: 0;
+    background: #333;
+    color:#837d76;
+    font-family: 'MinervaAntiqua';
+    padding: 0;
+    font-size: 1.8em;
+    text-transform: uppercase;
+    width:60%;
+    padding:20px;
+}
+autumn {
+    font-size: 2.2em;
+    margin-right:15px;
+}*/
+
+/*---------------------------- SECTION 1 ----------------------------*/
+
+.column01 {
+    width: 100%;
+}
+
+.block01 {
+    width: 100%;
+    height: 100%;
+    background-position: left bottom;
+}
+
+
+/*---------------------------- SECTION 2 ----------------------------*/
+
+.column02,.column03 {
+    width: 50%;
+}
+
+.block03 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Phedera-FB-Fitzrovia-Main_LR-text.jpg');
+    background-size: cover;
+    background-position:left top;
+}
+
+/*---------------------------- SECTION 3 ----------------------------*/
+
+.column04, .column07 {
+    width: 65%;
+}
+
+
+.column05, .column06 {
+    width: 35%;
+}
+
+.block07 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Phedera-Colour-Anthracite-and-Hollyhock_V3_LR.jpg');
+    background-size: cover;
+    background-position: bottom;
+}
+
+/*---------------------------- SECTION 4 ----------------------------*/
+
+.block08 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Sansui-Painted-Mountains-WP-detail-2.jpg');
+    background-size: cover;
+    background-position: left bottom;
+
+}
+
+
+    .block09 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Rushes-WP-main-dps-xl.jpg');
+    background-size: cover;
+    background-position: right;
+}
+    .block06 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Akashi-WP-sofa-portrait-xlv2.jpg');
+    background-size: cover;
+    background-position: left bottom;
+}
+.block04 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/phaedraWallcoveringsDancer.png');
+    background-size: cover;
+    background-position:left bottom;
+}
+
+/*@media only screen and (max-width: 1300px) {
+        .block06 {
+    background-position: left bottom;
+}
+}
+
+@media only screen and (max-width: 1300px) {
+     .block08 {
+        background-position: -75px bottom;
+    }
+      .block04 {
+    background-position: bottom;
+    }
+}*/
+
+@media only screen and (max-width: 1024px) {
+ .fullpageBlockItem .gridCaption {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+
+/*.block09 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Rushes-WP-main-dps.jpg');
+    background-size: cover;
+    background-position: bottom;
+}
+    .block08 {
+        background-position: -150px bottom;
+    }
+    .block04 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Phedera-WP-Phedera-Main-V19_LR.jpg');
+    background-size: cover;
+    background-position:left bottom;
+}*/
+
+}
+
+.mobileOnly{
+  display: none;
+}
+.desktopOnly{
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .fullpageBlockItem .gridCaption{
+    right: 0;
+    left: auto;
+  }
+
+    .morVideo{
+      display: none;
+    }
+    .mobileOnly{
+      display: block;
+    }
+    .desktopOnly{
+      display: none;
+    }
+
+    .section {
+        padding-top: 95px !important;
+    }
+
+    .column02, .column03, .column04, .column05{
+        width: 100%;
+        height:50%;
+    }
+
+    .column01, .column07, .column06{
+      width: 100%;
+      height: 100%;
+    }
+
+      .column05 .fullpageBlockItem{
+        width: 50%;
+        height: 100%;
+      }
+
+      .block01{
+        background-position: center -150px;
+        background-size: 200% center;
+        background-repeat: no-repeat;
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Phedera-Dancer-Silhouette-Ballroom-V6.png');
+      }
+        .block01 a{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          z-index: 0;
+          background: rgba(0, 0, 0, 0.3);
+          display: flex;
+          align-items: center;
+          align-content: center;
+          justify-content: center;
+        }
+
+          .playVideoCaption{
+            color: #eee;
+            width: 80px;
+            padding: 10px;
+            border-radius: 2px;
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            font-family: "Gill Sans W04 Light", arial, sans-serif;
+            text-transform: uppercase;
+            text-align: center;
+            /*font-size: 24px;*/
+
+          }
+            .playVideoCaption:before{
+              font-family: "FontAwesome";
+              content: "\f04b";
+              float: left;
+              width: 100%;
+              font-size: 25px;
+            }
+      .block03{
+        background-position: center -350px;
+      }
+      .block04{
+        background-position: center -300px;
+      }
+      /*.block08{
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Rushes-WP-main-dps-xl.jpg');
+      }
+      .block09{
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Zoffany-Homepage/Sep-16-full/Sansui-Painted-Mountains-WP-detail-2.jpg');
+      }*/
+
+
+}
+
+@media only screen and (max-width: 414px) {
+
+  .block03{
+    background-position: center -165px;
+  }
+
+  .block04 {
+    background-position: center -155px;
+  }
+
+}

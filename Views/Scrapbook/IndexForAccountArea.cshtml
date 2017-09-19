@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel>
+@{
+    Html.SetTitle("Moodboards");
+}
+
+@Html.Partial("~/Views/AccountArea/AccountMenu.cshtml", "Scrapbooks")
+
+<div id="content" class="">
+
+    <h1>Moodboards</h1>
+    @if (ViewBag.Edit == "MoodboardDeleted")
+    {
+        <div class="alertInfo confirmation">
+            Moodboard has been successfully deleted.
+        </div>
+    }
+    <ul class="scrapBooks">
+        <li>
+            <a class="addNew" href="@Url.Action("Detail", "Scrapbook", new {area = "Scrapbook"})">
+                <span>Create new Scrapbook</span>
+            </a>
+        </li>
+        @if (Model.Any())
+        {
+            foreach (var scarpbook in Model)
+            {
+                Html.RenderPartial("~/Views/Scrapbook/Scrapbook.cshtml", scarpbook);
+            }
+        }
+    </ul>
+</div>
+
+<section id="share" class="reveal-modal medium">
+</section>
+
+<section id="deleteScrapbook" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Delete Moodboard</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal" id="enquiryForm">
+        Are you sure you want to delete the scrapbook <strong><%=scrapbookName%></strong>?
+        <div class="field formControls">
+            <button class="button">Yes</button>
+            <button class="button">No</button>
+        </div>
+    </div>
+</section>

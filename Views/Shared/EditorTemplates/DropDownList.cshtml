@@ -1,0 +1,37 @@
+﻿@model object
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+    var options = ViewData["options"] as IEnumerable<SelectListItem>;
+    var size = ViewData["size"] ?? string.Empty;
+    var allText = ViewData["allText"] as string ?? "Please select";
+    options = new[] {new SelectListItem {Value = "", Text = allText}}.Concat(options);
+}
+
+<div class="field select @size">
+
+    @Html.CustomLabelFor(x => x)
+    @*@Html.CustomStyledValidationMessageFor(x => x)*@
+
+    @Html.CustomStyledValidationMessageFor(t => t)
+    @* <select name="@fieldName" id="@fieldName" data-val-required="@isRequired">
+		@if (!isRequired)
+		{ 
+			<option value="">Please select</option>
+		}
+		@if (options != null)
+		{
+			foreach (var item in options)
+			{
+				bool selected = Model != null && item.Value == Model.ToString();
+			<option value="@item.Value" @if (selected)
+										{ <text>selected="selected"</text> }>@item.Text</option>
+			}
+		}
+
+	</select>*@
+    @Html.DropDownListFor(t => t, new SelectList(options, "Value", "Text", Model))
+</div>

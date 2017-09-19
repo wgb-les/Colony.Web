@@ -1,0 +1,25 @@
+﻿@model Colony.Commerce.Areas.AccountArea.Controllers.Models.OrderSearchViewModel
+@{
+    Html.SetTitle("Your Orders");
+}
+
+@Html.Partial("AccountMenu", "Orders")
+
+<div id="content">
+    <h1>Your Orders</h1>
+    <div class="row orderHistorySearchContainer">
+        <div class="large-12 columns npl">
+            <form id="orderHistorySearch" action="?" method="get">
+                @Html.EditorFor(model => model.OrderNumber, new {@size = "small-4 npl columns pull-right", placeholder = "Enter an order number"})
+                @Html.EditorFor(model => model.ShopId, new {@size = "small-4 columns pull-right", options = Model.Shops, allText = "All Shops"})
+                <div class="field formControls small-3 left columns">
+                    <button class="button">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="orderListWrapper">
+        @{ Html.RenderAction("OrderList", "AccountArea", new {area = "AccountArea", searchModel = Model}); }
+    </div>
+</div>

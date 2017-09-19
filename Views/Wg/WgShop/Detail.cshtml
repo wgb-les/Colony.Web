@@ -1,0 +1,26 @@
+@using Colony.Commerce.Models.Stock
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+    Html.AppendTitle(Model.Product.Name + (Model.SelectedSku != null ? " (" + Model.SelectedSku.Code + ")" : ""));
+    Html.AppendTitle(Model.Category.Name);
+
+    Html.SetPageData(Model.Product.AnalyticsCode, Model.Product.MetaTitle, Model.Product.MetaKeywords, Model.Product.MetaDescription, Model.Product.MetaCustomTags);
+}
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('productPage');
+</script>
+
+@{
+
+    Html.RenderPartial("_ProductDetailWithOptions", Model);
+}
+
+@*@if (ViewBag.IsPaint == true)
+{    
+    Html.RenderPartial("_PaintProductDetail", Model);
+}
+
+else
+{    
+    Html.RenderPartial("_ProductDetailWithOptions", Model);
+}*@

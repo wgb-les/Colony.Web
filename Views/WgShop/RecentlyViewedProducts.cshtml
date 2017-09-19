@@ -1,0 +1,84 @@
+﻿@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model IEnumerable<Colony.Commerce.Areas.Shops.Models.RecentlyViewedProductViewModel>
+
+<div class="bottomMenu" id="recentlyViewed">
+    <div class="scroller">
+        <ul class="results">
+            <li style="width: 276px;">
+                <article class="details recentlyViewedPod">
+                    <h2>Recently Viewed</h2>
+                    <p>Once you have viewed some products we will keep your recent history here.</p>
+                </article>
+                <div class="clear"></div>
+            </li>
+            @if (Model.Any())
+            {
+                var contractUser = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current));
+                if (contractUser)
+                {
+                    <input type="hidden" id="webcontractuser" value="true"/>
+                }
+                foreach (var product in Model)
+                {
+                    var defaultImage = product.Images.OrderBy(x => x.Order).FirstOrDefault();
+                    var defaultImageUrl = defaultImage != null ? Url.ImageUrl(defaultImage.ImageAssetID, "productcatalogue", "productthumbnail", "/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg"; //"/_assets/images/cloud/" + defaultImage.ImageAssetID.ToString() + "/ProductCatalogue/ProductThumbnail/" : @"/_images/placeholders/article.jpg";
+                    var showPrice = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current)) ? "false" : "true";
+                    <li style="width: 276px;">
+                        <article class="details recentlyViewedPod no-drag" data-noprice="@showPrice" data-productcode="@(product.Sku != null ? product.Sku.Code : product.Attributes.GetValueOrNull("Design Code"))">
+                            <figure class="left">
+                                <img src="@defaultImageUrl" alt="@product.Product.Name" height="110" width="110"/>
+                            </figure>
+                            <div class="left rightCol no-drag" data-productcode="@(product.Sku != null ? product.Sku.Code : product.Attributes.GetValueOrNull("Design Code"))" data-productname="@product.Product.Name" data-skuid="@(product.Sku != null ? product.Sku.Id : product.Product.SkuGroupId)" @if (defaultImage != null)
+                                                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                                                              <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                                                                                                                                                          } data-productimage="@defaultImageUrl">
+                                @if (product.Sku != null)
+                                {
+                                    <h3>
+                                        <a href="/shop/@(product.Url)?code=@product.Sku.Code" title="@product.Sku.Name">@product.Product.Name</a>
+                                    </h3>
+                                }
+                                else
+                                {
+                                    <h3>
+                                        <a href="/shop/@(product.Url)" title="@product.Product.Name">@product.Product.Name</a>
+                                    </h3>
+                                }
+                                <ul>
+                                    @*@if (!string.IsNullOrEmpty(product.Category.Name))
+									{
+										<li>@product.Category.Name</li>
+									}*@
+                                    @*@if (product.SkuId != null && product.Product != null && product.Product.Sku != null)
+                                { 
+                                    <li>@product.Product.Sku.Code</li>
+                                }
+                                else
+                                {
+                                    <li>@product.Attributes.GetValueOrNull("Design Code")</li> 
+                                }*@
+                                    <li>@product.Attributes.GetValueOrNull("Design Code")</li>
+                                    <li>@product.Attributes.GetValueOrNull("Product Group")</li>
+                                </ul>
+                                <h4>
+                                    <span class="price">&nbsp;</span></h4>
+
+                                @if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)) && !B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current)))
+                                {
+                                    <a class="block button left b2baddtobasket b2bdisabled" style="margin-bottom: 10px;" href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = product.SkuId})">Add to basket</a>
+                                    <br/>
+                                    <br/>
+                                }
+                                @if (int.Parse(product.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0)
+                                {
+                                    <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = product.SkuId, sample = "True"})" class="block button left addToBasket b2baddsampletobasket">Order a sample</a>
+                                }
+                            </div>
+                        </article>
+                        <div class="clear"></div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

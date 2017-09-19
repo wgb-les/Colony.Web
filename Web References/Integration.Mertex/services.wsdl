@@ -1,0 +1,1648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mertex.redant.com/"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://mertex.redant.com/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://mertex.redant.com/">
+      <s:element name="AttemptLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttemptLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AttemptLoginResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductPriceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductPricePOCO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductPricePOCOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductPricePOCOResult" type="tns:ProductListItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProductListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Product_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Price" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StockLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StockLevelUnitOfMeasurement" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DueIn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DueInQuantity" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPricePOCOListForProductList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCodes" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPricePOCOListForProductListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPricePOCOListForProductListResult"
+                       type="tns:ArrayOfProductListItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductListItem" nillable="true"
+                     type="tns:ProductListItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProductDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductDetailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOptionsForImport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOptionsForImportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductOptionsForImportResult"
+                       type="tns:ArrayOfProductOption" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductOption">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductOption" nillable="true" type="tns:ProductOption" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductOption">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OptionProductCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProductListForImport">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProductListForImportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductListForImportResult"
+                       type="tns:ArrayOfProductForImport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductForImport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductForImport" nillable="true"
+                     type="tns:ProductForImport" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductForImport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Price" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sample" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PattBooks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PieceOnlyOrders" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllowReserve" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusImage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AfterCare" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Finish" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PatternMatch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PatternMatchDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RubTestResults" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Width" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DesignCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DesignName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CollectionName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescriptiveColour" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductGroup" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DesignType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DesignStyle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SalesDivision" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TechComposition" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Composition" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SmallScale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsageCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsageImageCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RRP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FrDomestic" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FrContract" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FrDrapes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FrWallpaper" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contract" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Blackout" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DesignDetailsSort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CollectionSort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewCollection" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageList" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OnDetailPage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PercentageColour" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OverallLightnessColour" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DesignDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ComplementaryProducts" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherCollections" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ComingSoonUK" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ComingSoonUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ColourCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SellCo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AfterCareCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SortName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VerticalPatternRepeat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HorizontalPatternRepeat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SampleProductCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherInfo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StyleLibraryVisible" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompositionDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StockCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LaunchDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReadyForWeb" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IsOptionProduct" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OutOfStock" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteVisibility" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultOrderLocation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MertexAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UKPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="USPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EURPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StockLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StockLevelUnitOfMeasurement" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DueIn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DueInQuantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentProductCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StyleLibraryContractVisible" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProductListForPartialImport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="startDateTime" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDateTime" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductListForPartialImportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductListForPartialImportResult"
+                       type="tns:ArrayOfProductForImport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailsPOCO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailsPOCOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductDetailsPOCOResult" type="tns:ProductDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProductDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Sample" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wi_Patt_Books" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Piece_Only_Orders" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wi_Allow_Reserve" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wi_Status_Image" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Product_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="After_Care" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Finish" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Image_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pattern_Match" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pattmatch_Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rub_Test_Results" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Width_cms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Free_Stock" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Number_of_items" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origin_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Composition" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Horiz_Ptn_Repeat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Vert_Ptn_Repeat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Drop_Ptn_Repeat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Width" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Next_Due_In" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wi_Duein_Comment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weight" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Technical_Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Price" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cut_Length_Prices" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quality_Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Item_Level_Stock" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wi_Show_Batches" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Break_Qty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Break_Price" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Break_Qty2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Break_Price2" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProductDetailsListPOCO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailsListPOCOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductDetailsListPOCOResult"
+                       type="tns:ArrayOfProductDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductDetail" nillable="true" type="tns:ProductDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetChangedProductDetailsListPOCO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="startDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChangedProductDetailsListPOCOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChangedProductDetailsListPOCOResult"
+                       type="tns:ArrayOfProductDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BOrderEnquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BOrderEnquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2BOrderEnquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BRemoveBasketItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="basketGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lineNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BRemoveBasketItemResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="B2BClearBasket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="basketGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerRef" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BClearBasketResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="B2BGetBasketSummary">
+        <s:complexType />
+      </s:element>
+      <s:element name="B2BGetBasketSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2BGetBasketSummaryResult" type="tns:Basket" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Basket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Line_Number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Product_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity_Ordered" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sample_Indicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Discount_Percentage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Item_Cnt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Item_Len" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Line_Notes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Customer_Order_Reference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reserve_Indicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="With_Cutting" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="From_Specific_Batch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allocated" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wi_Status_Image" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unit_Price" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUSREF" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUSNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UNITSTOCK" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MertexAccount" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="B2BGetBasket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="basketGuid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BGetBasketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2BGetBasketResult" type="tns:ArrayOfBasketViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBasketViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BasketViewModel" nillable="true"
+                     type="tns:BasketViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BasketViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerReference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerCurrency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerDefaultAddressID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerAddresses" type="tns:ArrayOfCustomerAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="BasketItems" type="tns:ArrayOfBasket" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeliveryValueInc" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeliveryValueEx" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="HaulageValueInc" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="HaulageValueEx" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MischargeValueInc" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MischargeValueEx" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="TempDeliveryXml" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tax" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCustomerAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomerAddress" nillable="true"
+                     type="tns:CustomerAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DELREF" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DELNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DELADDR1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DELADDR2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DELADDR3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DELADDR4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DELPCODE" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBasket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Basket" nillable="true" type="tns:Basket" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="B2BCreateOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="basketGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="deliveryInstructions" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isPriority" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isPaidByCard" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="deliveryAddressReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CFAAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CFAPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CFACountry" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2BCreateOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2BCreateOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2CCreateBasket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderLines" type="tns:ArrayOfOrderLine" />
+            <s:element minOccurs="0" maxOccurs="1" name="order" type="tns:Order" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOrderLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderLine" nillable="true" type="tns:OrderLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerAccountCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderLineNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderQuantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SampleIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BackOrderIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReserveIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DiscountPercentage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumberOf" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LineNotes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderUnit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomersOwnReference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AutoUpdateKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WithCuttingIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SpecificBatchInd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderLinePrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderLineValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderLineVATCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderLineVATValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Order">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerAccountCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryReference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryAddress" type="tns:Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerOrderReference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HaulierCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriorityOrderIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GiftWrapIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PartDeliveryRequested" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageServiceCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageVATCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageVATValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxExemptionCert" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryRequiredDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SpecialInstructions" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FromCSVFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SampleBasketID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderLines" type="tns:ArrayOfOrderLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Postcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TeleNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DomesticTradeIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="B2CCreateBasketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2CCreateBasketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2COrderEnquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2COrderEnquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2COrderEnquiryResult" type="tns:OrderStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LineNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="QuantityOrdered" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerOrderRef" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderStatsText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parcel" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCarriageOptionsRaw">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCarriageOptionsRawResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCarriageOptionsRawResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCarriageOptions">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCarriageOptionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCarriageOptionsResult" type="tns:ArrayOfCarriageOption" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCarriageOption">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CarriageOption" nillable="true"
+                     type="tns:CarriageOption" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CarriageOption">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HaulierCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebCutOffTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebCutOffDay" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MinimumSampleCharge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PerSampleCharge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaxSampleQty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SplitOrderSurcharge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MultiCarriageSurcharge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumberOfSamplesMinChargeAppliesTo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageMinValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageMaxValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageCharge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarriageCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MertexAccount" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetStockist">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetStockistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStockistResult" type="tns:ArrayOfStockist" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfStockist">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Stockist" nillable="true" type="tns:Stockist" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Stockist">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Customer_Account" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address_Line1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address_Line2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Town" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="County" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Post_Zip_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telephone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Website" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Social_Links" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Social_Links_Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ecla" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Stockist_Group" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpeningTimes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherInfo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SalesDivisions" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CustomerNameFromCustomerRef">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customerRef" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CustomerNameFromCustomerRefResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerNameFromCustomerRefResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerAddresses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customerReference" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerAddressesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerAddressesResult" type="tns:ArrayOfCustomerAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvoiceEnquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerRef" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvoiceEnquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceEnquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkInvoiceAsPaid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerRef" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkInvoiceAsPaidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MarkInvoiceAsPaidResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2CStockLookupRaw">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2CStockLookupRawResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2CStockLookupRawResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2CStockLookup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="B2CStockLookupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2CStockLookupResult" type="tns:StockAvailable" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StockAvailable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Item_Level_Stock" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="B2CZeroStockCheck">
+        <s:complexType />
+      </s:element>
+      <s:element name="B2CZeroStockCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="B2CZeroStockCheckResult" type="tns:ArrayOfStockAvailable" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfStockAvailable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StockAvailable" nillable="true"
+                     type="tns:StockAvailable" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AttemptLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:AttemptLogin" />
+  </wsdl:message>
+  <wsdl:message name="AttemptLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:AttemptLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductPrice" />
+  </wsdl:message>
+  <wsdl:message name="GetProductPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductPricePOCOSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductPricePOCO" />
+  </wsdl:message>
+  <wsdl:message name="GetProductPricePOCOSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductPricePOCOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPricePOCOListForProductListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPricePOCOListForProductList" />
+  </wsdl:message>
+  <wsdl:message name="GetPricePOCOListForProductListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPricePOCOListForProductListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOptionsForImportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductOptionsForImport" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOptionsForImportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductOptionsForImportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListForImportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductListForImport" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListForImportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductListForImportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListForPartialImportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductListForPartialImport" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListForPartialImportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductListForPartialImportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailsPOCOSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductDetailsPOCO" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailsPOCOSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductDetailsPOCOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailsListPOCOSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductDetailsListPOCO" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailsListPOCOSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductDetailsListPOCOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChangedProductDetailsListPOCOSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChangedProductDetailsListPOCO" />
+  </wsdl:message>
+  <wsdl:message name="GetChangedProductDetailsListPOCOSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChangedProductDetailsListPOCOResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2BOrderEnquirySoapIn">
+    <wsdl:part name="parameters" element="tns:B2BOrderEnquiry" />
+  </wsdl:message>
+  <wsdl:message name="B2BOrderEnquirySoapOut">
+    <wsdl:part name="parameters" element="tns:B2BOrderEnquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2BRemoveBasketItemSoapIn">
+    <wsdl:part name="parameters" element="tns:B2BRemoveBasketItem" />
+  </wsdl:message>
+  <wsdl:message name="B2BRemoveBasketItemSoapOut">
+    <wsdl:part name="parameters" element="tns:B2BRemoveBasketItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2BClearBasketSoapIn">
+    <wsdl:part name="parameters" element="tns:B2BClearBasket" />
+  </wsdl:message>
+  <wsdl:message name="B2BClearBasketSoapOut">
+    <wsdl:part name="parameters" element="tns:B2BClearBasketResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2BGetBasketSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:B2BGetBasketSummary" />
+  </wsdl:message>
+  <wsdl:message name="B2BGetBasketSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:B2BGetBasketSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2BGetBasketSoapIn">
+    <wsdl:part name="parameters" element="tns:B2BGetBasket" />
+  </wsdl:message>
+  <wsdl:message name="B2BGetBasketSoapOut">
+    <wsdl:part name="parameters" element="tns:B2BGetBasketResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2BCreateOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:B2BCreateOrder" />
+  </wsdl:message>
+  <wsdl:message name="B2BCreateOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:B2BCreateOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2CCreateBasketSoapIn">
+    <wsdl:part name="parameters" element="tns:B2CCreateBasket" />
+  </wsdl:message>
+  <wsdl:message name="B2CCreateBasketSoapOut">
+    <wsdl:part name="parameters" element="tns:B2CCreateBasketResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2COrderEnquirySoapIn">
+    <wsdl:part name="parameters" element="tns:B2COrderEnquiry" />
+  </wsdl:message>
+  <wsdl:message name="B2COrderEnquirySoapOut">
+    <wsdl:part name="parameters" element="tns:B2COrderEnquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCarriageOptionsRawSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCarriageOptionsRaw" />
+  </wsdl:message>
+  <wsdl:message name="GetCarriageOptionsRawSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCarriageOptionsRawResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCarriageOptionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCarriageOptions" />
+  </wsdl:message>
+  <wsdl:message name="GetCarriageOptionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCarriageOptionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStockistSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStockist" />
+  </wsdl:message>
+  <wsdl:message name="GetStockistSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStockistResponse" />
+  </wsdl:message>
+  <wsdl:message name="CustomerNameFromCustomerRefSoapIn">
+    <wsdl:part name="parameters" element="tns:CustomerNameFromCustomerRef" />
+  </wsdl:message>
+  <wsdl:message name="CustomerNameFromCustomerRefSoapOut">
+    <wsdl:part name="parameters" element="tns:CustomerNameFromCustomerRefResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerAddressesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerAddresses" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerAddressesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="InvoiceEnquirySoapIn">
+    <wsdl:part name="parameters" element="tns:InvoiceEnquiry" />
+  </wsdl:message>
+  <wsdl:message name="InvoiceEnquirySoapOut">
+    <wsdl:part name="parameters" element="tns:InvoiceEnquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarkInvoiceAsPaidSoapIn">
+    <wsdl:part name="parameters" element="tns:MarkInvoiceAsPaid" />
+  </wsdl:message>
+  <wsdl:message name="MarkInvoiceAsPaidSoapOut">
+    <wsdl:part name="parameters" element="tns:MarkInvoiceAsPaidResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2CStockLookupRawSoapIn">
+    <wsdl:part name="parameters" element="tns:B2CStockLookupRaw" />
+  </wsdl:message>
+  <wsdl:message name="B2CStockLookupRawSoapOut">
+    <wsdl:part name="parameters" element="tns:B2CStockLookupRawResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2CStockLookupSoapIn">
+    <wsdl:part name="parameters" element="tns:B2CStockLookup" />
+  </wsdl:message>
+  <wsdl:message name="B2CStockLookupSoapOut">
+    <wsdl:part name="parameters" element="tns:B2CStockLookupResponse" />
+  </wsdl:message>
+  <wsdl:message name="B2CZeroStockCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:B2CZeroStockCheck" />
+  </wsdl:message>
+  <wsdl:message name="B2CZeroStockCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:B2CZeroStockCheckResponse" />
+  </wsdl:message>
+  <wsdl:portType name="servicesSoap">
+    <wsdl:operation name="AttemptLogin">
+      <wsdl:input message="tns:AttemptLoginSoapIn" />
+      <wsdl:output message="tns:AttemptLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductPrice">
+      <wsdl:input message="tns:GetProductPriceSoapIn" />
+      <wsdl:output message="tns:GetProductPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductPricePOCO">
+      <wsdl:input message="tns:GetProductPricePOCOSoapIn" />
+      <wsdl:output message="tns:GetProductPricePOCOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPricePOCOListForProductList">
+      <wsdl:input message="tns:GetPricePOCOListForProductListSoapIn" />
+      <wsdl:output message="tns:GetPricePOCOListForProductListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetail">
+      <wsdl:input message="tns:GetProductDetailSoapIn" />
+      <wsdl:output message="tns:GetProductDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOptionsForImport">
+      <wsdl:input message="tns:GetProductOptionsForImportSoapIn" />
+      <wsdl:output message="tns:GetProductOptionsForImportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductListForImport">
+      <wsdl:input message="tns:GetProductListForImportSoapIn" />
+      <wsdl:output message="tns:GetProductListForImportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductListForPartialImport">
+      <wsdl:input message="tns:GetProductListForPartialImportSoapIn" />
+      <wsdl:output message="tns:GetProductListForPartialImportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailsPOCO">
+      <wsdl:input message="tns:GetProductDetailsPOCOSoapIn" />
+      <wsdl:output message="tns:GetProductDetailsPOCOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailsListPOCO">
+      <wsdl:input message="tns:GetProductDetailsListPOCOSoapIn" />
+      <wsdl:output message="tns:GetProductDetailsListPOCOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChangedProductDetailsListPOCO">
+      <wsdl:input message="tns:GetChangedProductDetailsListPOCOSoapIn" />
+      <wsdl:output message="tns:GetChangedProductDetailsListPOCOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2BOrderEnquiry">
+      <wsdl:input message="tns:B2BOrderEnquirySoapIn" />
+      <wsdl:output message="tns:B2BOrderEnquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2BRemoveBasketItem">
+      <wsdl:input message="tns:B2BRemoveBasketItemSoapIn" />
+      <wsdl:output message="tns:B2BRemoveBasketItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2BClearBasket">
+      <wsdl:input message="tns:B2BClearBasketSoapIn" />
+      <wsdl:output message="tns:B2BClearBasketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2BGetBasketSummary">
+      <wsdl:input message="tns:B2BGetBasketSummarySoapIn" />
+      <wsdl:output message="tns:B2BGetBasketSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2BGetBasket">
+      <wsdl:input message="tns:B2BGetBasketSoapIn" />
+      <wsdl:output message="tns:B2BGetBasketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2BCreateOrder">
+      <wsdl:input message="tns:B2BCreateOrderSoapIn" />
+      <wsdl:output message="tns:B2BCreateOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2CCreateBasket">
+      <wsdl:input message="tns:B2CCreateBasketSoapIn" />
+      <wsdl:output message="tns:B2CCreateBasketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2COrderEnquiry">
+      <wsdl:input message="tns:B2COrderEnquirySoapIn" />
+      <wsdl:output message="tns:B2COrderEnquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriageOptionsRaw">
+      <wsdl:input message="tns:GetCarriageOptionsRawSoapIn" />
+      <wsdl:output message="tns:GetCarriageOptionsRawSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriageOptions">
+      <wsdl:input message="tns:GetCarriageOptionsSoapIn" />
+      <wsdl:output message="tns:GetCarriageOptionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockist">
+      <wsdl:input message="tns:GetStockistSoapIn" />
+      <wsdl:output message="tns:GetStockistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CustomerNameFromCustomerRef">
+      <wsdl:input message="tns:CustomerNameFromCustomerRefSoapIn" />
+      <wsdl:output message="tns:CustomerNameFromCustomerRefSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerAddresses">
+      <wsdl:input message="tns:GetCustomerAddressesSoapIn" />
+      <wsdl:output message="tns:GetCustomerAddressesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InvoiceEnquiry">
+      <wsdl:input message="tns:InvoiceEnquirySoapIn" />
+      <wsdl:output message="tns:InvoiceEnquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkInvoiceAsPaid">
+      <wsdl:input message="tns:MarkInvoiceAsPaidSoapIn" />
+      <wsdl:output message="tns:MarkInvoiceAsPaidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2CStockLookupRaw">
+      <wsdl:input message="tns:B2CStockLookupRawSoapIn" />
+      <wsdl:output message="tns:B2CStockLookupRawSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2CStockLookup">
+      <wsdl:input message="tns:B2CStockLookupSoapIn" />
+      <wsdl:output message="tns:B2CStockLookupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="B2CZeroStockCheck">
+      <wsdl:input message="tns:B2CZeroStockCheckSoapIn" />
+      <wsdl:output message="tns:B2CZeroStockCheckSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="servicesSoap" type="tns:servicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AttemptLogin">
+      <soap:operation soapAction="http://mertex.redant.com/AttemptLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductPrice">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductPricePOCO">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductPricePOCO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPricePOCOListForProductList">
+      <soap:operation soapAction="http://mertex.redant.com/GetPricePOCOListForProductList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetail">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOptionsForImport">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductOptionsForImport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductListForImport">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductListForImport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductListForPartialImport">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductListForPartialImport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailsPOCO">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductDetailsPOCO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailsListPOCO">
+      <soap:operation soapAction="http://mertex.redant.com/GetProductDetailsListPOCO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChangedProductDetailsListPOCO">
+      <soap:operation soapAction="http://mertex.redant.com/GetChangedProductDetailsListPOCO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BOrderEnquiry">
+      <soap:operation soapAction="http://mertex.redant.com/B2BOrderEnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BRemoveBasketItem">
+      <soap:operation soapAction="http://mertex.redant.com/B2BRemoveBasketItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BClearBasket">
+      <soap:operation soapAction="http://mertex.redant.com/B2BClearBasket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BGetBasketSummary">
+      <soap:operation soapAction="http://mertex.redant.com/B2BGetBasketSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BGetBasket">
+      <soap:operation soapAction="http://mertex.redant.com/B2BGetBasket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BCreateOrder">
+      <soap:operation soapAction="http://mertex.redant.com/B2BCreateOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CCreateBasket">
+      <soap:operation soapAction="http://mertex.redant.com/B2CCreateBasket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2COrderEnquiry">
+      <soap:operation soapAction="http://mertex.redant.com/B2COrderEnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriageOptionsRaw">
+      <soap:operation soapAction="http://mertex.redant.com/GetCarriageOptionsRaw" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriageOptions">
+      <soap:operation soapAction="http://mertex.redant.com/GetCarriageOptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockist">
+      <soap:operation soapAction="http://mertex.redant.com/GetStockist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CustomerNameFromCustomerRef">
+      <soap:operation soapAction="http://mertex.redant.com/CustomerNameFromCustomerRef" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerAddresses">
+      <soap:operation soapAction="http://mertex.redant.com/GetCustomerAddresses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvoiceEnquiry">
+      <soap:operation soapAction="http://mertex.redant.com/InvoiceEnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkInvoiceAsPaid">
+      <soap:operation soapAction="http://mertex.redant.com/MarkInvoiceAsPaid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CStockLookupRaw">
+      <soap:operation soapAction="http://mertex.redant.com/B2CStockLookupRaw" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CStockLookup">
+      <soap:operation soapAction="http://mertex.redant.com/B2CStockLookup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CZeroStockCheck">
+      <soap:operation soapAction="http://mertex.redant.com/B2CZeroStockCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="servicesSoap12" type="tns:servicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AttemptLogin">
+      <soap12:operation soapAction="http://mertex.redant.com/AttemptLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductPrice">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductPricePOCO">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductPricePOCO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPricePOCOListForProductList">
+      <soap12:operation soapAction="http://mertex.redant.com/GetPricePOCOListForProductList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetail">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOptionsForImport">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductOptionsForImport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductListForImport">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductListForImport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductListForPartialImport">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductListForPartialImport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailsPOCO">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductDetailsPOCO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailsListPOCO">
+      <soap12:operation soapAction="http://mertex.redant.com/GetProductDetailsListPOCO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChangedProductDetailsListPOCO">
+      <soap12:operation soapAction="http://mertex.redant.com/GetChangedProductDetailsListPOCO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BOrderEnquiry">
+      <soap12:operation soapAction="http://mertex.redant.com/B2BOrderEnquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BRemoveBasketItem">
+      <soap12:operation soapAction="http://mertex.redant.com/B2BRemoveBasketItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BClearBasket">
+      <soap12:operation soapAction="http://mertex.redant.com/B2BClearBasket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BGetBasketSummary">
+      <soap12:operation soapAction="http://mertex.redant.com/B2BGetBasketSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BGetBasket">
+      <soap12:operation soapAction="http://mertex.redant.com/B2BGetBasket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2BCreateOrder">
+      <soap12:operation soapAction="http://mertex.redant.com/B2BCreateOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CCreateBasket">
+      <soap12:operation soapAction="http://mertex.redant.com/B2CCreateBasket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2COrderEnquiry">
+      <soap12:operation soapAction="http://mertex.redant.com/B2COrderEnquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriageOptionsRaw">
+      <soap12:operation soapAction="http://mertex.redant.com/GetCarriageOptionsRaw" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriageOptions">
+      <soap12:operation soapAction="http://mertex.redant.com/GetCarriageOptions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockist">
+      <soap12:operation soapAction="http://mertex.redant.com/GetStockist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CustomerNameFromCustomerRef">
+      <soap12:operation soapAction="http://mertex.redant.com/CustomerNameFromCustomerRef" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerAddresses">
+      <soap12:operation soapAction="http://mertex.redant.com/GetCustomerAddresses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvoiceEnquiry">
+      <soap12:operation soapAction="http://mertex.redant.com/InvoiceEnquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkInvoiceAsPaid">
+      <soap12:operation soapAction="http://mertex.redant.com/MarkInvoiceAsPaid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CStockLookupRaw">
+      <soap12:operation soapAction="http://mertex.redant.com/B2CStockLookupRaw" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CStockLookup">
+      <soap12:operation soapAction="http://mertex.redant.com/B2CStockLookup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="B2CZeroStockCheck">
+      <soap12:operation soapAction="http://mertex.redant.com/B2CZeroStockCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="services">
+    <wsdl:port name="servicesSoap" binding="tns:servicesSoap">
+      <soap:address location="http://localhost:52623/Site/redant/services.asmx" />
+    </wsdl:port>
+    <wsdl:port name="servicesSoap12" binding="tns:servicesSoap12">
+      <soap12:address location="http://localhost:52623/Site/redant/services.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

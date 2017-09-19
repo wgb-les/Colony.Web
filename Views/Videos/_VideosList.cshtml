@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Colony.Modules.Videos.Models.Video>
+@{
+    ViewContext.Controller.TempData["HasVideos"] = Model.Any();
+}
+@if (Model.Any())
+{
+    <section class="moduleSection videos">
+        <h2>Videos</h2>
+        <ul class="moduleList">
+            @foreach (var video in Model)
+            {
+                <li class="bg">
+                    <article>
+
+                        <a href="/media@(video.Uri)" class="thumbnail">
+                            <img src="@(video.ImageAssetId.HasValue ? Url.ImageUrl(video.ImageAssetId, "Videos", "ModuleListThumbnail") : "/_images/placeholders/moduleList.jpg")" alt="@video.Name"/>
+                        </a>
+
+                        <div class="details">
+                            <header>
+                                <h3>
+                                    <a href="/media@(video.Uri)">@video.Name</a>
+                                </h3>
+                                <dl>
+                                    <dt>Date</dt>
+                                    <dd>
+                                        <time datetime="@((video.PublishStart.HasValue ? video.PublishStart.Value : video.Created.Value).ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz"))">@((video.PublishStart.HasValue ? video.PublishStart.Value : video.Created.Value).ToString("dd MMMM yyyy"))</time>
+                                    </dd>
+                                </dl>
+                            </header>
+                            @Html.Raw(video.LongDescription)
+                        </div>
+                    </article>
+                </li>
+            }
+        </ul>
+    </section>
+}

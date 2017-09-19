@@ -1,0 +1,17 @@
+﻿@using Colony.Commerce
+@{
+    var showLink = false;
+    if (Html.ViewContext.Controller.TempData.ContainsKey("ShowSelectShopLink"))
+    {
+        bool.TryParse(Html.ViewContext.Controller.TempData["ShowSelectShopLink"].ToString(), out showLink);
+    }
+}
+
+@if (showLink)
+{
+    <li class="global-util-item">
+        <a href="@Url.Action("SelectShop", "B2BShop", new {area = "B2BMembers"})" data-reveal-id="b2bSelectShop" title="Change Shop">
+            <span class="pull-left">@(ColonyCommerceContext.Current.Shop.CurrentShop.Name)</span><span class="icon icon-caret-down"></span><div class="clear"></div>
+        </a>
+    </li>
+}

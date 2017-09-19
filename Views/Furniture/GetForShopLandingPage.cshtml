@@ -1,0 +1,11 @@
+﻿@model WalkerGreenbank.Modules.Furniture.Areas.Models.FurnitureViewModel
+
+@if (Model != null)
+{
+    <div class="item">
+        <a href="/shop/furniture">
+            <img src="@Url.ImageUrl(Model.Details.ImageAssetId, "Shop", "ProductCategoryThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@Model.Details.Name"/>
+            <span class="itemTitle">@Model.Details.Name</span>
+        </a>
+    </div>
+}

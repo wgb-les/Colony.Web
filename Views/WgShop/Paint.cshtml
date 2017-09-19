@@ -1,0 +1,56 @@
+﻿@using Colony.CMS.Security.Helpers
+@model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+@{
+    Html.AppendTitle("Paint");
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+@if (!Model.IsAjax)
+{
+    <div id="container" class="col-1">
+        @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+        @*<aside class="sideCol leftCol">
+            @{Html.RenderAction("SearchPaint", "WgShop", new { area = "CustomShops" });}
+        </aside>
+
+        <div id="content" class="">
+            <h1>Paint</h1>
+            <div class="productList">
+                @if (Model.ProductSearchResults.Count() == 0)
+                {
+                    <div class="alertInfo message">Sorry, no products matched your search</div>
+                }
+                else
+                {
+                    foreach (var paintItem in Model.ProductSearchResults)
+                    {
+                        Html.RenderPartial("_PaintItem", paintItem);
+                    }
+                }
+            </div>
+        </div>*@
+        <script src="/_js/shared/ajax-paint-search.js" type="text/javascript"></script>
+        <div id="paint-search-placeholder"></div>
+
+    </div>
+    if (useraccount != null)
+    {
+        Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+    }
+    Html.RenderAction("OrderPaintCard", "Enquiries", new {area = "CustomShops"});
+}
+else
+{
+    if (Model.ProductSearchResults.Count() == 0)
+    {
+        <div class="alertInfo message">Sorry, no products matched your search</div>
+    }
+    else
+    {
+        foreach (var paintItem in Model.ProductSearchResults)
+        {
+            Html.RenderPartial("_PaintItem", paintItem);
+        }
+    }
+}

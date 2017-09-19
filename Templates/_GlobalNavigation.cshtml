@@ -1,0 +1,14 @@
+﻿<div class="global-nav">
+    <div class="global-nav-inner">
+        @{Html.RenderAction("BrandNavigation", "GlobalNavigation", new { area = "Homepages" });}
+        <div class="global-utils">
+            <ul class="global-utils-list">
+                @{
+                    Html.RenderAction("CountriesSelector", "Currencies", new { area = "Currencies" });
+                    Html.RenderPartial("_LoginPartial");
+                    Html.RenderAction("MiniBasketPartial", "Basket", new { area = "ShopPurchase" });    
+                }
+            </ul>
+        </div>
+    </div>
+</div>

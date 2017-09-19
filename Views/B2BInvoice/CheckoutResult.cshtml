@@ -1,0 +1,45 @@
+﻿@using Colony.Commerce.Models
+@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BInvoiceViewModel
+@{
+    ViewBag.Title = "Payment Results";
+}
+@switch (Model.Transaction.TransactionStatus)
+{
+    case TransactionStatus.PaymentComplete:
+        <h1>Thank you for your payment</h1>
+        break;
+    default:
+        <h1>Payment Failed</h1>
+        break;
+}
+
+<div class="boxSection">
+    @switch (Model.Transaction.TransactionStatus)
+    {
+        case TransactionStatus.PaymentComplete:
+            <div class="header">
+                <h2>Your payment was successful</h2>
+            </div>
+            <div>
+                <h2>Thank you for your payment of @(Model.Amount.ToString("0.00")).</h2>
+                <p>Your payment reference is @(Model.PaymentReference).</p>
+            </div>
+            break;
+        default:
+            <div class="header">
+                <h2>Unfortunately your payment was unsuccessful</h2>
+            </div>
+            <div>
+                <h2>You still have an outstanding balance of @(Model.Amount.ToString("0.00")).</h2>
+            </div>
+            break;
+    }
+
+</div>
+
+<div class="contentForm">
+    <div class="field formControls">
+        <a href="@Model.RedirectTo" class="button">
+            <span>Return to Trade Area</span></a>
+    </div>
+</div>

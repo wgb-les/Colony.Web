@@ -1,0 +1,164 @@
+﻿@using Colony.Models.Base
+@model Colony.Commerce.Areas.ShopPurchase.Models.CheckoutViewModel
+@{
+    Layout = "";
+}
+
+<div class="blockSection wide1">
+    <div class="inner">
+        <div class="heading">
+            <h2>Order Details</h2>
+        </div>
+        <div class="content summary">
+            <div class="line">
+                <div class="inner">
+                    <div class="details wide1">
+                        <div class="table">
+                            <div class="leftValue">Subtotal:</div>
+                            <div class="rightValue">@Model.DisplayPrice(Model.Basket.TotalInc)</div>
+
+                            <div class="leftValue">Delivery total:</div>
+                            <div class="rightValue">@Model.DisplayDeliveryPrice(Model.DeliveryCost)</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Discount > 0)
+            {
+                <div class="line">
+                    <div class="inner">
+                        <div class="details wide1">
+                            <div class="table">
+                                <div class="leftValue">Discount:</div>
+                                <div class="rightValue">@(Model.DisplayPrice(-Model.Discount))</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.DeliveryDiscount > 0)
+            {
+                <div class="line">
+                    <div class="inner">
+                        <div class="details wide1">
+                            <div class="table">
+                                <div class="leftValue">Delivery Discount:</div>
+                                <div class="rightValue">@(Model.DisplayPrice(-Model.DeliveryDiscount))</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }          
+
+            <div class="line">
+                <div class="inner">
+                    <div class="details wide1">
+                        <div class="table">
+                            <div class="leftValue">Total:</div>
+                            <div class="rightValue">@Model.DisplayPrice((Model.Basket.TotalInc ?? 0M) + (Model.DeliveryCost ?? 0M) - Model.Discount - Model.DeliveryDiscount)</div>
+
+                            <div class="rightValue wide1">All prices include VAT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="blockSection wide1">
+    <div class="inner">
+        <div class="heading">
+            <h2>About You</h2>
+        </div>
+        <div class="content summary">
+            <div class="line">
+                <div class="inner">
+                    <div class="details wide1">
+                        <div class="table">
+                            <div class="leftValue">Name:</div>
+                            <div class="rightValue">@(Model.Checkout.Person.Title + " " + Model.Checkout.Person.FirstName + " " + Model.Checkout.Person.LastName)</div>
+
+                            <div class="leftValue">Email:</div>
+                            <div class="rightValue">@Model.Checkout.Person.EmailAddress</div>
+
+                            <div class="leftValue">Phone:</div>
+                            <div class="rightValue">@Html.Raw((Model.Checkout.Person.PrimaryTelephone == null ? "<i>Not supplied</i>" : Model.Checkout.Person.PrimaryTelephone.Number))</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (@Model.Checkout.Addresses.ContainsKey(AddressType.Delivery)) { 
+    <div class="blockSection wide1">
+        <div class="inner">
+            <div class="heading">
+                <h2>Delivery</h2>
+            </div>
+            <div class="content summary">
+                <div class="line">
+                    <div class="inner">
+                        <div class="details wide1">
+                            <div class="table">
+                                <div class="leftValue">Line 1:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Delivery].Line1</div>
+
+                                <div class="leftValue">Town:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Delivery].Town</div>
+
+                                <div class="leftValue">County:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Delivery].County</div>
+
+                                <div class="leftValue">Post Code:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Delivery].Line1</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (@Model.Checkout.Addresses.ContainsKey(AddressType.Billing))
+{
+    <div class="blockSection wide1">
+        <div class="inner">
+            <div class="heading">
+                <h2>Billing</h2>
+            </div>
+            <div class="content summary">
+                <div class="line">
+                    <div class="inner">
+                        <div class="details wide1">
+                            <div class="table">
+                                <div class="leftValue">Line 1:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Billing].Line1</div>
+
+                                <div class="leftValue">Town:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Billing].Town</div>
+
+                                <div class="leftValue">County:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Billing].County</div>
+
+                                <div class="leftValue">Post Code:</div>
+                                <div class="rightValue">@Model.Checkout.Addresses[AddressType.Billing].Line1</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

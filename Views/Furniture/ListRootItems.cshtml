@@ -1,0 +1,86 @@
+﻿@model WalkerGreenbank.Modules.Furniture.Areas.Models.FurnitureViewModel
+@{
+    Html.AppendTitle(Model.Details.Name);
+    Html.SetPageData(Model.Details.AnalyticsCode, Model.Details.MetaTitle, Model.Details.MetaKeywords, Model.Details.MetaDescription, Model.Details.MetaCustomTags);
+}
+<div id="content">
+
+    <div class="collectionDetails">
+        <div class="collectionInfo">
+            <h1>Furniture</h1>
+            @Html.Raw(Model.Details.LongDescription)
+        </div>
+        <div class="collectionShots">
+            <div class="carousel imageCarousel">
+                <ul class="items">
+                    @foreach (var img in Model.Details.Images)
+                    {
+                        <li>
+                            @{ Html.RenderAction("HotspotsForImage", "Hotspots", new {area = "Hotspots", imageAssetId = img.ImageAssetID}); }
+
+                            <img src="@Url.ImageUrl(img.ImageAssetID)" alt="@img.Name"/>
+                        </li>
+                    }
+                </ul>
+                <a href="#" class="prev">
+                    <span></span>
+                    Previous
+                </a>
+                <a href="#" class="next">
+                    <span></span>
+                    Next
+                </a>
+                <div class="bullets">
+                    <span class="icon icon-play icon-pause"></span>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*    <section class="collectionCategory">
+        <h2>Types</h2>
+
+        <div class="item ">
+
+            <a class="furnitureType" href="/shop/furniture/?type=sofas" data-furniture-type="sofas">
+
+                <img src="/_images/photos/listings/001.jpg" alt="Sofas" />
+                <span class="itemTitle">Sofas</span>
+
+            </a>
+        </div>
+
+        <div class="item furnitureType">
+
+            <a class="furnitureType" href="/shop/furniture/?type=cornerunits" data-furniture-type="cornerunits">
+
+                <img src="/_images/photos/listings/002.jpg" alt="Corner Units" />
+                <span class="itemTitle">Corner Units</span>
+
+            </a>
+        </div>
+
+        <div class="item furnitureType">
+
+            <a class="furnitureType" href="/shop/furniture/?type=chairs" data-furniture-type="chairs">
+
+                <img src="/_images/photos/listings/003.jpg" alt="Chairs" />
+                <span class="itemTitle">Chairs</span>
+
+            </a>
+        </div>
+
+        <div class="item furnitureType">
+
+            <a class="furnitureType" href="/shop/furniture/?type=stools" data-furniture-type="stools">
+
+                <img src="/_images/photos/listings/004.jpg" alt="Stools" />
+                <span class="itemTitle">Stools</span>
+
+            </a>
+        </div>
+
+    </section>*@
+    @{ Html.RenderPartial("_CollectionList", Model.Collections); }
+</div>

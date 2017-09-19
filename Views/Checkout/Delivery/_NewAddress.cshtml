@@ -1,0 +1,36 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryAddressViewModel
+@{
+    Layout = "";
+}
+
+<form action="@Url.Action("NewAddress", "Checkout", new {area = "ShopPurchase"})" method="post">
+    @Html.AntiForgeryToken()
+    @Html.CustomValidationSummary()
+
+    @Html.EditorFor(model => model.Address.Description, new { @class = "description", placeholder = "E.g. Home, Work", AllowPostcodeLookup = true })
+
+    @Html.EditorFor(model => model.Address.Title)
+    @Html.EditorFor(model => model.Address.FirstName)
+    @Html.EditorFor(model => model.Address.LastName)
+
+    @Html.EditorFor(model => model.Address.Company)
+
+    @Html.EditorFor(model => model.Address.Postcode, "Postcode", new {size = "medium"})
+
+    @Html.EditorFor(model => model.Address.Line1)
+    @Html.EditorFor(model => model.Address.Line2)
+    @Html.EditorFor(model => model.Address.Town, new {@class = "medium"})
+    @Html.EditorFor(model => model.Address.County, new {@class = "medium"})
+    @Html.EditorFor(model => model.Address.CountryISO2, new {options = Model.Address.CountiresList, @class = "country"})
+
+    @if (Model.Address.AddressId.HasValue)
+    {
+        @Html.HiddenFor(model => model.Address.AddressId)
+    }
+
+    <div class="field formControls">
+        <button class="button actionButton">Save</button>
+    </div>
+
+</form>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Colony.Modules.Events.Models.Event>
+<ul class="moduleList">
+    @* @if (Request.Url.AbsoluteUri.ToLowerInvariant().Contains("dates-for-your-diary"))
+    {
+        foreach (var evnt in Model.Where(x => x.EventStart >= System.DateTime.UtcNow && x.EventEnd <= System.DateTime.UtcNow).OrderBy(x => x.EventStart))
+        {
+            <li class="bg">
+                <article>
+                    <a href="/events/@evnt.Uri" class="thumbnail">
+                        <img src="@((evnt.ImageAssetId.HasValue) ? Url.ImageUrl(evnt.ImageAssetId) : "/_images/placeholders/moduleList.jpg")" alt="@evnt.Name" /></a>
+                    <div class="details">
+                        <header>
+                            <h3><a href="/events/@evnt.Uri">@evnt.Name</a></h3>
+                            <dl>
+                                <dt>Starts</dt>
+                                <dd><time datetime="@evnt.EventStart.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@evnt.EventStart.ToString("dd MMMM yyyy")</time></dd>
+                                <dt>Ends</dt>
+                                <dd><time datetime="@evnt.EventEnd.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@evnt.EventEnd.ToString("dd MMMM yyyy")</time></dd>
+                                @if (!string.IsNullOrEmpty(evnt.Location))
+                                { 
+                                    <dt>Location</dt>
+                                    <dd>@evnt.Location</dd>
+                                }
+                            </dl>
+                        </header>
+                        <p>@evnt.ShortDescription</p>
+                    </div>
+                </article>
+            </li>
+        }
+    }
+    else
+    { *@
+    @foreach (var evnt in Model.OrderByDescending(x => x.EventStart))
+    {
+        <li class="bg">
+            <article>
+                <a href="/events/@evnt.Uri" class="thumbnail">
+                    <img src="@(evnt.ImageAssetId.HasValue ? Url.ImageUrl(evnt.ImageAssetId) : "/_images/placeholders/moduleList.jpg")" alt="@evnt.Name"/>
+                </a>
+                <div class="details">
+                    <header>
+                        <h3>
+                            <a href="/events/@evnt.Uri">@evnt.Name</a>
+                        </h3>
+                        <dl>
+                            <dt>Starts</dt>
+                            <dd>
+                                <time datetime="@evnt.EventStart.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@evnt.EventStart.ToString("dd MMMM yyyy")</time>
+                            </dd>
+                            <dt>Ends</dt>
+                            <dd>
+                                <time datetime="@evnt.EventEnd.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@evnt.EventEnd.ToString("dd MMMM yyyy")</time>
+                            </dd>
+                            @if (!string.IsNullOrEmpty(evnt.Location))
+                            {
+                                <dt>Location</dt>
+                                <dd>@evnt.Location</dd>
+                            }
+                        </dl>
+                    </header>
+                    <p>@evnt.ShortDescription</p>
+                </div>
+            </article>
+        </li>
+    }
+    @*   }*@
+
+</ul>

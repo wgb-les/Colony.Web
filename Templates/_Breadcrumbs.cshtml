@@ -1,0 +1,28 @@
+﻿@{
+    IList<Colony.Models.Core.BreadcrumbItem> Breadcrumbs = Html.GetPageData().Breadcrumbs ?? ViewBag.Breadcrumbs ?? new List<Colony.Models.Core.BreadcrumbItem>();
+}
+@if (Breadcrumbs.Any())
+{
+    <nav class="breadcrumb" aria-label="You are here" role="navigation">
+        <ul>
+            <li><a href="/" rel="home">Home</a></li>
+            @{
+                Breadcrumbs = Breadcrumbs.Reverse().ToList();
+            }
+            @for (int i = 0; i < Breadcrumbs.Count; i++)
+            {
+                var breadcrumbItem = Breadcrumbs[i];
+
+                if (i != Breadcrumbs.Count - 1)
+                {
+                <li><a href="@breadcrumbItem.Url">@breadcrumbItem.Name</a></li>
+                }
+                else
+                { 
+                <li>@breadcrumbItem.Name</li>
+                }
+            }
+        </ul>
+        <hr />
+    </nav>
+}

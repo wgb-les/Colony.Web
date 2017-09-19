@@ -1,0 +1,321 @@
+#whereToBuy header {
+background:#222;
+}
+
+.socialFooter{
+    height:40px;
+    position:absolute;
+    z-index:100;
+    bottom:0px;
+    left:90px;
+}
+
+.comingSoonTab{
+position: absolute;
+background: rgba(0,0,0,0.9);
+top: 181px;
+padding: 0.5em 1em;
+color: #fff;
+font-size:1.3em;
+display: none;
+text-transform: uppercase;
+box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+right: 0px;
+font-family: "Gill Sans W04 Light", arial, sans-serif;
+z-index: 10;
+}
+
+.socialFooter li {
+    font-family: FontAwesome;
+    font-size: 1.6em;
+    color:#aaa;
+    width:auto !important;
+    float:left;
+    margin:11px 15px 0 0;
+    list-style:none;
+}
+
+    .socialFooter li:hover {
+        color:#fff;
+    }
+
+.footerTwitter:before {
+    content: "\f099";
+}
+
+.footerFacebook:before {
+    content: "\f09a";
+}
+
+.footerPinterest:before {
+    content: "\f0d2";
+}
+
+.footerInstagram:before {
+    content: "\f16d";
+}
+
+.footerYoutube:before {
+    content: "\f167";
+}
+
+#brands .bd-reveal-modal li:nth-child(1){
+    display: none;
+}
+
+
+@media only screen and (min-width: 90em){
+.carousel .items > li img {
+    min-height: initial !important;
+}
+
+/*li.theme-style-library{
+    display: none !important;
+}*/
+
+#whereToBuy {
+    border: 1px solid #000;
+}
+
+    #whereToBuy header {
+        color: #fff;
+        background-color: #222 !important;
+    }
+
+        #whereToBuy .button {
+            background:#fff;
+            color:#000;
+            border:0px;
+        }
+
+    #whereToBuy .closeWTB {
+        right:15px !important;
+    }
+
+        #whereToBuy .closeWTB:hover {
+            background:#222;
+            border:0px;
+        }
+
+#whereToBuy .closeWTB:before {
+    font-size: 1.8em;
+    color: #eee;
+}
+
+.searchPanel .searchOptions .colours {
+    width:270px;
+}
+
+.filterColours .colours {
+    padding:15px 30px;
+}
+
+.colours .toggleAll .toggleColours span {
+    width:100%;
+}
+
+.filterColours .colours .toggleAll .toggleColours {
+    height:32px;
+}
+
+.colours .colourBand {
+    margin-right:0px;
+}
+
+.colours .toggleAll {
+    margin-right:0px;
+}
+
+.colourBand label[data-colour-code = 'C3'], .toggleColours span[data-colour-code = 'C3'] {
+    background:#7c6992 !important;
+}
+
+.colourBand label[data-colour-code = 'A7'], .toggleColours span[data-colour-code = 'A7'] {
+    background:#daaa00 !important;
+}
+
+.colourBand label[data-colour-code = 'A9'], .toggleColours span[data-colour-code = 'A9'] {
+    border:1px solid #ccc;
+}
+
+.newColourSelect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -9px;
+    display:none;
+}
+
+.actionLoader {
+    position: fixed;
+    top: 50%;
+    width: 52px;
+    height:52px;
+    left: 50%;
+    margin-top:-26px;
+    margin-left: -26px;
+    padding: 10px;
+    z-index: 9;
+    border-radius: 5px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width:1024px) {
+  .global-brands-all {
+    display: none; }
+}
+
+@media only screen and (min-width:1024px) {
+    .global-brands .global-brands-list {
+        display: block; }
+    .global-brands .global-brands-toggles {
+        display: inline-block; }
+    .global-brands li, .global-brands .global-brands-hide {
+        display: none; }
+    .global-brands.brands-open li, .global-brands.brands-open .global-brands-hide {
+        display: block; }
+    .global-brands.brands-open .global-brands-show {
+        display: none; }
+}
+
+.basketTotals > button.checkout {
+    background: #fff;
+    color: #000;
+    border: 0px;
+    font-size:1.2em;
+}
+
+a.button.addToBasket.b2baddsampletobasket {
+    font-family: "Gill Sans W04 Light", arial, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 0;
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.2;
+    -webkit-transition: none;
+    transition: none;
+    color: #fff !important;
+    border: 1px solid #181818;
+    background: #181818;
+}
+
+a.button.addToBasket.b2baddsampletobasket:hover {
+    background:#000;
+}
+
+.b2bPriceStockContainer {
+    float: left;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.b2bInfoBox {
+    float: left;
+    width: 50%;
+    padding-right: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+    .b2bInfoBox span {
+        float: left;
+        width: 100%;
+        padding: 10px 0;
+        color:#fff;
+        font-family: "Gill Sans W04 Light", arial, sans-serif;
+        border: 1px solid #1c1c1c;
+        font-size: 1.4em;
+        background-color: #1c1c1c;
+    }
+
+.pricinginfo {
+    float:left;
+    margin-top:10px;
+}
+
+.harButton {
+    font-family: "Gill Sans W04 Light", arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    /* margin: 0; */
+    float: left;
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -4px 0 0 10px;
+    line-height: 1.2;
+    -webkit-transition: none;
+    transition: none;
+    padding: 0.6em 0.8em 0.55em 0.8em;
+    font-size: 1.4em;
+    color: #eee;
+    border: 1px solid #111;
+    background: #111;
+}
+
+#whereToBuy {
+  overflow: visible !important;
+  bottom: 50%;
+  display: none;
+  left: 50%;
+margin-left: -580px;
+max-width: 1160px;
+width: 100%;
+display: none;
+box-shadow:none;
+opacity: 1;
+
+}
+
+#whereToBuy header {
+    display: block;
+    color: #606060;
+    background-color: #e2e2e2;
+    border-bottom: 1px solid #c9c9c9;
+    background-image: -webkit-linear-gradient(#fbfbfb, #e2e2e2);
+    background-image: linear-gradient(#fbfbfb, #e2e2e2);
+    padding: 1em;
+    position: relative;
+}
+
+#whereToBuy .closeWTB {
+    position: absolute;
+    right: 10px;
+    top: 10px !important;
+}
+
+ .reveal-modal .header-reveal-modal h2, #whereToBuy header h2 {
+    margin: 0;
+    line-height: 18px;
+    padding-top: 6px; }
+
+#whereToBuy {
+    margin-left: -580px;
+    max-width: 1160px;
+}
+
+.printButton {
+    float: left;
+}
+
+.zopim{
+	right:104px !important;
+    bottom:42px !important;
+}
+
+.notification {
+  z-index: 100;
+}
+
+  .basketTotals li {
+    display: inline-block;
+    vertical-align: middle;
+    word-spacing: normal;
+    width: 16.6%;
+    padding:2px;
+    text-align: center;
+    float: left; }

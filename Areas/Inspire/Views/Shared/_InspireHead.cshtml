@@ -1,0 +1,51 @@
+﻿@using Colony.CMS
+@using Colony.CMS.Helpers
+
+<script type="text/javascript">
+    var dataLayer = [];
+    (function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(),
+            event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MJS7V7');
+
+</script>
+
+<meta charset="utf-8" />
+<title>@(Html.GetPageData().WindowTitle ?? ColonyContext.Current.CurrentSite.WindowTitle ?? ViewBag.Title)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="title" content="@(Html.GetPageData().WindowTitle ?? ColonyContext.Current.CurrentSite.WindowTitle ?? ViewBag.Title)" />
+<meta name="description" content="@(Html.GetPageData().MetaDescription ?? ColonyContext.Current.CurrentSite.MetaDescription)" />
+<meta name="keywords" content="@(Html.GetPageData().MetaKeywords ?? ColonyContext.Current.CurrentSite.MetaKeywords)" />
+<meta name="dc.title" content="@(Html.GetPageData().WindowTitle ?? ColonyContext.Current.CurrentSite.WindowTitle ?? ViewBag.Title)" />
+<meta name="dc.description" content="@(Html.GetPageData().MetaDescription ?? ColonyContext.Current.CurrentSite.MetaDescription)" />
+<meta name="dc.keywords" content="@(Html.GetPageData().MetaKeywords ?? ColonyContext.Current.CurrentSite.MetaKeywords)" />
+<link href="/_images/favicon/wg/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="apple-touch-icon-precomposed" href="/_images/app-icons/wg/apple-touch-icon.png">
+@*<link href="~/_css/brands/wg/dist/foundation.css" rel="stylesheet">*@
+<link href="~/_css/brands/wg/module.css?v=1" rel="stylesheet">
+@*<link href="~/_css/brands/wg/slick.css" rel="stylesheet">
+<link href="~/_css/brands/wg/slick-theme.css" rel="stylesheet">*@
+@*<link href="~/_css/brands/wg/flag-icon.css" rel="stylesheet">*@
+@*<link href="~/_fonts/MyFontsWebfontsKit/MyFontsWebfontsKit.css" rel="stylesheet">*@
+@*<link href="~/_css/brands/wg/font-awesome.min.css" rel="stylesheet">*@
+@*<link href="~/_plugins/uitotop/css/ui.totop.css" rel="stylesheet">*@
+@Styles.Render("~/_css/inspire")
+@*<link href="~/_css/css/wg.css" rel="stylesheet" />*@
+<link rel="stylesheet" href="/_css/print.css" media="print" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
+ 
+<!--[if IE]>
+    <link rel="stylesheet" href="/_css/framework/ie_fixes.css"/>
+<![endif]-->
+<script src="//code.jquery.com/jquery-1.10.2.min.js" integrity="sha256-C6CB9UYIS9UJeqinPHWTHVqh/E1uhG5Twh+Y5qFQmYg=" crossorigin="anonymous"></script>

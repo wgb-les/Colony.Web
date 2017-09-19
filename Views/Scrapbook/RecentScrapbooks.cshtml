@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel>
+
+@if (!Model.Any())
+{
+    <div class="alertInfo message">
+        You have not created any moodboards.
+    </div>
+}
+else
+{
+    <section class="boxSection recentScrapbooks">
+        <header>
+            <h2>Recent Moodboards</h2>
+            <a href="@Url.Action("Scrapbooks", "AccountArea", new {area = "AccountArea"})">
+                <span>View Moodboards</span></a>
+            <div class="clear"></div>
+        </header>
+
+        <div class="bd">
+            <ul class="scrapBooks">
+                @foreach (var scrapbook in Model)
+                {
+                    Html.RenderPartial("Scrapbook", scrapbook);
+                }
+            </ul>
+        </div>
+
+    </section>
+}
+<section id="share" class="reveal-modal medium">
+</section>

@@ -1,0 +1,50 @@
+﻿@model string
+@{Html.RenderPartial("_GlobalNavigation.cshtml");}
+<header id="header" class="site-header" role="banner">
+    <div class="site-header-inner">
+        <div class="header-branding">
+            <div class="header-content">
+                <div class="header-content-inner">
+                    <a href="#mobile-nav" class="header-toggle nav-toggle js-mobile-nav-toggle">
+                        <span class="toggle-icon icon-menu-white"></span>
+                        <span class="toggle-label">Menu Toggle</span>
+                    </a>
+                    <a href="/" rel="home" class="site-logo">
+                        <img src="~/_images/logos/header/@(Model + "@2x").png" class="hide-for-print" alt="@Colony.CMS.ColonyContext.Current.CurrentSite.Name" />
+                        <img src="~/_images/logos/header/print/@(Model).png" class="show-for-print" alt="@Colony.CMS.ColonyContext.Current.CurrentSite.Name" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-navigation">
+            <div class="header-content">
+                <div class="header-content-inner">
+                    @{
+                        Html.RenderPartial("_SiteLinks.cshtml");                         
+                    }
+                    <div class="searchPanelContainer">
+                    <nav id="nav" class="header-nav site-nav" role="navigation" aria-label="Main menu">
+                        @{
+                            Html.RenderPartial("_SiteNavigation.cshtml");
+                        }
+                        
+                        <div class="searchSite">
+                            <a href="#" class="search-toggle"><span>Search</span></a>
+                        </div>
+                        
+                    </nav>
+                    </div>
+                    <nav class="mobile-nav" role="navigation" aria-label="Main menu">
+                        @{
+                            Html.RenderPartial("_MobileSiteNavigation.cshtml");
+                        }
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+    var sitekey = '@Model';
+</script>

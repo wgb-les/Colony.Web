@@ -1,0 +1,204 @@
+@using System.Web.Mvc.Html
+
+@model Colony.Commerce.Areas.Returns.ViewModels.EmailForgottenOrderNumbers
+@{
+    setStyles();
+}
+@functions {
+    string email_bodyBackground = "#fff";
+    string email_background = "#fff";
+    string email_footerBackground = "#5b6e52";
+    string email_boxBackground = "#f7f7f7";
+    string email_border = "1px solid #cccccc";
+
+    string email_fontFamily = "Arial,Helvetica,sans-serif";
+    string email_headerColor = "#000";
+    string email_linkColor = "#111";
+    string email_fontColor = "#000";
+    string email_footerColor = "#e6e6e6";
+    string email_footerLinks = "#666";
+
+    string email_sizeHeader = "18px";
+    string email_sizeSubhead = "14px";
+    string email_sizeNormal = "12px";
+    string email_sizeSmall = "11px";
+
+    void setStyles()
+    {
+        if (Model.Site.SiteKey == "Harlequin")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Sanderson")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+        }
+        else if (Model.Site.SiteKey == "Morris")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#5b6e52";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#000";
+            email_linkColor = "#111";
+            email_fontColor = "#000";
+            email_footerColor = "#e6e6e6";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Zoffany")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#555";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#bfbfbf";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Scion")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#666";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>@Model.Site.Name Past Orders</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+</head>
+<body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" bgcolor="@email_bodyBackground">
+    <table cellspacing="0" border="0" style="background:@email_bodyBackground;" cellpadding="0" width="100%">
+        <tr>
+            <td>
+                <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="margin-top:20px; margin-bottom:20px; background:@email_background;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td style="border-left:@email_border; border-right:@email_border; border-top:@email_border;">
+                                        <img style="display:block; border:none;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + Model.Site.SiteKey)/header.gif" border="0" height="110" width="548" alt="@Model.Site.Name" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    @*@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + Model.Site.Name + "/header.gif")*@
+                    <!-- Top Content -->
+                    <tr>
+                        <td style="border-left:@email_border; border-right:@email_border;">
+                            <table width="508" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td style="padding: 30px 0 20px 0;">
+                                        <h1 style="margin:0; padding:0; font-weight:normal; font-size:@email_sizeHeader; font-family:@email_fontFamily; color:@email_headerColor !important;">Thank you for your enquiry. Please find a list of your previous order numbers below.</h1>
+                                        <h2 style="margin: 3px 0 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">
+                                            <ul>
+                                                @{
+                                                    var orders = Model.OrderRef.Split(',');
+                                                    foreach (var order in orders)
+                                                    {
+                                                        <li>@order.ToString()</li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </h2>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="font-family:@email_fontFamily; color:@email_footerColor; font-size:@email_sizeSmall; background:@email_footerBackground;">
+                                <tr>
+                                    <td style="padding: 15px 20px;" align="center">&copy; @Model.Site.Name. All Rights Reserved @DateTime.UtcNow.Year
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="10" align="center" style="font-family:@email_fontFamily; font-size:@email_sizeSmall; background:@email_bodyBackground;">
+                                <tr>
+                                    <td align="left"><a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/returns/")" style="color:@email_footerLinks;">Returns policy</a></td>
+                                    <td align="right"><a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/privacy-policy/")" style="color:@email_footerLinks;">Privacy policy</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

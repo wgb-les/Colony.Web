@@ -1,0 +1,58 @@
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+    var productGroup = Model.Attributes.GetValueOrNull("Product Group");
+}
+
+@if (productGroup == "Adhesive")
+{
+    Html.RenderPartial("_PDP-Adhesive", Model);
+}
+
+else if (productGroup == "Bathroom")
+{
+    Html.RenderPartial("_PDP-Bathroom", Model);
+}
+else if (productGroup == "Bedding")
+{
+    Html.RenderPartial("_PDP-Bedding", Model);
+}
+else if (productGroup == "Cushions")
+{
+    Html.RenderPartial("_PDP-Cushions", Model);
+}
+else if (productGroup == "Fabric")
+{
+    Html.RenderPartial("_PDP-Fabric", Model);
+}
+else if (productGroup == "Furniture")
+{
+    Html.RenderPartial("_PDP-Furniture", Model);
+}
+else if (productGroup == "Kitchen")
+{
+    Html.RenderPartial("_PDP-Kitchen", Model);
+}
+else if (productGroup == "Paint")
+{
+    Html.RenderPartial("_PDP-Paint", Model);
+}
+else if (productGroup == "Rugs")
+{
+    Html.RenderPartial("_PDP-Rugs", Model);
+}
+else if (productGroup == "Tableware")
+{
+    Html.RenderPartial("_PDP-Tableware", Model);
+}
+else if (productGroup == "Trimmings")
+{
+    Html.RenderPartial("_PDP-Trimmings", Model);
+}
+else if (productGroup == "Wallpaper")
+{
+    Html.RenderPartial("_PDP-Wallpaper", Model);
+}
+else
+{
+    Html.RenderPartial("_PDP-Default", Model);
+}

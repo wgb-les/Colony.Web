@@ -1,0 +1,11 @@
+﻿@model Colony.Modules.Videos.Areas.Models.ListRootItemsViewModel
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+
+        <h1>Videos</h1>
+        @{ Html.RenderPageSections(); }
+        @{ Html.RenderPartial("_CategoryList", Model.VideoCategories); }
+        @{ Html.RenderPartial("_VideosList", Model.Videos); }
+    </div>
+</div>

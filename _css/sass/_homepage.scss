@@ -1,0 +1,87 @@
+.homeSlide0 {
+  background: #111;
+}
+
+.homeSlide1 {
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/July17/fabric-allotment-green-dining-room-botanical-potting-room-sanderson-home-at-style-library.jpg');
+    background-position: bottom left !important;
+}
+
+.homeSlide2 {
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Homepage/July-17/fabric-curtains-upholstery-yellow-blue-floral-potting-room-sundial-sanderson-home-style-library.jpg');
+    background-position: bottom left !important;
+}
+
+.homeSlide3 {
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Homepage/July-17/fabric-upholstery-yellow-blue-harlequin-lilaea-seriphium-style-library.jpg');
+    background-position: bottom left !important;
+}
+
+.homeSlide4 {
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Homepage/July-17/fabric-cushions-floral-purple-pink-boat-waterperry-sanderson-style-library.jpg');
+    background-position: bottom left !important;
+}
+
+
+@media only screen and (max-width:768px) {
+    .homeSlide0 {
+      background: #111;
+    }
+
+    .homeSlide1 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/July17/1000w/fabric-allotment-green-dining-room-botanical-potting-room-sanderson-home-at-style-library.jpg');
+        background-position: bottom right !important;
+    }
+
+    .homeSlide2 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Homepage/July-17/1000w/fabric-curtains-upholstery-yellow-blue-floral-potting-room-sundial-sanderson-home-style-library.jpg');
+        background-position: bottom left !important;
+    }
+
+    .homeSlide3 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Homepage/July-17/1000w/fabric-upholstery-yellow-blue-harlequin-lilaea-seriphium-style-library.jpg');
+        background-position: bottom left !important;
+    }
+
+    .homeSlide4 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Homepage/July-17/1000w/fabric-cushions-floral-purple-pink-boat-waterperry-sanderson-style-library.jpg');
+        background-position: bottom right !important;
+    }
+}
+
+.caption.right h1, .caption.right span{
+  text-align: right;
+  float: right;
+}
+
+/*h1, h2, h3, h4 {
+    margin: 10px 0;
+    width: 100%;
+    float: left;
+}*/ 
+
+section.home.centered h1 {
+    width: 100%;
+}
+
+// Just because its broken...
+
+#whereToBuySearch form fieldset {
+    padding: 0 1em !important;
+    margin: 20px auto !important;
+}
+
+#whereToBuy{
+  background: #fff;
+}
+
+.morVideo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-size: cover;
+    transition: 1s opacity;
+}

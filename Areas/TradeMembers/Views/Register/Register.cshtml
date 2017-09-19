@@ -1,0 +1,54 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.PressMembers.Areas.TradeMembers.ViewModels.TradeRegisterInputViewModel
+@{
+    ViewBag.Title = "Register For Online Access";
+}
+<script type="text/javascript">
+    $('#container').addClass('medium');
+</script>
+<div id="content">
+    <h1>@ViewBag.Title</h1>
+
+    <div class="contentForm">
+        <form method="post">
+            @Html.AntiForgeryToken()
+            @Html.CustomValidationSummary()
+            <fieldset>
+                <legend>Registration Form</legend>
+                <h2>Complete the form below with your @ColonyContext.Current.CurrentSite.Name trade account details and we'll be in touch soon with your login details.</h2>
+                @Html.EditorFor(m => m.CompanyName, new {size = "medium"})
+                @Html.EditorFor(m => m.BrandAccountNumber, new {size = "medium"})
+                @Html.EditorFor(m => m.BrandSalesManagersNames, new {size = "medium"})
+                @*@Html.EditorFor(m => m.WebtexLoginId, new { size = "medium" })*@
+
+                @Html.EditorFor(m => m.Person.Title, new {size = "medium"})
+                @Html.EditorFor(m => m.Person.FirstName, new {size = "medium"})
+                @Html.EditorFor(m => m.Person.LastName, new {size = "medium"})
+                @Html.EditorFor(m => m.Address.Description, new { @class = "description", placeholder = "E.g. Head Office" })
+                @{
+                    var partialViewData = new ViewDataDictionary {TemplateInfo = new TemplateInfo {HtmlFieldPrefix = "Address"}};
+                    partialViewData["ShowPersonDetails"] = false;
+                    partialViewData["ShowAddressName"] = false;
+                    Html.RenderPartial("~/Views/Address/_Address.cshtml", Model.Address, partialViewData);
+                }
+                @Html.EditorFor(m => m.Person.PhoneNumber, new {size = "medium"})
+                @Html.EditorFor(m => m.Website, new {size = "medium"})
+
+                @Html.EditorFor(m => m.Person.Email, new {size = "medium"})
+                @Html.EditorFor(m => m.ConfirmEmail, new {size = "medium"})
+
+                @*                @Html.EditorFor(m => m.Password, new { size = "medium" })
+                @Html.EditorFor(m => m.ConfirmPassword, new { size = "medium" })*@
+                @Html.Partial("_ReCaptcha")
+                <div class="field formControls">
+                    <button class="button">Register</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Address.Description").val("Default");
+    });
+</script>

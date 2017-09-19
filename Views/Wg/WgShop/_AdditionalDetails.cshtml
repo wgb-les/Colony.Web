@@ -1,0 +1,356 @@
+﻿@using Colony.CMS
+@using Colony.Commerce
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+    string shop = ShopContext.Current.CurrentShop.ShopKey;
+    bool isSampleable = Model.AllowSamples && int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0;
+    bool isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+    string currencyRegion = ViewBag.currencyRegionId.ToString();
+    string _productGroup = Model.Attributes.GetValueOrNull("Product Group");
+    bool isOptionProduct = !string.IsNullOrEmpty(Model.SelectedSku.IsOptionProduct);
+}
+@if (isB2B)
+{
+    isSampleable = (int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0);
+}
+
+<div class="sl-tab-container">
+    <div class="sl-tab-section">
+        <div class="sl-tab-slider">
+            <div class="sl-slide sl-tab active" data-value="productDetails">
+                <div class="inner">
+                    <text class="sl-text">Details</text>
+                </div>
+            </div>
+            @if (Model.ShowTechnicalInfo)
+            {
+                <div class="sl-slide sl-tab" data-value="productTechSpecs">
+                    <div class="inner">
+                        <text class="sl-text">Tech Specs</text>
+                    </div>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Usage")) || !string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("After Care Image")))
+            {
+                <div class="sl-slide sl-tab" data-value="productCare">
+                    <div class="inner">
+                        <text class="sl-text">Care Info</text>
+                    </div>
+                </div>
+            }
+            @if (Model.ProductDeliveryCharges.Any() && (isSampleable || isOptionProduct && currencyRegion == "1" && !isB2B && _productGroup == "Cushions"))
+            {
+                <div class="sl-slide sl-tab" data-value="productDelivery">
+                    <div class="inner">
+                        <text class="sl-text">Delivery</text>
+                    </div>
+                </div>
+            }
+            @if (isB2B)
+            {
+                <div class="sl-slide sl-tab" data-value="productTrade">
+                    <div class="inner">
+                        <text class="sl-text">Trade</text>
+                    </div>
+                </div>
+            }
+        </div>
+
+    <div class="sl-content active" data-value="productDetails">
+        <table>
+            @if (_productGroup != "Bedding" && _productGroup != "Rugs" && _productGroup != "Bathroom")
+            {
+            <tr>
+                <td>Product Code</td>
+                <td>@Html.Raw(Model.Attributes.GetValueOrNull("Design Code") ?? Model.SelectedSku.Code)</td>
+            </tr>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Descriptive Colour")))
+            {
+                <tr>
+                    <td>Colour</td>
+                    <td>@Html.Raw(Model.Attributes.GetValueOrNull("Descriptive Colour"))</td>
+                </tr>
+            }
+
+            @if (Model.SelectedSku.Width.HasValue && Model.ProductOptions.Count < 1)
+            {
+                if (Model.SelectedSku.Width.Value > 0)
+                {
+                    <tr>
+                        <td>Width</td>
+                        <td>@((Model.SelectedSku.Width ?? 0).ToString("0.0"))cm (@(((Model.SelectedSku.Width ?? 0)/(decimal) 2.54).ToString("0.0"))")</td>
+                    </tr>
+                }
+            }
+
+
+            @if (_productGroup == "Wallpaper")
+            {
+                if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Ave Piece Size")))
+                {
+                    <tr>
+                        <td>Length</td>
+                        <td>@(Model.Attributes.GetValueOrNull("Ave Piece Size")) meters</td>
+                    </tr>
+                }
+            }
+            @if ((_productGroup == "Cushions" || _productGroup == "Bathroom" || _productGroup == "Bedding") && Model.ProductOptions.Count < 1)
+            {
+                if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Ave Piece Size")))
+                {
+                    <tr>
+                        <td>Length</td>
+                        <td>@(Model.Attributes.GetValueOrNull("Ave Piece Size"))cm (@((Convert.ToDecimal(Model.Attributes.GetValueOrNull("Ave Piece Size")) / (decimal)2.54).ToString("0.0"))")<td>
+                    </tr>
+                }
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Composition Description")))
+            {
+                <tr>
+                    <td>Composition</td>
+                    <td>@Html.Raw(Model.Attributes.GetValueOrNull("Composition Description"))</td>
+                </tr>
+            }
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("SQ Meter")) && _productGroup == "Fabric")
+            {
+                <tr>
+                    <td>Weight gsm</td>
+                    <td>@(Model.Attributes.GetValueOrNull("SQ Meter"))</td>
+                </tr>
+            }
+
+            @if (Model.SelectedSku.Weight.HasValue && Model.SelectedSku.Weight > 0 && _productGroup == "Trimmings")
+            {
+                <tr>
+                    @if(Model.SelectedSku.UnitOfMeasurement.ToUpper() == "EA"){
+                        <td>Weight (g)</td>
+                    }else{
+                        <td>Weight per metre (g)</td>
+                    }
+
+                    <td>@(Model.SelectedSku.Weight * 1000)</td>
+                </tr>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Vertical Pattern Repeat")) && (_productGroup == "Fabric" || _productGroup == "Wallpaper"))
+            {
+                decimal temp;
+                if (decimal.TryParse(Model.Attributes.GetValueOrNull("Vertical Pattern Repeat"), out temp))
+                {
+                    if (temp > 0)
+                    {
+                        <tr>
+                            <td>Vertical Pattern Repeat</td>
+                            <td>@((temp > 0 ? temp/10 : temp).ToString("0.0"))cm (@(((temp > 0 ? temp/10 : temp)/(decimal) 2.54).ToString("0.0"))")</td>
+                        </tr>
+                    }
+                }
+            }
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Horizontal Pattern Repeat")) && (_productGroup == "Fabric" || _productGroup == "Wallpaper"))
+            {
+                decimal temp;
+                if (decimal.TryParse(Model.Attributes.GetValueOrNull("Horizontal Pattern Repeat"), out temp))
+                {
+                    if (temp > 0)
+                    {
+                        <tr>
+                            <td>Horizontal Pattern Repeat</td>
+                            <td>@((temp > 0 ? temp/10 : temp).ToString("0.0"))cm (@(((temp > 0 ? temp/10 : temp)/(decimal) 2.54).ToString("0.0"))")</td>
+                        </tr>
+                    }
+                }
+            }
+            @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Pattern Match Description")) && _productGroup != "Furniture" && _productGroup != "Rugs" && _productGroup != "Cushions")
+            {
+                if (_productGroup == "Wallpaper" || _productGroup == "Fabric")
+                {
+                    <tr>
+                        <td>Match</td>
+                        <td>@(Model.Attributes.GetValueOrNull("Pattern Match Description"))</td>
+                    </tr>
+                }
+                if (_productGroup == "Trimmings" && Model.SelectedSku.UnitOfMeasurement.ToUpper() != "EA")
+                {
+                     <tr>
+                         <td>Match</td>
+                         <td>@(Model.Attributes.GetValueOrNull("Pattern Match Description"))</td>
+                     </tr>
+                 }
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.Category.Name) && _productGroup != "Bedding" && _productGroup != "Rugs" && _productGroup != "Bathroom" && _productGroup != "Cushions" && _productGroup != "Furniture")
+            {
+                <tr>
+                    <td>Collection</td>
+                    <td>@Model.Category.Name</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+        @if (Model.ShowTechnicalInfo)
+        {
+            <div class="sl-content" data-value="productTechSpecs">
+                <table>
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Domestic")))
+                    {
+                        <tr>
+                            <td>FR Domestic</td>
+                            <td>@(Html.Raw(Model.Attributes.GetValueOrNull("FR Domestic")))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Contract")))
+                    {
+                        <tr>
+                            <td>FR Contract</td>
+                            <td>@(Html.Raw(Model.Attributes.GetValueOrNull("FR Contract")))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Drapes")))
+                    {
+                        <tr>
+                            <td>FR Drapes</td>
+                            <td>@(Html.Raw(Model.Attributes.GetValueOrNull("FR Drapes")))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Wallpaper")))
+                    {
+                        <tr>
+                            <td>FR Wallpaper</td>
+                            <td>@(Html.Raw(Model.Attributes.GetValueOrNull("FR Wallpaper")))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Inherent")))
+                    {
+                        <tr>
+                            <td>FR Inherent</td>
+                            <td>@Html.Raw(Model.Attributes.GetValueOrNull("FR Inherent").Replace("|", "<br/>"))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Treatable")))
+                    {
+                        <tr>
+                            <td>FR Treatable</td>
+                            <td>@Html.Raw(Model.Attributes.GetValueOrNull("FR Treatable").Replace("|", "<br/>"))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Martindale")))
+                    {
+                        <tr>
+                            <td>Martindale Rub Test</td>
+                            <td>@(Model.Attributes.GetValueOrNull("Martindale"))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Blackout")))
+                    {
+                        <tr>
+                            <td>Dim Out / Black Out</td>
+                            <td>@(Model.Attributes.GetValueOrNull("Blackout"))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Reverse")))
+                    {
+                        <tr>
+                            <td>Reversible</td>
+                            <td>@(Model.Attributes.GetValueOrNull("Reverse"))</td>
+                        </tr>
+                    }
+                    @if (shop.ToLower() == "contracts")
+                    {
+                        if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Contract Usage")))
+                        {
+                            <tr>
+                                <td>Other Info</td>
+                                <td>@(Model.Attributes.GetValueOrNull("Contract Usage"))</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Usage")) || !string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("After Care Image")))
+        {
+            <div class="sl-content" data-value="productCare">
+                <table>
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Usage")))
+                    {
+                        <tr>
+                            <td>Usage</td>
+                            <td>@(Model.Attributes.GetValueOrNull("Usage"))</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("After Care Image")))
+                    {
+                        <tr>
+                            <td>Care Instructions</td>
+                            <td class="pdpCareIcon"><img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-icons/@(Model.Attributes.GetValueOrNull("After Care Image"))" alt="After Care Instructions"  /></td>
+                        </tr>
+                        <tr>
+                            <td><a target="_blank" href="http://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.r24.cf3.rackcdn.com/_assets/images/Care%20Code%20Guide%20PDF.pdf">Care Icon Key</a></td>
+                            <td></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+
+        @if (Model.ProductDeliveryCharges.Any() && (isSampleable || isOptionProduct && currencyRegion == "1" && !isB2B && _productGroup == "Cushions"))
+        {
+            <div class="sl-content" data-value="productDelivery">
+                <table>
+                    @foreach (var deliveryCharge in Model.ProductDeliveryCharges)
+                    {
+                        <tr>
+                            <td>@deliveryCharge.DeliveryOption</td>
+                            <td>&pound;@deliveryCharge.PriceIncTax.AsDecimal(0).ToString("#0.00")</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td><a href="/return/">Returns Policy</a></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+        @if (isB2B)
+        {
+            <div class="sl-content" data-value="productTrade" style="">
+                <div class="sl-field" data-productcode="@Model.SelectedSku.Code" data-b2bfetch="true" data-value="productPrice">
+                    <table>
+                        <tr>
+                            <td>
+                                <text class="sl-text">Trade price: </text>
+                            </td>
+                            <td>
+                                <text class="sl-text price">
+                                    <div class="sk-fading-circle">
+                                        <div class="sk-circle1 sk-circle"></div>
+                                        <div class="sk-circle2 sk-circle"></div>
+                                        <div class="sk-circle3 sk-circle"></div>
+                                        <div class="sk-circle4 sk-circle"></div>
+                                        <div class="sk-circle5 sk-circle"></div>
+                                        <div class="sk-circle6 sk-circle"></div>
+                                        <div class="sk-circle7 sk-circle"></div>
+                                        <div class="sk-circle8 sk-circle"></div>
+                                        <div class="sk-circle9 sk-circle"></div>
+                                        <div class="sk-circle10 sk-circle"></div>
+                                        <div class="sk-circle11 sk-circle"></div>
+                                        <div class="sk-circle12 sk-circle"></div>
+                                    </div>
+                                </text>
+                            </td>
+                        </tr>
+                   </table>
+                </div>
+            </div>
+         }
+    </div>
+</div>
+
+

@@ -1,0 +1,9 @@
+﻿<iframe src="/DataCash/DataCashHccPayment/Payment3dSecureIframe/" id="threeDSecureIFrame" height="700" width="670" frameborder="0" scrolling="no" title="Processing your 3-D Secure Transaction" onload="setHeight('threeDSecureIFrame');"></iframe>
+<script type="text/javascript">
+    function setHeight(e) {
+        var elem = document.getElementById(e);
+        if (typeof e.contentWindow != 'undefined') {
+            elem.height = e.contentWindow.document.body.scrollHeight + 35;
+        }
+    }
+</script>

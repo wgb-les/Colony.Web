@@ -1,0 +1,103 @@
+﻿@model WalkerGreenbank.Modules.AsSeenIn.Areas.Models.SearchItemsViewModel
+
+
+<nav class="tabs" role="navigation">
+    <ul>
+        <li>
+            <a href="/search/?keywords=@Model.Keywords">Products</a>
+        </li>
+        @*<li>
+        <a href="/search/blog/?keywords=@Model.Keywords">Blog Articles</a>
+    </li>
+    <li>
+        <a href="/search/events/?keywords=@Model.Keywords">Events</a>
+    </li>*@
+        <li>
+            <a href="/search/faqs/?keywords=@Model.Keywords">FAQs</a>
+        </li>
+        <li>
+            <a href="/search/videos/?keywords=@Model.Keywords">Videos</a>
+        </li>
+        <li>
+            <a href="/search/as-seen-in/?keywords=@Model.Keywords" class="selected">As Seen In</a>
+        </li>
+    </ul>
+</nav>
+
+
+<aside class="sideCol leftCol">
+    <a href="#" class="toggleFilters button show-for-small">Filter Products</a>
+
+    <section id="productFilters" class="medium">
+        <header class="header-reveal-modal">
+            <h2>Filters</h2>
+            <a class="close-reveal-modal icon-remove">
+                <span>Close</span></a>
+        </header>
+        <div class="bd-reveal-modal">
+            <form action="" class="filterAccordion postbackSearch" id="seenSearch">
+
+                <fieldset class="boxSection filterTags">
+                    <div class="header">
+                        <a href="#" class="toggle-filterAccordion">
+                            <h2>Name or keyword</h2>
+                        </a>
+                        <a href="#" class="clearFilter">Clear</a>
+                    </div>
+                    <div class="content-filterAccordion">
+                        <div class="details">
+                            <div class="field tagpicker ">
+                                <label for="seenKeywords">
+                                    Enter tag name
+                                </label>
+                                <div class="tagpickerSearch">
+                                    <select name="keywords" id="seenKeywords">
+                                        @if (!Model.Keywords.IsNullOrEmpty())
+                                        {
+                                            foreach (var keyword in Model.Keywords.Split(' '))
+                                            {
+                                                <option value="@keyword" id="opt_@keyword" class="selected" selected="selected">@keyword</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+</aside>
+
+<div id="content">
+    <h1>As Seen In</h1>
+    <div class="alertInfo message">
+        Showing results for <strong>"@Model.Keywords"</strong>.
+    </div>
+
+    @if (Model.Items.Any())
+    {
+        <ul class="moduleList">
+            @foreach (var item in Model.Items)
+            {
+                <li>
+                    <article>
+                        <div class="details">
+                            <h3>
+                                <a href="/as-seen-in/@item.URI" class="thumbnail">
+                                    <img src="@Url.ImageUrl(item.ImageAssetID, "AsSeenIn", "AsSeenInCategoryThumbnail", @"/_images/placeholders/moduleList.jpg")" alt="@item.Name"/>@item.Name</a>
+                            </h3>
+
+                            <p>@item.ShortDescription</p>
+                        </div>
+                    </article>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="alertInfo message">Your search did not return any results.</div>
+    }
+</div>

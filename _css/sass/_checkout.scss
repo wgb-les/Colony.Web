@@ -1,0 +1,615 @@
+.fa{
+  font-family: inherit;
+}
+
+.fa:before{
+  font-family: "FontAwesome" !important;
+}
+
+
+
+// ---------------- Messages ----------------
+
+.field-validation-error.wide{
+  padding: $padding-small $padding-medium;
+}
+
+.field-validation-error{
+  float: left;
+  width: 100%;
+  margin:0;
+  padding: $padding-small 0;
+
+  .alertInfo{
+    padding: $padding-medium;
+    background: $color-error !important;
+    line-height: 25px;
+    float: left;
+    width: 100%;
+    position: relative;
+    box-shadow: none;
+    border: 0 !important;
+    border-radius: 0;
+    text-shadow: none;
+    margin: 0;
+    bottom: auto;
+
+    font-size: $font-size-medium;
+    font-weight: $font-weight-light;
+    color: $color-light3;
+    margin:0;
+  }
+
+  .alertInfo:before{
+    display: none;
+  }
+}
+
+// ---------------- Containers ----------------
+
+.checkoutContainer{
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+
+  .innerContainer{
+    width: 100%;
+    float: left;
+  }
+}
+
+.pageContainerInner{
+  padding: 0 10px;
+}
+
+.columnContainer{
+  float: left;
+
+  .mediumColumn{
+    width: 100%;
+  }
+}
+
+  .largeColumn{
+    width: 100%;
+    float: left;
+  }
+
+  .mediumColumn{
+    @extend .largeColumn;
+    width: 65%;
+  }
+
+  .smallColumn{
+    @extend .largeColumn;
+    width: 35%;
+  }
+
+  .splitColumn{
+    @extend .largeColumn;
+    width: 50%;
+  }
+
+@media only screen and (max-width:768px) {
+  .columnContainer, .mediumColumn, .smallColumn, .splitColumn{
+    width: 100% !important;
+  }
+}
+
+// ---------------- Steps ----------------
+
+.stepContainer{
+  width: 100%;
+  float: left;
+
+  .step{
+    float: left;
+    padding: $padding-medium;
+
+    .inner{
+      background: $color-light1;
+      float: left;
+      width: 100%;
+      padding: $padding-large;
+      text-align: center;
+      font-size: $font-size-medium;
+      font-weight: $font-weight-light;
+      text-transform: uppercase;
+      border: 2px solid $color-light1;
+      color: $color-dark2;
+    }
+
+    .inner:before{
+      color: $color-dark2;
+      padding: 0 $padding-small 0 0;
+    }
+  }
+
+  .step.active{
+
+    .inner{
+      border: 2px solid $color-action;
+      background: $color-light2;
+      color: $color-action;
+    }
+
+    .inner:before{
+      color: $color-action;
+    }
+  }
+
+  .step.complete{
+
+    .inner{
+      background: $color-action;
+      color: $color-light3;
+      border: 2px solid $color-action;
+    }
+
+    .inner:before{
+      color: $color-light3;
+    }
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .stepContainer{
+
+    .step{
+
+      .inner{
+
+        span{
+          display: none;
+        }
+      }
+
+      .inner:before{
+        padding: 0;
+      }
+    }
+  }
+}
+
+// ---------------- Block Sections ----------------
+
+.blockSection{
+  float:left;
+  padding: $padding-medium;
+
+  .inner{
+      width:100%;
+      float:left;
+      border: 1px solid $color-light1;
+
+      .heading{
+          width:100%;
+          float: left;
+          background: $color-light1;
+          margin: 0;
+          padding: $padding-medium;
+
+          h2{
+            float: left;
+            padding: $padding-medium;
+            margin:0;
+          }
+
+          h2:before{
+            padding: 0 $padding-medium 0 0;
+          }
+      }
+
+      .heading.thin{
+        padding: 0;
+      }
+
+      .content{
+        float: left;
+        padding: $padding-medium;
+
+        p{
+          padding: $padding-medium;
+          margin: 0;
+        }
+
+        h3{
+          padding: $padding-medium;
+          margin: 0;
+          width: 100%;
+          float: left;
+        }
+
+      }
+
+      .content.thin{
+        padding: 0;
+      }
+  }
+}
+
+// ---------------- Basket ----------------
+
+.global-brands-list > li, .global-utils-list > li{
+  width: auto !important;
+}
+
+.basket, .summary{
+  float: left;
+  width: 100%;
+
+  .line{
+    width: 100%;
+    float: left;
+    padding: 0 $padding-medium;
+
+    .inner{
+      float: left;
+      border: 0;
+      border-top: 1px solid $color-light1;
+      padding: $padding-medium 0;
+
+      .flatshot{
+        width: 30%;
+        float: left;
+        padding: $padding-medium $padding-small $padding-medium 0;
+
+        img{
+          float: left;
+          width: 100%;
+        }
+      }
+
+      .details{
+        width: 70%;
+        float: left;
+        padding: $padding-medium 0 0 $padding-medium;
+
+        h3{
+          float: left;
+          width: 100%;
+          padding: 0 0 $padding-small 0;
+        }
+
+        span{
+          float: left;
+          width: 100%;
+          font-size: $font-size-medium;
+          font-weight: $font-weight-light;
+          padding: $padding-small 0;
+        }
+
+        .table{
+          width: 100%;
+          float: left;
+          padding: $padding-small 0;
+          display: block;
+
+          .rightValue{
+            float: left;
+            width: 50%;
+            font-size: $font-size-medium;
+            font-weight: $font-weight-light;
+            padding: $padding-small 0;
+            text-align: right;
+            text-overflow:ellipsis;
+            overflow:hidden;
+            white-space:nowrap;
+          }
+
+          .leftValue{
+            @extend .rightValue;
+            text-align: left;
+            font-weight: $font-weight-medium;
+          }
+        }
+      }
+    }
+  }
+  .line:nth-of-type(1) .inner{
+    border-top: 0px;
+    padding-top: 0px;
+  }
+
+  .line:nth-last-of-type(1) .inner{
+    padding-bottom: 0px;
+  }
+}
+
+.summary .details{
+  padding: 0 !important;
+  width: 100%;
+}
+
+// ---------------- Forms ----------------
+
+form{
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  fieldset{
+    float: left;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    position: relative;
+
+    .level4{
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  .deliveryOptions{
+    background: $color-light2;
+    padding: $padding-medium !important;
+  }
+}
+
+.form{
+  float: left;
+  width: 100%;
+
+  .section{
+    width: 100%;
+    float: left;
+    position: relative;
+    padding: $padding-medium !important;
+
+    label{
+      float: left;
+      padding: 0 0 $padding-small 0;
+      margin:0;
+      font-size: $font-size-medium;
+
+      span{
+        float: left;
+        margin:0;
+      }
+
+      .required{
+        color: $color-error;
+        padding-left: $padding-small;
+        margin:0;
+        text-transform: lowercase;
+        font-size: $font-size-small;
+      }
+    }
+
+    input, textarea, select{
+      width: 100%;
+      float: left;
+      margin: $margin-small 0 0 0;
+      padding: $padding-medium;
+      background: $color-light3 !important;
+      border-radius: 0 !important;
+      border: 1px solid $color-dark2 !important;
+    }
+  }
+
+  .tickbox{
+
+    input{
+      width: auto;
+      /*position: absolute;*/
+      margin: 0;
+      padding: 0;
+      left: 10px;
+      top: 17px;
+      //z-index: 10;
+      z-index: 1;
+      margin-right: $padding-small;
+      margin-top:6px;
+    }
+
+    label{
+      padding: 0;
+      padding-left: 14px;
+      line-height: 20px;
+
+      span{
+        padding: 0;
+      }
+    }
+  }
+}
+
+// ---------------- B2B ---------------
+
+.boxSection{
+  border: 0;
+}
+
+.b2bDelivery {
+  float: left;
+  width: 100%;
+  padding: 10px;
+}
+
+.formControls button.button{
+  float: right;
+}
+
+// ---------------- Address Section ----------------
+
+.deliveryAddress{
+  width: 100% !important;
+  float: left;
+  margin: 0 !important;
+}
+
+.b2bDelivery{
+  padding: 0;
+}
+
+.addressBook{
+  width: 100%;
+  float: left;
+  word-spacing: normal !important;
+
+  .addressItem{
+    float: left;
+    padding: $padding-medium;
+
+    .inner{
+      width: 100%;
+      float: left;
+      border: 1px solid $color-light1;
+      position: relative;
+      margin:0;
+
+      .deleteAddress{
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        border:1px solid $scorpion;
+
+        button:before {
+         padding:0px 5px 0px 5px;
+         border:0;
+         }
+      
+        .address-trash{
+         border: 0;
+        }
+       }
+
+
+       
+
+      .details{
+        width: 100%;
+        float: left;
+
+        h3{
+          width: 100%;
+          float: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          background: $color-light1;
+          padding: $padding-medium 35px $padding-medium $padding-medium;
+        }
+
+        address, .deliveryAddress ul{
+          float: left;
+          width: 100%;
+          margin: 0;
+          padding: $padding-medium;
+
+          span, li{
+            float: left;
+            width: 100%;
+            font-style: normal;
+            // padding: $padding-small 0;
+            padding: 0;
+            font-weight: $font-weight-light;
+          }
+        }
+      }
+    }
+
+    .status{
+      width: 100%;
+      float: left;
+
+      span{
+        float: left;
+        background: $color-dark2;
+
+        a, button{
+          color: $color-light3;
+          text-decoration: none;
+          width: 100%;
+          float: left;
+          padding: $padding-large;
+          text-align: center;
+          font-size: $font-size-medium;
+          text-transform: capitalize;
+          line-height: 20px;
+          border: 0;
+          background: transparent;
+        }
+
+        a:before{
+          color: $color-light3;
+          padding: 0 $padding-medium 0 0;
+        }
+      }
+
+      span:nth-last-of-type(1){
+        background: $color-dark3;
+      }
+
+      .selected a{
+        background: $color-action;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .addressItem{
+    width: 100%;
+  }
+}
+
+// ---------------- Tab Box ----------------
+
+.tabBox{
+  width: 100%;
+  float: left;
+  padding: $padding-medium;
+
+  .inner{
+    float: left;
+    width: 100%;
+
+    .tabContainer{
+      float: left;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+
+      .tab{
+        float: left;
+        background: $color-light1;
+        cursor: pointer;
+
+        span{
+          width: 100%;
+          float: left;
+          padding: $padding-large;
+          text-align: center;
+          font-size: $font-size-large;
+          font-weight: $font-weight-medium;
+          color: $color-dark2;
+        }
+
+        span:before{
+          padding: 0 $padding-medium 0 0;
+        }
+      }
+
+      .tab.active{
+        background: $color-light3;
+      }
+    }
+  }
+
+  .content{
+    width: 100%;
+    float: left;
+    display: none;
+  }
+
+  .content.active{
+    display: block;
+  }
+}

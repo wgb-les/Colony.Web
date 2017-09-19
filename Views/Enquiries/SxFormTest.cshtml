@@ -1,0 +1,23 @@
+﻿<h2>SxFormTest()</h2>
+@foreach (var form in Model.form)
+{
+    <form>
+        @foreach (var fieldset in form.fieldset)
+        {
+            <fieldset>
+                @foreach (var field in fieldset.field)
+                {
+                    switch (field.type as string)
+                    {
+                        case "text":
+                            @Html.Partial("/Views/SxFormTemplates/Text.cshtml", (object) field)
+                            break;
+                        case "textarea":
+                            <text>TEXT AREA</text>
+                            break;
+                    }
+                }
+            </fieldset>
+        }
+    </form>
+}

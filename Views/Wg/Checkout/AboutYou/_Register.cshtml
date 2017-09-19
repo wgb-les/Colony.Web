@@ -1,0 +1,357 @@
+﻿<div class="row">
+    <div class="small-12 medium-8 columns">
+        <div class="page-content">
+            <h1 class="show-for-sr">About You</h1>
+
+            <h2>Create an account</h2>
+
+            <form action="delivery.html" method="get">
+
+
+                <div class="field text">
+                    <label for="email">
+                        What is your email address? <span class="required">Required</span>
+                    </label>
+                    <input type="email" name="email" id="email">
+                </div>
+
+                <div class="field text">
+                    <label for="password">
+                        Password <span class="required">Required</span>
+                    </label>
+                    <input type="password" name="password" id="password">
+                </div>
+
+                <div class="field text">
+                    <label for="confirmPassword">
+                        Confirm Password <span class="required">Required</span>
+                    </label>
+                    <input type="password" name="confirmPassword" id="confirmPassword">
+                </div>
+
+
+                <div class="field select medium">
+                    <label for="title">
+                        Title <span class="required">Required</span>
+                    </label>
+                    <select name="title" id="title">
+                        <option value="option_1">Please Select</option>
+                        <option value="option_2">Mr</option>
+                        <option value="option_3">Mrs</option>
+                        <option value="option_4">Miss</option>
+                    </select>
+                </div>
+
+                <div class="field text">
+                    <label for="first_name">
+                        First Name <span class="required">Required</span>
+                    </label>
+                    <input type="text" name="first_name" id="first_name">
+                </div>
+
+                <div class="field text">
+                    <label for="last_name">
+                        Last Name <span class="required">Required</span>
+                    </label>
+                    <!--
+                      <div class="alertInfo error">
+                        This is a generic <strong>error message</strong>.
+                      </div>
+                    -->
+                    <input type="text" name="last_name" id="last_name">
+                </div>
+
+                <div class="field text medium">
+                    <label for="phone">
+                        Phone <span class="required">Required</span>
+                    </label>
+                    <input type="text" name="phone" id="phone">
+                </div>
+
+
+                <div class="field checkbox">
+                    <input type="checkbox" name="marketing" id="marketing">
+                    <label for="marketing">
+                        <span>
+                            I would like to receive marketing communications from Style Library
+                        </span>
+                    </label>
+                </div>
+
+
+                <div class="field formControls">
+                    <input type="submit" class="button large expanded" value="Continue">
+                </div>
+
+                <hr>
+
+                <a href="#" class="button button-facebook expanded">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    Log in with Facebook
+                </a>
+
+
+            </form>
+
+        </div>
+        <div class="row show-for-medium">
+            <div class="large-12 columns">
+                <a href="@Url.Action("Summary", "Basket", new {area = "ShopPurchase"})" class="button hollow small">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    Back to Basket
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="small-12 medium-4 columns">
+        <div class="side-column">
+            <div class="card layered small">
+                <div class="card-header card-content">
+                    <h2 class="card-heading">Order Summary</h2>
+                </div>
+                <div class="card-content">
+                    <div class="totals">
+
+                        <div class="totals-row">
+                            <div class="totals-label">
+                                Subtotal:
+                            </div>
+                            <div class="totals-value">
+                                £116.00
+                            </div>
+                        </div>
+
+                        <div class="totals-row">
+                            <div class="totals-label">
+                                Delivery total:
+                            </div>
+                            <div class="totals-value">
+                                £3.00
+                            </div>
+                        </div>
+
+                        <div class="totals-row">
+                            <div class="totals-label">
+                                Discount:
+                            </div>
+                            <div class="totals-value">
+                                £-58.00
+                            </div>
+                        </div>
+
+                        <div class="totals-row totals-grand">
+                            <div class="totals-label">
+                                Total:
+                            </div>
+                            <div class="totals-value">
+                                £61.00
+                            </div>
+                            <div class="totals-message">
+                                All prices include VAT.
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card layered small">
+                <div class="card-header card-content">
+                    <h2 class="card-heading">In Your Basket</h2>
+                </div>
+                <div class="card-content">
+                    <div class="mini-basket">
+
+                        <div class="basket-item">
+                            <div class="basket-item-section">
+                                <img class="basket-item-thumbnail" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetail/HFC31683_zoom.jpg" alt="">
+                            </div>
+                            <div class="basket-item-section">
+
+                                <div class="basket-item-content">
+                                    <div class="basket-item-product">
+                                        <div class="basket-item-heading">
+                                            <strong>Harlequin</strong>
+                                            <h4 class="basket-item-header">Sophistication</h4>
+                                        </div>
+                                        <dl class="basket-item-meta">
+                                            <dt>
+                                                Collection:
+                                            </dt>
+                                            <dd>
+                                                Indulgence Wallpapers
+                                            </dd>
+                                            <dt>
+                                                Colour:
+                                            </dt>
+                                            <dd>
+                                                Scarlet and Pale Gold
+                                            </dd>
+                                            <dt>
+                                                Wallpaper:
+                                            </dt>
+                                            <dd>
+                                                HFC31683
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="basket-item-price">
+                                        <dl class="basket-item-meta">
+                                            <dt>
+                                                Quantity:
+                                            </dt>
+                                            <dd>
+                                                1
+                                            </dd>
+                                            <dt>
+                                                Price:
+                                            </dt>
+                                            <dd>
+                                                FREE
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="basket-item">
+                            <div class="basket-item-section">
+                                <img class="basket-item-thumbnail" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetail/DCHK233570_zoom.jpg" alt="">
+                            </div>
+                            <div class="basket-item-section">
+
+                                <div class="basket-item-content">
+                                    <div class="basket-item-product">
+                                        <div class="basket-item-heading">
+                                            <strong>Sanderson</strong>
+                                            <h4 class="basket-item-header">Chika</h4>
+                                        </div>
+                                        <dl class="basket-item-meta">
+                                            <dt>
+                                                Collection:
+                                            </dt>
+                                            <dd>
+                                                Chika Weaves
+                                            </dd>
+                                            <dt>
+                                                Colour:
+                                            </dt>
+                                            <dd>
+                                                Apple
+                                            </dd>
+                                            <dt>
+                                                Fabric:
+                                            </dt>
+                                            <dd>
+                                                233570
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="basket-item-price">
+                                        <dl class="basket-item-meta">
+                                            <dt>
+                                                Quantity:
+                                            </dt>
+                                            <dd>
+                                                1
+                                            </dd>
+                                            <dt>
+                                                Price:
+                                            </dt>
+                                            <dd>
+                                                FREE
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="basket-item">
+                            <div class="basket-item-section">
+                                <img class="basket-item-thumbnail" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productthumbnail/DLIT254807F_zoom.jpg" alt="">
+                            </div>
+                            <div class="basket-item-section">
+
+                                <div class="basket-item-content">
+                                    <div class="basket-item-product">
+                                        <div class="basket-item-heading">
+                                            <strong>Sanderson</strong>
+                                            <h4 class="basket-item-header">Filled Cushion Treasure Map</h4>
+                                            <p>Sea Blue 60cm x 40cm</p>
+                                        </div>
+                                        <dl class="basket-item-meta">
+                                            <dt>
+                                                Collection:
+                                            </dt>
+                                            <dd>
+                                                Cushions
+                                            </dd>
+                                            <dt>
+                                                Colour:
+                                            </dt>
+                                            <dd>
+                                                Sea Blue
+                                            </dd>
+                                            <dt>
+                                                Cushions:
+                                            </dt>
+                                            <dd>
+                                                254807
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="basket-item-price">
+                                        <dl class="basket-item-meta">
+                                            <dt>
+                                                Quantity:
+                                            </dt>
+                                            <dd>
+                                                2
+                                            </dd>
+                                            <dt>
+                                                Price:
+                                            </dt>
+                                            <dd>
+                                                £116.00 (£58.00/each)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="card layered small">
+                <div class="card-header card-content">
+                    <h3 class="card-heading">Vouchers</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        If you have a voucher code, you will be able to apply this during Payment.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

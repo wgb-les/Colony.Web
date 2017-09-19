@@ -1,0 +1,59 @@
+﻿@model Colony.Modules.Blog.Areas.Models.BlogPostViewModel
+@{
+    var pinterestMediaUrl = Url.ImageUrl(Model.BlogPost.ImageAssetId, "", "", @"/_images/placeholders/article.jpg");
+    Html.AppendTitle(Model.BlogPost.WindowTitle ?? Model.BlogPost.Name);
+    Html.AppendMetaKeywords(Model.BlogPost.MetaKeywords);
+    Html.SetMetaDescription(Model.BlogPost.MetaDescription);
+}
+<div id="container" class="articleCol">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+
+
+        <header class="pageHeader">
+            <ul class="articleOptions pull-right moduleShare">
+                <li>
+                    <a href="#" class="share" data-reveal-id="share">
+                        <span>Share</span></a>
+                </li>
+            </ul>
+            <h1 class="pull-left">@Model.BlogPost.Name</h1>
+            <div class="clear"></div>
+            <dl class="articleDetails">
+                <dt>Date</dt>
+                <dd>
+                    <time datetime="@((Model.BlogPost.PublishStart ?? Model.BlogPost.Created).Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz"))">@((Model.BlogPost.PublishStart ?? Model.BlogPost.Created).Value.ToString("dd MMMM yyyy"))</time>
+                </dd>
+                @if (!string.IsNullOrWhiteSpace(Model.BlogPost.Tags))
+                {
+                    <dt>Tagged in</dt>
+                    <dd>@Model.BlogPost.Tags</dd>
+                }
+            </dl>
+        </header>
+        @* @if (Model.BlogPost.ImageAssetId.HasValue)
+        { 
+            <img src="@Url.ImageUrl(Model.BlogPost.ImageAssetId, "", "", @"/_images/placeholders/article.jpg")" alt="@Model.BlogPost.Name" />
+        }*@
+        @Html.Raw(Model.BlogPost.LongDescription)
+
+        @if (Model.BlogPost.CommentsEnabled)
+        {
+            Html.RenderAction("Index", "Comments", new {area = "Comments", dataObjectId = Model.BlogPost.Id, dataTypeName = Model.BlogPost.DataTypeName});
+        }
+        @if (Model.BlogPostCategory != null)
+        {
+            <nav class="pageOptions" role="navigation">
+                <ul>
+                    <li>
+                        <a href="/blogs/@Model.BlogPostCategory.Uri" class="prev">
+                            <span>Back to List</span></a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    </div>
+</div>
+<section id="share" class="reveal-modal medium">
+    @Html.Action("Share", "Share", new {area = "Sharing", ShareUrl = Request.Url.AbsoluteUri, MediaUrl = pinterestMediaUrl, Description = Model.BlogPost.Name})
+</section>

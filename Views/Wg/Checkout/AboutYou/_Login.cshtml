@@ -1,0 +1,52 @@
+@model Colony.CMS.Areas.Members.ViewModels.LoginInputViewModel
+
+<form action="@Url.Action("Login", "Checkout", new {area = "ShopPurchase"})" method="post">
+
+  @Html.AntiForgeryToken()
+  @Html.CustomValidationSummary()
+  @if (TempData["ExistingUser"] != null)
+  {
+
+    <div for="" class="field-validation-error wide">
+      <div for="" class="alertInfo error">
+        The email <b>@TempData["ExistingUser"]</b> is already registered. To continue as a Guest, please use a different email address or Log in as a registered user.
+      </div>
+    </div>
+
+  }
+
+  <div class="section">
+    <label for="email">
+      <span>What is your email address?</span>
+      <span class="required">Required</span>
+    </label>
+    <div for="" class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></div>
+    @if (TempData["ExistingUser"] != null)
+    {
+      <input type="text" data-val="true" data-val-required="Please enter a valid email address" name="Email" id="email" value="@TempData["ExistingUser"]">
+    }
+    else
+    {
+      <input type="text" data-val="true" data-val-required="Please enter a valid email address" name="Email" id="email">
+    }
+  </div>
+
+  <div class="section">
+    <label for="password">
+      <span>Password</span>
+      <span class="required">Required</span>
+    </label>
+
+    <div for="" class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></div>
+    <input type="password" data-val="true" data-val-required="Please enter a valid password" name="Password" id="password">
+  </div>
+
+  <div class="section">
+    <a class="forgottenPassword" href="@Url.Action("Index", "PasswordReset", new {area = "Members"})">Forgotten password</a>
+  </div>
+    <div class="section">
+        <div class="button level1 wide2">
+            <input type="submit" class="inner" value="Log in">
+        </div>
+    </div>
+</form>

@@ -1,0 +1,253 @@
+
+.container-flex {
+  display: flex;
+  justify-content: flex-start;
+}
+.wall {
+  /*flex-wrap: wrap;*/
+  float: left;
+  width: 100%;
+  display:block;
+}
+
+#wall-group {
+  float: left;
+  width: 100%;
+  display:block;
+}
+.button-holder {
+  float: left;
+  display:block;
+}
+
+form {
+  width: 100%;
+}
+section {
+  display: block;
+  float: left;
+}
+.form-group {
+  display: inline-block;
+  padding: 0;
+}
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 10px;
+  padding: 0;
+}
+.error-message {
+  display: block;
+}
+.results {
+  background-color: #d4bc60;
+  /*color: @text-accent-color;*/
+  /*width: 100%;*/
+  padding: 10px;
+  margin: 10px 0;
+}
+fieldset,
+fieldset > p,
+fieldset > div {
+  width: 100%;
+  clear: both;
+  margin-bottom: 0px;
+}
+input[type="radio"] {
+  width: auto;
+  margin: 14px 5px 0 15px;
+  padding-left: 10px;
+}
+#input-metres {
+  margin-left: 0;
+  padding-left: 0;
+}
+.radio-inline {
+  padding-left: 10px;
+}
+.radio,
+.checkbox {
+  padding-left: 0;
+}
+.unit-selection {
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: wrap;
+}
+.unit-selection > div {
+  min-width: 80px;
+  white-space: normal;
+}
+.unit-selection > div:nth-child(2) {
+  min-width: 150px;
+}
+.feet-label > label {
+  width: 100%;
+  display: block;
+  margin-left: 0px;
+}
+.wall-group {
+     float:left;
+  margin-left: 15px;
+  width:100%;
+  display:block;
+}
+.button-group {
+  float:left;
+  width:100%;
+  display:block; 
+}
+.roll-measure-75 {
+  float: left;
+  position: relative;
+  padding-left: 0;
+  padding-right: 15px;
+}
+.roll-measure-50 {
+  float: left;
+  position: relative;
+  padding-left: 0;
+  padding-right: 15px;
+}
+#roll-result {
+  text-align: center;
+  padding: 10px 15px;
+  background-color: #58595b;
+  color: #fff;
+  width: 100%;
+  margin: 20px 0px 6px 0px;
+  float: left;
+  display: block;
+  border: 6px solid #d4bc60;
+}
+#roll-result > p {
+  color: #fff;
+  font-size:1.4em;
+  line-height:1.3em;
+}
+#roll-result > p > actual {
+  font-weight: bold;
+}
+#roll-result > p .total-price {
+  font-weight: bold;
+  color: #d4bc60;
+  font-size:1.1em;
+}
+#result {
+  /*display: block;
+    width: 100%;*/
+  float: left;
+  padding:10px;
+}
+/*.row .wall >div>*/
+label,
+.roll {
+  display: block;
+  /*float: none;*/
+}
+.roll-dim {
+  width: 50%;
+  display: inline-block;
+}
+#table {
+  margin-top: 40px;
+}
+actual,
+approx {
+  font-size: 1.2em;
+  color: #d4bc60;
+}
+.has-error {
+  border-color: #f44336;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  color: #f44336;
+}
+@media (max-width: 768px) {
+  .roll-measure-75,
+  .roll-measure-50 {
+    width: 100%;
+  }
+  .roll-dim {
+    width: 100%;
+  }
+  .unit-selection > div > input[type="radio"] {
+    margin-left: 0;
+  }
+
+}
+/*--------------paint specific------------------*/
+
+.dropdown-holder {
+  width: 52%;
+  float: left;
+  clear: both;
+}
+
+thead {
+  background-color: #f1f1f1;
+  color: black;
+}
+thead,
+.section-end {
+  border-bottom: 2px solid #f1f1f1;
+}
+th {
+  padding: 10px;
+}
+td {
+  padding: 10px;
+  border: 0.5px solid #f1f1f1;
+  text-align: center;
+}
+td:first-of-type {
+  background-color: #d4bc60;
+  color: #fff;
+}
+tfoot {
+  padding-top: 20px;
+  text-align: center;
+}
+.foot {
+  background-color: #f1f1f1 !important;
+  color: black !important;
+  border-bottom: 1px solid #fff;
+}
+table.paint-usage-table {
+  margin-bottom:20px;
+}
+table.paint-usage-table tbody tr:nth-of-type(even) td:first-child{
+  color:#4f5151;
+}
+
+
+
+@media (max-width: 768px) {
+    .form-group {
+        width: 49%;
+    }
+
+    .dropdown-holder {
+        width: 100%;
+    }
+
+    .button-holder {
+        width: 100%;
+    }
+
+    table.paint-usage-table thead tr th, table.paint-usage-table thead tr, table.paint-usage-table thead tr td,  table.paint-usage-table tfoot tr td, table.paint-usage-table tbody tr td  {
+        padding:4px 4px;
+        font-size:0.9em;
+        width:20%;
+    }
+}
+
+/* extras */
+#CalculatorModal .button-group button {
+    margin-right: 5px !important;
+}

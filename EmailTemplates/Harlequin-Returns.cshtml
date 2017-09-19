@@ -1,0 +1,250 @@
+@using System.Web.Mvc.Html
+
+@model Colony.Commerce.Areas.Returns.ViewModels.ReturnsSession
+
+@{
+
+    setStyles();
+}
+@functions {
+    string siteKey = "Sanderson";
+    string email_bodyBackground = "#fff";
+    string email_background = "#fff";
+    string email_footerBackground = "#5b6e52";
+    string email_boxBackground = "#f7f7f7";
+    string email_border = "1px solid #cccccc";
+
+    string email_fontFamily = "Arial,Helvetica,sans-serif";
+    string email_headerColor = "#000";
+    string email_linkColor = "#111";
+    string email_fontColor = "#000";
+    string email_footerColor = "#e6e6e6";
+    string email_footerLinks = "#666";
+
+    string email_sizeHeader = "18px";
+    string email_sizeSubhead = "14px";
+    string email_sizeNormal = "12px";
+    string email_sizeSmall = "11px";
+
+    void setStyles()
+    {
+        if (siteKey == "Harlequin")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (siteKey == "Sanderson")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+        }
+        else if (siteKey == "Morris")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#5b6e52";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#000";
+            email_linkColor = "#111";
+            email_fontColor = "#000";
+            email_footerColor = "#e6e6e6";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (siteKey == "Zoffany")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#555";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#bfbfbf";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (siteKey == "Scion")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#666";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Your @siteKey return request</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+</head>
+<body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" bgcolor="@email_bodyBackground">
+    <table cellspacing="0" border="0" style="background:@email_bodyBackground;" cellpadding="0" width="100%">
+        <tr>
+            <td>
+                <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="margin-top:20px; margin-bottom:20px; background:@email_background;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td style="border-left:@email_border; border-right:@email_border; border-top:@email_border;">
+                                        <img style="display:block; border:none;" src="https://www.harlequin.uk.com/_images/email/Harlequin/header.gif" border="0" height="110" width="548" alt="Harlequin" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border-left:@email_border; border-right:@email_border;">
+                            <table width="508" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td style="padding: 0 0 15px 0;">
+                                        <p style="margin: 0 0 10px 0; margin-bottom: ; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">Hi @Model.StepOne.CustomerName,</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">Thank you for submitting your order return through our website.</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">You will shortly receive an email containing your returns label from UPS - make sure you put this on your package when you return it. Please ensure that you remove any other tracking labels.</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">You need to return the goods securely packaged. We recommend you re-use the original packaging. Please make sure you enclose any hang-tags and accessories.</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">In order to speed up the processing of your return please print a copy of this Returns Confirmation and enclose it with your returned goods.</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">We need to receive the goods back within the next 14 days.</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">You can book your return collection with UPS by either phone or following the website link in their email to you, or, if more convenient, you can drop off your package at their nearest collection point to you.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 0 15px 0;">
+                                        <h2 style="margin:0; padding:0; font-size:@email_sizeSubhead; font-weight:normal; font-family:@email_fontFamily; color:@email_fontColor !important;">Here's a summary of your request.</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="font-size: @email_sizeNormal; font-family: @email_fontFamily; color: @email_fontColor;" width="510" cellpadding="0" border="0" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th align="left" style="padding-bottom: 10px;">Product Name</th>
+                                                <th align="left" style="padding-bottom: 10px;">Code</th>
+                                                <th align="center" style="padding-bottom: 10px;">Quantity Returned</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody style="vertical-align: top;">
+                                            @foreach (var line in Model.StepTwo.Basket)
+                                            {
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">@line.Product.Name</td>
+                                                    <td style="padding-bottom: 5px;">@line.Sku.Code</td>
+                                                    <td align="center" style="padding-bottom: 5px;">@line.QuantityReturned</td>
+                                                </tr>
+                                            }
+                                            </tbody>
+                                        </table>
+                                        <table style="font-size: @email_sizeNormal; font-family: @email_fontFamily; color: @email_fontColor;" width="510" cellpadding="0" border="0" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th align="left" style="padding-bottom: 10px; padding-top: 10px;">Comments</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="vertical-align: top;">
+                                                <tr>
+                                                    <td style="padding-bottom: 20px;">@Model.StepTwo.Comments</td>
+                                                    <td style="padding-bottom: 20px;">&nbsp;</td>
+                                                    <td style="padding-bottom: 20px;">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 0 15px 0;">
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">We'll let you know once we've received your item(s).</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">For more information regarding our Returns Policy please <a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/returns/")">click here</a>.</p>
+                                        <p style="margin: 10px 0 0; padding: 0; font-size: @email_sizeSubhead; font-weight: normal; font-family: @email_fontFamily; color: @email_fontColor !important;">If you have any questions about your return, please email our customer services team at <a href="mailto:returns@harlequin.uk.com">returns@harlequin.uk.com</a></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="font-family:@email_fontFamily; color:@email_footerColor; font-size:@email_sizeSmall; background:@email_footerBackground;">
+                                <tr>
+                                    <td style="padding: 15px 20px;" align="center">&copy; Harlequin. All Rights Reserved @DateTime.UtcNow.Year
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="10" align="center" style="font-family:@email_fontFamily; font-size:@email_sizeSmall; background:@email_bodyBackground;">
+                                <tr>
+                                    <td align="left"><a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/returns/")" style="color:@email_footerLinks;">Returns policy</a></td>
+                                    <td align="right"><a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/privacy-policy/")" style="color:@email_footerLinks;">Privacy policy</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

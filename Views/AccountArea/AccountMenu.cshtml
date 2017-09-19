@@ -1,0 +1,63 @@
+﻿@using System.Security.Claims
+@using Colony.Models.Core.Security
+@using Colony.Services.Security
+@model string
+@{
+    var cp = User as ClaimsPrincipal;
+    var user = cp.GetForTenant(Constants.TenantTypes.ColonyCMSFrontend);
+    var isB2B = user.AuthenticationType == "Mertex" && user.Claims.FirstOrDefault(x => x.Type == "http://redant.com/colony/claims/b2b" && x.Value == "true") != null;
+}
+<aside class="sideCol leftCol">
+    <nav class="subNav" role="navigation">
+        <ul>
+
+            <li>
+                <a href="@Url.Action("Dashboard", "AccountArea", new {area = "AccountArea"})" @if (Model == "Dashboard")
+                                                                                              {
+                                                                                                  <text>class="selected"</text>
+                                                                                              }>
+                    Dashboard
+                </a>
+            </li>
+            @if (!isB2B)
+            {
+                <li>
+                    <a href="@Url.Action("Details", "AccountArea", new {area = "AccountArea"})" @if (Model == "Details")
+                                                                                                {
+                                                                                                    <text>class="selected"</text>
+                                                                                                }>
+                        Details
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("OrderHistory", "AccountArea", new {area = "AccountArea"})" @if (Model == "Orders")
+                                                                                                     {
+                                                                                                         <text>class="selected"</text>
+                                                                                                     }>
+                        Orders
+                    </a>
+                </li>
+            }
+            @*<li>
+                <a href="@Url.Action("IndexForAccountArea", "Scrapbook", new {area = "Scrapbook"})" @if (Model == "Scrapbooks")
+                                                                                                    {
+                                                                                                        <text>class="selected"</text>
+                                                                                                    }>
+                    Moodboards
+                </a>
+            </li>*@
+
+            @if (!isB2B)
+            {
+                <li>
+                    <a href="@Url.Action("AddressBook", "AccountArea", new {area = "AccountArea"})" @if (Model == "SavedAddresses")
+                                                                                                    {
+                                                                                                        <text>class="selected"</text>
+                                                                                                    }>
+                        Address Book
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</aside>

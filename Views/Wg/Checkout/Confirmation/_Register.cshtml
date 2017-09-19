@@ -1,0 +1,46 @@
+﻿@model long
+@{
+    Layout = "";
+}
+
+<div class="callout secondary choose-password">
+    <div class="row">
+        <div class="columns small-12 large-8">
+            <h3 class="h4-size">Choose a password now to create your Style Library account</h3>
+            <ul class="tick-list">
+                <li>Track the delivery of your order</li>
+                <li>View your order at any time</li>
+                <li>Save and manage your details for quicker checkout next time</li>                
+            </ul>
+        </div>
+        <div class="columns small-12 large-4">
+            <div class="contentForm">
+                <form action="@Url.Action("GuestRegister")" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="field text">
+                        <label for="password">
+                            Password <span class="required">Required</span>
+                        </label>
+                        <div for="email" data-errormessage="password" class="hide alertInfo error">Enter a password</div>
+                        <p></p>
+                        <input data-password="password" data-val="true" data-val-required="Enter a password" type="password" name="password" id="password">
+                    </div>
+
+                    <div class="field text">
+                        <label for="confirmPassword">
+                            Confirm Password <span class="required">Required</span>
+                        </label>
+                        <div for="email" data-errormessage="confirm" class="hide alertInfo error">Re-enter the password</div>
+                        <p></p>
+                        <input data-password="confirm" data-val="true" data-val-required="Re-enter the password" type="password" name="confirmPassword" id="confirmPassword">
+                    </div>
+                    <div for="email" data-errormessage="match" class="hide alertInfo error">passwords don't match</div>
+                    <div class="field formControls">
+                        <input type="submit" data-password="submit" class="button" value="Create an account">
+                    </div>
+                    <input type="hidden" name="transactionId" value="@Model"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

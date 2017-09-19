@@ -1,0 +1,18 @@
+﻿<li>
+    <a href="#" title="<%=rc.key%>">
+        <div class="">
+
+            <div class="" style="float: left;">
+                <img src="<%=rc.images.Url%>" class="autocomplete-thumb"/>
+            </div>
+            <div class="" style="float: left;">
+                <h2 class="autocomplete-title"><%=rc.key %><span>&#160;<%= ( rc.attributes['Design Code'] || rc.productcode )%></span></h2>
+                <% if (sitekey.toLowerCase() === 'wg') { %>
+                <h3 class="autocomplete-subtitle"><%=rc.attributes['Product Group']%> by <%=rc.attributes['Brand']%></h3>
+                <% } %>
+            </div>
+            <div class="clear clearfix"></div>
+
+        </div>
+    </a>
+</li>

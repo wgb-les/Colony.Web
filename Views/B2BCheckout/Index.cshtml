@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BCheckoutViewModel>
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<main id="main">
+    @if (!Model.Any())
+    {
+        <div class="alertInfo message">
+            <strong class="icon"></strong>
+
+            There are no items in your basket.
+
+        </div>
+    }
+    else
+    {
+        <section id="delivery" class="boxSection checkoutDelivery @((Request.QueryString["changeAddress"] ?? "").ToLowerInvariant() == "true" ? "editable" : "completed")">
+
+            @using (Html.BeginForm("Payment", "b2bcheckout"))
+            {
+                for (var i = 0; i < Model.Count(); i++)
+                {
+                    var basket = Model.ElementAt(i);
+                    using (Html.BeginCollectionItem("checkouts"))
+                    {
+                        @Html.Partial("_Delivery", basket)
+                    }
+                }
+                <div class="field formControls">
+
+                    <button class="button level1">
+                        <input type="submit" id="continue" class="inner" value="Continue">
+                    </button>
+
+                </div>
+
+            }
+            @if ((Request.QueryString["payment"] ?? "").ToLowerInvariant() == "true")
+                {
+                <div class="boxSection checkoutPayment editable">
+                    <div class="header">
+                        <h2>Payment</h2>
+                    </div>
+                </div>
+                <div class="basketTotals">
+                    <dl>
+                        <dt>Sub Total</dt>
+                        <dd>@Model.FirstOrDefault().Basket.CustomerCurrency @(Model.Sum(v => v.Basket.BasketItems.Sum(t => decimal.Parse(t.Unit_Price) * decimal.Parse(t.Quantity_Ordered))).ToString("#0.00"))</dd>
+                        <dt>Tax / VAT</dt>
+                        <dd>@Model.FirstOrDefault().Basket.CustomerCurrency 0.00</dd>
+                        <dt>Delivery</dt>
+                        <dd>@Model.FirstOrDefault().Basket.CustomerCurrency @(Model.Sum(v => v.Basket.DeliveryValueInc).ToString("#0.00"))</dd>
+                        <dt class="total">Total</dt>
+                        <dd class="total">@Model.FirstOrDefault().Basket.CustomerCurrency @(Model.Sum(v => v.Basket.BasketItems.Sum(t => decimal.Parse(t.Unit_Price) * decimal.Parse(t.Quantity_Ordered))) + Model.Sum(x => x.Basket.Tax) + Model.Sum(x => x.Basket.DeliveryValueInc).ToString("#0.00"))</dd>
+                    </dl>
+
+                    <input type="hidden" name="basketGuid" id="basketGuid" value="@Session["BasketGuid"]" />
+                    <a href="javascript:$('form').submit();" class="checkout">
+                        <span>Place Order</span>
+                    </a>
+                </div>
+            }            
+        </section>
+    }
+    <div id="addressDetails" class="addressDetails reveal-modal medium"></div>
+</main>
+
+
+
+
+

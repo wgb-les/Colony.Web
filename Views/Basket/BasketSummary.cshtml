@@ -1,0 +1,97 @@
+﻿@using Colony.Commerce
+@model Colony.Commerce.Areas.ShopPurchase.Models.BasketSummaryViewModel
+@{
+    ViewBag.Title = "Summary";
+}
+
+@using (Html.BeginForm("Summary", "Basket", new { area = "ShopPurchase" }))
+{
+    <div id="container" role="main" class="col-1">
+
+        <div id="content">
+
+            <header class="pageHeader">
+                <h1>Basket</h1>
+
+
+                @Html.CustomValidationSummary(false)
+            </header>
+            <div class="clear"></div>
+            @if (Model.BasketUpdated == true)
+            {
+                <div id="basketSummaryMessage" class="alertInfo confirmation" style="margin-bottom: 0;">
+                    Your basket has been updated.
+                </div>
+            }
+
+            @Html.Action("Basket", "Basket", new {area = "ShopPurchase"})
+
+        </div>
+        @if (Model.Basket.BasketLines.Any())
+        {
+            <div class="sideCol rightCol">
+
+                <div class="basketTotals">
+                    <dl>
+                        <dt>Sub Total</dt>
+                        <dd>@Model.Basket.CurrencyRegion.RegionInfo.CurrencySymbol@Model.Basket.TotalInc.ToString("#0.00")</dd>
+                        <dt class="total">Total</dt>
+                        <dd class="total">@Model.Basket.CurrencyRegion.RegionInfo.CurrencySymbol@Model.Basket.GrandTotal.ToString("#0.00")</dd>
+                        <dt class="total">&nbsp;</dt>
+                        <dd class="total">All prices include VAT</dd>
+                    </dl>
+                    <ul>
+                        <li>
+                            <img src="/_images/icons/payment/maestro.png" alt="Maestro" />
+                        </li>
+                        <li>
+                            <img src="/_images/icons/payment/mastercard.png" alt="Mastercard" />
+                        </li>
+                        @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+                        {
+                            <li>
+                                <img src="/_images/icons/payment/amex.png" alt="American Express" />
+                            </li>
+                        }
+                        <li>
+                            <img src="/_images/icons/payment/paypal.png" alt="Paypal" />
+                        </li>
+                        <li>
+                            <img src="/_images/icons/payment/visa.png" alt="Visa" />
+                        </li>
+                        <li>
+                            <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron" />
+                        </li>
+                    </ul>
+                    @if (Model.ShowCheckoutButton)
+                    {
+                        <button class="checkout" name="Command" value="Checkout">
+                            <span>Go To Secure Checkout</span>
+                        </button>
+                    }
+                </div>
+
+                <section class="boxSection">
+                    <header class="header">
+                        <h2>Delivery</h2>
+                    </header>
+                    <div class="bd bd-padded">
+                        <p>Delivery costs will be calculated and confirmed in the Checkout process.</p>
+                        <p>Sample Delivery is charged at £3.00, up to and including the first 4 samples per order. For additional samples, delivery is charged at £0.75 each.</p>
+                    </div>
+                </section>
+                <section class="boxSection">
+                    <header class="header">
+                        <h2>Vouchers</h2>
+                    </header>
+                    <div class="bd bd-padded">
+                        <p>If you have a voucher code, you will be able to apply this during the Checkout process.</p>
+                    </div>
+                </section>
+
+            </div>
+        }
+     
+    </div>
+}
+

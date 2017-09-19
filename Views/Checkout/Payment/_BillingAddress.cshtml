@@ -1,0 +1,38 @@
+﻿@model Colony.CMS.Areas.CRM.Models.AddressViewModel
+@{
+    Layout = "";
+}
+
+<fieldset id="newAddress" class="callout secondary callout-form hide">
+    <h3>Add a different billing address</h3>
+
+    @Html.EditorFor(m => m.Description)
+
+    @Html.EditorFor(m => m.Postcode)
+
+    <div class="button level3 wide1">
+        <a href="@Url.Action("Lookup", "Address", new {Area = "CRM"})" class="inner fa fa-map-marker" id="findAddress">Find Address</a>
+    </div>
+
+    <div id="addressSelection" style="display: none;">
+        <div class="section">
+            <label for="selectAddress">
+                Select address
+            </label>
+            <select name="SelectAddress" id="selectAddress" data-callbackUrl="@Url.Action("RetrieveSelectedAddress", "Address", new {area = "CRM"})"></select>
+        </div>
+    </div>
+
+    @Html.EditorFor(m => m.Line1)
+
+    @Html.EditorFor(m => m.Town)
+
+    @Html.EditorFor(m => m.County)
+
+    <div class="alertInfo error" id="findAddressError" style="display: none;">There was a problem looking up your post code, please enter your address manually.</div>
+
+    @Html.Hidden("FirstName", "name")
+    @Html.Hidden("LastName", "name")
+    @Html.Hidden("Title", "name")
+    @Html.Hidden("CountryISO2", "name")
+</fieldset>

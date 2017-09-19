@@ -1,0 +1,21 @@
+﻿@model Colony.Modules.Videos.Areas.Models.CategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.WindowTitle ?? Model.Category.Name);
+    Html.SetMetaDescription(Model.Category.MetaDescription);
+    Html.SetMetaKeywords(Model.Category.MetaKeywords);
+}
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+
+        <header class="pageHeader">
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(Model.Category.LongDescription)
+        </header>
+
+        @{ Html.RenderPartial("_CategoryList", Model.VideoCategories); }
+
+        @{ Html.RenderPartial("_VideosList", Model.Videos); }
+
+    </div>
+</div>

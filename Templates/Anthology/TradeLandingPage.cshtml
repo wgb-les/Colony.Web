@@ -1,0 +1,71 @@
+﻿
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10" lang="en"><![endif]-->
+<!--[if gt IE 10]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    @{Html.RenderPartial("_Head.cshtml");}
+</head>
+<body class="wgSite">
+    @{Html.RenderPartial("_Header.cshtml", "anthology");}
+    <div id="container" class="col-2">
+        @{ Html.RenderPartial("_Breadcrumbs.cshtml");}
+        
+        @{Html.RenderAction("Menu", "Navigation", new { area = "Pages", parentPageUrl = "/trade/", viewPath = "~/Templates/_TradeNavigation.cshtml" });}
+
+        <div id="content">
+            <h1>Trade Area</h1>
+            <div class="wysiwygContent">
+                @RenderBody()
+            </div>
+            <section class="boxSection imageLibraryWidget viewAllOption">
+                <header>
+                    <h2><a href="/trade/image-library/">Image Library</a></h2>
+                </header>
+                <div class="bd">
+
+                    <a href="/trade/image-library/" class="pod">
+                        <img src="/_images/brands/wg/style-library-press-image-gallery.jpg" alt="[Link Name]" />
+                    </a>
+
+                    <div class="viewMore">
+                        <a href="/trade/image-library/" class="button">View all images</a>
+                    </div>
+                </div>
+            </section>
+            <section class="boxSection articleWidget viewAllOption">
+                <header>
+                    <h2><a href="/trade/releases/">Press Releases</a></h2>
+                </header>
+                <div class="bd">
+                    <section class="moduleSection">
+                        <h2>Trade Area</h2>
+                        @Html.Action("LatestPressReleases", "PressReleases", new { numberOfRecords = 5 })
+                    </section>
+                    <div class="viewMore">
+                        <a href="/trade/releases/" class="button">View all articles</a>
+                    </div>
+                </div>
+            </section>            
+        </div>
+        <!-- End of content -->
+        <aside class="sideCol rightCol">
+           <!--  <section class="boxSection twitterFeed">
+                <header class="header">
+                    <h2 class="icon-twitter">Twitter</h2>
+                </header>
+                <div class="bd">
+                    <a class="twitter-timeline" href="https://twitter.com/Red_Ant" data-widget-id="380051052126433280" data-chrome="noheader nofooter noborders" data-tweet-limit="4">Tweets by @@Red_Ant</a>
+                    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                </div>
+            </section> -->
+        </aside>
+    </div>
+    @Html.Partial("_Footer.cshtml")
+</body>
+</html>

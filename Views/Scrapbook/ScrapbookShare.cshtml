@@ -1,0 +1,9 @@
+﻿@using Colony.Util.Web
+@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel
+
+@{
+    var shareUrl = Url.Action("Detail", "Scrapbook", new {area = "Scrapbook", id = Model.Id}).AbsoluteUrl();
+    var defaultMediaImage = Model.Items.FirstOrDefault();
+    var pinterestMediaUrl = defaultMediaImage != null ? Model.Items.FirstOrDefault().ImageUrl : "/_images/placeholders/thumbnail.jpg";
+}
+@Html.Action("Share", "Share", new {area = "Sharing", ShareUrl = shareUrl, MediaUrl = pinterestMediaUrl, Description = Model.Name})

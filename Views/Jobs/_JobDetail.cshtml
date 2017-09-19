@@ -1,0 +1,45 @@
+﻿@model Colony.Modules.Careers.Areas.Models.JobDetailViewModel
+@{
+    var pinterestMediaUrl = new Uri(Request.Url, Url.ImageUrl(Model.Job.ImageAssetId, "", "", @"/_images/placeholders/article.jpg")).AbsoluteUri;
+}
+<header class="pageHeader">
+    <ul class="articleOptions pull-right moduleShare">
+        <li>
+            <a href="#" class="share" data-reveal-id="share">
+                <span>Share</span></a>
+        </li>
+    </ul>
+    <h1 class="pull-left">@Model.Job.Name</h1>
+    <div class="clear"></div>
+    <dl class="articleDetails">
+        @if (!string.IsNullOrWhiteSpace(Model.Job.Salary))
+        {
+            <dt>Salary</dt>
+            if (Model.Job.Salary.IsNumeric())
+            {
+                <dd>&pound;@string.Format("{0:0,0}", Model.Job.Salary.AsDecimal(0))</dd>
+            }
+            else
+            {
+                <dd>@Model.Job.Salary</dd>
+            }
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Job.Location))
+        {
+            <dt>Location</dt>
+            <dd>@Model.Job.Location</dd>
+        }
+        @if (Model.Job.Deadline != null)
+        {
+            <dt>Deadline</dt>
+            <dd>
+                <time datetime="@Model.Job.Deadline.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Model.Job.Deadline.Value.ToString("dd MMMM yyyy")</time>
+            </dd>
+        }
+    </dl>
+</header>
+@Html.Raw(Model.Job.LongDescription)
+
+<section id="share" class="reveal-modal medium">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Job.Name}); }
+</section>

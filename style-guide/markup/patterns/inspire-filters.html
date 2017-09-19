@@ -1,0 +1,33 @@
+
+        <div class="inspire-header">
+            <div class="row">
+                <div class="large-offset-2 large-8 columns">
+                    <div id="inspire-search">
+                        
+                        <div class="inspire-header-bottom">
+                            <h1>Be Inspired</h1>
+                            <form id="InspireSearchFilter" name="InspireSearchFilter" novalidate="novalidate">
+                                <div id="InspireFilterHolder" name="InspireFilterHolder">
+
+                                    <div class="inspireSearchHolder">
+                                        <input type="text" name="InspireWordSearch" id="InspireWordSearch" width="50" placeholder="Inspire me..">
+                                        <button class="fa fa-search" value="Search" id="keywordFilter" onclick="filterArticles('keyword')"></button>
+                                        <button class="fa fa-refresh" value="Clear" id="clearfilter" onclick="filterArticles('clear')"></button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    
+                                    <div classs="inspire-filters">
+                                        <input type="button" value="The Edit" id="theeditfilter" class="InspireButton " onclick="filterArticles('theedit')">
+<input type="button" value="Advice" id="advicefilter" class="InspireButton " onclick="filterArticles('advice')">
+                                        
+                                        <input type="button" value="Videos" id="videofilter" class="InspireButton " onclick="filterArticles('video')">
+                                        
+                                    </div>
+                                    <input type="hidden" name="pageNumber" id="pageNumber" value="1">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

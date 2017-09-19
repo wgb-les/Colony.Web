@@ -1,0 +1,24 @@
+<div class="item scrapAdd <%= (rc.isOnCanvas) ? 'grayOut' : '' %>" data-scrapbookitemid="<%=rc.scrapbookItemId%>" data-skuid="<%=rc.skuId%>" data-imageassetid="<%=rc.imageAssetId%>">
+    <a>
+        <img src="<%=rc.imageUrl%>" alt="<%=rc.name%>" data-image-zoom="<%=rc.imageUrl%>">
+        <h3 class="itemTitle Harlequin"><%=rc.name%></h3>
+        <ul>
+            <% if (rc.attributes && rc.attributes["design Code"]) { %>
+            <li><%=rc.attributes["design Code"] %></li>
+            <% } %>
+            <% if (rc.attributes && rc.attributes["product Group"]) { %>
+            <li><%=rc.attributes["product Group"] %></li>
+            <% } %>
+        </ul>
+    </a>
+    <div class="actions">
+        <% if (!rc.isOnCanvas) { %>
+        <a href="#" class="plus">
+            <span>Add</span></a>
+        <% } else { %>
+        <a href="/scrapbook/moodboards/deletescrapbookitem/?scrapbookId=<%=rc.scrapbookId%>&amp;scrapbookItemId=<%=rc.scrapbookItemId%>" class="remove">
+            <span>Remove</span>
+        </a>
+        <% } %>
+    </div>
+</div>

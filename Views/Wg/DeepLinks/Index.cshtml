@@ -1,0 +1,12 @@
+@model IEnumerable<Colony.CMS.Areas.DeepLinks.Models.CategorisedDeepLinksViewModel>
+
+    @foreach (var category in Model)
+    {
+        <ul class="footerList">
+            <li class="footerListTitle">@category.DeepLinkCategory.Name</li>
+            @foreach (var deeplink in category.DeepLinks.OrderBy(t => t.Order))
+              {
+                  <li><a data-order="@deeplink.Order" href="@deeplink.TargetUri" @if (deeplink.NewWindow) { <text> target="_blank" </text> }>@deeplink.Name</a></li>
+              }
+        </ul>
+    }

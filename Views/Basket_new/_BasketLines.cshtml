@@ -1,0 +1,63 @@
+﻿@model IList<Colony.Commerce.Areas.ShopPurchase.Models.BasketLineViewModel>
+<div class="basket-summary">
+   
+    @if (!ViewBag.IsCheckoutBasket)
+    {
+        <div class="headers">
+            <div class="details">
+
+            </div>
+            <p class="value">Item Price</p>
+            <p class="value">Quantity</p>
+            <p class="value">Total</p>
+        </div>
+    }
+
+
+    @for (var i = 0; i < Model.Count; i++)
+    {
+        var basketLine = Model.ElementAt(i);
+
+        using (Html.BeginCollectionItem("basketLines"))
+        {
+            Html.RenderPartial("_BasketLine", basketLine, new ViewDataDictionary {{"IsCheckoutBasket", ViewBag.IsCheckoutBasket}});
+        }
+    }
+    @if (!ViewBag.IsCheckoutBasket)
+    {
+        <hr/>
+       
+            <a href="/search/?SelectedProductGroups=6508" class="@*icon-double-angle-left*@ pu button" style=" float: left; margin: 0;padding: 15px; ;">Back to Shop</a>
+
+            <div class="field formControls" style="position: relative;">
+                <button class="button basketUpdate" name="Command" value="Update" style="float: right; margin: 0; padding: 15px;" @*style="left: 95px; position: absolute; top: -80px;"*@>
+                    <span>Update</span>
+                </button>
+                @*<button class="button right" name="Command" value="ContinueShopping"><span>Continue Shopping</span></button>*@
+            </div>
+        
+    }
+
+</div>
+
+
+
+<script>
+    (function($) {
+        'use strict';
+
+        //$('.basket-summary .quantity-stepper').each(function () {
+        //    var $spinnerButtonParent = $(this).parent();
+        //    var $basketItem = $spinnerButtonParent.parent();
+
+        //    $('input', $spinnerButtonParent).val($('input[type="hidden"]').val());
+        //});
+
+        $('.basket-summary').on('click', '.ui-spinner-button', function(e) {
+            var $spinnerButtonParent = $(this).parent().parent();
+            var $basketItem = $spinnerButtonParent.parent();
+            $('.hidden-quantity', $basketItem).val($('input', $spinnerButtonParent).val());
+
+        });
+    })($);
+</script>

@@ -1,0 +1,157 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#fullpage').fullpage({
+			sectionsColor: ['#000', '#000', '#000', '#000'],
+ 			css3: true,
+			navigation: true,
+			showActiveTooltip: true,
+			navigationTooltips: ['firstPage', 'secondSlide', 'thirdSlide', 'fourthSlide']
+ 		});
+
+		$(".sanHomeItem").hover(function(){
+		  $(this).children(".sanHover").toggle();
+		});
+	});
+
+	$(document).ready(function(){
+		$(".morVideo")[0].play();
+		$("#demosMenu").change(function(){
+		  window.location.href = $(this).find("option:selected").attr("id") + '.html';
+		});
+	});
+</script>
+<div id="fullpage">
+    <!--Start Section 1-->
+    <div class="section sanSection1" id="section0" data-anchor="firstPage">
+        <a href="#secondPage">
+            <div class="scrollDownContainer">
+                <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/arrowDown2.png" alt="">
+            </div>
+        </a>
+        <div class="leftSection">
+            <a href="/media/pure-morris/">
+                <div class="homeCaption videoCaption">
+                    <h2>Discover the Pure Video</h2>
+
+                </div>
+            </a>
+
+            <video autoplay muted loop class="morVideo" poster="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/morrisPosterVideov2.png">
+                <source src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/MorrisPureHomepageVideov5.mp4" type="video/mp4">
+            </video>
+            <!-- <video muted autoplay loop id="bgvid" class="" poster="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/MorrisPureHomepagePoster.jpg">
+
+            </video> -->
+        </div>
+        <div class="rightSection">
+            <div class="homeCaption">
+                <h2>Pure Morris</h2>
+                <span>For the free-spirits, the truth seekers and the quiet contemplators</span>
+            </div>
+        </div>
+    </div>
+    <!--End Section 1-->
+    <!--Start Section 2-->
+    <div class="section sanSection2" id="section1" data-anchor="secondPage">
+
+        <div class="leftSection morrisHomeAccBox">
+            <a href="/shop/wallpaper/pure-wallpapers/"></a>
+            <div class="scionHomeHover">
+                <span>Pure Wallpapers</sapan>
+            </div>
+        </div>
+
+
+        <div class="rightSection morrisHomeAccBox">
+            <a href="/shop/fabric/pure-fabrics/"></a>
+            <div class="scionHomeHover">
+                <span>Pure Fabrics</span>
+            </div>
+        </div>
+    </div>
+    <!--End Section 2-->
+    <!--Start Section 3-->
+    <div class="section sanSection3" id="section2">
+
+        <div class="leftSection">
+            <a href="shop/cushions"></a>
+            <div class="homeCaption">
+                <h2>Shop Cushions</h2>
+                <span>Introduce the legacy of William Morris into your home</span>
+            </div>
+        </div>
+
+
+        <div class="rightSection sanHomeItem">
+            <a href="/about/history"></a>
+            <div class="homeCaption">
+                <h2>Discover the History</h2>
+            </div>
+        </div>
+    </div>
+    <!--End Section 3-->
+    <!--Start Section 4-->
+    <div class="section sectionThird" data-title="Morris Home Accessories">
+        <div class="sciHomeContainer2-left">
+            <a href="/home-accessories/bed-linen-1/">
+                <div class="sciHomeBox2-topLeft morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Bedlinen</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/home-accessories/towels-2/">
+                <div class="sciHomeBox2-bottomLeftLeft morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Towels</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/home-accessories/umbrellas/">
+                <div class="sciHomeBox2-bottomLeftRight morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Umbrellas</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="sciHomeContainer2-mid">
+            <a href="/shop/cushions">
+                <div class="sciHomeBox2-top morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Cushions</span>
+                    </div>
+                </div>
+            </a>
+            <div class="sciHomeBox2-mid">
+                <div class="homeCaption">
+                    <span>Bring the unique heritage of Morris & Co to every room with our beautiful, inspiring Home Accessories</span>
+                </div>
+            </div>
+            <a href="/home-accessories/strawberry-thief/">
+                <div class="sciHomeBox2-bottom morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Home Fragrance</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="sciHomeContainer2-right">
+            <a href="/home-accessories/toiletries-1/">
+                <div class="sciHomeBox2-topRight morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Toiletries</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/home-accessories/rugs-3/">
+                <div class="sciHomeBox2-bottomRight morrisHomeAccBox">
+                    <div class="scionHomeHover">
+                        <span>Rugs</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--End Section 4-->
+</div>

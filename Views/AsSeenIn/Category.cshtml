@@ -1,0 +1,33 @@
+﻿@model WalkerGreenbank.Modules.AsSeenIn.Areas.Models.AsSeenInCategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.Name);
+}
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <header class="pageHeader">
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(Model.Category.LongDescription)
+        </header>
+
+        @if (Model.SubCategories.Any())
+        {
+            <section class="categorySection features">
+                <h2>Categories</h2>
+                @{ Html.RenderPartial("_AsSeenInCategoryList", Model.SubCategories); }
+            </section>
+        }
+
+        @if (Model.Items.Any())
+        {
+            Html.RenderPartial("_AsSeenInList", Model.Items);
+        }
+        else
+        {
+            <div class="alertInfo message">
+                There are currently no items to display
+            </div>
+        }
+
+    </div>
+</div>

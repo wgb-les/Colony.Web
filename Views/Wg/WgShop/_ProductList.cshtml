@@ -1,0 +1,27 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model IEnumerable<Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel>
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+
+
+
+@foreach (var design in Model)
+{
+    var defaultImage = design.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/thumbnail.jpg") : @"/_images/placeholders/thumbnail.jpg";
+
+
+    <a href="/shop/@Url.ProductUrl(design.Product)?code=@design.SelectedSku.Code" class="sl-slide sl-item sl-small-pad">
+      <div class="sl-item-inner" data-value="productThumb" data-quick-view-id="product_@design.Id">
+        <img class="lazyload" data-original="@defaultImageUrl" alt="@design.Name" data-productcode="@design.SelectedSku.Code" data-productname="@design.SelectedSku.Name" data-skuid="@design.SelectedSku.Id" @if (defaultImage != null){<text>data-imageAssetId="@defaultImage.ImageAssetID"</text>} data-productimage="@defaultImageUrl" data-url="/shop/@Url.ProductUrl(design.Product)?code=@design.Code" @if (isB2B){<text>data-isb2b="true"</text>}/>
+        <div class="details">
+          <text class="sl-text" data-value="productTitle">@design.Product.Name</text>
+          <text class="sl-text" data-value="productBrand">By @design.Attributes.GetValueOrNull("Brand")</text>
+            <text class="sl-text" data-value="productSku">@(design.SelectedSku != null ? design.SelectedSku.Code : design.Attributes.GetValueOrNull("Design Code"))</text>
+          <text class="sl-text" data-value="productCategory">@design.Attributes.GetValueOrNull("Product Group")</text>
+         </div>
+      </div>
+    </a>
+}

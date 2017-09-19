@@ -1,0 +1,806 @@
+﻿@using System.Text.RegularExpressions
+@using Colony.CMS
+@using Colony.CMS.Security.Helpers
+@using Colony.Commerce
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageZoomUrl = defaultImageZoom != null ? @Url.ImageUrl(defaultImageZoom.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageUrl).AbsoluteUri;
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+
+    var isContract = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current));
+
+    var isSampleable = Model.AllowSamples && int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0;
+    var googlecode = Regex.Replace(Model.SelectedSku.Code, "[^0-9.]", "");
+    var PatternMatchDescription = Model.Attributes.ContainsKey("Pattern Match Description") ? Model.Attributes["Pattern Match Description"] : "";
+    var DescriptiveColour = Model.Attributes.ContainsKey("Descriptive Colour") ? Model.Attributes["Descriptive Colour"] : "";
+    var ProductGroup = Model.Attributes.ContainsKey("Product Group") ? Model.Attributes["Product Group"] : "";
+    var brand = (Model.Attributes.GetValueOrNull("Brand") ?? "").Replace("&amp;", "&");
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+<div id="content" itemtype="http://schema.org/Product" itemscope>
+<meta itemprop="name" content="@Model.Product.Name">
+<meta itemprop="sku" content="@Model.SelectedSku.Code">
+<meta itemprop="gtin14" content="@googlecode"/>
+<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="price" content="@Model.Price.PriceInc.AsDecimal(0)"/>
+    <meta itemprop="priceCurrency" content="GBP"/>
+</div>
+<div class="galleryContainer">
+    <div class="carousel imageCarousel productDetailsCarousel">
+
+        <div class="scroll-pane"></div>
+        <div class="zoom-helper">
+            <h3>Pinch the image to zoom</h3>
+        </div>
+
+        <span class="itemNew tap-to-zoom">Enable Zoom</span>
+        <ul class="items">
+            @if (Model.Images.Any())
+            {
+                var canvasId = 0;
+                foreach (var image in Model.Images)
+                {
+                    canvasId++;
+                    var altBrand = "";
+                    var altGroup = "";
+                    if (Model.Attributes.ContainsKey("Brand"))
+                    {
+                        altBrand = Model.Attributes["Brand"];
+                    }
+                    if (Model.Attributes.ContainsKey("Product Group"))
+                    {
+                        altGroup = Model.Attributes["Product Group"];
+                    }
+                    var altText = altBrand + " " + altGroup + " - " + Model.SelectedSku.Name;
+
+                    var imageUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg");
+                    var imageZoomUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg");
+                    var imageThumbnailUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+
+                    <li>
+                        <div class="canvas_container" style="width: 100%;" data-img="@imageZoomUrl">
+                            <canvas id="mycanvas@(canvasId)" class="canvasZoom" style="height: 100%; width: 100%;"></canvas>
+                        </div>
+                        <img id="zoom@(image.ImageAssetID)" class="mainZoom no-drag lazyload" src="@imageZoomUrl" alt="@altText" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name" data-url="@Request.Url.AbsoluteUri" data-productimage="@imageThumbnailUrl" data-skuid="@Model.SelectedSku.Id" @if (isB2B)
+                                                                                                                                                                                                                                                                                                                                     {
+                                                                                                                                                                                                                                                                                                                                         <text> data-isb2b="true" </text>
+                                                                                                                                                                                                                                                                                                                                     }/>
+
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <img id="zoom99999" class="mainZoom no-drag lazyload" src="/_images/placeholders/article.jpg" alt="@Model.SelectedSku.Name" data-zoom-image="/_images/placeholders/article.jpg" data-productcode="@Model.SelectedSku.Code"/>
+                </li>
+            }
+        </ul>
+        @if (Model.Images.Count > 1)
+        {
+            <a href="#" class="prev">
+                <span></span>
+                Previous
+            </a>
+            <a href="#" class="next">
+                <span></span>
+                Next
+            </a>
+            <div class="bullets">
+                <span class="icon icon-play"></span>
+                <ul></ul>
+            </div>
+        }
+    </div>
+
+    @if (Model.Category.IsVisible && Model.Category.DisplayInListing && !Model.Category.Deleted)
+    {
+        <h3>
+            <a href="/shop/@Url.ProductCategoryUrl(Model.Category)">@Model.Category.Name</a>
+        </h3>
+    }
+</div>
+
+<div class="productDetails no-drag row" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name" data-skuid="@Model.SelectedSku.Id" @if (defaultImage != null)
+                                                                                                                                                                 {
+                                                                                                                                                                     <text> data-imageassetid="@defaultImage.ImageAssetID" </text>
+                                                                                                                                                                 } data-productimage="@defaultImageUrl" data-url="@Request.Url.AbsoluteUri">
+<div class="large-8 columns noPad">
+    <h1>
+        @Model.Product.Name <span class="code"><b>@(Model.Attributes.GetValueOrNull("Design Code") ?? Model.SelectedSku.Code)</b></span></h1>
+</div>
+<div class="large-4 columns noPad">
+    <ul class="articleOptions pull-right">
+        <li>
+            <a href="#" class="share" data-reveal-id="share">
+                <span>Share</span></a>
+        </li>
+        @*<li><a href="#" class="trade"><span>Information for Trade</span></a></li>*@
+    </ul>
+</div>
+@if (isB2B && !isContract)
+{
+    <div class="clear"></div>
+    <span class="price"></span>
+    <div class="clear"></div>
+    <span class="stock"></span>
+    <div class="clear"></div>
+    <span class="pricinginfo">Prices do not include Tax / VAT or carriage costs.</span>
+}
+<hr/>
+@if (Model.SelectedSku != null)
+{
+    <p class="productDescription">@Html.Raw(Model.SelectedSku.LongDescription)</p>
+}
+else
+{
+    <p class="productDescription">@Html.Raw(Model.LongDescription)</p>
+}
+<div class="row productOptionsButtons">
+    <div class="large-6 columns">
+        <a href="#" class="button" data-reveal-id="productDetails">Product Details</a>
+    </div>
+
+    @if (isB2B & !isContract)
+    {
+        <div class="large-6 columns">
+            <a class="button b2baddtobasket b2bdisabled" href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.SkuId})">Add to basket</a>
+        </div>
+    }
+    @if (isSampleable)
+    {
+        <div class="@if (isB2B)
+                    {
+                        <text>large-6 columns</text>
+                    }
+                    else
+                    {
+                        <text>large-4 columns</text>
+                    }">
+            <a class="button addToBasket b2baddsampletobasket @if (isB2B)
+                                                              {
+                                                                  <text>b2bdisabled</text>
+                                                              }" href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.SkuId, sample = "True"})">
+                Order a Sample
+            </a>
+        </div>
+    }
+    @if (useraccount != null)
+    {
+        <div class="@if (isB2B)
+                    {
+                        <text>large-6 columns</text>
+                    }
+                    else
+                    {
+                        <text>large-6 columns</text>
+                    }">
+            @*<a href="#" id="addToScrapbookPopup" class="button scrapbook no-drag addToScrapbookPopup" data-noprice="true" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.Product.Name" data-skuid="@Model.SkuId" @if (defaultImage != null)
+                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                          <text> data-imageassetid="@defaultImage.ImageAssetID" </text>
+                                                                                                                                                                                                                                      } data-productimage="@defaultImageUrl">
+                Add to Moodboard
+            </a>*@
+        </div>
+    }
+    else
+    {
+        <div class="large-6 columns">
+            @*<a href="#" class="button scrapbook no-drag" data-noprice="true" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.Product.Name" data-skuid="@Model.SkuId" @if (defaultImage != null)
+                                                                                                                                                                                         {
+                                                                                                                                                                                             <text> data-imageassetid="@defaultImage.ImageAssetID" </text>
+                                                                                                                                                                                         } data-productimage="@defaultImageUrl">
+                Add to Scrapbook
+            </a>*@
+            @*<a href="@Url.Action("AddToScrapbook", "Scrapbook", new { area = "Scrapbook", redirectUrl = Request.Url.AbsolutePath, moodboardaction = "moodboardadd" })" class="button scrapbook" data-noprice="true">Add to Moodboard</a>*@
+        </div>
+    }
+    @if (!isSampleable)
+    {
+        <div class="large-4 columns">&nbsp;</div>
+    }
+</div>
+
+@if (useraccount != null)
+{
+    Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+}
+@if (Model.RegionInfo.ThreeLetterISORegionName == "GBR" && !isB2B)
+{
+    <div class="product-option active" data-product-option-price="@Model.Price.PriceInc.AsDecimal(0)" data-producti-option-skuid="@Model.SelectedSku.Id">
+        <span class="icon icon-ok-sign"></span>
+        <div class="product-option-details">
+            <p class="product-option-title">@Model.SelectedSku.Name</p>
+            <div class="product-option-info">
+                <p>@Model.SelectedSku.Attributes.GetValueOrNull("Design Code")</p>
+            </div>
+        </div>
+        <div class="product-option-actions">
+            <p class="product-option-price">@Model.RegionInfo.CurrencySymbol@Model.Price.PriceInc.AsDecimal(0).ToString("#0.00")</p>
+
+            <div class="field text spinner split">
+                <label for="spinnerSplit_@Model.SelectedSku.Code">
+                    Split Spinner Label<span class="required">Required</span>
+                </label>
+
+                <input type="text" class="js-spinner-split" name="quantity" id="spinnerSplit_@Model.SelectedSku.Code" value="1" data-max-value="100" data-min-value="1"/>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="product-summary">
+    <div class="totals-and-button">
+        <div class="product-totals">
+            <p class="product-totals-count">1 item selected</p>
+            <p class="product-totals-price">
+                @(ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.CurrencySymbol)<span id="totalProductOptionsCost">@Model.Price.PriceInc.AsDecimal(0).ToString("#0.00")</span><span class="incVAT"> Inc VAT</span></p>
+        </div>
+        <div class="products-summary-action">
+            <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.SelectedSku.Id, quantity = 1})" class="button secondary addToBasket">Add to basket</a>
+        </div>
+      </div>
+        <div class="product-summary-info">
+            <p>
+                Delivery is calculated at checkout.
+                <br/>All prices include VAT.
+            </p>
+            <p>
+                <b>Please note:</b> We currently only ship consumer orders to mainland UK.
+            </p>
+        </div>
+    </div>
+}
+else
+{
+    if (!isB2B)
+    {
+        <div class="product-option active" data-product-option-price="@Model.Price.PriceInc.AsDecimal(0)" data-producti-option-skuid="@Model.SelectedSku.Id">
+            <div class="product-option-details">
+                <p class="product-option-title">@Model.SelectedSku.Name</p>
+                <div class="product-option-info">
+                    <p>@Model.SelectedSku.Attributes.GetValueOrNull("Design Code")</p>
+                </div>
+            </div>
+            <div class="product-option-actions">
+                @{
+                    if (Model.RegionInfo.ThreeLetterISORegionName != "GBR")
+                    {
+                        <p class="product-option-price">Not available in your region.</p>
+                    }
+                    else
+                    {
+                        <p class="product-option-price">Not currently available.</p>
+                    }
+                }
+
+
+
+            </div>
+        </div>
+    }
+}
+@if (Model.Images.Any())
+{
+    <div class="shopExtraProducts inspirationProducts">
+        <hr/>
+        <section class="boxSection colourWays">
+            <div class="bd">
+                <div class="galleryToggles carousel productCarousel">
+                    <div class="items productList">
+                        @foreach (var productImage in Model.Images)
+                        {
+                            var imageUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg");
+                            var imageZoomUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg");
+                            var imageThumbnailUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+
+                            <div data-assetid="@productImage.ImageAssetID" class="item @if (Model.Images.IsFirst(productImage))
+                                                                                       {
+                                                                                           <text>selected</text>
+                                                                                       }">
+                                <a href="#" data-image="@imageUrl" data-zoom-image="@imageZoomUrl" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name" data-skuid="@Model.SelectedSku.Id" @if (productImage != null)
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                <text> data-imageassetid="@productImage.ImageAssetID" </text>
+                                                                                                                                                                                                                            } data-productimage="@imageUrl" data-url="@Request.Url.AbsoluteUri" @if (isB2B)
+                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                    <text> data-isb2b="true" </text>
+                                                                                                                                                                                                                                                                                                }>
+                                    <img src="@imageThumbnailUrl" alt="">
+                                </a>
+                            </div>
+                        }
+                        @if (Model.Images.Count > 1)
+                        {
+                            <a href="#" class="prev">
+                                <span></span>
+                                Previous
+                            </a>
+                            <a href="#" class="next">
+                                <span></span>
+                                Next
+                            </a>
+                        }
+                        <div class="bullets">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+@if (Model.RelatedProducts.Any())
+{
+    <div class="shopExtraProducts">
+        <div class="header">
+            <h2 class="left">Complementary Products </h2>
+            <span href="#" class="next right icon-angle-right "></span>
+            <span href="#" class="prev right icon-angle-left disabled"></span>
+        </div>
+        <section class="boxSection colourWays">
+            <div class="bd">
+                <div class="carousel productCarousel">
+
+                    @{ ViewBag.CssClass = "items"; }
+                    @{ Html.RenderPartial("_ProductList", Model.RelatedProducts); }
+
+                    @if (Model.RelatedProducts.Count > 1)
+                    {
+                        <a href="#" class="prev">
+                            <span></span>
+                            Previous
+                        </a>
+                        <a href="#" class="next">
+                            <span></span>
+                            Next
+                        </a>
+                    }
+                    <div class="bullets">
+                        <ul></ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+}
+</div>
+<hr style="margin-top: -20px">
+<div class="clear"></div>
+@if (Model.Skus.Any())
+{
+    <div class="productList">
+        <input type="hidden" name="ProductCodes" id="ProductCodes" value="@(string.Join<string>(",", Model.Skus.Select((model, index) => model.Sku.Code)))"/>
+        <h2>Available Colours (@Model.Skus.Count())</h2>
+        @foreach (var item in Model.Skus.Select((model, index) => new {index, model}))
+        {
+            var defaultItemImage = item.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+            var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+
+            <div class="item @if (Model.SelectedSku.Id == item.model.Sku.Id)
+                             {
+                                 <text>selected</text>
+                             }">
+                <a href="?code=@item.model.Sku.Code" class="detail-ordersampleurl">
+                    <img src="@defaultItemImageUrl" alt="@item.model.Sku.Name" data-productcode="@item.model.Sku.Code" data-productname="@item.model.Sku.Name" data-skuid="@item.model.Sku.Id" @if (defaultImage != null)
+                                                                                                                                                                                               {
+                                                                                                                                                                                                   <text> data-imageassetid="@defaultImage.ImageAssetID" </text>
+                                                                                                                                                                                               } data-productimage="@defaultItemImageUrl" data-skuid="@item.model.Sku.Id" data-url="@Request.Url.AbsolutePath?code=@item.model.Sku.Code" @if (isB2B)
+                                                                                                                                                                                                                                                                                                                                         {
+                                                                                                                                                                                                                                                                                                                                             <text> data-isb2b="true" </text>
+                                                                                                                                                                                                                                                                                                                                         }/>
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@item.model.ProductDetail.Product.Name@*@item.model.Sku.Name*@</h4>
+                    @if (ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+                    {
+                        <p class="itemSubTitle">By @item.model.Attributes.GetValueOrNull("Brand")</p>
+                    }
+                    <ul>
+                        <li>@item.model.Sku.Code</li>
+                        <li>@item.model.Attributes.GetValueOrNull("Descriptive Colour")</li>
+                        <li>@item.model.Attributes.GetValueOrNull("Product Group")</li>
+                    </ul>
+                    @if (item.model.Sku.IsNew)
+                    {
+                        <span class="itemNew">New</span>
+                    }
+                </a>
+            </div>
+        }
+    </div>
+}
+</div>
+
+<section id="productDetails" class="reveal-modal large" style="height: auto;">
+<header class="header-reveal-modal">
+    <h2>Product Details</h2>
+    <a class="close-reveal-modal icon-remove">
+        <span>Close</span></a>
+</header>
+<div class="bd-reveal-modal">
+<p>@Model.LongDescription</p>
+<div class="productSpec">
+<ul>
+@if (ColonyContext.Current.CurrentSite.SiteKey.ToLower() != "wg")
+{
+    <li>
+        <span class="title">Collection</span>
+        <span class="value">
+							<a href="/shop/@Url.ProductCategoryUrl(Model.Category)">@Model.Category.Name</a>
+						</span>
+    </li>
+}
+<li>
+    <span class="title">Design Name</span>
+    <span class="value">@Model.Product.Name</span>
+</li>
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Descriptive Colour")))
+{
+    <li>
+        <span class="title">Colour</span>
+        <span class="value">@Model.Attributes.GetValueOrNull("Descriptive Colour")@*@string.Join(",", Model.Colours.Where(x => !string.IsNullOrWhiteSpace(x.Description)).Select(x => x.Description))*@
+      ></span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Type")))
+{
+    <li>
+        <span class="title">Product Type</span>
+        <span class="value">@Model.Attributes.GetValueOrNull("Type")</span>
+    </li>
+}
+<li>
+    <span class="title">Design Scale</span>
+    <span class="value">@(Model.Attributes.GetValueOrNull("Small Scale") != null && Model.Attributes.GetValueOrNull("Small Scale") == "Y" ? "Small" : "Large")</span>
+</li>
+@if (Model.SelectedSku.Width.HasValue)
+{
+    if (Model.SelectedSku.Width.Value > 0)
+    {
+        <li>
+            <span class="title">Width</span>
+            <span class="value">@((Model.SelectedSku.Width ?? 0).ToString("0.0"))cm (@(((Model.SelectedSku.Width ?? 0)/(decimal) 2.54).ToString("0.0"))")</span>
+        </li>
+    }
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Vertical Pattern Repeat")))
+{
+    decimal temp;
+    if (decimal.TryParse(Model.Attributes.GetValueOrNull("Vertical Pattern Repeat"), out temp))
+    {
+        if (temp > 0)
+        {
+            <li>
+                <span class="title">Vertical Pattern Repeat</span>
+                <span class="value">@((temp > 0 ? temp/10 : temp).ToString("0.0"))cm (@(((temp > 0 ? temp/10 : temp)/(decimal) 2.54).ToString("0.0"))")</span>
+            </li>
+        }
+    }
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Horizontal Pattern Repeat")))
+{
+    decimal temp;
+    if (decimal.TryParse(Model.Attributes.GetValueOrNull("Horizontal Pattern Repeat"), out temp))
+    {
+        if (temp > 0)
+        {
+            <li>
+                <span class="title">Horizontal Pattern Repeat</span>
+                <span class="value">@((temp > 0 ? temp/10 : temp).ToString("0.0"))cm (@(((temp > 0 ? temp/10 : temp)/(decimal) 2.54).ToString("0.0"))")</span>
+            </li>
+        }
+    }
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Pattern Match Description")))
+{
+    <li>
+        <span class="title">Match</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("Pattern Match Description"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Composition Description")))
+{
+    <li>
+        <span class="title">Composition</span>
+        <span class="value">@Html.Raw(Model.Attributes.GetValueOrNull("Composition Description"))</span>
+    </li>
+}
+
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Domestic")))
+{
+    <li>
+        <span class="title">FR Domestic</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("FR Domestic"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Contract")))
+{
+    <li>
+        <span class="title">FR Contract</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("FR Contract"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Drapes")))
+{
+    <li>
+        <span class="title">FR Drapes</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("FR Drapes"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Other")))
+{
+    <li>
+        <span class="title">FR Other</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("FR Other"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Wallpaper")))
+{
+    <li>
+        <span class="title">FR Wallpaper</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("FR Wallpaper"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Martindale")))
+{
+    <li>
+        <span class="title">Martindale Rub Test</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("Martindale"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Blackout")))
+{
+    <li>
+        <span class="title">Dim out/Black out</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("Blackout") != null && Model.Attributes.GetValueOrNull("Blackout") == "Y" ? "Dim out fabric" : "")</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Usage")))
+{
+    <li>
+        <span class="title">Usage</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("Usage"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Other Info")))
+{
+    <li>
+        <span class="title">Other Info</span>
+        <span class="value">@(Model.Attributes.GetValueOrNull("Other Info"))</span>
+    </li>
+}
+@if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("After Care Image")))
+{
+    <li class="icons">
+        <span class="title">Care Instructions</span>
+        <span class="value">
+							<img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-icons/@(Model.Attributes.GetValueOrNull("After Care Image"))" alt="After Care Instructions" style="height: 25px; width: auto;"/>
+							<a href="#" class="more-care-info right"><span class="icon icon-angle-down"></span>more information</a>
+						</span>
+    </li>
+    <li class="care-info">
+        <h3>Additional Care Information</h3>
+        <div class="row">
+
+            <div class="large-4 columns">
+                <ul>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/machine-washable30.png" alt="" height="18">Machine washable 30&deg;C normal agitation, rinse spin, iron whilst damp
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/30-degress-celsius-short-spin-do-not-wring.png" alt="" height="18">Machine Washable 30&deg;C Reduced agitation
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/machine-washable40.png" alt="" height="18">Machine washable 40&deg;C Normal agitation, rinse spin, iron whilst damp
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/machine-washable-40.png" alt="" height="18">Machine washable 40&deg;C, reduced agitation, cool rinse, reduced spin, iron whilst damp
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/60-degrees-celsius-wash.png" alt="" height="18">Machine wash hot 60&deg;C, short spin, do not wring
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/cool-iron.png" alt="" height="18">Cool Iron (100&deg;C max)
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/warm-iron.png" alt="" height="18">Warm Iron (150&deg;C max)
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/hot-iron.png" alt="" height="18">Hot iron (200&deg;C max)
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/do-not-iron.png" alt="" height="18">Do not iron
+                    </li>
+                </ul>
+            </div>
+            <div class="large-4 columns">
+                <ul>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/do-not-steam.png" alt="" height="18">Do not steam
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/do-not-bleach.png" alt="" height="18">Do not bleach
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/do-not-tumble-dry.png" alt="" height="18">Do not tumble dry
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/do-not-machine-wash.png" alt="" height="18">Do not machine wash
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/hand-wash-only.png" alt="" height="18">Hand wash only
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/suitable-for-dry-cleaning.png" alt="" height="18">Suitable for dry cleaning
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/consult-specialist.png" alt="" height="18">Suitable for dry cleaning. Consult specialist dry cleaning service
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/dry-cleaning.png" alt="" height="18">Suitable for dry cleaning with petroleum solvent only
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/do-not-dry-clean.png" alt="" height="18">Do not dry clean
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/light-tumble-dry.png" alt="" height="18">Light tumble dry
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/drip-dry-over.png" alt="" height="18">Drip dry over taut line
+                    </li>
+                </ul>
+            </div>
+            <div class="large-4 columns">
+                <ul>
+
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/spongeable.png" alt="" height="18">Spongeable
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/washable.png" alt="" height="18">Washable
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/scrubbable.png" alt="" height="18">Scrubbable
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/peelable.png" alt="" height="18">Peelable
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/strippable.png" alt="" height="18">Strippable
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/pre-pasted.png" alt="" height="18">Pre-Pasted
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/adhesive-to-be-applied-to-wallcovering.png" alt="" height="18">Adhesive to be applied to Wallcovering
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/paste-the-wall.png" alt="" height="18">Paste the wall
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/wet-removable.png" alt="" height="18">Wet removable
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/free-match.png" alt="" height="18">Free Match
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/straight-match.png" alt="" height="18">Straight Match
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/offset-match.png" alt="" height="18">Offset Match
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/reverse-hang-alternate-lengths.png" alt="" height="18">Reverse Hang alternate lengths
+                    </li>
+                    <li>
+                        <img src="/_images/brands/@(ColonyContext.Current.CurrentSite.SiteKey)/care-information/good-moderate-colour-fastness.png" alt="" height="18">Good/Moderate colour-fastness
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+}
+</ul>
+</div>
+
+</div>
+</section>
+<section id="share" class="reveal-modal large" style="height: auto;">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Name}); }
+</section>
+
+@if (Model.Images.Count > 1)
+{
+    <section id="pinterestImages" class="reveal-modal large" style="height: auto;">
+        <header class="header-reveal-modal">
+            <h2>Select Image to Share</h2>
+            <a class="close-reveal-modal icon-remove">
+                <span>Close</span></a>
+        </header>
+        <div class="bd-reveal-modal">
+            <div class="productList no-quick-view">
+                @foreach (var image in Model.Images)
+                {
+                    <div class="item">
+                        @{
+                            var imageUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetailZoom");
+                        }
+                        <a href="@Url.PinterestShareUrl(Request.Url.AbsoluteUri, imageUrl, Model.Name)" target="_blank">
+                            <img src="@imageUrl" alt="" style="max-height: 125px; max-width: 125px;">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<script type="text/javascript">
+    if (typeof dataLayer === 'undefined') {
+        console.error('GTM _ProductDetail: dataLayer not defined');
+    }
+    if (typeof dataLayer !== 'undefined') {
+        $(document)
+            .ready(function () {
+                dataLayer.push({
+                    'event': 'ga-ee',
+                    'eventAction': 'productDetail',
+                    'ecommerce': {
+                        'currencyCode': '@Model.RegionInfo.ISOCurrencySymbol',
+                        'detail': {
+                            'products': [
+                            {
+                                'name': '@Model.Product.Name',
+                                'id': '@Model.Name',
+                                'price': '0.00',
+                                'brand': '@Html.Raw(brand.Replace("&amp;", "&"))',
+                                'category': '@ProductGroup',
+                                'dimension2': '@DescriptiveColour',
+                                'dimension3': '@Model.Category.Name',
+                                'dimension4': '@PatternMatchDescription',
+                                'dimension5': '@((Model.SelectedSku.Width ?? 0).ToString("0.0"))'
+                            }
+                            ]
+                        }
+                    }
+                });
+                $('a.addToBasket')
+                    .on('click',
+                        function () {
+                            dataLayer.push({
+                                'event': 'ga-ee',
+                                'eventAction': 'addToBasket',
+                                'ecommerce': {
+                                    'currencyCode': '@Model.RegionInfo.ISOCurrencySymbol',
+                                    'add': {
+                                        'products': [
+                                        {
+                                            'name': '@Model.Product.Name',
+                                            'id': '@Model.Name',
+                                            'price': '@(String.Format("{0:0.00}", Model.Price.PriceInc.ToString()))',
+                                            'brand': '@Html.Raw(brand)',
+                                            'category': '@ProductGroup',
+                                            'variant': '@(isSampleable ? "Sample" : "Product")',
+                                            'quantity': 1,
+                                            'dimension2': '@DescriptiveColour',
+                                            'dimension3': '@Model.Category.Name',
+                                            'dimension4': '@PatternMatchDescription',
+                                            'dimension5': '@((Model.SelectedSku.Width ?? 0).ToString("0.0"))'
+                                        }]
+                                    }
+                                }
+                            });
+                        });
+            });
+    }
+</script>

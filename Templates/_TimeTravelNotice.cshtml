@@ -1,0 +1,15 @@
+﻿@{
+    var currentDate = Colony.CMS.ColonyContext.Current.TimeTravelDate.GetValueOrDefault(DateTime.UtcNow);
+    var isEnabled = Colony.CMS.ColonyContext.Current.TimeTravelEnabled;
+}
+@if (isEnabled)
+{
+    <div id="timeTravelNotice">
+        <h2>Time Machine</h2>
+        <p>You are currently viewing this website as it would look on @currentDate.ToLongDateString(). </p>
+        <p>Click <a href="@Url.Action("DisableTimeTravel", "FrontEnd", new { area = "", returnUrl = Request.Url.AbsolutePath })">here</a> to revert back the current live version of this site.</p>
+        <br />
+        <br />
+        <a id="timeTravelNoticeClose" class="icon-remove" href="#">Close</a>
+    </div>
+}

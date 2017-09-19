@@ -1,0 +1,55 @@
+﻿@*@model Colony.Commerce.Models.ProductCatalogue.ProductSearchResult
+
+<div class="item" data-quick-view-id="product_@Model.ProductId">
+    <a href="/shop/@Model.Uri">
+        @{
+            string colour = "";
+            if (Model.Colours.Any())
+            {
+                colour = Model.Colours.First().CssColour;
+            }
+        }
+        <span class="itemColour" style="background: #@colour;"></span>
+        <h4 class="itemTitle @Colony.CMS.ColonyContext.Current.CurrentSite.SiteKey">@Model.Name</h4>
+        <ul>
+            <li>@Model.Code</li>
+            <!--<li>[Product type]</li>-->
+        </ul>
+
+    </a>
+</div>*@
+@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Models.ProductCatalogue.ProductSearchResult
+@{
+    var imageThumbnailUrl = "/_images/placeholders/article.jpg";
+    if (Model.Images.Any())
+    {
+        imageThumbnailUrl = Url.ImageUrl(Model.Images[0].ImageAssetID, "ProductCatalogue", "ProductThumbnail");
+    }
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+<div class="item" data-quick-view-id="product_@Model.ProductId" data-skuid="@Model.SkuId" data-productcode="@Model.Code" data-noprice="true">
+    <a href="/shop/@Model.Uri?code=@Model.Code">
+        @if (Model.Images.Count > 0)
+        {
+            <img src="@imageThumbnailUrl" alt="@Model.Name" data-productcode="@Model.Code" data-noprice="true" data-productname="@Model.Name" data-skuid="@Model.SkuId" @if (Model.Images[0] != null)
+                                                                                                                                                                        {
+                                                                                                                                                                            <text>data-imageAssetId="@Model.Images[0].ImageAssetID"</text>
+                                                                                                                                                                        } data-productimage="@imageThumbnailUrl" data-url="/shop/@Model.Uri?code=@Model.Code" @if (isB2B)
+                                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                                  <text>data-isb2b="true"</text>
+                                                                                                                                                                                                                                                              }>
+        }
+
+        <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@Model.Name</h4>
+        <ul>
+            <li>@Model.Code</li>
+            <!--<li>[Product type]</li>-->
+        </ul>
+        @if (Model.IsNew)
+        {
+            <span class="itemNew">New</span>
+        }
+    </a>
+</div>

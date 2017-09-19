@@ -1,0 +1,117 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.BasketViewModel
+@using Colony.Web.Helpers
+
+    @Html.Partial("_CheckoutBasketSummary", Model)
+
+    @if (Model.HasDeliveryDetails)
+    {
+        <div class="blockSection wide1">
+            <div class="inner">
+                <div class="heading">
+                    <h2>Basket</h2>
+                </div>
+                <div class="content basket">
+                    <div class="line">
+                        @foreach (var item in Model.BasketLines)
+                        {
+                            @Html.Partial("_CheckoutBasketItem", item)
+                        }                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        @*<div class="boxSection">
+            <div class="card-header card-header-tabs">
+                <ul class="tabs" data-tabs="3a6z5w-tabs" id="example-tabs">
+                    <li class="tabs-title is-active" role="presentation"><a href="#basket" data-summarytab="basket" aria-selected="true" role="tab" aria-controls="basket">In Your Basket</a></li>
+                    <li class="tabs-title" role="presentation"><a href="#details" data-summarytab="details" role="tab" aria-controls="details" aria-selected="false">Details</a></li>
+                </ul>
+            </div>
+            <div class="tabs-content card-content" data-tabs-content="example-tabs">
+                <div data-summarypanel="basket" class="tabs-panel is-active" role="tabpanel" aria-hidden="false" aria-labelledby="basket-label">
+                    <div class="mini-basket">
+                        @foreach (var item in Model.BasketLines)
+                        {
+                            @Html.Partial("_CheckoutBasketItem", item)
+                        }
+                    </div>
+                </div>
+
+                <div data-summarypanel="details" class="tabs-panel" role="tabpanel" aria-hidden="true" aria-labelledby="details-label">
+                    @if (Model.Checkout.Person != null)
+                    {
+                        @Html.Partial("_CheckoutDeliveryInformation", Model.Checkout)
+                    }
+                </div>
+            </div>
+        </div>*@
+    }
+    else
+    {
+        <div class="blockSection wide1">
+            <div class="inner">
+                <div class="heading">
+                    <h2>Basket</h2>
+                </div>
+                <div class="content basket">
+                    <div class="line">
+                        @foreach (var item in Model.BasketLines)
+                        {
+                            @Html.Partial("_CheckoutBasketItem", item)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="boxSection">
+            <div class="header">
+                <h3>In Your Basket</h3>
+            </div>
+            <div class="tabs-content card-content" data-tabs-content="example-tabs">
+                <div class="mini-basket">
+                    @foreach (var item in Model.BasketLines)
+                    {
+                        @Html.Partial("_CheckoutBasketItem", item)
+                    }
+                </div>
+            </div>
+        </div>*@
+    }
+
+    @if (Model.ShowVoucherInfo)
+    {
+
+        <div class="blockSection wide1">
+            <div class="inner">
+                <div class="heading">
+                    <h2>Vouchers</h2>
+                </div>
+                <div class="content">
+                    <p>If you have a voucher code, you will be able to apply this during Payment.</p>
+                </div>
+            </div>
+        </div>
+    }
+<script>
+    if (dataLayer === 'undefined') {
+        console.error('GTM _CheckoutBasket: dataLayer not defined');
+    } else {
+        @if (Model.BasketLines.Any()) {
+        <text>dataLayer.push(
+        {
+            'event': 'ga-ee',
+            'eventAction': 'checkout',
+            "ecommerce": {
+                "currencyCode": "@Model.CurrencyRegion.RegionInfo.ISOCurrencySymbol",
+                "checkout": {
+                    "actionField": { "step": $("[data-steptracking]").attr("data-steptracking") },
+                    "products": @(Html.CreateBasketProductsJson(Model.BasketLines))
+                }
+            }
+        });
+    </text>            
+    
+    }
+    }
+</script>
+

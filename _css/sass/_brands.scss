@@ -1,0 +1,199 @@
+
+/*******************************************************/
+//                       Brand Logos
+/*******************************************************/
+
+
+section.home, section.wide {
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+
+section.brands {
+    margin: 10px 0;
+    background: $seashell;
+}
+
+.sectionInner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sectionContainer {
+    width: 100%;
+    float: left;
+    padding: 10px 20px;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.centered .sectionContainer {
+    text-align: center;
+}
+
+    /*.brands .sectionContainer h1{
+        color: #fff;
+      }*/
+
+    .centered .sectionContainer p {
+        text-align: center;
+    }
+
+.brandsContainer {
+    width: 90%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin:0 auto;
+}
+
+.brandBlock {
+    width:16.66%;
+    padding:20px;
+}
+
+.brandBlockInner {
+    @include display-flex;
+    align-items: center;
+    justify-content:center;
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+
+.brandBlockInner img {
+    width:100%;
+    opacity:0.7;
+}
+
+.brandBlock img:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.san {width:18%;}
+.har {width:21%;}
+.sci {width:11%;}
+.mor {width:16%;}
+.zof {width:18%;}
+.ant {width:21%;}
+
+
+/* adjust Harlequin logo position */
+.brandBlock.har img {
+    margin-bottom: -4px;
+}
+
+@media only screen and (min-width:801px) {
+    .brandsContainer {
+        width: 90%;
+        margin-top:-20px;
+    }
+}
+
+/* Landscape */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+
+.zof img {width:100%;}
+.har img {width:100%;}
+.san img {width:100%;}
+.mor img {width:100%;}
+.sci img {width:100%;}
+.ant img {width:100%;}
+
+}
+
+@media only screen and (max-width:800px) {
+    /*.brands .sl-heading {
+        margin-bottom:20px;
+    }*/
+    .brandsContainer {
+        flex-wrap:wrap;
+    }
+    .brandBlock {
+        width:30%;
+        padding:14px 0px 14px 0px;
+        height:50px;
+        /*border: 1px solid #d0d0d0;*/
+        margin: 3px 6px 3px 0px;
+    }
+
+    .brandBlock:nth-of-type(even) {
+        margin: 3px 0px 3px 0px;
+    }
+
+    .brandBlockInner img {
+        margin:0 auto;
+    }
+    .zof img{width:60%;}
+    .har img{width:80%;}
+   .san img {width:60%;}
+    .mor img{width:50%;}
+    .sci img{width:30%;}
+    .ant img{width:78%;}
+}
+
+/* iPhone 6 Portrait */
+@media only screen 
+  /*and (min-device-width: 375px)*/ 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+    .san img {width:66%;}
+    .har img{width:82%;}
+    .sci img{width:42%; }
+    .mor img{width:66%;}
+    .zof img{width:77%; }
+    .ant img{width:78%;}
+
+     .brandBlock {
+        width:48%;
+     }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+    .zof img{width:70%;}
+    .har img{width:80%;}
+    .san img {width:65%;}
+    .mor img{width:70%;}
+    .sci img{width:35%;}
+    .ant img{ width:100%;}
+}
+
+
+
+
+/* footbanner */
+.footBanner  {
+    text-align:center;
+    margin:20px 0px;
+    font-size:16px;
+    text-transform:uppercase;
+    &.sanderson   {background-color:$sanderson;}
+    &.harlequin   {background-color:$harlequin;}
+    &.scion   {background-color:$scion;}
+    &.morris   {background-color:$morris;}
+    &.zoffany   {background-color:$zoffany;}
+    &.anthology   {background-color:$anthology;}
+    &.primary-color   {background-color:$primary-color;}
+
+    a {
+        color:white;
+        display:block;
+        padding:30px;
+    }
+}
+
+

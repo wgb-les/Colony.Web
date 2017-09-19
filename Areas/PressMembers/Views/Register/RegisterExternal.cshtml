@@ -1,0 +1,41 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.RegisterExternalLoginViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<script type="text/javascript">
+    $('#container').addClass('medium');
+</script>
+<div id="content">
+    <h1>@ViewBag.Title</h1>
+
+    <div class="contentForm">
+        @using (Html.BeginForm("RegisterExternal", "Register", new {area = "Members", returnUrl = ViewBag.ReturnUrl}, FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+            @Html.CustomValidationSummary()
+
+            <fieldset>
+                <legend>Registration Form</legend>
+                <h2>Create a new account.</h2>
+                @Html.EditorFor(m => m.Person.Title)
+                @Html.EditorFor(m => m.Person.FirstName)
+                @Html.EditorFor(m => m.Person.LastName)
+                @Html.EditorFor(m => m.Person.Email, new {size = "medium"})
+                @Html.EditorFor(m => m.Person.DateofBirth)
+                @Html.EditorFor(m => m.Person.TwitterHandle)
+
+                @Html.EditorFor(m => m.Person.AllowMarketing, new {labelText = "I'm happy to receive mareketing/promotional material from harlequin"})
+                @Html.EditorFor(m => m.Person.AllowThirdParty)
+                @Html.EditorFor(m => m.Person.Newsletter)
+
+                @Html.HiddenFor(m => m.ProviderName)
+                @Html.HiddenFor(m => m.ProviderAccountId)
+                @Html.HiddenFor(m => m.ExternalClaims)
+
+                <div class="field formControls">
+                    <button class="button">Register</button>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@using Colony.Commerce
+@model Colony.Commerce.PaymentProvider.DataCash.Models.PaymentViewModel
+@{
+    ViewBag.Title = "Secure Payment";
+}
+<div id="content">
+    <header class="pageHeader">
+        <h1>@ViewBag.Title</h1>
+    </header>
+
+    @using (Html.BeginForm())
+    {
+        <div class="boxSection checkoutPayment editable">
+            <div class="header">
+                <h2>Payment Details</h2>
+            </div>
+            <fieldset>
+                <legend>Payment Details</legend>
+                @Html.EditorFor(model => model.CardholderName)
+                @Html.EditorFor(model => model.CardNumber)
+                @Html.EditorFor(model => model.IssueNumber, new {@size = "medium"})
+                @Html.EditorFor(model => model.Cv2, new {@size = "medium"})
+                @Html.EditorFor(model => model.StartDate)
+                @Html.EditorFor(model => model.ExpiryDate)
+            </fieldset>
+            <div class="basketTotals">
+                <dl>
+                    <dt>Sub Total</dt>
+                    <dd>£@Model.Basket.TotalEx.ToString("#0.00")</dd>
+                    @if (ViewBag.IsClickAndCollect)
+                    {
+                        <dt>Click and Collect</dt>
+                    }
+                    else
+                    {
+                        <dt>Delivery</dt>
+                    }
+                    <dd>£@Model.Basket.DeliveryCost.ToString("#0.00")</dd>
+                    <dt>Tax / VAT</dt>
+                    <dd>£@Model.Basket.TotalVat.ToString("#0.00")</dd>
+                    <dt class="total">Total</dt>
+                    <dd class="total">£@Model.Basket.GrandTotal.ToString("#0.00")</dd>
+                </dl>
+
+                <ul>
+                    <li>
+                        <img src="/_images/icons/payment/maestro.png" alt="Maestro">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/mastercard.png" alt="Mastercard">
+                    </li>
+                    @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+                    {
+                        <li>
+                            <img src="/_images/icons/payment/amex.png" alt="American Express">
+                        </li>
+                    }
+                    <li>
+                        <img src="/_images/icons/payment/paypal.png" alt="Paypal">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/visa.png" alt="Visa">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron">
+                    </li>
+                </ul>
+
+            </div>
+            <div class="field formControls">
+                <button class="button">
+                    <span>Make Secure Payment</span></button>
+            </div>
+        </div>
+    }
+</div>

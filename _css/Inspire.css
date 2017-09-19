@@ -1,0 +1,102 @@
+﻿body {
+}
+.InspireSearchbar {
+    width: 110%;
+    background: #fff;
+    margin: 10px 0;
+}
+.Inspire {
+    /*background: #f0f0f0 !important;*/
+    background: #fff !important;
+    float: left;
+    padding: 0 0 15px 0;
+    width: 100%;
+}
+.InspireGrey {
+    background: #f0f0f0 !important;
+    float: left;
+    padding: 0 0 15px 0;
+    width: 100%;
+
+}
+#InspireSearch {
+    
+    margin: 10px 0; 
+    padding: 10px;
+}
+#InspireSearchResultsHolder {
+    background: #f1f1f1; 
+    padding: 0 5px;
+}
+#SearchResults {
+    background: #f1f1f1;
+    display: block;
+}
+#InspireSearchbar {
+    background: #fff; 
+    margin: 10px 0;
+    padding: 5px 0;
+}
+#InspireWordSearch {
+    width: 400px;
+}
+.InspireArticleHero {
+    background: #fff none repeat scroll 0 0;
+    float: left;
+    width: 750px;
+    height: 700px;
+    margin: 10px 15px 5px 20px;
+}
+
+.InspireArticle {
+    background: #fff none repeat scroll 0 0;
+    float: left;
+    width: 360px;
+    margin: 10px 13px 5px 20px;
+    height: 344px;
+}
+.InspireArticle Img {
+    width: 360px;
+}
+.InspireArticleHero img{
+    width: 750px;
+}
+.InspireArticleDescription {
+    padding: 0 5px;
+}
+h2 {
+    font-weight: bold;
+    padding: 0 5px;
+    color: #000;
+}
+.InspireButton {
+    margin: 0 10px;
+    padding: 5px 10px;
+    width: 100px;
+    margin: 15px 5px 0;
+}
+.InspireButtonSelected {
+    margin: 0 10px;
+    padding: 5px 10px;
+    width: 100px;
+    margin: 15px 5px 0;
+    background: #a0a0a0;
+}
+#InspireSearchFilter {
+    align-content: center;
+}
+.InspireArticleBody {
+    float: left;
+    width: 800px;
+    margin: 15px 0 0 0;
+}
+.InspireArticleArchive {
+    float: left;
+    width: 350px;
+    margin: 15px 0 10px 15px;
+}
+.InspireArchiveLink {
+    background: #f0f0f0;
+    colour: #000;
+    padding: 10px;
+}

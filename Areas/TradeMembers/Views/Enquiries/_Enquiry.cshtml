@@ -1,0 +1,26 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.TradeMembers.Models.EnquiryViewModel
+
+@if (ViewBag.EnquirySent)
+{
+    <div class="alertInfo confirmation">Thank you. Your enquiry has been sent.</div>
+}
+else
+{
+    <div class="contentForm">
+        <form method="post" action="@Url.Action("Enquiry", "Enquiries", new {area = "TradeMembers"})">
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>Your Enquiry</legend>
+                @Html.EditorFor(model => model.Person.Title, new {@class = "medium"})
+                @Html.EditorFor(model => model.Person.FirstName, new {@class = "medium"})
+                @Html.EditorFor(model => model.Person.LastName, new {@class = "medium"})
+                @Html.EditorFor(model => model.Person.Email, new {@class = "medium"})
+                @Html.EditorFor(model => model.Enquiry)
+
+                <div class="field formControls">
+                    <button class="button pull-right">Send</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+}

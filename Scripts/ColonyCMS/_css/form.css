@@ -1,0 +1,519 @@
+﻿@charset "UTF-8";
+.content .form-header {
+  border-bottom: 1px solid white;
+}
+.content .form-header h3 {
+  padding: 10px 0;
+}
+.content .fieldSet, .content fieldset {
+  padding: 20px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.content .field {
+  margin: 0 0 20px 0;
+  position: relative;
+  text-shadow: 0px 1px white;
+  display: block;
+}
+.content .field input, .content .field textarea, .content .field select {
+  font-size: 14px;
+  color: #999;
+  border-radius: 6px;
+  margin: 0;
+}
+.content .field input, .content .field textarea {
+  -webkit-appearance: none;
+  padding: 10px 15px;
+  line-height: 16px;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#cccccc));
+  -webkit-appearance: none;
+  -webkit-box-shadow: 1px 1px 1px #fff;
+  -webkit-border-radius: 0.5em;
+  border: 1px solid #D0D0D0;
+  background: #FBFBFB;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 6px;
+}
+.content .field.upload input {
+  display: none;
+}
+.content .field.checkbox label {
+  float: left;
+  line-height: 25px;
+  margin: 0 0 0 15px;
+}
+.content .field.option {
+  padding: 10px 20px 0px 20px;
+  background: #fbfbfb;
+  border: 1px solid #d0d0d0;
+}
+.content .field.option h3 {
+  font-size: 18px;
+  border-bottom: 1px solid #e5e5e5;
+  margin: 10px 0 10px 0;
+  padding-bottom: 13px;
+}
+.content .field.option ul {
+  margin: 15px 0 0 0;
+  padding: 0;
+}
+.content .field.option ul li {
+  overflow: hidden;
+  margin: 0 0 20px 0;
+  list-style: none;
+}
+.content .field.option ul li input {
+  float: left;
+}
+.content .field.option ul li label {
+  float: left;
+  margin: 0 0 0 15px;
+  line-height: 25px;
+}
+.content .field.select select {
+  height: 40px;
+  line-height: 13px;
+}
+.content .field.textarea label {
+  line-height: 30px;
+}
+.content .field.textarea .charCounter {
+  margin: 0 0 0 10px;
+  background-color: #1cdf65;
+  padding: 5px;
+  border-radius: 3px;
+  color: #fff;
+  text-shadow: none;
+  border: 1px solid #2fa45b;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
+}
+.content .field.textarea .charCounter.limitNear {
+  background-color: #e89d3b;
+  border-color: #c6760f;
+}
+.content .field.textarea .charCounter.exceeded {
+  background-color: #e83b3b;
+  border-color: #a42f2f;
+}
+
+.fieldSet, fieldset {
+  background: #f8f8f8;
+  border: 1px solid #dfe2e5;
+  background: #eeeff1;
+  /* .field.option {
+       padding: 20px 20px 20px 20px;
+       background: #fbfbfb;
+       border: 1px solid #d0d0d0;
+       h3 {
+           border-bottom: 1px solid #e5e5e5;
+           margin-top: 0px;
+           padding-bottom: 15px;
+       }
+       .icon-question-sign { 
+           top: -1px;
+           right: -1px;
+           border-bottom-left-radius: 6px!important;
+           border-bottom-right-radius: 0px!important;
+       }
+   }*/
+}
+.fieldSet .icon-exclamation-sign, fieldset .icon-exclamation-sign {
+  color: #af0000;
+  text-shadow: -1px solid #ea2a2a;
+  margin-right: 5px;
+  margin-left: 3px;
+}
+.fieldSet .field, fieldset .field {
+        /*.radioList {
+            margin: 20px 0 0 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                list-style: none;
+                margin-bottom: 14px;
+                label {
+                    position: absolute;
+                    margin: 6px;
+                    color: #999;
+
+                }
+            }
+        }*/
+}
+.fieldSet .field .errorWrapper, fieldset .field .errorWrapper {
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+}
+.fieldSet .field .icon-question-sign, fieldset .field .icon-question-sign {
+  padding: 2px;
+  font-size: 28px;
+  padding: 5px 8px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  position: absolute;
+  right: 0px;
+  margin-right: 0px;
+  height: 40px;
+  width: 40px;
+  z-index: 1;
+}
+.fieldSet .field .answer, fieldset .field .answer {
+  position: absolute;
+  right: -2px;
+  width: 300px;
+  display: none;
+  text-align: left;
+  font-size: 12px;
+  padding: 20px 20px 20px 20px;
+  z-index: 1;
+  border-radius: 8px;
+  pointer-events: none;
+  bottom: 0px;
+}
+.fieldSet .field .answer .icon-question-sign, fieldset .field .answer .icon-question-sign {
+  bottom: -2px;
+}
+.fieldSet .field .inputContainer, fieldset .field .inputContainer {
+  min-height: 40px;
+  display: block;
+}
+.fieldSet .field .inputContainer label, fieldset .field .inputContainer label {
+  display: none;
+  font-size: 16px;
+  float: left;
+  margin-bottom: 6px;
+  color: #999;
+}
+.fieldSet .field.text input, fieldset .field.text input {
+  height: 40px;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  width: 100%;
+}
+.fieldSet .field.upload input, fieldset .field.upload input {
+  diplay: none;
+}
+.fieldSet .actions .button, fieldset .actions .button {
+  padding: 18px 36px;
+  font-size: 14px;
+}
+
+/*
+#dropdown-select {
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  position: absolute;
+  left: 0;
+  right: 38px;
+  border-bottom-left-radius:6px;
+  border-top-left-radius:6px;
+  select {
+      background: transparent;
+      width: 103%;
+      border: 0;
+      height: 40px;
+      display: inline-block;
+      -webkit-appearance: none;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      padding-left: 20px;
+    }
+}
+ 
+.lt-ie8 #dropdown-select {
+  width: auto;
+  height: auto;
+  overflow: auto;
+  background: none;
+  border: 0;
+  select {
+    padding-top: 0;
+      background: auto;
+      width: 100%;
+    }
+}
+ 
+  */
+q:before, q:after {
+  content: '';
+}
+
+:focus {
+  outline: none;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  border: 1px solid #c0c0c0;
+  margin: 0 0.1em 0 0;
+  border-radius: 20px !important;
+  padding: 3px 5px !important;
+  width: 25px;
+  height: 25px;
+  display: block;
+  font-size: 16px;
+  line-height: 1em;
+  background: #fff;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ededed), to(#fbfbfb));
+  -webkit-appearance: none;
+  -webkit-box-shadow: 1px 1px 1px #fff;
+  -webkit-border-radius: 0.25em;
+  vertical-align: text-top;
+  display: inline-block;
+  cursor: pointer;
+  color: #2e3134 !important;
+}
+
+input[type=checkbox] {
+  border-radius: 5px !important;
+  padding: 3px 5px !important;
+}
+
+input[type=radio] {
+  -webkit-border-radius: 2em;
+  /* Make radios round */
+}
+
+input[type=checkbox]:checked::after {
+  content: "\2713";
+  display: block;
+  text-align: center;
+  font-size: 22px;
+  height: 16px;
+  line-height: 20px;
+}
+
+input[type=radio]:checked::after {
+  content: "\2022";
+  display: block;
+  height: 16px;
+  line-height: 17px;
+  font-size: 36px;
+  text-align: center;
+}
+
+/*********** UPLOAD BUTTON AND DROP DOWN STYLES *************************************/
+.ie9 input[type="text"],.ie9 input[type="number"],.ie9 input[type="email"] {
+  line-height: normal;
+}
+
+div.dropdown {
+  overflow: hidden;
+  margin: 0;
+  position: absolute;
+  right: 39px;
+  left: 0;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+  border: 1px solid #cfcfcf;
+  width: 100%;
+}
+div.dropdown .iconDrop {
+  position: absolute;
+  right: 10px;
+  font-size: 30px;
+  top: 5px;
+}
+div.dropdown select {
+  width: 100%;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  border: none;
+  box-shadow: none;
+  padding: 8px 18px 9px 18px;
+  cursor: pointer;
+}
+
+.ie7 div.dropdown {
+  border: none;
+}
+
+.ie7 div.dropdown select {
+  width: 100%;
+  padding: .3em .5em;
+}
+
+input[type="file"] {
+  position: relative;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 40%;
+  padding: 0;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  width: 0;
+  -webkit-appearance: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="file"]:after {
+  content: 'Upload File';
+  display: inline-block;
+  left: 100%;
+  position: relative;
+  border: solid 1px #cccccc !important;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 0 0 0 .5em;
+  padding: .3em .5em;
+}
+
+input[type="file"]:active:after {
+  box-shadow: none;
+}
+
+/*
+ * jQuery File Upload UI Plugin CSS 8.0
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+.fileupload-buttonbar .btn,
+.fileupload-buttonbar .toggle {
+  margin-bottom: 5px;
+}
+
+.progress-animated .bar {
+  background: url(../img/progressbar.gif) !important;
+  filter: none;
+}
+
+.fileupload-loading {
+  float: right;
+  width: 32px;
+  height: 32px;
+  background: url(../img/loading.gif) center no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.fileupload-processing .fileupload-loading {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .fileupload-buttonbar .toggle,
+  .files .toggle,
+  .files .btn span {
+    display: none;
+  }
+
+  .files .name {
+    width: 80px;
+    word-wrap: break-word;
+  }
+}
+/*********** UPLOAD BUTTON AND DROP DOWN STYLES *************************************/
+.ie9 input[type="text"],.ie9 input[type="number"],.ie9 input[type="email"] {
+  line-height: normal;
+}
+
+div.dropdown {
+  overflow: hidden;
+  margin: 0;
+  position: absolute;
+  right: 39px;
+  left: 0;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+  border: 1px solid #cfcfcf;
+}
+div.dropdown .iconDrop {
+  position: absolute;
+  right: 10px;
+  font-size: 30px;
+  top: 5px;
+}
+div.dropdown select {
+  width: 105%;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  border: none;
+  box-shadow: none;
+  padding: 8px 18px 9px 18px;
+  cursor: pointer;
+}
+
+.ie7 div.dropdown {
+  border: none;
+}
+
+.ie7 div.dropdown select {
+  width: 100%;
+  padding: .3em .5em;
+}
+
+input[type="file"] {
+  position: relative;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 40%;
+  padding: 0;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  width: 0;
+  -webkit-appearance: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="file"]:after {
+  content: 'Upload File';
+  display: inline-block;
+  left: 100%;
+  position: relative;
+  border: solid 1px #cccccc !important;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 0 0 0 .5em;
+  padding: .3em .5em;
+}
+
+input[type="file"]:active:after {
+  box-shadow: none;
+}

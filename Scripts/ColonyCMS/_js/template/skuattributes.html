@@ -1,0 +1,17 @@
+<% _.each(App.data.skuAttributes, function(attribute, index) { %>
+    <% if (index == 0 || index == Math.ceil(App.data.skuAttributes.length / 2)) { %>
+    <fieldset class="halfInner">
+    <% } %>
+    <div class="field text">
+        <label for="<%=attribute.id%>"><%=attribute.name%></label>
+        <input type="text" id="<%=attribute.id%>" name="<%=attribute.id%>" value="<%=(_.find(App.data.skuSkuAttribute, function(attr) { return attr.id == attribute.id }) || { value: '' }).value %>" />
+    </div>
+    <% if (index == Math.ceil(App.data.skuAttributes.length / 2) - 1 || index == App.data.skuAttributes.length - 1) { %>
+        </fieldset>
+    <% } %>
+<% }); %>
+<div class="clear"></div>
+<div class="field formControls">
+    <input type="hidden" name="skuId" id="skuId" value="<%=App.QueryString['skuId']%>" />
+    <input type="submit" id="SaveButton" name="SaveButton" value="Save" class="button"/>
+</div>

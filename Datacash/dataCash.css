@@ -1,0 +1,455 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin:0;
+}
+
+fieldset {
+    border: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#creditcard {
+    width: 95%;
+    height: 260px;
+    position: relative;
+    margin: 25px 2.5%;
+    overflow: hidden;
+    background: url('Images/ccBackBg.png') #ecebeb 0 0 repeat-x;
+    -webkit-box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+    box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+    border-radius: 11px;
+}
+
+.cardFront {
+    width: 75%;
+    height: 260px;
+    position: relative;
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    background: url('Images/ccFrontBg.png') 0 0 repeat-x;
+    border-radius: 11px;
+    padding: 65px 16.5px 5px 16.5px;
+    -webkit-box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+    box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+}
+
+    .cardFront label {
+        font-family: "OCR A Std","Courier New Bold",sans-serif;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 11px;
+        min-width: 100px;
+        display: inline-block;
+        padding: 4px 0;
+        vertical-align: baseline;
+        text-shadow: 0 -1px 1px #fff;
+        -webkit-text-stroke-width: .2px;
+        -webkit-text-stroke-color: #666;
+        -webkit-font-smoothing: antialiased;
+        line-height: normal;
+    }
+
+#card_number {
+    display: inline-block;
+    width: 90%;
+}
+
+
+.us:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 16.5px;
+    background: url("https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/Datacash/Images/cc-images-us-small.png") 0 0 no-repeat;
+    width: 200px;
+    height: 24px;
+}
+
+.ww:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 16.5px;
+    background: url("https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/Datacash/Images/cc-images-4-small.png") 0 0 no-repeat;
+    width: 200px;
+    height: 30px;
+}
+
+.required {
+    font-size: x-small;
+    color: red;
+    text-transform: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.available {
+    display: block;
+    font-size: x-small;
+    color: darkblue;
+    text-transform: none;
+    margin-left: 6px;
+}
+
+#ccSecurityCodeLabel {
+    display: block;
+    position: absolute;
+    width: 65px;
+    min-width: 65px;
+    left: 105%;
+    top: 140px;
+    z-index: 1;
+    text-shadow: 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+#cv2_number {
+    position: absolute;
+    width: 40px;
+    min-width: 40px;
+    margin-right: 10px;
+    left: 105%;
+    top: 96px;
+}
+
+#expiry label {
+    display: block;
+    margin-top: 5px;
+}
+
+#issuenumber label {
+    display: inline-block;
+    margin-top: 5px;
+    width: 50%;
+}
+
+.large {
+    height: 26px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.small {
+    height: 20px;
+    padding: 3px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+.text input[type="text"] {
+    width: 95%;
+}
+
+.checkoutDelivery .field, .checkoutPayment .field {
+    padding: 0;
+}
+
+#validation-box {
+    width: 200px;
+    margin: 15px 3%;
+    color: red;
+    word-spacing: 0;
+    display: block;
+    font-family: "Gill Sans W04 Light", arial, sans-serif;
+}
+
+@media only screen and (min-width:600px) {
+    #validation-box {
+        width: 600px;
+        margin: 15px auto;
+        color: red;
+        word-spacing: 0;
+        display: block;
+        font-family: "Gill Sans W04 Light", arial, sans-serif;
+    }
+
+    #creditcard {
+        width: 600px;
+        height: 260px;
+        position: relative;
+        margin: 25px auto;
+        overflow: hidden;
+        background: url('Images/ccBackBg.png') #ecebeb 0 0 repeat-x;
+        -webkit-box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+        box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+        border-radius: 11px;
+    }
+
+    .cardFront {
+        width: 420px;
+        height: 260px;
+        position: relative;
+        float: left;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #fff;
+        background: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/Datacash/Images/ccFrontBg.png') 0 0 repeat-x;
+        border-radius: 11px;
+        padding: 65px 16.5px 5px 16.5px;
+        -webkit-box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+        box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+    }
+
+        .cardFront label {
+            font-family: "OCR A Std","Courier New Bold",sans-serif;
+            color: #666;
+            text-transform: uppercase;
+            font-size: 11px;
+            min-width: 100px;
+            display: inline-block;
+            padding: 4px 0;
+            vertical-align: baseline;
+            text-shadow: 0 -1px 1px #fff;
+            -webkit-text-stroke-width: .2px;
+            -webkit-text-stroke-color: #666;
+            -webkit-font-smoothing: antialiased;
+            line-height: normal;
+        }
+
+    #card_number {
+        display: inline-block;
+        width: 90%;
+    }
+
+
+    .us:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 16.5px;
+        background: url("https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/Datacash/Images/cc-images-us.png") 0 0 no-repeat;
+        width: 250px;
+        height: 24px;
+    }
+
+    .ww:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 16.5px;
+        background: url("https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/Datacash/Images/cc-images-4.png") 0 0 no-repeat;
+        width: 200px;
+        height: 30px;
+    }
+
+    .required {
+        font-size: x-small;
+        color: red;
+        text-transform: none;
+    }
+
+    .available {
+        font-size: x-small;
+        color: darkblue;
+        text-transform: none;
+        margin-left: 6px;
+    }
+
+    #ccSecurityCodeLabel {
+        display: block;
+        position: absolute;
+        width: 65px;
+        min-width: 65px;
+        left: 447.5px;
+        top: 92px;
+        z-index: 1;
+        text-shadow: 0 -1px 1px rgba(255,255,255,0.3);
+    }
+
+    #cv2_number {
+        position: absolute;
+        width: 40px;
+        min-width: 40px;
+        margin-right: 10px;
+        left: 523.5px;
+        top: 96px;
+    }
+
+    #expiry label {
+        display: block;
+        margin-top: 5px;
+    }
+
+    #issuenumber label {
+        display: inline-block;
+        margin-top: 5px;
+        width: 105px;
+    }
+
+    .large {
+        height: 26px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .small {
+        height: 20px;
+        padding: 3px 10px;
+        margin-right: 5px;
+        border-radius: 5px;
+    }
+}
+
+
+
+
+/*-----------redant styling-----------------------*/
+
+.top-box {
+    background-color: #f5f5f5;
+    color: #58595b;
+    border: 1px solid hsla(0,0%,4%,.1);
+    border-radius: 0;
+    position: relative;
+    margin: 1em 0;
+    padding: 20px;
+    display: block;
+}
+
+    .top-box > p {
+        font-size: 1em;
+        line-height: 25px;
+        font-weight: 300;
+    }
+
+.h3-size {
+    border-bottom: 0;
+    font-size: 1.42857rem;
+    color: #4f5151;
+    font-weight: normal;
+    margin-top: 0;
+    text-align:justify;
+}
+
+.pull-right {
+    margin-top: 0;
+    text-align: right;
+    position: absolute;
+    top: 27px;
+    right: 20px;
+}
+
+.button {
+    width:100%;
+        background: #d4bc60;
+    border-color: #d4bc60;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    line-height: 1.5;
+    color: #fff;
+    font-size: 14px;
+    border: 0;
+    position: relative;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: color, background-color, border-color;
+    transition-property: color, background-color, border-color;
+}
+.button:hover, .button:focus, .button:active {
+        background-color: #c5af5a !important;
+        color: white !important;
+        border-color: #c5af5a !important;
+    }
+/*.button {
+    background: linear-gradient(#f3f3f3, #dadada);
+    border: 1px solid #dadada;
+    box-shadow: none;
+    color: #606060;
+    display: inline-block;
+    font-family: "Gill Sans W04 Light", arial, sans-serif;
+    font-size: 1.4em;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0.6em 0.8em;
+    text-transform: none;
+    transition: none;
+    vertical-align: middle;
+}*/
+
+.basketTotals {
+    width: inherit;
+}
+
+
+.basketTotals dt {
+    margin: 5px 5px;
+    width: 95%;
+}
+
+.basketTotals .even:first-child {
+    background: inherit;
+}
+
+.basketTotals dd {
+    float: right;
+}
+.basketTotals dt, .basketTotals dd {
+    padding-right: 0;
+    margin-right: 0.5em;
+}
+.boxSection .alertInfo {
+    margin: 15px 3%;
+}
+
+.checkoutPayment .field.formControls {
+    width: inherit;
+    padding: 1em;
+    padding-left:0;
+    float: left;
+    margin-left: 3%;
+                 
+}
+   .checkoutPayment .basketTotals {
+       width: 94%;
+        float: left;
+    margin: 15px 3%;
+       border: 1px solid #bfbfbf;
+       border-radius: 0.5em;
+       padding-left: 0;
+       padding-right: 0;
+    }
+@media only screen and (min-width: 48.125em) {
+    .checkoutDelivery fieldset, .checkoutPayment fieldset {
+        width: 90%;
+        margin: 0 5%;
+    }
+
+    .checkoutPayment .basketTotals {
+       border: 1px solid #bfbfbf;
+       border-radius: 0.5em;
+        
+    }
+
+    .checkoutAbout .field.formControls, .checkoutDelivery .field.formControls, .checkoutPayment .field.formControls {
+        padding-left: 0;
+        margin: 0 2em;
+        width: 90%;
+    }
+
+    .basketTotals dd {
+        width: 96%;
+    }
+
+
+    .checkoutPayment .field.formControls {
+        text-align: left;
+    }
+}

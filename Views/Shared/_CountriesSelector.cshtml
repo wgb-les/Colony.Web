@@ -1,0 +1,31 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.Currencies.ViewModels.CountrySelectionViewModel
+@{
+    var linkText = Model.CurrentCurrencyRegion != null ? Model.CurrentCurrencyRegion.Name : "Select country";
+    var countryChanged = TempData["CountryChanged"] != null;
+}
+
+@if (countryChanged)
+{
+    @Html.Raw("var countryChanged= " + Json.Encode(TempData["CountryChanged"]) + ";")
+}
+
+@if (ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+{
+    <a href="/currencies/currencies/countrieslist/?returnUrl=@Url.Encode(Request.Url.PathAndQuery)" data-reveal-ajax="true" data-reveal-id="selectCountry" >
+        <div class="topNavItem">
+            <div class="flag-icon @if (Model.CurrentCurrencyRegion.Name != "International"){<text>flag-icon-</text>@Model.CurrentCurrencyRegion.RegionInfo.ToString().ToLower()}else{<text>flag-icon-int</text>}">                
+            </div>                       
+        </div>
+        
+    </a>
+}
+else
+{ 
+    <li>
+        <a href="/currencies/currencies/countrieslist/?returnUrl=@Url.Encode(Request.Url.PathAndQuery)" data-reveal-ajax="true" data-reveal-id="selectCountry" class="global-util-item global-util-currency">
+            <img src="@Model.CurrentCurrencyRegion.FlagImageUrl" style="margin-top: -3px; width: 22px;" alt="@Model.CurrentCurrencyRegion.Name" class="global-util-icon"/>
+            <span class="global-util-label">@Model.CurrentCurrencyRegion.Name</span>
+        </a>
+    </li>
+}

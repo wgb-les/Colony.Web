@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script type="text/javascript">
+        window.top.closeIframeWindow();
+        var isSuccessful = (window.location.search.indexOf('cancel') < 0);
+        var basket = window.parent.getMiniBasket(isSuccessful);
+        if (window.top.location.href.toLowerCase().indexOf('b2b-members/webtex/basketsummary') >= 0)
+            window.top.location.reload();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

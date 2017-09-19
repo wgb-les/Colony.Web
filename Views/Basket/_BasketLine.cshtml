@@ -1,0 +1,150 @@
+﻿@using Colony.CMS
+@using Colony.Commerce
+@model Colony.Commerce.Areas.ShopPurchase.Models.BasketLineViewModel
+
+@using (Html.BeginCollectionItem("basketLines"))
+{
+    if (!Model.CanPurchase)
+    {
+        <div class="alertInfo error">
+            <p>The item below is unavailable in your selected region. Either remove this item from your basket or change your region.</p>
+        </div>
+    }
+    <div class="basketItem" data-skuid="@Model.SkuId">
+        @if (!ViewBag.IsCheckoutBasket)
+        {
+            <a href="/shop/@Model.Url?code=@Model.Sku.Code" class="thumbnail">
+                <img src="@Url.ImageUrl(Model.ImageAssetId, "ShopPurchase", "ImageDownloadThumbnail")" alt="@Model.Name" width="75" height="75"/>
+            </a>
+        }
+
+        @if (!((Model.Sku == null) || (Model.Shop == null)))
+        {
+            <div class="details">
+                <h2>
+                    <a href="@string.Format("{0}/shop/{1}?code={2}", Model.ShopBaseUri, Model.Url, Model.Sku.Code)" @if (Model.Shop.Id != ColonyCommerceContext.Current.Shop.CurrentShop.Id)
+                                                                                                                    {
+                                                                                                                        <text>target="_blank"</text>
+                                                                                                                    }>
+                        @Model.Sku.Name</a>
+                </h2>
+                <dl>
+                    @if (Model.Category != null)
+                    {
+                        <dt>Collection</dt>
+                        <dd>@Model.Category.Name</dd>
+                    }
+                    <dt>Colour</dt><dd>@(Model.Attributes.GetValueOrNull("Descriptive Colour"))</dd>
+                    <dt>@Model.Attributes.GetValueOrNull("Product Group")</dt><dd>@Model.Sku.Code</dd>
+                </dl>
+            </div>
+        }
+        @if (Model.CanPurchase)
+        {
+            <p class="value">
+                <span>Item Price: </span>@(Model.UnitPriceInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.UnitPriceInc.ToString("#0.00") : "FREE")
+            </p>
+        }
+
+        @if (!ViewBag.IsCheckoutBasket && Model.CanPurchase)
+        {
+            <div class="field text spinner split">
+                @Html.LabelFor(model => model.Quantity)
+                @if (Model.MaxQuantity != 0)
+                {
+                    <input type="text" class="quantity-stepper" data-max-value="@Html.Raw(Model.MaxQuantity.ToString())" , data-min-value="0", value="@Html.Raw(Model.Quantity)"/>
+                }
+                else
+                {
+                    <input type="text" class="quantity-stepper" data-max-value="100" , data-min-value="0", value="@Html.Raw(Model.Quantity)"/>
+                }
+            </div>
+            @Html.HiddenFor(model => model.Quantity, new {@class = "hidden-quantity"})
+            ;
+        }
+        else if (Model.CanPurchase)
+        {
+            <p class="quantity">
+                <span>Quantity: </span>@Model.Quantity</p>
+            @Html.HiddenFor(model => model.Quantity)
+            ;
+        }
+        @if (Model.CanPurchase)
+        {
+            <p class="value">
+                <span>Sub Total: </span>@(Model.TotalInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.TotalInc.ToString("#0.00") : "FREE")
+            </p>
+        }
+
+        @if (!ViewBag.IsCheckoutBasket)
+        {
+            if (Model.SkuId != null)
+            {
+                <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuId = Model.SkuId.Value})" class="remove"
+                   data-currencyCode="@Model.CurrencyRegion.RegionInfo.ISOCurrencySymbol"
+                   data-itemName="@Model.Name"
+                   data-itemId="@Model.Product.Name"
+                   data-itemPrice="@(Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.UnitPriceInc.ToString("#0.00"))"
+                   data-itemCategory="@Model.Attributes["Product Group"]"
+                   data-itemQuantity="@Model.Quantity"
+                   data-itemDimension2="@Model.Attributes["Descriptive Colour"]"
+                   data-itemDimension3="@Model.Category.Name"
+                   data-itemDimension4="@Model.Attributes["Pattern Match Description"]"
+                   data-itemDimension5="@((Model.Sku.Width ?? 0).ToString("0.0"))">
+                    <span>Remove</span></a>
+            }
+            else
+            {
+                <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuBundleId = Model.SkuBundleId.Value})" class="remove"
+                   data-currencyCode="@Model.CurrencyRegion.RegionInfo.ISOCurrencySymbol"
+                   data-itemName="@Model.Name"
+                   data-itemId="@Model.Product.Name"
+                   data-itemPrice="@(Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.UnitPriceInc.ToString("#0.00"))"
+                   data-itemCategory="@Model.Attributes["Product Group"]"
+                   data-itemQuantity="@Model.Quantity"
+                   data-itemDimension2="@Model.Attributes["Descriptive Colour"]"
+                   data-itemDimension3="@Model.Category.Name"
+                   data-itemDimension4="@Model.Attributes["Pattern Match Description"]"
+                   data-itemDimension5="0.0">
+                    <span>Remove</span></a>
+            }
+        }
+        @Html.HiddenFor(model => model.SkuId)
+        @Html.HiddenFor(model => model.ShopId)
+        @Html.HiddenFor(model => model.CanPurchase)
+
+    </div>
+        <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                $('a.remove')
+                    .on('click',
+                        function () {
+                            dataLayer.push({
+                                'event': 'ga-ee',
+                                'eventAction': 'addToBasket',
+                                'ecommerce': {
+                                    'currencyCode': $(this).attr('data-currencyCode'),
+                                    'add': {
+                                        'products': [
+                                            {
+                                                'name': $(this).attr('data-itemName'),
+                                                'id': $(this).attr('data-itemId'),
+                                                'price': $(this).attr('data-itemPrice'),
+                                                'brand': '@ColonyContext.Current.CurrentSite.Name',
+                                                'category': $(this).attr('data-itemCategory'),
+                                                'variant': 'Product',
+                                                'quantity': $(this).attr('data-itemQuantity'),
+                                                'dimension2': $(this).attr('data-itemDimension2'),
+                                                'dimension3': $(this).attr('data-itemDimension3'),
+                                                'dimension4': $(this).attr('data-itemDimension4'),
+                                                'dimension5': $(this).attr('data-itemDimension5')
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                        });
+            });
+    </script>
+}

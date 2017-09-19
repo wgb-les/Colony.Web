@@ -1,0 +1,145 @@
+﻿@using Colony.Util.Configuration;
+@Model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+<div id="content">
+
+    <div class="scrapBookAdd" style="overflow: visible; display: none;">
+
+        <div class="indicator"></div>
+
+        <header>
+
+            <h2>Select Scrapbook</h2>
+
+        </header>
+
+        <div class="inner" style="overflow: hidden; outline: none;" tabindex="5000">
+
+            <div class="field text ">
+
+                <label for="">
+
+                </label>
+
+                <input type="text" name="" id="" placeholder="new scrapbook">
+
+            </div>
+
+            <a href="#" class="addSrapbookButton button small icon-plus"></a>
+
+            <ul>
+
+                <li><a href="#">Kitchen Ideas</a></li>
+
+                <li><a href="#">Green Theme</a></li>
+
+                <li><a href="#">Katies Bedroom</a></li>
+
+                <li><a href="#">Kitchen Ideas</a></li>
+
+                <li><a href="#">Green Theme</a></li>
+
+                <li><a href="#">Katies Bedroom</a></li>
+
+                <li><a href="#">Kitchen Ideas</a></li>
+
+                <li><a href="#">Green Theme</a></li>
+
+                <li><a href="#">Katies Bedroom</a></li>
+
+                <li><a href="#">Kitchen Ideas</a></li>
+
+                <li><a href="#">Green Theme</a></li>
+
+                <li><a href="#">Katies Bedroom</a></li>
+
+                <li><a href="#">Kitchen Ideas</a></li>
+
+                <li><a href="#">Green Theme</a></li>
+
+                <li><a href="#">Katies Bedroom</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <h1>Products</h1>
+
+    <!--<div class="content-banner" style="background-image:url('http://162.13.51.36/images/searchBannerCushions.png');">
+      <div class="content-banner-inner" style="background-color:rgb(0,50,99); background-color:rgba(0,50,99,0.7);">
+        <h2>Cushions</h2>
+        <p>Harlequin's latest cushion collection is a delicious compendium of mouth-watering designs that will give both your home and your spirits a wonderful lift!</p>
+        <p>Based on a combination of designs from the recent Amazilia collection, as well as motifs produced specifically for the new range, the cushions are vibrant and joyful, sophisticated and sumptuous.</p>
+        <a href="#" class="ghost-button">Discover Cushions</a>
+      </div>
+    </div>-->
+    <% if (rc.model.ProductSearchResults.length > 0) { %>
+
+    <div class="listing-options">
+        <% if (rc.model.Keywords != 'undefined' && rc.model.Keywords !== null) {%>
+        <div class="listing-group result-count">
+            <p>Showing <strong><%= rc.model.TotalResultCount %></strong> results for <strong>"<%=rc.model.Keywords%>"</strong></p>
+        </div>
+        <% } else { %>
+        <div class="listing-group result-count">
+            <p>Showing <strong><%= rc.model.TotalResultCount %></strong> results.</p>
+        </div>
+        <% } %>
+        <% if (rc.model.NoResults) { %>
+        <div class="alertInfo message">Sorry, we could not find any results for you chosen colour. Similar products are shown below.</div>
+        <%}%>
+
+        <div class="listing-group listing-group-actions">
+
+            <div class="result-layout">
+
+                <ul class="layout-options">
+
+                    <li class="active">
+
+                        <a href="#" class="layout-option" id="setLayoutOptionGrid">Grid View</a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#" class="layout-option" id="setLayoutOptionList">List View</a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="result-sort">
+
+                <div class="field select">
+
+                    <label for="SortBy" style="display: none;">Sort results by</label>
+                    <select id="SortBy" name="SortBy">
+                        <option value="default" <% if (rc.model.SortBy == 'default') print('selected="selected"') %>>Sort results by.........</option>
+                        <option value="colourhigh" <% if (rc.model.SortBy == 'colourhigh') print('selected="selected"') %>>Colour (light to dark)</option>
+                        <option value="colourlow" <% if (rc.model.SortBy == 'colourlow') print('selected="selected"') %>>Colour (dark to light)</option>
+                        <option value="alphaasc" <% if (rc.model.SortBy == 'alphaasc') print('selected="selected"') %>>Design Name (A-Z)</option>
+                        <option value="alphadesc" <% if (rc.model.SortBy == 'alphadesc') print('selected="selected"') %>>Design Name (Z-A)</option>
+                        <option value="datedesc" <% if (rc.model.SortBy == 'datedesc') print('selected="selected"') %>>Recent</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="productList searchResults">
+        <% _.each(rc.model.ProductSearchResults, function(itm) { %>
+        <%=rc.itemTemplate(itm) %>
+        <% }); %>
+    </div>
+    <% } else { %>
+    <div class="alertInfo message">Your search did not return any results.</div>
+    <% } %>
+</div>

@@ -1,0 +1,43 @@
+﻿@model WalkerGreenbank.Modules.Furniture.Areas.Models.GetFurnitureQuoteViewModel
+<section id="furnitureQuote" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Get a Furniture Quote</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal" id="enquiryForm">
+
+        <div class="contentForm modal-inset">
+            <form action="@Url.Action("FurnitureQuote", "Enquiries", new {area = "Furniture", returnUrl = Request.Url.AbsoluteUri})" method="post">
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <legend>Address</legend>
+
+                    @Html.EditorFor(model => model.Address.Title)
+                    @Html.EditorFor(model => model.Address.FirstName)
+                    @Html.EditorFor(model => model.Address.LastName)
+
+                    @Html.EditorFor(model => model.Address.Postcode, "Postcode", new {size = "medium"})
+
+                    @Html.EditorFor(model => model.Address.Line1)
+                    @Html.EditorFor(model => model.Address.Line2)
+                    @Html.EditorFor(model => model.Address.Town, new {@class = "medium"})
+                    @Html.EditorFor(model => model.Address.County, new {@class = "medium"})
+                    @Html.EditorFor(model => model.Address.CountryISO2, new {options = Model.Address.CountiresList, @class = "country"})
+
+                    <div class="field formControls">
+                        <button class="button">Send</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</section>
+<section id="enquiryFormThankYou" class="reveal-modal medium">
+    <div class="bd-reveal-modal">
+        <h2>Thank you</h2>
+        <p>Your request for a furniture quote has been submitted.</p>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </div>
+</section>

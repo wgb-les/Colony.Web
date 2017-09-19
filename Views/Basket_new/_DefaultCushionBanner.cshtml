@@ -1,0 +1,80 @@
+﻿
+<link href="~/_js/vendor/Slick/slick.css" rel="stylesheet" />
+<link href="~/_js/vendor/Slick/slick-theme.css" rel="stylesheet" />
+
+
+<section id="default-container">
+    <div id="default-inner">
+        <a href='~/shop/cushions'>
+            <div class="default-cushion-header">
+                <h1><dark>BUY CUSHIONS</dark> <light>ONLINE</light></h1>
+            </div>
+        </a>
+
+        <div class="center-default">
+            <div>
+                <a href="#"> <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/DVIN254789C_zoom.jpg" alt="Chelsea Cushion"></a>
+            </div>
+            <div>
+                <a href="#"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/DLIT254811C_zoom.jpg" alt="Dogs in clogs cushion"></a>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/DM6F255475F_zoom.jpg"  alt="strawberry theif pattern cushion"/>
+                </a>
+            </div>
+            <div>
+                <a href="#" >
+                    <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/DARP255469B_zoom.jpg" alt="forest fox cushion"/>
+                </a>
+            </div>
+            <div>
+                <a href="#"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150663C_zoom.jpg" alt="Paridise Cushion"></a>
+            </div>
+            <div>
+                <a href="#"> <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150667D_zoom.jpg" alt="Amazilia humming bird cushion"></a>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="~/_js/vendor/Slick/slick.min.js"></script>
+<script>
+    $(document)
+        .ready(function () {
+            $('.center-default')
+                .slick({
+                    autoplay: true,
+                    centerMode: true,
+                    infinite: true,
+                    centerPadding: '80px',
+                    slidesToShow: 3,
+                    speed: 500,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '55px',
+                                slidesToShow: 3
+                            }
+                        },
+                        {
+                            breakpoint: 370,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '55px',
+                                slidesToShow: 1
+                            }
+                        }
+                    ]
+                });
+        });
+</script>

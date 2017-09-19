@@ -1,0 +1,28 @@
+﻿@model Colony.CMS.Areas.CRM.Models.AddressViewModel
+@{
+    Html.SetTitle("Address Book - Edit Address");
+}
+
+@Html.Partial("AccountMenu", "SavedAddresses")
+
+
+<div id="content" class="">
+    <h1>Edit address</h1>
+
+    <div class="contentForm">
+        @using (Html.BeginForm("EditAddress", "AccountArea", new {area = "AccountArea", addressId = @Model.AddressId}, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>Add a new address</legend>
+                @{
+                    Html.RenderPartial("~/Views/Address/_Address.cshtml", Model, new ViewDataDictionary {{"ShowPersonDetails", true}, {"ShowAddressName", false}});
+                }
+
+                <div class="field formControls">
+                    <button class="button">Save Address</button>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>

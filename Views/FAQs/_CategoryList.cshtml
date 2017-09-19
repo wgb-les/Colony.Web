@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Colony.Modules.FAQs.Models.FAQCategory>
+
+@if (Model.Any())
+{
+    <section class="categorySection faqs">
+        <h2>Categories</h2>
+        <ul class="categoryList">
+            @foreach (var category in Model)
+            {
+                <li>
+                    <article>
+                        <a href="/faqs/@category.Uri" class="thumbnail">
+                            <img src="@(category.ImageAssetId.HasValue ? Url.ImageUrl(category.ImageAssetId, "FAQs", "CategoryThumbnail") : "/_images/placeholders/moduleList.jpg")" alt="@category.Name"/>
+                        </a>
+                        <div class="details">
+                            <h3>
+                                <a href="/faqs/@category.Uri">@category.Name</a>
+                            </h3>
+                            <p>@category.ShortDescription</p>
+                        </div>
+                    </article>
+                </li>
+            }
+        </ul>
+    </section>
+}

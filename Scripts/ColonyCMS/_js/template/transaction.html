@@ -1,0 +1,233 @@
+﻿<table class="transactionHeader">
+    <thead>
+        <tr>
+            <th colspan="2">
+                Transaction Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Order Number</th>
+            <td><%= value.orderNumber %></td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td><%= new Date(value.lastModified).format('dd/MM/yyyy hh:mm') %></td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td><% if (value.transactionStatusId == 1) print('Awaiting Payment'); else if (value.transactionStatusId == 2) print('Card Refused'); else if (value.transactionStatusId == 3) print('Payment Complete'); else if (value.transactionStatusId == 4) print('Received'); else if (value.transactionStatusId == 5) print('On Hold'); else if (value.transactionStatusId == 6) print('Cancelled'); else if (value.transactionStatusId == 7) print('Being Picked'); else if (value.transactionStatusId == 8) print('Dispatched'); else if (value.transactionStatusId == 9) print('3D Secure Not Enrolled');%></td>
+        </tr>
+        <tr>
+            <th>Transaction Type</th>
+            <td><% if (value.transactionTypeId == 1) print('Shop Purchase'); else if (value.transactionTypeId == 2) print('Return'); %></td>
+        </tr>
+        <tr>
+            <th>Payment Method</th>
+            <td><% if (value.paymentMethodId == 1) print('Not Selected'); else if (value.paymentMethodId == 3) print('Datacash Card Payment'); else if (value.paymentMethodId == 5) print('Datacash PayPal payment'); else if (value.paymentMethodId == 7) print('PayPal Payment');%></td>
+        </tr>
+        <tr>
+            <th>Total (Inc. VAT)</th>
+            <td><%= Number(value.amountInc).toFixed(2)%></td>
+        </tr>
+        <tr>
+            <th>Total (Ex. VAT)</th>
+            <td><%= Number(value.amountEx).toFixed(2)%></td>
+        </tr>
+        <tr>
+            <th>VAT</th>
+            <td><%= Number(value.vat).toFixed(2)%></td>
+        </tr>
+    </tbody>
+</table>
+<% if (value.billingAddress) { %>
+<table class="transactionBillingAddress">
+    <thead>
+        <tr>
+            <th colspan="2">
+                Billing Address
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Address Description</th>
+            <td><%=value.billingAddress.description%></td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td><%=value.billingAddress.firstName%></td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td><%=value.billingAddress.lastName%></td>
+        </tr>
+        <tr>
+            <th>Line 1</th>
+            <td><%=value.billingAddress.line1%></td>
+        </tr>
+        <tr>
+            <th>Line 2</th>
+            <td><%=value.billingAddress.line2%></td>
+        </tr>
+        <tr>
+            <th>Town</th>
+            <td><%=value.billingAddress.town%></td>
+        </tr>
+        <tr>
+            <th>County</th>
+            <td><%=value.billingAddress.county%></td>
+        </tr>
+        <tr>
+            <th>Postcode</th>
+            <td><%=value.billingAddress.postcode%></td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td><%=value.billingAddress.country.name%></td>
+        </tr>
+    </tbody>
+</table>
+<% } %>
+<% if (value.deliveryAddress) { %>
+<table class="transactionDeliveryAddress">
+    <thead>
+        <tr>
+            <th colspan="2">
+                Delivery Address
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Address Description</th>
+            <td><%=value.deliveryAddress.description%></td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td><%=value.deliveryAddress.firstName%></td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td><%=value.deliveryAddress.lastName%></td>
+        </tr>
+        <tr>
+            <th>Line 1</th>
+            <td><%=value.deliveryAddress.line1%></td>
+        </tr>
+        <tr>
+            <th>Line 2</th>
+            <td><%=value.deliveryAddress.line2%></td>
+        </tr>
+        <tr>
+            <th>Town</th>
+            <td><%=value.deliveryAddress.town%></td>
+        </tr>
+        <tr>
+            <th>County</th>
+            <td><%=value.deliveryAddress.county%></td>
+        </tr>
+        <tr>
+            <th>Postcode</th>
+            <td><%=value.deliveryAddress.postcode%></td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td><%=value.deliveryAddress.country.name%></td>
+        </tr>
+    </tbody>
+</table>
+<% } %>
+
+<% if (value.checkout && value.checkout.basket && value.checkout.basket.lines && value.checkout.basket.lines.length > 0) { %>
+<h2>Basket Details</h2>
+<table class="transactionBasketDetails">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% _.each(value.checkout.basket.lines, function(item) { %>
+        <tr>
+            <td><%=item.sku.code%></td>
+            <td><%=item.sku.name%></td>
+            <td><%=item.quantity%></td>
+            <td><%=Number(item.priceInc).toFixed(2)%></td>
+            <td><%=Number(item.totalInc).toFixed(2)%></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+<table class="transactionBasketSummary">
+    <thead>
+
+    </thead>
+    <tbody>
+        <tr>
+            <th>Basket Total</th>
+            <td><%=Number(value.checkout.basket.totalInc).toFixed(2)%></td>
+        </tr>
+        <tr>
+            <th>Delivery</th>
+            <td><%=Number(value.deliveryCost).toFixed(2)%></td>
+        </tr>
+        <tr>
+            <th>Discounts</th>
+            <td>0.00</td>
+        </tr>
+        
+        <tr>
+            <th>Grand Total</th>
+            <td><%=Number(value.amountInc).toFixed(2)%></td>
+        </tr>
+    </tbody>
+</table>
+<div class="clear"></div>
+<% } %>
+
+<% if (value.additionalInfo) { %>
+    <table class="transactionAdditionalInfo">
+        <thead>
+            <tr>
+                <th colspan="2">Additional Information</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var prop in value.additionalInfo) { %>
+            <tr>
+                <th><%=prop%></th>
+                <td><%=$('<div/>').text(value.additionalInfo[prop] || '').html() %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+<% } %>
+
+<div class="clear"></div>
+<style type="text/css">
+    .transactionHeader,.transactionBillingAddress,.transactionDeliveryAddress
+    {
+        width: 30%;
+        display: inline-block;
+        margin-right: 3%;
+    }
+    .transactionBasketDetails
+    {
+        width: 100%;
+    }
+    .transactionBasketSummary
+    {
+        float: right;
+        width: 25%;
+    }
+    .transactionAdditionalInfo
+    {
+        width: 50%;
+    }
+</style>

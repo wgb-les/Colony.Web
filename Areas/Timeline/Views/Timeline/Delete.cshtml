@@ -1,0 +1,17 @@
+﻿@model Colony.Modules.Timeline.Models.TimelineItem
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div id="content">
+    <div class="alertInfo message">
+        <strong class="icon">Message:</strong>
+        <p>
+            Are you sure you want to delete <strong>@Model.Name</strong>? This cannot be undone.
+        </p>
+    </div>
+    <div class="pageOptions">
+        <a href="@Url.Action("Index")" class="button">Cancel</a>
+        <a href="@Url.Action("Delete", new {timelineItemId = Model.Id, confirmed = true})" class="button">Delete</a>
+    </div>
+</div>

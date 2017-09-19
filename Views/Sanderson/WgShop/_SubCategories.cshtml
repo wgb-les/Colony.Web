@@ -1,0 +1,42 @@
+﻿@using Colony.Commerce.Areas.Shops.Models
+@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+
+@{
+    IList<CategoryViewModel> subCategories = new List<CategoryViewModel>();
+
+    //if (Colony.CMS.ColonyContext.Current.Response.UrlExtension == "new-collections")
+    //{
+    //    var newCollectionIds = new long[] { 16332, 16334, 7390, 7386, 7388, 7380, 7384, 7324, 7334, 7320 };
+    //    foreach (var collectionId in newCollectionIds)
+    //    {
+    //        subCategories.Add(Model.SubCategories.FirstOrDefault(x => x.CategoryId == collectionId));
+    //    }
+    //}
+    //else
+    //{
+    subCategories = Model.SubCategories;
+    //}
+}
+
+@foreach (var item in subCategories)
+{
+    if (item != null)
+    {
+        var collectionImageUrl = @"/_images/placeholders/categoryList.jpg";
+        if (item.ImageAssetId.HasValue)
+        {
+            collectionImageUrl = Url.ImageUrl(item.ImageAssetId, "Shop", "ProductCategoryThumbnail", @"/_images/placeholders/categoryList.jpg");
+        }
+
+        <div class="item" data-quick-view-id="category_@(item.CategoryId)">
+            <a href="/shop/@(item.Url)">
+                <img src="@collectionImageUrl" alt="@item.Name"/>
+                <h3 class="itemTitle">@item.Name</h3>
+                @if (item.IsNew)
+                {
+                    <span class="itemNew">New</span>
+                }
+            </a>
+        </div>
+    }
+}

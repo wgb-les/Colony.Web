@@ -1,0 +1,49 @@
+﻿@model IList<WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookProductViewModel>
+
+@if (Model.Any(t => int.Parse(t.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0))
+{
+    <header class="header-reveal-modal">
+        <h2>Order Samples</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+
+        <h2 class="pull-left">Which samples do you require?</h2>
+        <a class="button pull-right AddToBasket">Add to Basket</a>
+        <div class="clear"></div>
+
+        <p>
+            You can order a <b>maximum of @ViewBag.MaxProductsAllowedInBasket samples</b>. You have <b>@(ViewBag.BasketItemCount ?? 0) sample(s) in your basket</b>
+        </p>
+
+        <div class="alertInfo error" id="noItemsSelected" style="display: none;">
+            Please select 1 or more products to add to the basket.
+        </div>
+
+        <div class="alertInfo error" id="basketErrors" style="display: none;">
+        </div>
+
+        <hr>
+
+        <div class="selectSamples">
+            <input type="checkbox" name="selectAllProducts" id="selectAllProducts">
+            <label for="selectAllProducts">
+                <span>Select all @Model.Count(t => int.Parse(t.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0) sample(s)</span>
+            </label>
+        </div>
+
+        <div class="productList no-quick-view">
+            @foreach (var item in Model.Where(x => x.Product != null && (int.Parse(x.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0)))
+            {
+                Html.RenderPartial("_Product", item);
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div>
+        <p>There are no sampleable products on your moodboard at this time.</p>
+    </div>
+}

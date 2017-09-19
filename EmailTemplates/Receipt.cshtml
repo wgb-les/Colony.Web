@@ -1,0 +1,409 @@
+@using Colony.Util.Web
+
+@model Colony.Commerce.Areas.OnlinePayments.ViewModels.EmailReceiptViewModel
+@{
+    setStyles();
+}
+@functions {
+    string email_bodyBackground = "#fff";
+    string email_background = "#fff";
+    string email_footerBackground = "#5b6e52";
+    string email_boxBackground = "#f7f7f7";
+    string email_border = "1px solid #cccccc";
+
+    string email_fontFamily = "Arial,Helvetica,sans-serif";
+    string email_headerColor = "#000";
+    string email_linkColor = "#111";
+    string email_fontColor = "#000";
+    string email_footerColor = "#e6e6e6";
+    string email_footerLinks = "#666";
+
+    string email_sizeHeader = "18px";
+    string email_sizeSubhead = "14px";
+    string email_sizeNormal = "12px";
+    string email_sizeSmall = "11px";
+
+    void setStyles()
+    {
+        if (Model.Site.SiteKey == "Harlequin")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Sanderson")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+        }
+        else if (Model.Site.SiteKey == "Morris")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#5b6e52";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#000";
+            email_linkColor = "#111";
+            email_fontColor = "#000";
+            email_footerColor = "#e6e6e6";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Zoffany")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#555";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#bfbfbf";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Scion")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#666";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey.ToLower() == "contracts")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#555";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#bfbfbf";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+        else if (Model.Site.SiteKey == "Anthology")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#555";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#bfbfbf";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+        }
+    }
+
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>@Model.Site.Name Order Receipt</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+</head>
+<body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" bgcolor="@email_bodyBackground">
+    <table cellspacing="0" border="0" style="background: @email_bodyBackground;" cellpadding="0" width="100%">
+        <tr>
+            <td>
+                <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="background: @email_background; margin-bottom: 20px; margin-top: 20px;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td style="border-left: @email_border; border-right: @email_border; border-top: @email_border;">
+                                        <img style="border: none; display: block;" src="@UriExtensions.AbsoluteUrl("/_images/email/" + Model.Site.SiteKey)/header.gif" border="0" height="110" width="548" alt="@Model.Site.Name" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    @*@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + Model.Site.Name + "/header.gif")*@
+                    <!-- Top Content -->
+                    <tr>
+                        <td style="border-left: @email_border; border-right: @email_border;">
+                            <table width="508" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td style="padding: 30px 0 20px 0;">
+                                        <h1 style="color: @email_headerColor !important; font-family: @email_fontFamily; font-size: @email_sizeHeader; font-weight: normal; margin: 0; padding: 0;">Thank you for your order. Please find your order details below.</h1>
+                                        <h2 style="color: @email_fontColor !important; font-family: @email_fontFamily; font-size: @email_sizeSubhead; font-weight: normal; margin: 3px 0 0 0; padding: 0;">Order @Model.Order.OrderNumber</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 0 15px 0;">
+                                        <h2 style="color: @email_fontColor !important; font-family: @email_fontFamily; font-size: @email_sizeSubhead; font-weight: normal; margin: 0; padding: 0;">Basket Summary</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="color: @email_fontColor; font-family: @email_fontFamily; font-size: @email_sizeNormal;" width="510" cellpadding="0" border="0" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th align="left" style="padding-bottom: 10px;">Product Name</th>
+                                                    <th align="left" style="padding-bottom: 10px;">Code</th>
+                                                    <th align="center" style="padding-bottom: 10px;">Quantity</th>
+                                                    <th align="left" style="padding-bottom: 10px;">Price</th>
+                                                    <th align="right" style="padding-bottom: 10px;">Totals</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="vertical-align: top;">
+                                                @foreach (var line in Model.Order.Basket.BasketLines)
+                                                {
+                                                    <tr>
+                                                        <td style="padding-bottom: 5px;">@line.Product.Name</td>
+                                                        <td style="padding-bottom: 5px;">@line.Sku.Code</td>
+                                                        <td align="center" style="padding-bottom: 5px;">@line.Quantity</td>
+                                                        <td style="padding-bottom: 5px">&pound;@line.UnitPriceInc.ToString("#0.00")</td>
+                                                        <td align="right" style="padding-bottom: 5px;">&pound;@line.TotalInc.ToString("#0.00")</td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td style="border-top: @email_border; padding: 15px 0 5px 0;">&nbsp;</td>
+                                                    <td colspan="3" style="border-top: @email_border; padding: 15px 0 5px 0;">&nbsp;</td>
+                                                    <td align="right" style="border-top: @email_border; padding: 15px 0 5px 0;">&pound;@Model.Order.Basket.TotalInc.ToString("#0.00")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">&nbsp;</td>
+                                                    <td style="padding-bottom: 5px;">&nbsp;</td>
+                                                    <td colspan="2" style="padding-bottom: 5px;">Delivery</td>
+                                                    <td align="right" style="padding-bottom: 5px;">&pound;@Model.Order.Basket.DeliveryCost.ToString("#0.00")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 20px;">&nbsp;</td>
+                                                    <td style="padding-bottom: 20px;">&nbsp;</td>
+                                                    <td colspan="2" style="font-weight: bold; padding-bottom: 20px;">TOTAL</td>
+                                                    <td align="right" style="font-weight: bold; padding-bottom: 20px;">&pound;@((Model.Order.Basket.TotalInc + Model.Order.Basket.DeliveryCost).ToString("#0.00"))</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Bottom Content -->
+                    <tr>
+                        <td style="border-left: @email_border; border-right: @email_border; padding: 0 0 30px 0;">
+                            <table width="506" cellspacing="0" border="0" cellpadding="20" align="center" style="background: @email_boxBackground; border: @email_border;">
+                                <tr>
+                                    @if (Model.Order.SelectedStockist == null && Model.Order.BillingAddress != null)
+                                    {
+                                        <td>
+                                            <table width="213" cellspacing="0" border="0" cellpadding="0" align="left" style="color: @email_fontColor; font-family: @email_fontFamily; font-size: @email_sizeSmall;">
+                                                <tr>
+                                                    <td style="padding-bottom: 10px;">
+                                                        <span style="font-size: @email_sizeNormal; font-weight: bold;">Billing Address</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">
+                                                        <span style="font-weight: bold;">Name</span><br />
+                                                        @Model.Order.BillingAddress.FirstName @Model.Order.BillingAddress.LastName
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">
+                                                        <span style="font-weight: bold;">Address</span><br />
+                                                        @System.Web.Mvc.Html.HtmlHelpers.FormatAddress(Model.Order.BillingAddress, System.Web.Mvc.Html.HtmlHelpers.FormatAddressStyle.SingleLine)
+                                                    </td>
+                                                </tr>
+                                                @if (!string.IsNullOrWhiteSpace(Model.Order.BillingAddress.TelephoneNumber))
+                                                {
+                                                    <tr>
+                                                        <td style="padding-bottom: 5px;">
+                                                            <span style="font-weight: bold;">Telephone</span><br />
+                                                            @Model.Order.BillingAddress.TelephoneNumber
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </td>
+                                    }
+                                    @if (Model.Order.SelectedStockist != null)
+                                    {
+                                        <td>
+                                            <table width="213" cellspacing="0" border="0" cellpadding="0" align="left" style="color: @email_fontColor; font-family: @email_fontFamily; font-size: @email_sizeSmall;">
+                                                <tr>
+                                                    <td style="padding-bottom: 10px;">
+                                                        <span style="font-size: @email_sizeNormal; font-weight: bold;">Delivery Address</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">
+                                                        <span style="font-weight: bold;">Stockist</span><br />
+                                                        @Model.Order.SelectedStockist.Name
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">
+                                                        <span style="font-weight: bold;">Address</span><br />
+                                                        @System.Web.Mvc.Html.HtmlHelpers.FormatAddress(Model.Order.SelectedStockist.Address1, Model.Order.SelectedStockist.Town, Model.Order.SelectedStockist.County, Model.Order.SelectedStockist.Postcode, System.Web.Mvc.Html.HtmlHelpers.FormatAddressStyle.SingleLine, Model.Order.SelectedStockist.Address2)
+                                                    </td>
+                                                </tr>
+                                                @if (!string.IsNullOrWhiteSpace(Model.Order.SelectedStockist.TelephoneNumber))
+                                                {
+                                                    <tr>
+                                                        <td style="padding-bottom: 5px;">
+                                                            <span style="font-weight: bold;">Telephone</span><br />
+                                                            @Model.Order.SelectedStockist.TelephoneNumber
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <table width="213" cellspacing="0" border="0" cellpadding="0" align="left" style="color: @email_fontColor; font-family: @email_fontFamily; font-size: @email_sizeSmall;">
+                                                <tr>
+                                                    <td style="padding-bottom: 10px;">
+                                                        <span style="font-size: @email_sizeNormal; font-weight: bold;">Delivery Address</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">
+                                                        <span style="font-weight: bold;">Name</span><br />
+                                                        @Model.Order.DeliveryAddress.FirstName @Model.Order.DeliveryAddress.LastName
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 5px;">
+                                                        <span style="font-weight: bold;">Address</span><br />
+                                                        @System.Web.Mvc.Html.HtmlHelpers.FormatAddress(Model.Order.DeliveryAddress, System.Web.Mvc.Html.HtmlHelpers.FormatAddressStyle.SingleLine)
+                                                    </td>
+                                                </tr>
+                                                @if (!string.IsNullOrWhiteSpace(Model.Order.DeliveryAddress.TelephoneNumber))
+                                                {
+                                                    <tr>
+                                                        <td style="padding-bottom: 5px;">
+                                                            <span style="font-weight: bold;">Telephone</span><br />
+                                                            @Model.Order.DeliveryAddress.TelephoneNumber
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="background: @email_footerBackground; color: @email_footerColor; font-family: @email_fontFamily; font-size: @email_sizeSmall;">
+                                <tr>
+                                    <td style="padding: 15px 20px;" align="center">
+                                        Please note this Order Confirmation email is acknowledgement that we have received your order and does not confirm acceptance of your offer to buy the Good(s) ordered. We only accept your offer and conclude the contract of sale for a product ordered by you when we dispatch the Goods.
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="0" align="center" style="background: @email_footerBackground; color: @email_footerColor; font-family: @email_fontFamily; font-size: @email_sizeSmall;">
+                                <tr>
+                                    <td style="padding: 15px 20px;" align="center">
+                                        &copy; @Model.Site.Name. All Rights Reserved @DateTime.UtcNow.Year
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="550" cellspacing="0" border="0" cellpadding="10" align="center" style="background: @email_bodyBackground; font-family: @email_fontFamily; font-size: @email_sizeSmall;">
+                                <tr>
+                                    <td align="left">
+                                        <a href="@UriExtensions.AbsoluteUrl("/return/")" style="color: @email_footerLinks;">Returns policy</a>
+                                    </td>
+                                    <td align="right">
+                                        <a href="@UriExtensions.AbsoluteUrl("/privacy-policy/")" style="color: @email_footerLinks;">Privacy policy</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

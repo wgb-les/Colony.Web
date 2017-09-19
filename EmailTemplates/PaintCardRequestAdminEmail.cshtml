@@ -1,0 +1,55 @@
+@using Colony.CMS
+@model Colony.Web.Areas.Shop.Models.OrderPaintCardViewModel
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>@ColonyContext.Current.CurrentSite.Name - Paint Card Request</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>A user has requested a Paint Card.</h2>
+
+<table>
+    <tbody>
+        <tr>
+            <td style="font-weight: bold">Name</td>
+            <td>@Model.Address.Title @Model.Address.FirstName @Model.Address.LastName</td>
+        </tr>
+        @if (!string.IsNullOrWhiteSpace(Model.SelectedBrand))
+        {
+            <tr>
+                <td style="font-weight: bold;">Brand(s) Required</td>
+                <td>@Model.SelectedBrand.Replace("|", " and ")</td>
+            </tr>            
+        }
+
+        <tr>
+            <td style="font-weight: bold">E-mail</td>
+            <td>@Model.Person.Email</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; vertical-align: top">Address</td>
+            <td>
+                @Model.Address.Line1
+                <p>@Model.Address.Line2</p>
+                <p>@Model.Address.Town</p>
+                <p>@Model.Address.County</p>
+                <p>@Model.Address.Postcode</p>
+                <p>@Model.Address.CountryName</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Phone</td>
+            <td>@Model.Person.PhoneNumber</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Site</td>
+            <td>@ColonyContext.Current.CurrentSite.Name</td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

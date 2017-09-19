@@ -1,0 +1,8 @@
+<%_.each(mapping, function (i) { %>
+<td><%=i.source%></td>
+<%});%>
+<td class="datatable-actions">
+<%_.each(actions, function (i) {%>
+<a href="<%=i.url%>" class="icon-large no-text icon-<%=i.icon%>"><span><%=i.name%></span></a>
+<%});%>
+</td>

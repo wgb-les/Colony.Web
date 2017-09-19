@@ -1,0 +1,60 @@
+﻿
+@{
+    bool iscushionsListing = false;
+
+    if (Colony.CMS.ColonyContext.Current.Response.UrlExtension == null)
+    {
+        if (Colony.CMS.ColonyContext.Current.Response.UrlParts.Count > 1)
+        {
+            if (Colony.CMS.ColonyContext.Current.Response.UrlParts[1] == "cushions")
+            {
+                iscushionsListing = true;
+            }
+        }
+    }
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10" lang="en"><![endif]-->
+<!--[if gt IE 10]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    @{Html.RenderPartial("_Head.cshtml");}
+</head>
+
+@if (iscushionsListing)
+{
+    <body class="sandersonSite searchTemplate">
+        @{ Html.RenderPartial("_Header.cshtml", "Scion");}
+
+        @*<div id="content">*@
+        @RenderBody()
+        @*</div>*@
+
+        @Html.Partial("_Footer.cshtml")
+        @*@RenderSection("scripts", required: false)*@
+    </body>
+}
+else
+{
+    <body class="sandersonSite productPage">
+        @{Html.RenderPartial("_Header.cshtml", "Scion");}
+        <div class="notification" class="">
+            <h2 class="icon-shopping-cart">&nbsp;Item Added to Basket</h2>
+        </div>
+        <div id="container">
+            @{ Html.RenderPartial("_Breadcrumbs.cshtml");}
+            @*<div id="content">*@
+            @RenderBody()
+            @*</div>*@
+        </div>
+        @Html.Partial("_Footer.cshtml")
+        @*@RenderSection("scripts", required: false)*@
+    </body>
+}
+</html>

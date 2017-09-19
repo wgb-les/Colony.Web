@@ -1,0 +1,313 @@
+﻿@using Colony.CMS
+@using Colony.CMS.Security.Helpers
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageZoomUrl = defaultImageZoom != null ? @Url.ImageUrl(defaultImageZoom.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+    var currentPrice = Model.Price.PriceInc.AsDecimal(0).ToString("#0.00");
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageUrl).AbsoluteUri;
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+    var PatternMatchDescription = Model.Attributes.ContainsKey("Pattern Match Description") ? Model.Attributes["Pattern Match Description"] : "";
+    var brand = (Model.Attributes.GetValueOrNull("Brand") ?? "").Replace("&amp;", "&");
+    var DescriptiveColour = Model.Attributes.ContainsKey("Descriptive Colour") ? Model.Attributes["Descriptive Colour"] : "";
+    var ProductGroup = Model.Attributes.ContainsKey("Product Group") ? Model.Attributes["Product Group"] : "";
+    var isSampleable = int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0;
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+<div class="pageContainer mobileNoPad">
+<div class="detailImageContainer">
+    <div class="sliderContainer">
+        <div class="slider">
+            @if (Model.Images.Any())
+            {
+                var canvasId = 0;
+                foreach (var image in Model.Images)
+                {
+                    canvasId++;
+
+                    var imageUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg");
+                    var imageZoomUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg");
+                    var imageThumbnailUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+
+                    <div class="sliderSlide">
+                        <span class="zoom" id="ex1" style="position: relative; overflow: hidden;">
+                <img id="zoom@(image.ImageAssetID)" class="mainZoom no-drag lazyload" src="@imageZoomUrl" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name" data-url="@Request.Url.AbsoluteUri" data-productimage="@imageThumbnailUrl" data-skuid="@Model.SelectedSku.Id" />
+                <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA111058_zoom.jpg" class="zoomImg" style="position: absolute; top: -128.053px; left: -211.68px; opacity: 0; width: 1110px; height: 640px; border: none; max-width: none; max-height: none;">
+              </span>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <!-- <div class="complementaryContainer">
+        <h2>Complete the Look</h2>
+        <div class="product threeWide">
+            <div class="love"></div>
+            <img class="flatShot" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA120350_zoom.jpg" alt="">
+            <h4>Amazilia</h4>
+            <div class="price">&pound; 69.99</div>
+            <div class="sku">HAMA120350</div>
+            <div class="colourSku">Flamingo, Papaya and Apple</div>
+            <div class="category">Fabric</div>
+        </div>
+        <div class="product threeWide">
+            <div class="love"></div>
+            <img class="flatShot cushionProduct" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150667D_zoom.jpg" alt="">
+            <h4>Amazilia Cushion</h4>
+            <div class="price">&pound; 80.00</div>
+            <div class="sku">HAMA150667</div>
+            <div class="colourSku">Papaya and Apple</div>
+            <div class="category">Cushion</div>
+        </div>
+        <div class="product threeWide">
+            <div class="love"></div>
+            <img class="flatShot" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA120331_zoom.jpg" alt="">
+            <h4>Nalina</h4>
+            <div class="price">&pound; 54.99</div>
+            <div class="sku">HAMA120331</div>
+            <div class="colourSku">Flamingo, Papaya and Loganberry</div>
+            <div class="category">Fabric</div>
+        </div>
+    </div> -->
+</div>
+<div class="detailInfoContainer">
+    <div class="detailTitleContainer">
+        <div class="brandLogo">
+            <img src="/_images/logos/global-nav/harlequin.png" alt="">
+        </div>
+        <div class="detailActions">
+            <button class="subtleButton share padIcon" data-reveal-id="share">Share</button>
+            <button class="subtleButton favourite padIcon">Add</button>
+        </div>
+        <h1>@Model.Product.Name</h1>
+        <h3>@Model.Category.Name</h3>
+        <h3>@(Model.Attributes.GetValueOrNull("Design Code") ?? Model.SelectedSku.Code)</h3>
+    </div>
+    <div class="detailIntroContainer">
+        @Html.Raw(Model.SelectedSku.LongDescription)
+        <p>This is a wide width wallcovering - one roll will cover an area of 5.89sqm (74.16sqft)</p>
+    </div>
+    @if (Model.Skus.Any())
+    {
+        <div class="otherColours">
+            @foreach (var item in Model.Skus.Select((model, index) => new {index, model}))
+            {
+                var defaultItemImage = item.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+                var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+                <a href="?code=@item.model.Sku.Code">
+                    <div class="colourWay @if (Model.SelectedSku.Id == item.model.Sku.Id)
+                                          {<text>active</text>}">
+                        <img src="@defaultItemImageUrl" alt="@item.model.Sku.Name" data-productcode="@item.model.Sku.Code" data-productname="@item.model.Sku.Name" data-skuid="@item.model.Sku.Id" @if (defaultImage != null)
+                                                                                                                                                                                                   {<text>data-imageAssetId="@defaultImage.ImageAssetID"</text>} data-productimage="@defaultItemImageUrl" data-skuid="@item.model.Sku.Id" data-url="@Request.Url.AbsolutePath?code=@item.model.Sku.Code" @if (isB2B)
+                                                                                                                                                                                                                                                                                                                                                                                                         {<text>data-isb2b="true"</text>}/>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+    <div class="detailPriceContainer">
+        <p class="priceValue">SSP</p>
+        <p class="priceValue oldPrice">&pound; 69.99R</p>
+        <p class="priceValue salePrice">&pound; 49.99R</p>
+    </div>
+    <!-- <div class="productBuyingSection">
+        <button class="primaryButton wideButton basket padIcon">Order Sample</button>
+    </div> -->
+    <h3 class="productPageHeading">Buying Options</h3>
+    <div class="productBuyingSection">
+        <div class="productOptionContainer">
+            <div class="productOption">
+                <div class="activeOption check"></div>
+                <div class="productOptionDetails">
+                    <h3>@Model.Product.Name @(Model.Attributes.GetValueOrNull("Design Code") ?? Model.SelectedSku.Code)</h3>
+                    <span>50cm x 50cm Sample of Wallpaper</span>
+                </div>
+                <div class="optionQuantityContainer">
+                    <div class="minus toggleQuantity"></div>
+                    <input type="text" value="0">
+                    <div class="plus toggleQuantity"></div>
+                </div>
+                <div class="productOptionPrice">
+                    <h3>&pound;0.00</h3>
+                </div>
+            </div>
+            <div class="productOption active">
+                <div class="activeOption check"></div>
+                <div class="productOptionDetails">
+                    <h3>@Model.Product.Name @(Model.Attributes.GetValueOrNull("Design Code") ?? Model.SelectedSku.Code)</h3>
+                    <span>A4 Sample of Wallpaper</span>
+                </div>
+                <div class="optionQuantityContainer">
+                    <div class="minus toggleQuantity"></div>
+                    <input type="text" value="2">
+                    <div class="plus toggleQuantity"></div>
+                </div>
+                <div class="productOptionPrice">
+                    <h3>&pound;0.99</h3>
+                </div>
+            </div>
+        </div>
+        <div class="buyingTotalContainer">
+            <span>Total inc VAT</span><h3>&pound;1.98</h3>
+        </div>
+        <button class="primaryButton wideButton basket padIcon">Add to Basket</button>
+    </div>
+    <h3 class="productPageHeading">More Information</h3>
+    <div class="moreInfoContainer">
+        <div class="moreInfoSection">
+            <div class="moreInfoTitle">
+                <p class="afterAngleDown">Product Details</p>
+            </div>
+            <div class="toggleContent">
+                <div class="specLine">
+                    <div class="specItem">Colour</div>
+                    <div class="specItem colourData">Flamingo</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Design Scale</div>
+                    <div class="specItem">Large</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Width</div>
+                    <div class="specItem">68.6cm (27.0)</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Vertcial Pattern Repeat</div>
+                    <div class="specItem">68.6cm (27.0)</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Match</div>
+                    <div class="specItem">Straight Match</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">FR Wallpaper</div>
+                    <div class="specItem">Meets EN15102 Class B-s1, d0 (Inherent)</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">FR Inherent</div>
+                    <div class="specItem">Meets EN15102 Class B-s1, d0 (Inherent) Inherent ASTM E84</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Other Info</div>
+                    <div class="specItem">This is a wide width wallcovering - one roll will cover an area of 6.89sqm (74.16sqft)</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Care Instructions</div>
+                    <div class="specItem">
+                        <div class="careIcon">
+                            <img src="images/icons/goodColourFast.png" alt="">
+                        </div>
+                        <div class="careIcon">
+                            <img src="images/icons/straightMatch.png" alt="">
+                        </div>
+                        <div class="careIcon">
+                            <img src="images/icons/washable.png" alt="">
+                        </div>
+                        <div class="careIcon">
+                            <img src="images/icons/pasteTheWall.png" alt="">
+                        </div>
+                        <div class="careKeyIndicator">
+                            Key
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="moreInfoSection">
+            <div class="moreInfoTitle">
+                <p class="afterAngleDown">Delivery</p>
+            </div>
+            <div class="toggleContent">
+                <div class="specLine">
+                    <div class="specItem">Standard Delivery</div>
+                    <div class="specItem colourData">&pound;3.95</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Express Delivery</div>
+                    <div class="specItem colourData">&pound;5.95</div>
+                </div>
+                <div class="specLine">
+                    <div class="specItem">Saturday Delivery</div>
+                    <div class="specItem colourData">&pound;9.95</div>
+                </div>
+            </div>
+        </div>
+        <div class="moreInfoSection">
+            <div class="moreInfoTitle">
+                <p class="afterAngleDown">How to Use</p>
+            </div>
+            <div class="toggleContent">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit voluptates saepe voluptatum repellat ducimus quam distinctio odio itaque odit quasi reiciendis asperiores hic minus, iusto aut! Quae ipsam, maxime dolores.</p>
+                <p>Velit voluptates saepe voluptatum repellat ducimus quam distinctio odio itaque odit quasi...</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<section id="share" class="reveal-modal large" style="height: auto;">
+    @{Html.RenderAction("Share", "Share", new { area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Name });}
+</section>
+<script type="text/javascript">
+    if (typeof dataLayer === 'undefined') {
+        console.error('GTM _ProductDetail: dataLayer not defined');
+    }
+    if (typeof dataLayer !== 'undefined') {
+        $(document)
+            .ready(function () {
+                dataLayer.push({
+                    'event': 'ga-ee',
+                    'eventAction': 'productDetail',
+                    'ecommerce': {
+                        'currencyCode': '@Model.RegionInfo.ISOCurrencySymbol',
+                        'detail': {
+                            'products': [
+                            {
+                                'name': '@Model.Product.Name',
+                                'id': '@Model.Name',
+                                'price': '0.00',
+                                'brand': '@Html.Raw(brand.Replace("&amp;", "&"))',
+                                'category': '@ProductGroup',
+                                'dimension2': '@DescriptiveColour',
+                                'dimension3': '@Model.Category.Name',
+                                'dimension4': '@PatternMatchDescription',
+                                'dimension5': '@((Model.SelectedSku.Width ?? 0).ToString("0.0"))'
+                            }
+                            ]
+                        }
+                    }
+                });
+                $('a.addToBasket')
+                    .on('click',
+                        function () {
+                            dataLayer.push({
+                                'event': 'ga-ee',
+                                'eventAction': 'addToBasket',
+                                'ecommerce': {
+                                    'currencyCode': '@Model.RegionInfo.ISOCurrencySymbol',
+                                    'add': {
+                                        'products': [
+                                        {
+                                            'name': '@Model.Product.Name',
+                                            'id': '@Model.Name',
+                                            'price': '@(isSampleable ? "0.00" : currentPrice)',
+                                            'brand': '@Html.Raw(brand)',
+                                            'category': '@ProductGroup',
+                                            'variant': '@(isSampleable ? "Sample" : "Product")',
+                                            'quantity': 1,
+                                            'dimension2': '@DescriptiveColour',
+                                            'dimension3': '@Model.Category.Name',
+                                            'dimension4': '@PatternMatchDescription',
+                                            'dimension5': '@((Model.SelectedSku.Width ?? 0).ToString("0.0"))'
+                                        }]
+                                    }
+                                }
+                            });
+                        });
+            });
+    }
+</script>

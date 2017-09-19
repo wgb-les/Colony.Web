@@ -1,0 +1,12 @@
+﻿@model Colony.Modules.Careers.Areas.Models.ListRootItemsViewModel
+
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+
+        <h1>Jobs</h1>
+        @{ Html.RenderPageSections(); }
+        @{ Html.RenderPartial("_CategoryList", Model.JobCategories); }
+        @{ Html.RenderPartial("_JobList", Model.Jobs); }
+    </div>
+</div>

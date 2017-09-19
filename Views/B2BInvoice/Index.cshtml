@@ -1,0 +1,33 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BInvoiceViewModel
+@{
+    ViewBag.Title = "Invoice Payment";
+}
+
+<div id="content" class="fullContent">
+    <header class="pageHeader">
+        <h1>Invoice Payment</h1>
+    </header>
+
+    <div class="boxSection checkoutPayment editable">
+        <div class="header">
+            <h2>Payment</h2>
+        </div>
+        <h3>Your current oustanding balance is @Model.Amount</h3>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                @Html.HiddenFor(t => t.Amount)
+                @Html.HiddenFor(t => t.OrderNumber)
+                @Html.HiddenFor(t => t.RedirectTo)
+                @Html.HiddenFor(t => t.TransactionId)
+                @Html.HiddenFor(t => t.CustomerReference)
+                @Html.Partial("~/Views/Address/_Address.cshtml", Model.Address)
+            </fieldset>
+            <div class="field formControls">
+                <button class="button checkout">
+                    <span>Continue to secure checkout</span></button>
+            </div>
+        }
+    </div>
+
+</div>

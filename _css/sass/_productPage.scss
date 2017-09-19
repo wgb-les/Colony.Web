@@ -1,0 +1,226 @@
+.sl-product-slider {
+    float: left;
+    width: 100%;
+    position: relative;
+
+    .sl-slider {
+        padding-bottom: 0;
+
+        .sl-slide {
+            padding-bottom: 0;
+        }
+    }
+}
+// Slider Thumbs
+.sl-product-thumbs {
+    width: 100%;
+    float: left;
+}
+
+@media screen and (max-width:414px) {
+  // Slider Thumbs
+  .sl-product-thumbs {
+      display: none;
+  }
+}
+
+// Shop the Look / Complementary / Also Brought
+.sl-product-items {
+    width: 100%;
+    float: left;
+
+    &.sl-ymal {
+        margin-top:12px;
+    }
+}
+.sl-items-container[data-value="productThumbs"] {
+    .sl-slide {
+        .sl-item-inner {
+            border: $border-base;
+            padding: 2px;
+        }
+    }
+
+    .sl-slide.slick-current {
+        .sl-item-inner {
+            border: $border-dark;
+        }
+    }
+}
+// Intro
+.sl-heading[data-value="productTitle"] {
+    //padding: $padding-base $padding-base 0;
+    padding: 10px 20px 10px 10px;
+    line-height:1.1em;
+}
+
+.sl-product-icons{
+  position: absolute;
+  right: 0px;
+  top: 10px;
+}
+
+.sl-icon{
+  float: left;
+  font-size: $h3;
+  padding: $padding-base;
+  cursor: pointer;
+}
+.sl-wishlist.sl-selected:before{
+  color: $red;
+}
+// temp hide wishlist icon
+.sl-wishlist {
+    visibility: hidden;
+}
+.sl-heading[data-value="productCategory"] {
+    padding: 0 $padding-base $padding-base;
+}
+
+.sl-heading[data-value="productSKU"] {
+    float: right;
+    text-align: right;
+}
+// Other Colours
+.sl-items-container[data-value="otherColours"] {
+    .sl-item {
+        .sl-item-inner {
+            padding: 2px;
+            border: $border-base;
+        }
+
+        .sl-active,
+        .sl-item-inner:hover {
+            border: $border-dark;
+        }
+    }
+
+    .sl-item:nth-child(n+11) {
+        display: none;
+    }
+}
+@media screen and (max-width:414px) {
+    // Other Colours
+    .sl-items-container[data-value="otherColours"] {
+        .sl-item:nth-child(n+7) {
+            display: none;
+        }
+    }
+}
+//Price SQM
+.sl-copy[data-value="productRRPSQM"] {
+    font-weight: $weight-base;
+
+    span {
+        font-size: $font-tiny;
+        position: relative;
+        top: -5px;
+        color: inherit;
+    }
+}
+// Product Options
+.sl-product-buttons {
+    float: right;
+}
+.sl-product-buttons.sl-right {
+    float: right;
+}
+@media screen and (max-width:414px) {
+    // Product Options
+    .sl-product-buttons {
+        width: 100%;
+        float: left;
+
+        .sl-button {
+            width: 100%;
+        }
+    }
+}
+.sl-options-container {
+    .sl-option {
+        .sl-option-inner {
+            .sl-field-group {
+
+                .sl-field[data-b2bfetch="complete"]:first-child {
+                    padding:0px 0px 0px 0px;
+                }
+
+                .sl-field[data-value="productStock"] {
+                    .sl-text {
+                        color: $green;
+                    }
+                }
+
+                .sl-field[data-value="productPrice"] {
+                    .sl-text {
+                        color: $red;
+                    }
+                }
+            }
+        } 
+    }
+    .furniture-option:nth-child(-n+6){
+      display: block !important;
+    }
+    .furniture-option:nth-child(n+6){
+      display: none;
+    }
+}
+
+
+
+.furniture-option .sl-option-inner .sl-field-group.sl-right {
+   float:right;
+}
+
+
+.sl-text[data-value="productRRP"].disabled {
+    opacity: $opacity-base;
+    text-decoration: line-through;
+}
+
+.sl-text[data-value="productSale"] {
+    color: $red;
+}
+
+.accessMessage {
+    display: none;
+    }
+
+
+// Product Options Counter & Total
+.sl-product-total {
+    float: left;
+    width: 100%;
+}
+// Tab Section details
+.sl-tab-slider {
+    float: left;
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
+.sl-share-container{
+  width: 100%;
+  float: left;
+
+}
+
+// Share
+.sl-icon-list{
+  .sl-icon{
+    .sl-icon-inner[data-value="shareTwitter"]{
+      background: $twitter;
+    }
+    .sl-icon-inner[data-value="shareFacebook"]{
+      background: $facebook;
+    }
+    .sl-icon-inner[data-value="sharePinterest"]{
+      background: $pinterest;
+    }
+    .sl-icon-inner[data-value="shareEmail"]{
+      background: $dark-2
+    }
+  }
+}

@@ -1,0 +1,30 @@
+The UI pattern library has been created for and is now included within the Style Library project and is under TFS cource control.
+
+What is a pattern library?
+
+
+A UI pattern library provides:
+
+- a code reference for commonly used UI elements to ensure consistency by developers
+
+- a visual reference library for designers
+
+- it assists testing and rapid protyping by providing a single page visual representation of common UI elements during development sprints (since it makes use of the site's current stylesheets).
+
+
+Where is it?
+--------------
+
+The pattern library is currently only visible from within your local project but will be on dev with the next deploy. 
+
+The Pattern Library may be accessed via the url suffix ~/style-guide/ e.g. http://stylelibrary.colonynext.co.uk/style-guide/ 
+
+The pattern library is built on PHP, so to view on your local machine you will need to install PHP via https://www.microsoft.com/web/downloads/platform.aspx.
+
+
+How is it used?
+------------------
+
+If you construct markup please refer to the pattern library for consistency.
+
+If you modify or create new UI elements please add them to the pattern library. To add a ui element to the pattern library create a suitably named code pattern .html file within ~/style-guide/markup/patterns/.

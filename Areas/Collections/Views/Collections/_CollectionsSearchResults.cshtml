@@ -1,0 +1,75 @@
+﻿@using Colony.CMS.Helpers
+@model Colony.Commerce.Models.Collections.CollectionSearchResult
+<div id="SearchResults" name="SearchResults">
+    @{
+        foreach (var collection in Model.Collections) {
+            <div class="medium-6 large-4 columns end">
+                @{var brand = "";
+                    switch (collection.BrandKey) {
+                        case "HAR":
+                            brand = "harlequin";
+                            break;
+                        case "SAN":
+                            brand = "sanderson";
+                            break;
+                        case "MOR":
+                            brand = "morris";
+                            break;
+                        case "ANT":
+                            brand = "anthology";
+                            break;
+                        case "ZOF":
+                            brand = "zoffany";
+                            break;
+                        case "SCI":
+                            brand = "scion";
+                            break;
+                        default:
+                            brand = collection.BrandKey;
+                            break;
+                    }
+                    string imageThumbnailUrl = "";
+                    if (!string.IsNullOrEmpty(collection.ImageLocation) && !collection.ImageLocation.StartsWith("/_assets/")) {
+                        imageThumbnailUrl = Url.ImageUrl(collection.ImageAssetId, "shop", "productcategorythumbnail"); // Url.ImageUrl(collection.ImageAssetId, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+                    } else {
+                        imageThumbnailUrl = collection.ImageLocation;
+                    }
+                } 
+                <div class="InspireArticle @brand">
+                    <a href="/shop/@collection.ParentCategory.ToLower()/@collection.URI.ToLower()/" alt="@collection.CollectionName">
+                        <img src="@imageThumbnailUrl" alt="@collection.ImageAlt"/>
+                        @{
+                            if (collection.IsNew) {
+                                <div class="itemNew">New</div>
+                            }
+                        }
+                        <div class="caption collection-caption">
+                            <h2>@collection.CollectionName</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>
+<input type="hidden" name="pageNumber" id="pageNumber" value="@Model.CurrentPage"/>
+<script type="text/javascript">
+    $('#resultcount').text(@Model.RecordCount);
+</script>
+<script type="text/javascript">
+    var $pagination = $('#pagination');
+    var defaultOpts = {
+        totalPages: @Model.Pages
+    };
+    $pagination.twbsPagination('destroy');
+    $pagination.twbsPagination($.extend({}, defaultOpts, {
+        startPage: @Model.CurrentPage,
+        totalPages: @Model.Pages,
+        visiblePages: @(Model.Pages > 4 ? "4" : Model.Pages.ToString()),
+        onPageClick: function (event, page) {
+            if (page != @Model.CurrentPage){
+                filterCollections(page);
+            }
+        }
+    }));
+</script>

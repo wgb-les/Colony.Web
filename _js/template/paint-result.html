@@ -1,0 +1,16 @@
+﻿<div class="item" data-quick-view-id="<%=rc.ProductId%>" data-productcode="<%=rc.Code%>" data-skuid="<%=rc.SkuId%>" data-noprice="true">
+    <a href="/shop/<%=rc.Uri%>/?code=<%=rc.Code%>">
+        <% if (rc && rc.Images) {%>
+        <% if (rc.Images[0]) {%>
+        <img src="<%=rc.ImageUri%>" alt="<%=rc.Name%>"/>
+        <%}%>
+        <%}%>
+        <h4 class="itemTitle <%=rc.Attributes['Brand']%>"><%=rc.Name%></h4>
+        <ul>
+            <li><%=rc.Attributes["Design Code"] || rc.Code %></li>
+        </ul>
+        <% if (rc.IsNew) { %>
+        <span class="itemNew">New</span>
+        <% } %>
+    </a>
+</div>

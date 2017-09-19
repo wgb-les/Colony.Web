@@ -1,0 +1,738 @@
+.sanHomeLink{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+}
+
+@font-face {
+  font-family: 'sanHome';
+  src: url('TeXGyreSchola-Regular.eot'); /* IE9 Compat Modes */
+  src: url('TeXGyreSchola-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('TeXGyreSchola-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('TeXGyreSchola-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('TeXGyreSchola-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('TeXGyreSchola-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+html,body, *{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.input-postfix-icon{
+    margin:-4px;
+}
+
+.row .rightAdvert span{
+    border: 1px solid #003263;color: #fff;font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif !important;background: #003263;font-size: 1.4em;text-transform: uppercase;
+}
+
+.prodAdvert {
+    float: left;
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+    border: 1px solid #003263;
+    color: #003263;
+    padding: 15px;
+    font-size: 1.2em;
+    font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+}
+
+.leftAdvert span, .rightAdvert span{
+    border: 1px solid #003263;
+    color: #003263;
+}
+
+.quickview-section{
+    padding-right: 0px;
+}
+
+.quickview-section .collapse .small-3{
+    float: right;
+    margin-top: 2px;
+    font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+    font-size: 1.5em;
+    text-align: right;
+}
+
+.comingSoonTab{
+position: absolute;
+display: none;
+background: rgba(255,255,255,0.9);
+top: 181px;
+padding: 0.5em 1em;
+font-size:1.3em;
+text-transform: uppercase;
+box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+right: 0px;
+font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+z-index: 10;
+}
+
+.socialFooter{
+    height:40px;
+    position:absolute;
+    z-index:100;
+    bottom:0px;
+    left:90px;
+}
+
+
+.socialFooter li {
+    font-family: FontAwesome;
+    font-size: 1.6em;
+    color:#999;
+    width:auto !important;
+    float:left;
+    margin:11px 15px 0 0;
+    list-style:none;
+}
+
+    .socialFooter li:hover {
+        color:#aaa;
+    }
+
+.footerTwitter:before {
+    content: "\f099";
+}
+
+.footerFacebook:before {
+    content: "\f09a";
+}
+
+.footerPinterest:before {
+    content: "\f0d2";
+}
+
+.footerInstagram:before {
+    content: "\f16d";
+}
+
+.footerYoutube:before {
+    content: "\f167";
+}
+
+/*li.theme-style-library{
+    display: none !important;
+}*/
+
+#brands .bd-reveal-modal li:nth-child(1){
+    display: none;
+}
+
+.boxSection > header, .boxSection > .header {
+    background: #ededed;
+    padding: 10px;
+}
+
+.actionButton {
+    background:#003263 !important;
+    color:#fff !important;
+}
+
+.header h2:before, .icon-ok-sign:before {
+    color:#003263;
+}
+
+.ui-spinner .ui-spinner-button .ui-button-text, .product-option .icon-ok-sign, .product-option .alertInfo.confirmation{
+    color:#003263;
+}
+
+.button, button, .shareOptions .button, .pageOptions a, .facebookConnect, .addAddress, .quickPurchase .cuttingType abbr, .basketTotals > a, .basketTotals .button, .boxSection > header > a, .boxSection > .header > a, .productCollections .selectedItem .details > a, .inspirationCategories .selectedItem .details > a {
+    font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    margin: 0;
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.2;
+    -webkit-transition: none;
+    transition: none;
+    padding: 0.6em 0.8em;
+    color: #606060;
+    border: 0px;
+    background: #ededed;
+}
+
+.miniBasket .contentForm .formControls .button {
+    background: #003263;
+    color: #fff;
+}
+
+.actionLoader {
+    position: fixed;
+    top: 50%;
+    width: 52px;
+    height:52px;
+    left: 50%;
+    margin-top:-26px;
+    margin-left: -26px;
+    background: #fff;
+    padding: 10px;
+    z-index: 9;
+    border-radius: 5px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width:1024px) {
+  .global-brands-all {
+    display: none; }
+}
+
+@media only screen and (min-width:1024px) {
+    .global-brands .global-brands-list {
+        display: block; }
+    .global-brands .global-brands-toggles {
+        display: inline-block; }
+    .global-brands li, .global-brands .global-brands-hide {
+        display: none; }
+    .global-brands.brands-open li, .global-brands.brands-open .global-brands-hide {
+        display: block; }
+    .global-brands.brands-open .global-brands-show {
+        display: none; }
+}
+
+.basketTotals > button.checkout {
+    background: #003263;
+    color: #fff;
+    border: 0px;
+}
+
+
+a.button.addToBasket.b2baddsampletobasket:hover {
+    background:#dadada;
+}
+
+.b2bPriceStockContainer {
+    float: left;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.b2bInfoBox {
+    float: left;
+    width: 50%;
+    padding-right: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+    .b2bInfoBox span {
+        float: left;
+        width: 100%;
+        padding: 10px 0;
+        font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+        border: 1px solid #eee;
+        font-size: 1.4em;
+        background-color: #f9f9f9;
+    }
+
+.pricinginfo {
+    float:left;
+    margin-top:10px;
+}
+
+.harButton {
+    font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    /* margin: 0; */
+    float: left;
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -4px 0 0 10px;
+    line-height: 1.2;
+    -webkit-transition: none;
+    transition: none;
+    padding: 0.6em 0.8em 0.55em 0.8em;
+    font-size: 1.4em;
+    color: #606060;
+    border: 1px solid #dadada;
+    background: #dadada;
+    background: -webkit-linear-gradient(#f3f3f3, #dadada);
+    background: linear-gradient(#f3f3f3, #dadada);
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#f3f3f3', endColorstr='#dadada');
+}
+
+#whereToBuy header {
+    display: block;
+    color: #606060;
+    background-color: #e2e2e2;
+    border-bottom: 1px solid #c9c9c9;
+    background-image: -webkit-linear-gradient(#fbfbfb, #e2e2e2);
+    background-image: linear-gradient(#fbfbfb, #e2e2e2);
+    padding: 1em;
+    position: relative;
+}
+
+#whereToBuy .closeWTB {
+    position: absolute;
+    right: 10px;
+    top: 10px !important;
+}
+
+ .reveal-modal .header-reveal-modal h2, #whereToBuy header h2 {
+    margin: 0;
+    line-height: 18px;
+    padding-top: 6px; }
+
+#whereToBuy {
+    margin-left: -580px;
+    max-width: 1160px;
+}
+
+.printButton {
+    float: left;
+}
+
+.notification {
+  z-index: 100;
+}
+
+.searchBanner {
+    float: left;
+    width: 100%;
+    min-height: 300px;
+    max-height: 334px;
+    /* padding-left: 20px; */
+    margin-bottom: 15px;
+    z-index:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index:0;
+    position: relative;
+}
+
+.HARbanner {
+display:none;
+}
+
+@media all and (max-width: 400px) {
+
+    .searchBanner {
+    min-height: 420px;
+}
+}
+
+
+
+.bannerOverlayContainer{
+  position: absolute;
+    left: 0px;
+    background: none;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    max-width: 430px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bannerOverlay {
+        padding: 15px;
+
+        background: rgba(0,0,0,0.6);
+    height: 100%;
+    float: left;
+    position: absolute;
+        width: 100%;
+
+        max-width: 400px;
+        z-index: 10;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bannerOverlay h1 {
+    float: left;
+    width: 100%;
+    position:relative !important;
+    left:0px !important;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.bannerOverlay p {
+    font-size: 13px;
+    font-family: Arial;
+    color: #eee;
+    line-height: 20px;
+    text-align: justify;
+}
+
+.searchBanner img {
+    /* float: left; */
+    max-width: 1000px;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    z-index: 0;
+
+}
+
+.zopim{
+	right:104px !important;
+    bottom:42px !important;
+}
+
+#whereToBuy {
+  overflow: visible !important;
+  bottom: 50%;
+  display: none;
+  left: 50%;
+margin-left: -580px;
+max-width: 1160px;
+width: 100%;
+display: none;
+box-shadow:none;
+opacity: 1;
+
+}
+
+
+.brandcontainer{
+float: left;
+width:572px;
+height:640px;
+margin: 8px 8px 0 0;
+padding: 10px;
+border: 1px solid #999;
+}
+
+
+@media all and (min-width: 100px) and (max-width: 1024px){
+  .brandcontainer {
+    width:100%;
+height:auto;
+  }
+
+img.imagebrands{width:100%;}
+}
+
+
+.button-close, .mfp-close{
+background-position:-83px !important;}
+
+  .basketTotals li {
+    display: inline-block;
+    vertical-align: middle;
+    word-spacing: normal;
+    width: 16.6%;
+    padding:2px;
+    text-align: center;
+    float: left; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.filterFRTreatable, .filterFRTreated, .filterFRInherent, .filterComposition, .filterWallpaperType, .filterFabricType, .filterTrimmingType, .filterMartindale{
+  display: none;
+}
+
+.hideAdvancedFilters, .revealAdvancedFilters{
+  width: 100%;
+  display: block;
+  float: left;
+  cursor: pointer;
+  padding: 10px 0;
+  color: #003263;
+  margin: 0 0 10px 0;
+}
+
+.hideAdvancedFilters{
+  display: none;
+}
+
+  .revealAdvancedFilters:before{
+    content: "\f107";
+    padding-right: 5px;
+    font-family: "FontAwesome";
+  }
+
+  .hideAdvancedFilters:before{
+    content: "\f106";
+    padding-right: 5px;
+    font-family: "FontAwesome";
+  }
+
+/*--------------------------------------------- HOMEPAGE ---------------------------------------------*/
+
+/*header, .global-nav,  footer{
+  display:none;
+}*/
+
+#fp-nav {
+    position:fixed;
+    top:50%;
+    left:0px;
+    background:#fff;
+}
+
+  .pagInner{
+    padding:5px 0;
+  }
+
+    .pagItem{
+      padding:5px 10px;
+    }
+
+      .pagItem a{
+        width:12px;
+        height:12px;
+        background:#ccc;
+        display:block;
+        border-radius:50%;
+      }
+
+        .pagItem a.active{
+          background:#003263;
+        }
+
+      .pagItem .fp-tooltip{
+        display:none;
+      }
+
+
+#fullpage{
+  width:100%;
+  height:100%;
+  position:absolute !important;
+  top:0px;
+  left:0px;
+}
+  .homeSliderContainer{
+    width:100%;
+    float:left;
+  }
+
+    .fullpageColumn{
+      height:100%;
+      float:left;
+      position: relative;
+    }
+
+      .fullpageBlockItem{
+        float:left;
+        background-repeat:no-repeat;
+        border:2px solid #fff;
+        position: relative;
+      }
+
+        .fullLink{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
+
+        .fullpageBlockItem .gridCaption{
+          position: absolute;
+          top: 20px;
+          right:0px;
+          display: none;
+          background: #fff;
+          font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+          padding: 15px;
+          font-size: 1.2em;
+          text-transform: uppercase;
+        }
+
+/*---------------------------- SECTION 1 ----------------------------*/
+
+      .column01{
+        width:64%;
+      }
+
+        .block01{
+          width:100%;
+          height:100%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Wisteria-Falls-Sanderson-Wallpaper-Main-Landscape.png');
+          background-size:cover;
+          background-position:left bottom;
+        }
+
+      .column02{
+        width:36%;
+      }
+
+        .block02{
+          width:100%;
+          height:100%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Waterperry-Sanderson-Boat-Fabric-Cushions.png');
+          background-size:cover;
+          background-position:left bottom;
+        }
+
+/*---------------------------- SECTION 2 ----------------------------*/
+
+      .column03{
+        width:30%;
+      }
+
+        .block03{
+          width:100%;
+          height:39%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Paint-Sanderson-Waterperrry-Splodges.png');
+          background-size:cover;
+          background-position:center;
+        }
+
+        .block04{
+          width:100%;
+          height:61%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Bay-Willow-Paint-Portrait-New.png');
+          background-size:cover;
+          background-position:bottom;
+        }
+
+      .column04{
+        width:70%;
+      }
+
+        .block05{
+          width:100%;
+          height:100%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Arley-Plains-Fabric-Landscape.png');
+          background-size:cover;
+          background-position:bottom;
+        }
+
+/*---------------------------- SECTION 3 ----------------------------*/
+
+      .column05{
+        width:60%;
+      }
+
+        .block06{
+          width:100%;
+          height:100%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Chestnut-Tree-Wallpaper-Main-Landscape.png');
+          background-size:cover;
+          background-position:left bottom;
+        }
+
+      .column06{
+        width:40%;
+      }
+
+        .block07{
+          width:100%;
+          height:100%;
+          background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Fabric-Woodland-Advert-Portrait.png');
+          background-size:cover;
+          background-position:bottom;
+        }
+
+@media only screen and (max-width: 1024px){
+  .fullpageBlockItem .gridCaption{
+    font-size: 0.8em;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .section{
+    padding-top: 95px !important;
+  }
+
+
+
+    .column01, .column02{
+      width:100%;
+      height:50%;
+    }
+
+      .block02{
+        background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Waterperry-Sanderson-Boat-Fabric-Cushions-Mobile.png');
+      }
+
+    .column03{
+      width:100%;
+      height:30%;
+    }
+
+      .block04{
+        background-position: 0px -220px;
+      }
+
+      .column03 .fullpageBlockItem{
+        width:50%;
+        height:100%;
+      }
+
+    .column04{
+      width:100%;
+      height:70%;
+    }
+
+    .column05{
+      width:100%;
+      height:50%;
+    }
+
+      .block06{
+        background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Fabric-Woodland-Advert-Portrait.png');
+        background-position: 0 -450px;
+      }
+
+    .column06{
+      width:100%;
+      height:50%;
+    }
+
+      .block07{
+        background-image:url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Chestnut-Tree-Wallpaper-Main-Landscape.png');
+      }
+}
+
+@media only screen and (max-width: 414px){
+  .block04, .block06{
+    background-position: bottom;
+  }
+
+  .block06{
+    background-position: 0 80%;
+  }
+}

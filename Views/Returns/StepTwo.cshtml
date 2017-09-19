@@ -1,0 +1,121 @@
+﻿@model Colony.Commerce.Areas.Returns.ViewModels.ReturnsViewModel
+
+@{
+    ViewBag.Title = "Returns";
+}
+
+<header class="pageHeader">
+    <h1>RETURNS</h1>
+</header>
+
+
+@using (Html.BeginForm("StepTwo", "returns", null, FormMethod.Post,
+    new
+    {
+        @class = "boxSection boxSection-returns returns-reason active"
+    }))
+{
+    <header class="returns-header">
+        <h2>2. Reasons for return</h2>
+        <span class="icon icon-check"></span>
+    </header>
+
+    <div class="boxSection-content">
+
+        <div class="alertInfo message">
+            To help us process your request quickly, select the reason you wish to return your item(s). 
+        </div>
+
+        @if (ViewBag.SelectLineToReturn != null && ViewBag.SelectLineToReturn)
+        {
+            <div class="alertInfo error">Please select a product to return.</div>
+        }
+        else if (ViewBag.GreaterThanQuantityOrdered != null && ViewBag.GreaterThanQuantityOrdered)
+        {
+            <div class="alertInfo error">Quantity to be returned cannot be more than ordered quantity.</div>
+        }
+
+        <div class="table returns-table">
+            <div class="thead">
+                <div class="tr">
+                    <div class="th reason-number">Line Number</div>
+                    <div class="th reason-product">Product</div>
+                    <div class="th reason-qty">Quantity returning</div>
+                    <div class="th reason-select">Reason for return</div>
+                </div>
+            </div>
+            <div class="tbody">
+
+                @for (var i = 0; i < Model.Basket.Count; i++)
+                {
+                    <div class="tr">
+                        <div class="td reason-number">
+                            <strong class="reason-label">Line number:</strong> @((i + 1).ToString("N0"))
+                        </div>
+                        <div class="td reason-product">
+
+                            <div class="basketItem">
+                                <a href="#" class="thumbnail">
+                                    <img src="@Model.Basket[i].ImageUrl" alt="@Model.Basket[i].Sku.Name"/>
+                                </a>
+                                <div class="details">
+                                    <h2>
+                                        <a href="/shop/@Model.Basket[i].Url?code=@Model.Basket[i].Sku.Code">@Model.Basket[i].Sku.Name</a>
+                                    </h2>
+                                    <dl>
+                                        @*<dd>Collection name</dd>*@
+                                        @if (Model.Basket[i].Attributes.ContainsKey("Descriptive Colour"))
+                                        {
+                                            <dt>Colour</dt>
+                                            <dd>@(Model.Basket[i].Attributes.GetValueOrNull("Descriptive Colour"))</dd>
+                                        }
+                                        <dt>@Model.Basket[i].Attributes.GetValueOrNull("Product Group")</dt>
+                                        <dd>@Model.Basket[i].Sku.Code</dd>
+                                    </dl>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="td reason-qty">
+                            <div class="field text spinner split">
+                                <label for="spinnerSplit">
+                                    Quantity
+                                </label>
+                                @Html.TextBoxFor(b => Model.Basket[i].QuantityReturned, new {@data_max_value = "spinnerSplit", @data_min_value = "0"})
+                            </div>
+                        </div>
+                        <div class="td reason-select">
+                            <div class="field select ">
+                                <label for="selectStandard">
+                                    Reason
+                                </label>
+
+                                @Html.DropDownListFor(m => Model.Basket[i].ReasonForReturn, Model.ReasonsForReturn, "Please select", new {})
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="contentForm">
+
+            <div class="field textarea ">
+                <label for="returnsReasonComments">
+                    Comments (Please be as descriptive and informative as possible to help us process your return correctly).<span class="required">Required</span>
+                </label>
+
+                @Html.TextAreaFor(m => m.Comments, new {id = "returnsReasonComments"})
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="boxSection-action">
+        <input type="submit" value="Next" class="button"/>
+    </div>
+}

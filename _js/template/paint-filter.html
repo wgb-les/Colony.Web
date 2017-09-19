@@ -1,0 +1,139 @@
+﻿<aside class="sideCol leftCol">
+    <form action="" class="filterAccordion" id="searchPaint" novalidate="novalidate">
+
+        <section class="boxSection filterColours">
+            <div class="header">
+                <a href="#" class="toggle-filterAccordion">
+                    <h2>Colour</h2>
+                </a>
+                <a href="#" class="clearFilter">Reset</a>
+            </div>
+            <div class="content-filterAccordion">
+                <div class="colours">
+                    <% _.each(rc.model.ColourFilter.Groups, function(group) { %>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+
+                            $(".toggleColours").click(function() {
+                                $(this).children(".newColourSelect").toggle();
+                            });
+
+                            //if ($(".colourBand ul li label").hasClass("selected")) {
+                            //    $(".newColourSelect").show();
+                            //}
+                            if ($("label[for='SelectedColours_B1']").hasClass("selected")) {
+                                $("#orange").show();
+                            }
+                            if ($("label[for='SelectedColours_C1']").hasClass("selected")) {
+                                $("#reds").show();
+                            }
+                            if ($("label[for='SelectedColours_C2']").hasClass("selected")) {
+                                $("#Pink").show();
+                            }
+                            if ($("label[for='SelectedColours_C3']").hasClass("selected")) {
+                                $("#purple").show();
+                            }
+                            if ($("label[for='SelectedColours_C4']").hasClass("selected")) {
+                                $("#blue").show();
+                            }
+                            if ($("label[for='SelectedColours_C5']").hasClass("selected")) {
+                                $("#aqua").show();
+                            }
+                            if ($("label[for='SelectedColours_C6']").hasClass("selected")) {
+                                $("#lime").show();
+                            }
+                            if ($("label[for='SelectedColours_E6']").hasClass("selected")) {
+                                $("#grass").show();
+                            }
+                            if ($("label[for='SelectedColours_A7']").hasClass("selected")) {
+                                $("#yellow").show();
+                            }
+                            if ($("label[for='SelectedColours_C5']").hasClass("selected")) {
+                                $("#aqua").show();
+                            }
+                            if ($("label[for='SelectedColours_D9']").hasClass("selected")) {
+                                $("#grey").show();
+                            }
+                            if ($("label[for='SelectedColours_B8']").hasClass("selected")) {
+                                $("#cream").show();
+                            }
+                            if ($("label[for='SelectedColours_B10']").hasClass("selected")) {
+                                $("#brown").show();
+                            }
+                            if ($("label[for='SelectedColours_E10']").hasClass("selected")) {
+                                $("#black").show();
+                            }
+                            if ($("label[for='SelectedColours_A9']").hasClass("selected")) {
+                                $("#white").show();
+                            }
+                            if ($("label[for='SelectedColours_B9']").hasClass("selected")) {
+                                $("#metalic").show();
+                            }
+                        });
+                    </script>
+                    <div class="colourBand">
+                        <div class="toggleAll">
+                            <label for="colourgroup_<%=group.Name%>" data-colour-group-all="colourgroup_<%=group.Name%>" class="<%= _.every(group.Colours, function(item) { return (_.contains(rc.model.SelectedColours, item.Code)); }) ? "selectedAll" : "" %>
+                                ">
+                                <span>Select all <%=group.Name%></span>
+                                <span class="toggleColours">
+										<% for (var i = 0; i < group.Colours.length - 0; i++) { %>
+                                                <img src="/_images/bg/selected-ok-tick.png" id="<%=group.Name%>" class="newColourSelect hide"/>                             
+												<span style="background-color: #<%=group.Colours[i].Colour%>;"></span>
+										<% } %>
+									</span>
+                                <span class="arrow" style="border-left-color: #<%=group.Colours[group.Colours.length -1].Colour%>; display: none;"></span>
+                                <input type="checkbox" name="colourgroup_<%=group.Name%>" id="colourgroup_<%=group.Name%>">
+                            </label>
+                        </div>
+                        <ul style="display: none;">
+                            <% _.each(group.Colours, function(colour) { %>
+                            <li>
+                                <% if (_.contains(rc.model.SelectedColours, colour.Code) === true) { %>
+                                <label for="SelectedColours_<%=colour.Code%>" style="background-color: #<%=colour.Colour%>" data-colour-group="colourgroup_<%=group.Name%>" data-colour-code="<%=colour.Code%>" class="selected">
+                                    <span><%=colour.Name%></span>
+                                    <input type="checkbox" name="SelectedColours" value="<%=colour.Code%>" data-colour-group="colourgroup_<%=group.Name%>" data-colour-code="<%=colour.Code%>" id="SelectedColours_<%=colour.Code%>" checked="checked"/>
+                                </label>
+                                <%} else { %>
+                                <label for="SelectedColours_<%=colour.Code%>" style="background-color: #<%=colour.Colour%>" data-colour-group="colourgroup_<%=group.Name%>" data-colour-code="<%=colour.Code%>">
+                                    <span><%=colour.Name%></span>
+                                    <input type="checkbox" name="SelectedColours" value="<%=colour.Code%>" data-colour-group="colourgroup_<%=group.Name%>" data-colour-code="<%=colour.Code%>" id="SelectedColours_<%=colour.Code%>"/>
+                                </label>
+                                <% } %>
+                            </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </section>
+
+        <fieldset class="boxSection filterTags">
+            <div class="header">
+                <a href="#" class="toggle-filterAccordion">
+                    <h2>Name or keyword</h2>
+                </a>
+                <a href="#" class="clearFilter">Reset</a>
+            </div>
+            <div class="content-filterAccordion">
+                <div class="details">
+                    <div class="field tagpicker">
+                        <label for="keywords">
+                            Enter tag name
+                        </label>
+                        <div class="tagpickerSearch">
+                            <select name="keywords" id="keywords">
+                                <% if (rc.model.Keywords != null) { %>
+                                <% _.each(rc.model.Keywords.split(' '), function(keyword) { %>
+                                <option value="<%=keyword%>" id="Option1" class="selected" selected="selected"><%=keyword%></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</aside>

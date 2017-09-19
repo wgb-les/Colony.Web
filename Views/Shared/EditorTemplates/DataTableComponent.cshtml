@@ -1,0 +1,22 @@
+﻿@model Colony.Behaviours.ComponentTypes.DataTableComponent<Colony.Models.Core.Page>
+
+<table>
+    <thead>
+    <tr>
+        @foreach (var col in Model.Columns)
+        {
+            <th>@col.FriendlyName</th>
+        }
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Colony.Models.Core.Page row in Model.Rows)
+    {
+        <tr>
+            <td>@row.Id</td>
+            <td>@row.Name</td>
+            <td>@row.ModerationStatusId</td>
+        </tr>
+    }
+    </tbody>
+</table>

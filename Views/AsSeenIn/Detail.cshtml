@@ -1,0 +1,61 @@
+﻿@model WalkerGreenbank.Modules.AsSeenIn.Areas.Models.AsSeenInDetailViewModel
+@{
+    var pinterestMediaUrl = new Uri(Request.Url, Url.ImageUrl(Model.ImageAssetID, "AsSeenIn", "AsSeenInDetail", @"/_images/placeholders/article.jpg")).AbsoluteUri;
+    Html.AppendTitle(Model.Name);
+}
+<div id="container" class="articleCol">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <header class="pageHeader">
+            <h1>@Model.Name</h1>
+
+            <dl class="articleDetails">
+                <dt>Date</dt>
+                <dd>
+                    <time pubdate datetime="@Model.Created.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Model.Created.ToString("dd MMMM yyyy")</time>
+                </dd>
+                @*<dt>Comments</dt><dd><a href="#comments" class="scroll">3 comments</a> by 2 people</dd>*@
+            </dl>
+            @*            <div class="inspirationActions">
+                <ul class="articleOptions pull-right">
+                    <li><a href="#" class="share" data-reveal-id="share"><span>Share</span></a></li>
+                </ul>
+            </div>*@
+        </header>
+
+        <figure class="featureImage">
+            <a href="#">
+                <img src="@Url.ImageUrl(Model.ImageAssetID, "AsSeenIn", "AsSeenInDetail", @"/_images/placeholders/article.jpg")" alt="@Model.Name"/>
+            </a>
+        </figure>
+
+        <div class="featureDescription">
+            <p>
+                @Html.Raw(Model.ShortDescription)
+            </p>
+        </div>
+
+        <div id="productsListContainer">
+            @{ Html.RenderAction("RelatedProducts", "AsSeenIn", new {area = "AsSeenIn", itemId = Model.ID}); }
+        </div>
+
+        @if (Model.CommentsEnabled)
+        {
+            Html.RenderAction("Index", "Comments", new {area = "Comments", dataObjectId = Model.ID, dataTypeName = Model.DataTypeName});
+        }
+
+        @Html.HiddenFor(model => model.ID, new {id = "AsSeenInItemId"})
+        <nav class="pageOptions" role="navigation">
+            <ul>
+                <li>
+                    <a href="/as-seen-in/" class="prev">
+                        <span>Back to List</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<section id="share" class="reveal-modal medium">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Name}); }
+</section>

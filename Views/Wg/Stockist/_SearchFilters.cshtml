@@ -1,0 +1,87 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.Stockists.Models.StockistSearchViewModel
+
+<div 
+
+<div class="large-12 columns">
+    @Html.EditorFor(model => model.Region, new { options = Model.RegionList })
+</div>
+<div class="large-12 columns stockistSearchTerms">
+    @*@{
+            //var placeholderText = "Postal / zip code";
+            //if (Model.Region != "1")
+            //{
+                placeholderText = "Name, Towm or City";
+            }
+        }*@
+    @Html.HiddenFor(model => model.Latitude)
+    @Html.HiddenFor(model => model.Longitude)
+    @Html.EditorFor(model => model.Postcode, new { placeholder = "Enter Postcode, Town or City" })
+    <div class="field select stockistEuropeanCountrySelect">
+        @Html.DropDownListFor(model => model.EuropeanCountryId, Model.Countries.Where(t => t.Region == "Europe").OrderBy(t => t.Name).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }))
+    </div>
+    <div class="field select stockistWorldCountrySelect">
+        @Html.DropDownListFor(model => model.WorldCountryId, Model.Countries.Where(t => t.Region == "Rest of World").OrderBy(t => t.Name).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }))
+    </div>
+    <div class="field select stockistStateSelect">
+        @Html.DropDownListFor(model => model.StateId, Model.States.OrderBy(t => t.Name).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }))
+    </div>
+</div>
+<div class="large-6 columns">
+    <fieldset class="optionList short">
+        <legend>Available Categories</legend>
+        <h3 class="make-visible">Categories</h3>
+        <div id="retailerCheckbox">
+            <div class="retailer-checkbox">
+                @Html.EditorFor(model => model.HasFabric)
+            </div>
+            <div class="retailer-checkbox">
+                @Html.EditorFor(model => model.HasWallpaper)
+            </div>
+            <div class="retailer-checkbox" @if (Model.Region != "1") { <text> style="display: none;" </text>   }>
+                @Html.EditorFor(model => model.HasPaint)
+            </div>
+            <div class="retailer-checkbox" @if (Model.Region != "1") { <text> style="display: none;" </text>   }>
+                @Html.EditorFor(model => model.HasRugs)
+            </div>
+            <div class="retailer-checkbox">
+                @Html.EditorFor(model => model.HasTrimmings)
+            </div>
+            <div class="retailer-checkbox" @if (Model.Region != "1" ) { <text> style="display: none;" </text>   }>
+                @Html.EditorFor(model => model.HasFurniture)
+            </div>
+        </div>
+      
+    </fieldset>
+</div>
+<div class="large-6 columns">
+    <fieldset class="optionList short">
+        <legend>Available Brands</legend>
+        <h3 class="make-visible">Brands</h3>
+        <div style="float: right">
+            <div class="brand-checkbox">@Html.EditorFor(model => model.HasAnthology)</div>
+            <div class="brand-checkbox">@Html.EditorFor(model => model.HasHarlequin)</div>
+            <div class="brand-checkbox">@Html.EditorFor(model => model.HasMorris)</div>
+            <div class="brand-checkbox">@Html.EditorFor(model => model.HasSanderson)</div>
+            <div class="brand-checkbox">@Html.EditorFor(model => model.HasScion)</div>
+            <div class="brand-checkbox">@Html.EditorFor(model => model.HasZoffany)</div>
+        </div>
+    </fieldset>
+
+</div>
+
+    <div class="large-12">
+        <div class="field formControls retailSubmitButtonContainer">
+            <button class="actionButton retailSubmitButton">Search</button>
+        </div>
+        <div class="large-12 columns">
+            <!--<p>
+               Find out more about <a href="/shop/homeware/">@ColonyContext.Current.CurrentSite.Name Home Accessories</a>
+
+            </p>-->
+            <p>Discover more about <a href="/shop/homeware/">homeware</a></p>
+        </div>
+    </div>
+
+
+    @Html.HiddenFor(model => model.StockistSearchIsVisible)

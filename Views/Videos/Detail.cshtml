@@ -1,0 +1,61 @@
+﻿@model Colony.Modules.Videos.Models.Video
+@{
+    var pinterestMediaUrl = Url.ImageUrl(Model.ImageAssetId, "", "", @"/_images/placeholders/article.jpg");
+    Html.AppendTitle(Model.WindowTitle ?? Model.Name);
+    Html.AppendMetaKeywords(Model.MetaKeywords);
+    Html.SetMetaDescription(Model.MetaDescription);
+}
+<div id="container" class="articleCol">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+        <header class="pageHeader">
+            <ul class="articleOptions pull-right moduleShare">
+                <li>
+                    <a href="#" class="share" data-reveal-id="share">
+                        <span>Share</span></a>
+                </li>
+            </ul>
+            <h1 class="pull-left">@Model.Name</h1>
+            <div class="clear"></div>
+            <dl class="articleDetails">
+                <dt>Date</dt>
+                <dd>
+                    <time datetime="@((Model.PublishStart.HasValue ? Model.PublishStart.Value : Model.Created.Value).ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz"))">@((Model.PublishStart.HasValue ? Model.PublishStart.Value : Model.Created.Value).ToString("dd MMMM yyyy"))</time>
+                </dd>
+            </dl>
+        </header>
+
+        <div class="videoContainer">
+            <figure class="flex-video">
+                @if (Model.VideoUri != null || Model.YouTubeId != null)
+                {
+                    <iframe width="420" height="315" src="@(Model.VideoUri ?? string.Format(@"http://www.youtube.com/embed/{0}", Model.YouTubeId))" frameborder="0" allowfullscreen></iframe>
+                }
+                else
+                {
+                    <img src="@(Model.ImageAssetId.HasValue ? Url.ImageUrl(Model.ImageAssetId) : "/_images/placeholders/moduleList.jpg")" alt="@Model.Name"/>
+                }
+            </figure>
+            <div id="videoDescription">
+                @Html.Raw(Model.LongDescription)
+            </div>
+        </div>
+
+        @if (Model.CommentsEnabled)
+        {
+            Html.RenderAction("Index", "Comments", new {area = "Comments", dataObjectId = Model.Id, dataTypeName = Model.DataTypeName});
+        }
+
+        <nav class="pageOptions" role="navigation">
+            <ul>
+                <li>
+                    <a href="@ViewBag.PreviousUrl" class="prev">
+                        <span>Back to List</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<section id="share" class="reveal-modal medium">
+    @Html.Action("Share", "Share", new {area = "Sharing", ShareUrl = Request.Url.AbsoluteUri, MediaUrl = pinterestMediaUrl, Description = Model.Name})
+</section>

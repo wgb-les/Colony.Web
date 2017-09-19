@@ -1,0 +1,18 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookProductViewModel
+@{
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/thumbnail.jpg") : @"/_images/placeholders/thumbnail.jpg";
+    var defaultZoomImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/thumbnail.jpg") : @"/_images/placeholders/thumbnail.jpg";
+}
+
+<div class="item scrapAdd" data-skuid="@Model.Sku.Id" data-scrapbookitemid="@Model.Sku.Id">
+    <a href="/shop/@Url.ProductUrl(Model.Product)">
+        <img src="@defaultImageUrl" alt="@Model.Product.Name" data-image-zoom="@defaultZoomImageUrl">
+        <h3 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@Model.Product.Name</h3>
+        <ul>
+            <li>@Model.Sku.Code</li>
+            <li>@Model.Attributes.GetValueOrNull("Product Group")</li>
+        </ul>
+    </a>
+</div>

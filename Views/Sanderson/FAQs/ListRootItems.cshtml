@@ -1,0 +1,94 @@
+﻿@using Colony.CMS
+@model Colony.Modules.FAQs.Areas.Models.ListRootItemsViewModel
+<div id="content" class="">
+    <header class="pageHeader">
+        <h1>FAQs</h1>
+        @{
+            for (var i = 0; i < ColonyContext.Current.Response.ContentSections.Count - 1; i++)
+            {
+                Html.RenderPageSection(i);
+            }
+        }
+
+    </header>
+
+    @{ Html.RenderPartial("_CategoryList", Model.FAQCategories); }
+
+    <div class="row collapse">
+        <aside class="leftCol columns small-12 large-3">
+            <div class="test-design-toggle search-faqs" id="searchFAQs">
+                <section id="productFilters" class="medium">
+                    <div class="bd-reveal-modal">
+                        <form action="" id="faqSearchForm" class="filterAccordion faqFilterAccordion">
+
+                            @if (ColonyContext.Current.Response.ContentSections.Count > 1)
+                            {
+                                <section class="boxSection quickTips filterCategory">
+                                    <div class="header">
+                                        <a href="#" class="toggle-filterAccordion">
+                                            <h2>Quick tips</h2>
+                                        </a>
+                                    </div>
+                                    <div class="content-filterAccordion">
+                                        @{ Html.RenderPageSection(ColonyContext.Current.Response.ContentSections.Count - 1); }
+                                    </div>
+
+                                </section>
+                            }
+                            <div class="faq-contact-button">
+                                <a href="#" class="button" style="width: 100%;">
+                                    <span class="icon icon-edit"></span>
+                                    <span>Contact Us</span>
+                                </a>
+                                <div class="faq-contact-content" style="border: 1px solid; display: none;">
+                                    <ul style="line-height: 2em; list-style: none; margin-bottom: 10px; margin-top: 10px;">
+
+                                        <li class="faq_quicktip1" style="padding-left: 10px">
+                                            <span class="icon icon-envelope"></span>
+                                            <a href="/contact-us/" target="_blank">Online Enquiry</a>
+                                        </li>
+                                        <li class="faq_quicktip2" style="padding-left: 10px">
+                                            <span class="icon icon-phone"></span>
+                                            <a href="tel:+448445439500">+44 (0) 844 543 9500</a>
+                                        </li>
+                                        <li class="faq_quicktip3" style="padding-left: 10px">
+                                            <span class="icon icon-facebook"></span>
+                                            <a href="https://www.facebook.com/sandersonfabricsandwallpapers" target="_blank">Facebook</a>
+                                        </li>
+                                        <li class="faq_quicktip4" style="padding-left: 10px">
+                                            <span class="icon icon-twitter"></span>
+                                            <a href="https://twitter.com/SandersonFW" target="_blank">Twitter</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </aside>
+        <div class="columns small-12 large-9">
+            <section class="moduleSection faqs">
+                <h2>FAQs</h2>
+                <div class="right">
+                    <a class="button expand-all"><i class="icon icon-plus-sign"></i>Expand all</a>
+                    <a class="button close-all"><i class="icon icon-remove-sign"></i>Close all</a>
+                </div>
+                <ul class="moduleList faqAccordion">
+                    @foreach (var faq in Model.FAQs)
+                    {
+                        <li>
+                            @{ Html.RenderPartial("Detail", faq); }
+                        </li>
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript">
+    $('body').addClass('faqs');
+</script>

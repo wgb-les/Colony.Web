@@ -1,0 +1,64 @@
+﻿@model Colony.CMS.Areas.CRM.Models.AddressViewModel
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var showAddressName = ViewData["ShowAddressName"].AsBool(false);
+    var showPersonDetails = ViewData["ShowPersonDetails"].AsBool(false);
+    var showCompanyDetails = ViewData["ShowCompanyDetails"].AsBool(false);
+    var allowPostcodeLookup = ViewData["AllowPostcodeLookup"].AsBool(true);
+}
+@if (showAddressName)
+{
+    @Html.EditorFor(model => model.Description, new {@class = "description", placeholder = "E.g. Home, Work", AllowPostcodeLookup = allowPostcodeLookup})
+}
+@if (showPersonDetails)
+{
+    @Html.EditorFor(model => model.Title)
+    @Html.EditorFor(model => model.FirstName)
+    @Html.EditorFor(model => model.LastName)
+}
+@if (showCompanyDetails)
+{
+    @Html.EditorFor(model => model.Company)
+}
+@Html.EditorFor(model => model.Postcode, "Postcode", new {size = "medium"})
+
+@Html.EditorFor(model => model.Line1)
+@Html.EditorFor(model => model.Line2)
+@Html.EditorFor(model => model.Town, new {@class = "medium"})
+@Html.EditorFor(model => model.County, new {@class = "medium"})
+@Html.EditorFor(model => model.CountryISO2, new {options = Model.CountiresList, @class = "country"})
+
+<script type="text/javascript">
+    $(function() {
+
+        $('#savedAddress').bind('change', function(e) {
+            $.ajax({
+                url: "@Url.Action("SelectSavedAddress", "Address", new {area = "CRM"})",
+                data: { addressId: $('#savedAddress').val() },
+                success: function(data) {
+                    if (data.Success) {
+                        if (data.SelectedAddress != null) {
+                            $('#@(fieldName)_Description').val(data.SelectedAddress.Description);
+                            $('#@(fieldName)_Title').val(data.SelectedAddress.Title);
+                            $('#@(fieldName)_FirstName').val(data.SelectedAddress.FirstName);
+                            $('#@(fieldName)_LastName').val(data.SelectedAddress.LastName);
+                            $('#@(fieldName)_Line1').val(data.SelectedAddress.Line1);
+                            $('#@(fieldName)_Line2').val(data.SelectedAddress.Line2);
+                            $('#@(fieldName)_Town').val(data.SelectedAddress.Town);
+                            $('#@(fieldName)_County').val(data.SelectedAddress.County);
+                            $('#@(fieldName)_Postcode').val(data.SelectedAddress.Postcode);
+                            $('#@(fieldName)_CountryISO2').val(data.SelectedAddress.CountryISO2);
+                            $('#addressSelection').hide();
+                        } else {
+                            $('#addressSelection').show();
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>

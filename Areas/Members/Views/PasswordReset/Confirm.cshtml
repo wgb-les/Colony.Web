@@ -1,0 +1,26 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.ChangePasswordFromResetKeyInputViewModel
+@{
+    ViewBag.Title = "Change Password";
+}
+<div id="content">
+    <h1>Reset your password</h1>
+    <div class="contentForm">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <fieldset class="editor small">
+                <legend>@ViewBag.Title</legend>
+
+                @Html.EditorFor(m => m.Password)
+                @Html.EditorFor(m => m.ConfirmPassword)
+
+                @Html.HiddenFor(m => m.Key)
+                <div class="buttonBgrBlue">
+                    <button class="blueButton">Change Password</button>
+                </div>
+
+            </fieldset>
+        }
+    </div>
+</div>

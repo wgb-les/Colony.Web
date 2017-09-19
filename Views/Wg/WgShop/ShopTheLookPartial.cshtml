@@ -1,0 +1,65 @@
+﻿@model Colony.Web.Areas.Shop.Models.QuickProductSearchViewModel
+
+<div id="ModalHolder" name="ModalHolder">
+    <div id="sl-modal" class="modal">
+        <div class="sl-modal-popup sl-ShopTheLook-modal">
+            <header>
+                <h1 class="sl-heading">
+                    IN THE PICTURE
+                </h1>
+                <h1 class="sl-heading sl-close">
+                    &times;
+                </h1>
+            </header>
+            <div class="sl-modal-content">
+                @{
+                    var previousProduct = "";
+                    foreach (var product in Model.ProductSearchResults) {
+
+                        if (product.Code != previousProduct) {
+                            var _isSampleable = int.Parse(product.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0;
+                            var _descriptiveColour = product.Attributes.ContainsKey("Descriptive Colour") ? product.Attributes["Descriptive Colour"] : "";
+                            var _productGroup = product.Attributes.ContainsKey("Product Group") ? product.Attributes["Product Group"] : "";
+                            <a href="@product.Uri" class="stl-link">
+                                <div class="stl-item">
+                                    <div class="inner">
+                                        <div class="stl-column stl-image">
+                                            <!--<a href="@product.Uri">-->
+                                                <img src="@product.ImageUri" alt="">
+                                            <!--</a>-->
+                                        </div>
+                                        <div class="stl-column stl-details">
+                                            <h2>@product.Name</h2>
+                                            <span>@_productGroup by @product.Attributes["Brand"]</span>
+                                            <span>@_descriptiveColour</span>
+                                            <span>@product.Code</span>
+
+                                            @if (_isSampleable)
+                                        {
+                                            //<span>RRP <a>@String.Format("{0:C2}", product.PriceInc)</a></span>
+                                        }
+                                        else if ((product.IsOptionProduct == "N" || string.IsNullOrEmpty(product.IsOptionProduct)) && !_isSampleable && product.PriceInc > 0)
+                                        {
+                                            <span>@String.Format("{0:C2}", product.PriceInc)</span>
+                                        }
+                                        </div>
+                                        <!--<div class="stl-column stl-action">-->
+                                           <!-- <a href="@product.Uri" class="button fa-shopping-bag addToBasket">
+                                                More Information
+                                            </a> -->
+                                            <div class="viewProduct">
+                                                <span>View Product</span>
+                                            </div>
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                                </a>
+
+                                previousProduct = product.Code;
+                                }
+                                }
+                                }
+</div>
+        </div>
+    </div>
+</div>

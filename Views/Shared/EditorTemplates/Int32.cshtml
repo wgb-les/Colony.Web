@@ -1,0 +1,31 @@
+﻿@model int?
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+}
+<div class="field text">
+    <div class="label">
+        <label for="text">
+            @displayText
+            @if (isRequired)
+            {
+                <span class="required">Required</span>
+            }
+
+            @if (!string.IsNullOrEmpty(description))
+            {
+                <p>
+                    <em>@description</em>
+                </p>
+            }
+        </label>
+    </div>
+    @*@Html.CustomStyledValidationMessageFor(x => x)*@
+
+    @Html.ValidationMessageFor(t => t)
+    @Html.TextBoxFor(x => x)
+</div>

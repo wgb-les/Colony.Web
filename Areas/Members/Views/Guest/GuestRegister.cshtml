@@ -1,0 +1,10 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.GuestLoginInputViewModel
+@{
+    ViewBag.Title = "Login or Continue as a guest";
+}
+
+<h2>Login or Continue as a guest</h2>
+@Html.EditorFor(model => model.Email)
+
+@Html.EditorFor(model => model.Password)
+@Html.EditorFor(model => model.ConfirmPassword)

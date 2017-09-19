@@ -1,0 +1,9 @@
+﻿@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+    ViewBag.Title = Model.Name;
+}
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('productPage');
+</script>
+
+@Html.Partial("_ProductDetail", Model)

@@ -1,0 +1,27 @@
+﻿@using Colony.Models.Core.Sites
+@using Colony.Services.Core.Abstract.Sites
+@using Colony.Util.Configuration
+@using DependencyResolver = Colony.Util.Configuration.DependencyResolver
+@{
+    var sitesService = DependencyResolver.Current.GetService<ISitesService>();
+    var siteDomainService = DependencyResolver.Current.GetService<ISiteDomainsService>();
+
+    var wgSite = sitesService.GetAll().FirstOrDefault(x => x.SiteKey == "Wg");
+    SiteDomain redirectSite = null;
+    if (wgSite != null)
+    {
+        redirectSite = siteDomainService.GetMainDomainForSite(wgSite.Id) ?? siteDomainService.GetSingleDomainForSite(wgSite.Id);
+    }
+}
+
+@if (ViewBag.IsInDefaultRegion == false && ViewBag.AcceptSiteRedirect == true)
+{
+    <section class="siteMessage">
+        <div class="message">
+            <p class="sub">We've noticed you are browsing from outside the UK and we may not be able to deliver samples to your address.</p>
+        </div>
+        <div class="options">
+            <a href="@Request.Url.AbsoluteUri" class="link icon-remove" data-message-no="">Close</a>
+        </div>
+    </section>
+}

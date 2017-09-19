@@ -1,0 +1,29 @@
+﻿@model Colony.Modules.Careers.Areas.Models.CategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.WindowTitle ?? Model.Category.Name);
+    Html.SetMetaKeywords(Model.Category.MetaKeywords);
+    Html.SetMetaDescription(Model.Category.MetaDescription);
+}
+<div id="container" class="">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <header class="pageHeader">
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(Model.Category.LongDescription)
+        </header>
+
+        @{ Html.RenderPartial("_CategoryList", Model.JobCategories); }
+
+        @{ Html.RenderPartial("_JobList", Model.Jobs); }
+
+        <nav class="pageOptions" role="navigation">
+            <ul>
+                <li>
+                    <a href="/jobs/" class="prev">
+                        <span>Back to List</span></a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</div>

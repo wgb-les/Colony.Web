@@ -1,0 +1,589 @@
+﻿@model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+
+<form action="" class="filterAccordion" method="post" id="searchPaint">
+    <section class="boxSection filterColours">
+        <div class="header expanded">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Colour</h2>
+            </a>
+            <a href="#" class="clearFilter">Clear</a>
+        </div>
+        <div class="content-filterAccordion" style="display: block; overflow: hidden;">
+            <div class="colours">
+                @foreach (var cg in Model.ColourFilter.Groups)
+                {
+                    <div class="colourBand">
+                        <div class="toggleAll">
+                            <label for="colourgroup_@cg.Name" data-colour-group-all="colourgroup_@cg.Name">
+                                <span>Select all @cg.Name</span>
+                                <span class="toggleColours">
+                                @foreach (var c in cg.Colours.GetRange(0, 4))
+                                {
+                                    <span style="background-color: #@c.Colour"></span>
+                                }
+						    </span>
+                                <span class="arrow" style="border-left-color: #@cg.Colours[4].Colour;"></span>
+                                <input type="checkbox" name="colourgroup_@cg.Name" id="colourgroup_@cg.Name">
+                            </label>
+                        </div>
+                        <ul>
+                            @foreach (var c in cg.Colours)
+                            {
+                                <li>
+                                    <label for="SelectedColours_@(c.Code)" style="background-color: #@c.Colour" data-colour-group="colourgroup_@cg.Name" data-colour-code="@c.Code" @if (Model.SelectedColours.Contains(c.Code))
+                                                                                                                                                                                    {
+                                                                                                                                                                                        <text>class="selected"</text>
+                                                                                                                                                                                    }>
+                                        <span>@c.Name</span>
+                                        <input type="checkbox" name="SelectedColours" value="@c.Code" data-colour-group="colourgroup_@cg.Name" data-colour-code="@c.Code" id="SelectedColours_@c.Code" @if (Model.SelectedColours.Contains(c.Code))
+                                                                                                                                                                                                       {
+                                                                                                                                                                                                           <text>checked="checked"</text>
+                                                                                                                                                                                                       }>
+                                    </label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+
+    <fieldset class="boxSection filterTags">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Name or keyword</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+            <div class="details">
+                <div class="field tagpicker">
+                    <label for="keywords">
+                        Enter tag name
+                    </label>
+                    <div class="tagpickerSearch">
+                        <select name="keywords" id="keywords">
+                            @if (Model.Keywords != null)
+                            {
+                                foreach (var keyword in Model.Keywords.Split(' '))
+                                {
+                                    <option value="@keyword" id="opt_@keyword" class="selected" selected="selected">@keyword</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+    @*TODO: Add filters for Finish and Tone*@
+    @*<section class="boxSection filterBrands">
+	<div class="header">
+		<a href="#" class="toggle-filterAccordion">
+			<h2>Brand</h2>
+		</a>		
+		<a href="#" class="clearFilter">Clear</a>
+	</div>
+	<div class="content-filterAccordion">
+		<div class="brands">
+			<ul>
+                @foreach (var option in Model.Options.Where(x => x.SkuAttribute.Name == "Brand").OrderBy(x => x.Name))
+                {
+                    <li>
+					    <label for="brand_@option.Id" class="@GetBrandClassName(option.Name)  @if (Model.Brand.Contains(option.Id.ToString())){ <text>selected</text> }">
+						    <span>@option.Name</span>
+						    <input type="checkbox" name="brand" id="brand_@option.Id" value="@option.Id.ToString()"  @if (Model.Brand.Contains(option.Id.ToString())){ <text>checked="checked"</text> }  />
+					    </label>
+                    </li>
+                }
+			</ul>
+		</div>
+	</div>
+</section>*@
+
+</form>
+
+
+<!--
+<form action="" method="post" class="filterAccordion">
+
+<section class="boxSection filterColours">
+<div class="header">
+    <a href="#" class="toggle-filterAccordion">
+        <h2>Colour</h2>
+    </a>
+    <a href="#" class="clearFilter">Clear</a>
+</div>
+<div class="content-filterAccordion">
+<div class="colours">
+<ul>
+    <li>
+        <a href="#" style="background-color: #2d334b" data-colour-code="A1" @if (Model.SelectedColours.Contains("A1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #daeef5" data-colour-code="A2" @if (Model.SelectedColours.Contains("A2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #79bde0" data-colour-code="A3" @if (Model.SelectedColours.Contains("A3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #3973bd" data-colour-code="A4" @if (Model.SelectedColours.Contains("A4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #3b4d7b" data-colour-code="A5" @if (Model.SelectedColours.Contains("A5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #2d334b" data-colour-code="A6" @if (Model.SelectedColours.Contains("A6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #2d4a46" data-colour-code="B1" @if (Model.SelectedColours.Contains("B1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #c3e1d7" data-colour-code="B2" @if (Model.SelectedColours.Contains("B2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #78c1b6" data-colour-code="B3" @if (Model.SelectedColours.Contains("B3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #45928a" data-colour-code="B4" @if (Model.SelectedColours.Contains("B4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #32647b" data-colour-code="B5" @if (Model.SelectedColours.Contains("B5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #2d4a46" data-colour-code="B6" @if (Model.SelectedColours.Contains("B6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #849d64" data-colour-code="C1" @if (Model.SelectedColours.Contains("C1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #dce29a" data-colour-code="C2" @if (Model.SelectedColours.Contains("C2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #c4d839" data-colour-code="C3" @if (Model.SelectedColours.Contains("C3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #bde64a" data-colour-code="C4" @if (Model.SelectedColours.Contains("C4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #61a656" data-colour-code="C5" @if (Model.SelectedColours.Contains("C5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #849d64" data-colour-code="C6" @if (Model.SelectedColours.Contains("C6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #c6b65f" data-colour-code="D1" @if (Model.SelectedColours.Contains("D1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #f5f99b" data-colour-code="D2" @if (Model.SelectedColours.Contains("D2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #f7f65d" data-colour-code="D3" @if (Model.SelectedColours.Contains("D3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #e8e586" data-colour-code="D4" @if (Model.SelectedColours.Contains("D4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #ddc237" data-colour-code="D5" @if (Model.SelectedColours.Contains("D5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #c6b65f" data-colour-code="D6" @if (Model.SelectedColours.Contains("D6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #c40829" data-colour-code="E1" @if (Model.SelectedColours.Contains("E1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #f7bf86" data-colour-code="E2" @if (Model.SelectedColours.Contains("E2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #eb9e44" data-colour-code="E3" @if (Model.SelectedColours.Contains("E3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #ea6329" data-colour-code="E4" @if (Model.SelectedColours.Contains("E4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #d4381f" data-colour-code="E5" @if (Model.SelectedColours.Contains("E5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #c40829" data-colour-code="E6" @if (Model.SelectedColours.Contains("E6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #d30373" data-colour-code="F1" @if (Model.SelectedColours.Contains("F1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #fdd5de" data-colour-code="F2" @if (Model.SelectedColours.Contains("F2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #e8b0c9" data-colour-code="F3" @if (Model.SelectedColours.Contains("F3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #df649d" data-colour-code="F4" @if (Model.SelectedColours.Contains("F4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #a43e80" data-colour-code="F5" @if (Model.SelectedColours.Contains("F5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #d30373" data-colour-code="F6" @if (Model.SelectedColours.Contains("F6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #6d2682" data-colour-code="G1" @if (Model.SelectedColours.Contains("G1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #dfcce8" data-colour-code="G2" @if (Model.SelectedColours.Contains("G2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #c2a7ca" data-colour-code="G3" @if (Model.SelectedColours.Contains("G3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #bc84cf" data-colour-code="G4" @if (Model.SelectedColours.Contains("G4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #a72da2" data-colour-code="G5" @if (Model.SelectedColours.Contains("G5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #6d2682" data-colour-code="G6" @if (Model.SelectedColours.Contains("G6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #060606" data-colour-code="H1" @if (Model.SelectedColours.Contains("H1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #ebede2" data-colour-code="H2" @if (Model.SelectedColours.Contains("H2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #d2d4d1" data-colour-code="H3" @if (Model.SelectedColours.Contains("H3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #9f9f9f" data-colour-code="H4" @if (Model.SelectedColours.Contains("H4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #686866" data-colour-code="H5" @if (Model.SelectedColours.Contains("H5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #060606" data-colour-code="H6" @if (Model.SelectedColours.Contains("H6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="#" style="background-color: #65533b" data-colour-code="I1" @if (Model.SelectedColours.Contains("I1"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #efe8d5" data-colour-code="I2" @if (Model.SelectedColours.Contains("I2"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #dfd8a1" data-colour-code="I3" @if (Model.SelectedColours.Contains("I3"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #c1bd8d" data-colour-code="I4" @if (Model.SelectedColours.Contains("I4"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #857d66" data-colour-code="I5" @if (Model.SelectedColours.Contains("I5"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+    <li>
+        <a href="#" style="background-color: #65533b" data-colour-code="I6" @if (Model.SelectedColours.Contains("I6"))
+                                                                            {
+                                                                                <text>class="selected"</text>
+                                                                            }>
+            <span>[Colour Name]</span></a>
+    </li>
+</ul>
+@Html.Hidden("SelectedColours")
+</div>
+</div>
+</section>
+
+<fieldset class="boxSection filterTags">
+    <div class="header">
+        <a href="#" class="toggle-filterAccordion">
+            <h2>Name, code or keyword</h2>
+        </a>
+        <a href="#" class="clearFilter">Clear</a>
+    </div>
+    <div class="content-filterAccordion">
+        <div class="details">
+
+            <div class="field tagpicker ">
+                <label for="Keywords">
+                    Enter tag name
+                </label>
+
+                <div class="tagpickerSearch">
+                    <select name="Keywords" id="Keywords"></select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</fieldset>
+
+<section class="boxSection filterBrands">
+    <div class="header">
+        <a href="#" class="toggle-filterAccordion">
+            <h2>Brand</h2>
+        </a>
+        <a href="#" class="clearFilter">Clear</a>
+    </div>
+    <div class="content-filterAccordion">
+        <div class="brands">
+            <ul>
+                @foreach (var option in Model.Options.Where(x => x.SkuAttribute.Name == "Brand").OrderBy(x => x.Name))
+                {
+                    <li>
+                        <a href="#" class="@GetBrandClassName(option.Name)" data-attribute-name="Brand" data-attribute-option-id="@option.Id"
+                           data-attribute-id="@option.SkuAttributeID">
+                            <span>@option.Name</span></a>
+                    </li>
+                    @Html.Hidden("Brand", null, new {id = "Brand_" + option.Id + ""})
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+<div class="field formControls">
+    <button class="button">Search</button>
+</div>
+</form>
+-->
+
+
+@functions
+{
+
+    public string GetBrandClassName(string brandName)
+    {
+        if (brandName == "Walker Greenbank")
+            return "wg";
+
+        return brandName.ToLower();
+    }
+
+}

@@ -1,0 +1,29 @@
+﻿@model Colony.Models.PagedCollection<WalkerGreenbank.Modules.AsSeenIn.Areas.Models.AsSeenInDetailViewModel>
+@{
+    Html.RenderPaging(Model, "items", "sortOptions", "/as-seen-in/", pagesToDisplay: 3, showAll: true);
+}
+@{
+    ViewContext.Controller.TempData["HasAsSeenIn"] = Model.Any();
+}
+<div class="imageList">
+    @foreach (var item in Model)
+    {
+        <div class="item">
+            <div class="thumb">
+                <div class="figure">
+                    <img src="@Url.ImageUrl(item.ImageAssetID, "AsSeenIn", "AsSeenInCategoryThumbnail", @"/_images/placeholders/moduleList.jpg")" alt="@item.Name"/>
+                </div>
+                <h3 class="itemTitle">@item.Name</h3>
+                <p>@item.ShortDescription</p>
+            </div>
+            <div class="action">
+                <a href="/as-seen-in/@(item.URI)" class="button icon-eye-open">
+                    <span>View</span>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+@{
+    Html.RenderPaging(Model, "items", "sortOptions", "/as-seen-in/", pagesToDisplay: 3, showAll: true);
+}

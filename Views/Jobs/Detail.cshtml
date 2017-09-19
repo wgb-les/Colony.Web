@@ -1,0 +1,23 @@
+﻿@model Colony.Modules.Careers.Areas.Models.JobViewModel
+@{
+    Html.AppendTitle(Model.JobDetail.Job.WindowTitle ?? Model.JobDetail.Job.Name);
+    Html.SetMetaKeywords(Model.JobDetail.Job.MetaKeywords);
+    Html.SetMetaDescription(Model.JobDetail.Job.MetaDescription);
+}
+<div id="container" class="articleCol">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+        @{ Html.RenderPartial("_JobDetail", Model.JobDetail); }
+
+        <nav class="pageOptions" role="navigation">
+            <ul>
+                <li>
+                    <a href="/jobs@(Model.JobDetail.Job.Uri)?apply=true" class="prev">
+                        <span>Apply</span></a>
+                </li>
+                @*<li><a href="@Url.Action("Apply", "Jobs", new { area = "Careers", JobId = Model.JobDetail.Job.Id })" class="prev">
+					<span>Apply</span></a></li>*@
+            </ul>
+        </nav>
+    </div>
+</div>

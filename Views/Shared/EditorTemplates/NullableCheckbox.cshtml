@@ -1,0 +1,22 @@
+﻿@model bool?
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var labelText = ViewData["labelText"] ?? displayText;
+    var checkedValue = Model != null ? Model.Value : false;
+}
+
+
+<div class="field checkbox">
+    @Html.ValidationMessageFor(t => t)
+
+    <input type="checkbox" name="@fieldName" id="@fieldName" @if (checkedValue)
+                                                             {
+                                                                 <text>checked="checked"</text>
+                                                             }/>
+    @Html.CustomLabelFor(x => x, null, labelText.ToString())
+</div>

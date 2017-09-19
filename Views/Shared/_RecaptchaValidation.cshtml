@@ -1,0 +1,11 @@
+﻿@{
+    var recaptcha_failed = HttpContext.Current.Items["recaptcha_failed"] as bool?;
+}
+@if (recaptcha_failed != null && recaptcha_failed == true)
+{
+    <div class="field-validation-error">
+        <div class="alertInfo error">
+            Please ensure you enter the characters exactly as they appear in the box below.
+        </div>
+    </div>
+}

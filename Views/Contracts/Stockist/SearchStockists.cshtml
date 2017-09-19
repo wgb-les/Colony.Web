@@ -1,0 +1,9 @@
+﻿@model Colony.Commerce.Areas.Stockists.Models.StockistSearchViewModel
+<div id="whereToBuySearch">
+    <form id="stockistSearch" class="row" method="post">
+        <div id="PostcodeError" class="alertInfo error" style="display: none;">
+            Please enter a Postal / Zip code.
+        </div>
+        @{ Html.RenderPartial("_SearchFilters", Model); }
+    </form>
+</div>

@@ -1,0 +1,37 @@
+﻿@using Colony.Commerce.Models.Stock
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+    Html.AppendTitle(Model.Product.Name + (Model.SelectedSku != null ? " (" + Model.SelectedSku.Code + ")" : ""));
+    Html.AppendTitle(Model.Category.Name);
+
+    Html.SetPageData(Model.Product.AnalyticsCode, Model.Product.MetaTitle, Model.Product.MetaKeywords, Model.Product.MetaDescription, Model.Product.MetaCustomTags);
+}
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('productPage');
+</script>
+
+@if (ViewBag.IsPaint == true)
+{
+    @* go here for paint products *@
+    Html.RenderPartial("_PaintProductDetail", Model);
+}
+else if (!string.IsNullOrWhiteSpace(Model.SelectedSku.IsOptionProduct))
+{
+    @* not a paint product but has the IsOptionProduct flag set so decide what view to render based on
+    the value of this flag *@
+    if (Model.SelectedSku.IsOptionProduct == Sku.IsOptionProduct_NotOptionProduct && Model.SelectedSku.Attributes.GetValueOrNull("Item Type") == "Umbrella Product")
+    {
+        @* this is an option product e.g. bedding, dinner sets *@
+        Html.RenderPartial("_ProductDetailWithOptions", Model);
+    }
+    else
+    {
+        @*this is not an option product, e.g cushions/rugs *@
+        Html.RenderPartial("_ProductDetail", Model);
+    }
+}
+else
+{
+    @* assume everything else is a sample *@
+    Html.RenderPartial("_SampleProductDetail", Model);
+}

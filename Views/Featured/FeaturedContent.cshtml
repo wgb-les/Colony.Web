@@ -1,0 +1,37 @@
+﻿@model IList<WalkerGreenbank.Modules.Featured.Areas.Models.FeaturedContentItemViewModel>
+
+<div class="scroller">
+    <ul class="results">
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <li>
+                    <article class="details no-drag" data-imageAssetId="@item.ImageAssetID" data-productname="@item.Name" data-productimage="@Url.ImageUrl(item.ImageAssetID, "", "", @"/_images/placeholders/categoryList.jpg")">
+                        <h3>@item.Name</h3>
+                        <figure>
+                            <img src="@Url.ImageUrl(item.ImageAssetID, "Featured", "ProductCategoryThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@item.Name">
+                        </figure>
+                        <p>@item.ShortDescription</p>
+
+                        <a href="@item.TargetURI" @if (item.NewWindow)
+                                                  {
+                                                      <text>target="_blank"</text>
+                                                  }>
+                            Read More<span class="icon-angle-right right"></span></a>
+                    </article>
+                </li>
+            }
+        }
+        else
+        {
+            <li style="width: 276px;">
+                <article class="details recentlyViewedPod">
+                    <h2>Featured</h2>
+                    <p>Featured content will appear here.</p>
+                </article>
+                <div class="clear"></div>
+            </li>
+        }
+    </ul>
+</div>

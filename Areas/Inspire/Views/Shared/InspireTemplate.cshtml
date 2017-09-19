@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10" lang="en"><![endif]-->
+<!--[if gt IE 10]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    @{ Html.RenderPartial("~/Areas/Inspire/Views/Shared/_InspireHead.cshtml"); }
+    <script src="/_js/shared/StylelibraryInspire.js?v=1" type="text/javascript"></script>
+</head>
+<body class="wgSite">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJS7V7" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <main class="mainViewPort">
+        <div class="darkenOverlay"></div>
+        <div class="mainContainer">
+            @{ Html.RenderPartial("_Header.cshtml", "wg"); }
+            <div class="pageContainer">
+                <div class="Inspire">
+                    @*@{ Html.RenderPartial("_Breadcrumbs.cshtml"); }*@
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        @Html.Partial("~/Areas/Inspire/Views/Shared/_InspireFooter.cshtml")
+    </main>
+    @Html.Partial("_SideModals.cshtml")
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.PressMembers.Models.DownloadViewModel
+@{
+    ViewBag.Title = "Download Requested Images";
+}
+<div id="content">
+    <h1>@ViewBag.Title</h1>
+    @if (Model.DownloadRequest.Images.Any())
+    {
+        <p>Use the links below to download your requested images.</p>
+        <p>
+            If you require further assistance, please don't hesitate to <a href="/contact-us/">contact us</a>.
+        </p>
+        if (Model.DownloadRequest.Images.Any(i => i.Resolution == "hi"))
+        {
+            <h2>High resolution images</h2>
+
+            <div class="imageList">
+                @foreach (var imageRequest in Model.DownloadRequest.Images.Where(i => i.Resolution == "hi").ToList())
+                {
+                    <div class="item ">
+                        <div class="thumb">
+                            <img src="@Url.ImageUrl(imageRequest.Image.HighRes, "imagedownloads", "ImageDownloadThumbnail", "")" alt="@imageRequest.Image.Name"/>
+                            <h3 class="itemTitle">@imageRequest.Image.Name</h3>
+                        </div>
+                        <div class="action">
+                            <a class="button" href="@Url.Action("DownloadProxy", "ImageDownload", new {area = "ImageDownload", downloadRequestId = Model.DownloadRequest.Id, imageId = imageRequest.ImageId})" target="_blank">
+                                <span>Download</span></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        if (Model.DownloadRequest.Images.Any(i => i.Resolution == "lo"))
+        {
+            <h2>Low resolution images</h2>
+
+            <div class="imageList">
+                @foreach (var imageRequest in Model.DownloadRequest.Images.Where(i => i.Resolution == "lo").ToList())
+                {
+                    <div class="item ">
+                        <div class="thumb">
+                            <img src="@Url.ImageUrl(imageRequest.Image.LowResSpoiler, "imagedownloads", "ImageDownloadThumbnail", "")" alt="@imageRequest.Image.Name"/>
+                            <h3 class="itemTitle">@imageRequest.Image.Name</h3>
+                        </div>
+                        <div class="action">
+                            <a class="button" href="@Url.Action("DownloadProxy", "ImageDownload", new {area = "ImageDownload", downloadRequestId = Model.DownloadRequest.Id, imageId = imageRequest.ImageId})" target="_blank">
+                                <span>Download</span></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        if (Model.DownloadRequest.Images.Any(i => i.Resolution == "lo-spoiler"))
+        {
+            <h2>Low resolution images with spoiler</h2>
+
+            <div class="imageList">
+                @foreach (var imageRequest in Model.DownloadRequest.Images.Where(i => i.Resolution == "lo-spoiler").ToList())
+                {
+                    <div class="item ">
+                        <div class="thumb">
+                            <img src="@Url.ImageUrl(imageRequest.Image.LowResSpoiler, "imagedownloads", "ImageDownloadThumbnail", "")" alt="@imageRequest.Image.Name"/>
+                            <h3 class="itemTitle">@imageRequest.Image.Name</h3>
+                        </div>
+                        <div class="action">
+                            <a class="button" href="@Url.Action("DownloadProxy", "ImageDownload", new {area = "ImageDownload", downloadRequestId = Model.DownloadRequest.Id, imageId = imageRequest.ImageId})" target="_blank">
+                                <span>Download</span></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+    @if (Model.DownloadRequest.RequestBrandGuidelines && Model.BrandGuidelines.Any())
+    {
+        <h2>Brand guidelines and logos</h2>
+
+        <div class="imageList">
+            @foreach (var guideline in Model.BrandGuidelines)
+            {
+                <div class="item ">
+                    <div class="thumb">
+                        <img src="/_images/logos/header/@(guideline.Name.ToLowerInvariant()).png" alt="@guideline.Name" style="border: none; margin: 30px auto;"/>
+                        <h3 class="itemTitle">@guideline.Name</h3>
+                    </div>
+                    <div class="action">
+                        <a class="button" href="@guideline.ZipFileUri" target="_blank">
+                            <span>Download</span></a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+</div>

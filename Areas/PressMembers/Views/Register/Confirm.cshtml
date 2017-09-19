@@ -1,0 +1,26 @@
+﻿@model bool
+@{
+    ViewBag.Title = "Thanks for registering your interest";
+}
+
+@if (Model)
+{
+    <h2>Thanks for registering your interest</h2>
+    <p>
+        One of our representatives will review your request and you will be notified in due course.
+        Access to the press area will not be possible until your account has been reviewed and accepted.
+    </p>
+}
+else
+{
+    <h2>Error confirming registration</h2>
+    <p>
+        There was an error confirming the registration. If you have already confirmed your account
+        then you should receive a confirmation email and should be able to login
+        @Html.ActionLink("here", "Login", "Authentication", new {area = "Members"}, null).
+    </p>
+    <p>
+        If you would like to re-register click
+        @Html.ActionLink("here", "Register", "Register", new {area = "Members"}, null).
+    </p>
+}

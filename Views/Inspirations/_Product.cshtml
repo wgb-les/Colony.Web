@@ -1,0 +1,20 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.Inspirations.Areas.Models.InspirationProductViewModel
+@{
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/thumbnail.jpg") : @"/_images/placeholders/thumbnail.jpg";
+}
+<div class="item no-drag" data-quick-view-id="product_@Model.Product.Id" data-productcode="@Model.Sku.Code" data-productname="@Model.Sku.Name" data-skuid="@Model.Sku.Id" data-productimage="@defaultImageUrl" data-skuid="@Model.Sku.Id">
+    <a href="/shop/@Url.ProductUrl(Model.Product)?code=@Model.Sku.Code">
+        <img src="@defaultImageUrl" alt="@Model.Product.Name"/>
+        <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@Model.Product.Name</h4>
+        <ul>
+            <li>@Model.Sku.Code</li>
+            <li>@Model.Attributes.GetValueOrNull("Product Group")</li>
+        </ul>
+        @if (Model.Sku.IsNew)
+        {
+            <span class="itemNew">New</span>
+        }
+    </a>
+</div>

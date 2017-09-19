@@ -1,0 +1,46 @@
+﻿@model Colony.Commerce.PaymentProvider.DataCash.Models.PaymentViewModel
+@{
+    ViewBag.Title = "Secure Payment";
+}
+<script type="text/javascript">
+    $(function () {
+        if (/iPhone|iPod|iPad/.test(navigator.userAgent))
+            $('iframe')
+                .wrap(function () {
+                    var $this = $(this);
+                    return $('<div />')
+                        .css({
+                            width: $this.attr('width'),
+                            height: $this.attr('height'),
+                            overflow: 'scroll',
+                            '-webkit-overflow-scrolling': 'touch'
+                        })
+                        .niceScroll();
+                });
+    })
+</script>
+@*<style>
+    html, body,#container {
+        height:100%;
+    }
+ 
+</style>*@
+<div id="content" style="padding:0;">
+    @using (Html.BeginForm())
+    {
+        <iframe src="@Model.HccSessionUrl" id="hccIFrame" style="height: 800px; top: 151px; width: 100%; left:0;" frameborder="0" title="Payment Details"></iframe>
+        @*<fieldset>
+                <legend>Payment Details</legend>
+                @Html.EditorFor(model => model.CardholderName)
+                @Html.EditorFor(model => model.CardNumber)
+                @Html.EditorFor(model => model.IssueNumber, new { @size = "medium" })
+                @Html.EditorFor(model => model.Cv2, new { @size = "medium" })
+                @Html.EditorFor(model => model.StartDate)
+                @Html.EditorFor(model => model.ExpiryDate)
+            </fieldset>*@
+
+        @*<div class="field formControls">
+                <button class="button"><span>Make Secure Payment</span></button>
+            </div>*@
+    }
+</div>

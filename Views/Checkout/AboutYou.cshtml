@@ -1,0 +1,77 @@
+﻿@using Colony.Commerce.Areas.ShopPurchase.Models
+@model Colony.Commerce.Areas.ShopPurchase.Models.AboutYouViewModel
+@{
+    ViewBag.Title = "About You";
+    Layout = "";
+}
+@if (ViewBag.State == CheckoutSectionState.Active)
+{
+    <form id="aboutYouForm" action="@Url.Action("AboutYou", "Checkout", new {area = "ShopPurchase", edit = "aboutYou"})" method="post">
+        @Html.AntiForgeryToken()
+        @Html.CustomValidationSummary(false)
+        <div id="aboutYou" class="boxSection checkoutAbout editable">
+            <div class="header">
+                <h2>About you</h2>
+            </div>
+            <fieldset>
+                <legend>About You</legend>
+
+                @Html.EditorFor(model => model.Title)
+
+                @Html.EditorFor(model => model.FirstName)
+
+                @Html.EditorFor(model => model.LastName)
+
+                @Html.EditorFor(model => model.Email)
+
+                @Html.EditorFor(model => model.PhoneNumber)
+
+                @Html.EditorFor(model => model.MobileNumber)
+
+                @Html.HiddenFor(model => model.PersonId)
+                <div class="field">
+                    <p>
+                        Click here to read our <a href="/Terms-and-conditions">Website Terms of Use, </a><a href="/Terms-and-conditions-of-sale/">Terms and Conditions of Sale and </a><a href="/privacy-policy/">Privacy Policy</a>
+                    </p>
+                </div>
+
+                @if (ViewData["MustAcceptTermsAndConditions"].AsBool(false))
+                {
+                    <div class="alertInfo error">You must accept the Terms and Conditions</div>
+                }
+                <div style="padding: 10px 10px 20px 10px">
+                    @Html.EditorFor(model => model.AcceptTermsAndConditions, new {labelText = "<p>I accept the website terms of use, terms and conditions of sale and privacy policy. I also acknowledge that the goods ordered incorporate works and/or designs that are protected by intellectual property rights owned by or licensed to Abaris Holdings Limited or affiliated entities. Any infringement or attempted infringement of those rights will be pursued.</p>"})
+                </div>
+            </fieldset>
+            <div class="field formControls">
+                <button class="button actionButton">Next</button>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <div id="aboutYou" class="boxSection checkoutAbout completed">
+        <div class="header">
+            <h2 class="icon-ok left">About you</h2>
+            <a href="@Url.Action("Summary", "Checkout", new {area = "ShopPurchase", edit = "aboutYou"})">
+                <span>Edit</span></a>
+            <div class="clear"></div>
+        </div>
+        <ul>
+            <li>
+                <strong>@Model.Title @Model.FirstName @Model.LastName</strong>
+            </li>
+            <li>@Model.Email</li>
+
+            @if (!string.IsNullOrWhiteSpace(Model.PhoneNumber))
+            {
+                <li>@Model.PhoneNumber</li>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.MobileNumber))
+            {
+                <li>@Model.MobileNumber</li>
+            }
+        </ul>
+    </div>
+}

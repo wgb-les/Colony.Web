@@ -1,0 +1,51 @@
+﻿@model Colony.CMS.Areas.CRM.Models.AddressViewModel
+@{
+    var showAddressName = ViewData["ShowAddressName"].AsBool(false);
+    var showPersonDetails = ViewData["ShowPersonDetails"].AsBool(false);
+    var showCompanyDetails = ViewData["ShowCompanyDetails"].AsBool(false);
+}
+@if (showAddressName)
+{
+    @Html.EditorFor(model => model.Description, new {@class = "description", placeholder = "E.g. Home, Work"})
+    ;
+}
+@if (showPersonDetails)
+{
+    @Html.EditorFor(model => model.Title)
+    ;
+    @Html.EditorFor(model => model.FirstName)
+    ;
+    @Html.EditorFor(model => model.LastName)
+    ;
+}
+@if (showCompanyDetails)
+{
+    @Html.EditorFor(model => model.Company)
+    ;
+}
+<div class="alertInfo error" id="findAddressError" style="display: none;">There was a problem looking up your post code, please enter your address manually.</div>
+
+
+@Html.EditorFor(model => model.Line1)
+@Html.EditorFor(model => model.Line2)
+@Html.EditorFor(model => model.Town, new {size = "medium"})
+@Html.EditorFor(model => model.County, new {size = "medium"})
+@Html.EditorFor(model => model.CountryISO2, new {options = Model.CountiresList})
+
+@Html.EditorFor(model => model.Postcode, "Postcode", new { size = "medium" })
+
+@*@if (Model.UseAsBillingAddress != null)
+{
+    Html.EditorFor(model => model.UseAsBillingAddress);
+}
+
+@if (Model.UseAsDeliveryAddress != null)
+{
+    Html.EditorFor(model => model.UseAsDeliveryAddress);
+}*@
+
+<style>
+    .alertInfo.message {
+        display:none;
+    }
+</style>

@@ -1,0 +1,81 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.BasketLineViewModel
+
+<div class="inner">
+    @if (!Model.CanPurchase)
+    {
+        <div class="alertInfo error">
+            <p>The item below is unavailable in your selected region. Either remove this item from your basket or change your region.</p>
+        </div>
+    }
+    <div class="flatshot">
+        <img src="@Url.ImageUrl(Model.ImageAssetId, "ShopPurchase", "ImageDownloadThumbnail")" alt="@Model.Name">
+    </div>
+    <div class="details">
+        <h3>@Model.Sku.Name</h3>
+        <span>@Model.Sku.Code</span>
+        <span>@Model.Attributes.GetValueOrNull("Product Group")</span>
+        <div class="table">
+            <div class="leftValue">Quantity:</div>
+            <div class="rightValue">@Model.Quantity</div>
+            @if (Model.CanPurchase)
+            {
+                <div class="leftValue">Price:</div>
+                <div class="rightValue">@(Model.TotalInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.TotalInc.ToString("#0.00") : "FREE")</div>
+            }
+        </div>
+    </div>
+</div>
+
+@*<div class="basket-item">
+    @if (!Model.CanPurchase)
+    {
+        <div class="alertInfo error">
+            <p>The item below is unavailable in your selected region. Either remove this item from your basket or change your region.</p>
+        </div>
+    }
+    @if (Model.Sku != null)
+    {
+        <div class="basket-item-section basketLineImage">
+            <a href="@string.Format("{0}/shop/{1}?code={2}", Model.ShopBaseUri, Model.Url, Model.Sku.Code)" class="thumbnail">
+                <img class="basket-item-thumbnail" src="@Url.ImageUrl(Model.ImageAssetId, "ShopPurchase", "ImageDownloadThumbnail")" alt="@Model.Name">
+            </a>
+        </div>
+    }
+
+    <div class="basket-item-section">
+
+        <div class="basket-item-content">
+            <div class="basket-item-product">
+                <div class="basket-item-heading">
+
+                    <ul>
+                        <li><b>@Model.Sku.Name</b></li>
+                        <li>@Model.Sku.Code</li>
+                        <li>@Model.Attributes.GetValueOrNull("Product Group")</li>
+                    </ul>
+                    <div class="basket-item-price">
+                        <dl class="basket-item-meta">
+                            <dt>
+                                Quantity:
+                            </dt>
+                            <dd>
+                                @Model.Quantity
+                            </dd>
+                            @if (Model.CanPurchase)
+                            {
+                                <dt>
+                                    Price:
+                                </dt>
+                                <dd>
+                                    @(Model.TotalInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.TotalInc.ToString("#0.00") : "FREE")
+                                </dd>
+                            }
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>*@

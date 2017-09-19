@@ -1,0 +1,83 @@
+﻿<tr data-productcode="<%= rc.productcode %>" data-b2bfetch="true">
+    <td class="productCode" data-skuid="<%=rc.skuId%>">
+        <img class="thumb" src="<%=rc.images.Url%>" alt="<%=rc.name%>"/>
+        <div class="detail">
+            <h2>
+                <a href="<%=rc.url%>" title="<%=rc.key%>" target="_blank"><%=rc.key %></a><span>&#160;<%= ( rc.attributes['Design Code'] || rc.productcode )%></span></h2>
+            <% if (sitekey.toLowerCase() === 'wg') { %>
+            <h3><%=rc.attributes['Product Group']%> by <%=rc.attributes['Brand']%></h3>
+            <% } %>
+            <!--<h3>Momentum 5 &amp; 6</h3>-->
+            <dl>
+                <dt>Colour</dt><dd><%=rc.attributes['Descriptive Colour']%></dd>
+                <dt>Type</dt><dd><%=rc.attributes['Type']%></dd>
+            </dl>
+
+            <input type="hidden" class="referenceProductCode" value="<%=rc.productcode%>"/>
+            <input type="hidden" class="webAccount" value="<%=rc.attributes['Mertex Account']%>"/>
+        </div>
+    </td>
+    <!--<td class="cuttingType cuttingTypeColumn">
+        <fieldset>
+            <legend>Cutting Type</legend>
+            <h3>Cutting Type</h3>
+            <ul>
+
+                <li>
+                    <label for="radio_cutting_<%=rc.productcode%>" class="selected">
+                        <abbr title="Cutting">C</abbr>
+                        <input type="checkbox" name="cuttingtype_<%=rc.productcode%>" id="radio_cutting_<%=rc.productcode%>" value="C" checked="checked"/>
+                    </label>
+                </li>
+
+                <li>
+                    <label for="radio_short_<%=rc.productcode%>">
+                        <abbr title="Short">S</abbr>
+                        <input type="checkbox" name="cuttingtype_<%=rc.productcode%>" id="radio_short_<%=rc.productcode%>" value="S"/>
+                    </label>
+                </li>
+
+                <li>
+                    <label for="radio_long_<%=rc.productcode%>">
+                        <abbr title="Cutting">L</abbr>
+                        <input type="checkbox" name="cuttingtype_<%=rc.productcode%>" id="radio_long_<%=rc.productcode%>" value="L"/>
+                    </label>
+                </li>
+
+                <li>
+                    <label for="radio_returnable_<%=rc.productcode%>">
+                        <abbr title="Cutting">R</abbr>
+                        <input type="checkbox" name="cuttingtype_<%=rc.productcode%>" id="radio_returnable_<%=rc.productcode%>" value="R"/>
+                    </label>
+                </li>
+
+            </ul>
+        </fieldset>
+    </td>-->
+    <%
+    var showProdDets = "";
+    if (isContract == '0') {
+    showProdDets = 'true'
+    } else {
+    showProdDets = 'false'
+    %>
+    <input type="hidden" id="webcontractuser" value="true"/>
+    <%
+
+    }
+    %>
+    <td class="priceColumn price"></td>
+    <td class="stockColumn stock"></td>
+    <td data-productcode="<%= rc.productcode %>" class="removeItem">
+        <% if (rc.b2b === true) { %>
+        <% if (rc.attributes["Sample Code"] != '0' && rc.attributes["Sample Code"] != null) { %>
+        <a class="button small b2baddsampletobasket b2bdisabled" href="#">Order sample</a>
+        <% } %>
+        <% if (isContract == '0') { %>
+        <a class="button small b2baddtobasket b2bdisabled" href="#">Add to basket</a>
+        <% } %>
+        <% } else { %>
+        <a href="#" class="remove">Remove</a>
+        <% } %>
+    </td>
+</tr>

@@ -1,0 +1,10 @@
+<a href="#" class="item-trigger" data-itemid="<%= rc.item.Id %>" data-orientation="<%= rc.item.Orientation %>">
+    <span class="item-img <%= _.escape(rc.item.Images[0].Image.CropOption) %>" style="background-image: url('<%= _.escape(rc.item.Images[0].Image.Filename) %>');">
+	</span>
+    <span class="item-label">
+		<span class="inner">
+			<span class="brand"><%= rc.item.Brand.Name %></span>
+			<span class="collection"><%= rc.item.CollectionContent.Name %></span>
+		</span>
+	</span>
+</a>

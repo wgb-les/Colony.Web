@@ -1,0 +1,39 @@
+﻿@using System.Security.Claims
+@using Colony.Models.Core.Security
+@using Colony.Services.Security
+@{
+    var cp = User as ClaimsPrincipal;
+    var user = cp.GetForTenant(Constants.TenantTypes.ColonyCMSFrontend);
+    var isB2B = user.AuthenticationType == "Mertex" && user.Claims.FirstOrDefault(x => x.Type == "http://redant.com/colony/claims/b2b" && x.Value == "true") != null;
+}
+
+<ul class="global-nav-dropdown">
+    <li>
+        <a href="@Url.Action("Dashboard", "AccountArea", new {area = "AccountArea"})" class="global-nav-dropdown-item">Dashboard</a>
+    </li>
+    @if (!isB2B)
+    {
+        <li>
+            <a href="@Url.Action("Details", "AccountArea", new {area = "AccountArea"})" class="global-nav-dropdown-item">Details</a>
+        </li>
+        <li>
+            <a href="@Url.Action("OrderHistory", "AccountArea", new {area = "AccountArea"})" class="global-nav-dropdown-item">Orders</a>
+        </li>
+    }
+    @*<li>
+        <a href="@Url.Action("IndexForAccountArea", "Scrapbook", new {area = "Scrapbook"})" class="global-nav-dropdown-item">Moodboards</a>
+    </li>*@
+    @if (!isB2B)
+    {
+        <li>
+            <a href="@Url.Action("AddressBook", "AccountArea", new {area = "AccountArea"})" class="global-nav-dropdown-item">Address Books</a>
+        </li>
+    }
+    <li>
+        @using (Html.BeginForm("LogOut", "Authentication", new {area = "Members"}, FormMethod.Post, new {id = "logoutForm"}))
+        {
+            @Html.AntiForgeryToken()
+            <a class="global-nav-dropdown-item simple" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        }
+    </li>
+</ul>

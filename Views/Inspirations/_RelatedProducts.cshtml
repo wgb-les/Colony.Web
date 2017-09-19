@@ -1,0 +1,62 @@
+﻿@model IList<WalkerGreenbank.Modules.Inspirations.Areas.Models.InspirationProductViewModel>
+@if (Model.Any())
+{
+    <div class="furnitureAccordion">
+        <section class="boxSection relatedProducts">
+            <header>
+                <a href="#" class="toggle-furnitureAccordion">
+                    <h2>Products in this inspiration (@Model.Count())</h2>
+                </a>
+            </header>
+            <div class="content-furnitureAccordion">
+                <div class="bd">
+                    <div class="productList">
+                        <input type="hidden" name="ProductCodes" id="ProductCodes" value="@(string.Join<string>(",", Model.Select((model, index) => model.Sku.Code)))"/>
+                        @foreach (var item in Model)
+                        {
+                            Html.RenderPartial("_Product", item);
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="inspirationSamples" class="reveal-modal">
+        <header class="header-reveal-modal">
+            <h2>Order Samples</h2>
+            <a class="close-reveal-modal icon-remove">
+                <span>Close</span></a>
+        </header>
+        <div class="bd-reveal-modal">
+
+            <h2 class="pull-left">Which samples do you require?</h2>
+            <a class="button pull-right AddToBasket">Add to Basket</a>
+            <div class="clear"></div>
+
+            <p>
+                You can order a <b>maximum of @ViewBag.MaxProductsAllowedInBasket samples</b>. You have <b>@(ViewBag.BasketItemCount ?? 0) sample(s) in your basket</b>
+            </p>
+
+            <div class="alertInfo error" id="basketErrors" style="display: none;">
+
+            </div>
+
+            <hr>
+
+            <div class="selectSamples">
+                <input type="checkbox" name="selectAllProducts" id="selectAllProducts">
+                <label for="selectAllProducts">
+                    <span>Select all @Model.Count sample(s)</span>
+                </label>
+            </div>
+
+            <div class="productList no-quick-view">
+                @foreach (var item in Model)
+                {
+                    Html.RenderPartial("_Product", item);
+                }
+            </div>
+        </div>
+    </section>
+}

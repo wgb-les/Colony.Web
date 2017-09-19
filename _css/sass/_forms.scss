@@ -1,0 +1,101 @@
+fieldset.sl-fieldset{
+  width: 100%;
+  float: left;
+  padding: 0;
+
+  .sl-input-block{
+    width: 100%;
+    float: left;
+    color: $dark-2;
+    padding: $padding-small $padding-base;
+
+    label{
+      width: 100%;
+      float: left;
+      font-size: $font-base;
+      font-weight: $weight-base;
+      padding: $padding-small 0;
+      margin: 0;
+
+      i{
+        font-style: normal;
+      }
+
+      span{
+        width: auto;
+        float: left;
+        color: inherit;
+      }
+      span.required{
+        color: $red;
+        padding-left: $padding-base;
+        font-weight: $weight-small;
+      }
+    }
+    .field-validation-error{
+      width: 100%;
+      float: left;
+      padding: $padding-small 0;
+      margin: 0;
+
+      .alertInfo {
+        width: 100%;
+        margin: 0;
+        float: left;
+        font-size: $font-base;
+        font-weight: $weight-base;
+        color: $light-1;
+        border-radius: $radius-base;
+        text-shadow: none;
+        padding: $padding-base;
+        box-shadow: none;
+      }
+      .alertInfo:before{
+        color: inherit;
+        padding: 0 $padding-small 0 0;
+      }
+      .alertInfo.error{
+        border: 0;
+        background: $red;
+      }
+    }
+    .alertInfo.message{
+      display: none;
+    }
+    input, select{
+      width: 100%;
+      float: left;
+      font-size: $font-base;
+      font-weight: $weight-small;
+      padding: $padding-base;
+      border: $border-base;
+      border-radius: $radius-base;
+      margin: $padding-small 0;
+      background: $light-2;
+      color: inherit;
+    }
+    option{
+      color: inherit;
+      padding: $padding-base;
+    }
+  }
+}
+
+.postCodeLookUp{
+    width: 100%;
+    float: left;
+    position: relative;    
+
+    input{        
+    }
+    button{
+        position:absolute;
+        right:11px;
+        bottom:11px;
+
+        span:before{
+            color:inherit;
+            padding-right:5px;
+        }
+    }    
+}

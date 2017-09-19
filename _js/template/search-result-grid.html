@@ -1,0 +1,54 @@
+﻿<!--<% if (!rc) { return; } %>
+<div class="item" data-quick-view-id="<%=rc.ProductId%>" data-productcode="<%=rc.ProductCode%>" data-skuid="<%=rc.SkuId%>" data-noprice="true">
+    <% if (rc.Attributes["Item Type"] == "Cushions" || sitekey.toLowerCase() === 'wg') {%>
+        <a href="<%=rc.Uri%>">
+    <% } else { %>
+    <a class="quickViewLink" href="<%=rc.Uri%>">
+        <%}%>
+        <% if (rc && rc.Images && rc.Images.length) {%>
+        <img src="<%=rc.ImageUri%>" alt="<%=rc.Attributes['Brand']%> <%=rc.Attributes['Product Group']%> - <%=rc.Name%>"/>
+        <%}%>
+        <h4 class="itemTitle <%=rc.Attributes['Brand']%>">
+            <%=rc.Name%>
+        </h4>
+        <p class="itemSubTitle">By <%=rc.Attributes["Brand"]%></p>
+        <ul>
+            <li><%=rc.Attributes["Design Code"] || rc.Code %></li>
+            <li><%=rc.Attributes["Product Group"]%></li>
+            <li>
+                <% if (rc.IsContainer == true) { %>
+                    <span>From </span>
+                <% } %>
+                £<span itemprop="price"><%= rc.PriceInc.toFixed(2) %></span>
+            </li>          
+        </ul>
+        <% if (rc.IsNew) { %>
+            <span class="itemNew">New</span>
+        <% } %>
+    </a>
+</div>-->
+
+
+<% if (!rc) { return; } %>
+<div class="item" data-quick-view-id="<%=rc.ProductId%>" data-productcode="<%=rc.ProductCode%>" data-skuid="<%=rc.SkuId%>" data-noprice="true">
+    <% if (rc.Attributes["Item Type"] == "Cushions" || sitekey.toLowerCase() === 'wg') {%>
+    <a href="<%=rc.Uri%>">
+        <% } else { %>
+        <a class="quickViewLink" href="<%=rc.Uri%>">
+            <%}%>
+            <% if (rc && rc.Images && rc.Images.length) {%>
+            <img src="<%=rc.ImageUri%>" alt="<%=rc.Attributes['Brand']%> <%=rc.Attributes['Product Group']%> - <%=rc.Name%>" />
+            <%}%>
+            <h4 class="itemTitle <%=rc.Attributes['Brand']%>">
+                <%=rc.Name%>
+            </h4>
+            <p class="itemSubTitle">By <%=rc.Attributes["Brand"]%></p>
+            <ul>
+                <li><%=rc.Attributes["Design Code"] || rc.Code %></li>
+                <li><%=rc.Attributes["Product Group"]%></li>
+            </ul>
+            <% if (rc.IsNew) { %>
+            <span class="itemNew">New</span>
+            <% } %>
+        </a>
+</div>

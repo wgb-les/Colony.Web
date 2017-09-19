@@ -1,0 +1,79 @@
+﻿@using Colony.Commerce.Areas.ShopPurchase.Models
+@model DeliveryViewModel
+
+@{
+  Layout = "";
+  var showAddNewAddress = !Model.IsGuestCheckout && (!Model.IsGuestCheckout || !Model.Addresses.Any());
+}
+
+<div class="mediumColumn">
+  <div class="blockSection wide1">
+    <div class="inner">
+      <div class="heading">
+        <h2 class="fa-truck">Delivery Address</h2>
+      </div>
+      <div class="content form">
+
+        @if ((bool)(TempData["MissingAddress"] ?? false))
+        {
+          if (Model.Addresses.Any())
+          {
+
+            <div for="" class="field-validation-error wide">
+              <div for="" class="alertInfo error">
+                You need to select an address
+              </div>
+            </div>
+          }
+          else
+          {
+            <div for="" class="field-validation-error wide">
+              <div for="" class="alertInfo error">
+                You need to enter an address
+              </div>
+            </div>
+          }
+        }
+        <form action="@Url.Action("SelectAddress", "Checkout")" method="post">
+          <div class="addressBook">
+
+            <h3>Address Book</h3>
+            @foreach (var address in Model.Addresses)
+            {
+              @Html.Partial("Delivery/_DeliveryAddressBox", address)
+            }
+            @if (showAddNewAddress)
+            {
+
+              <div class="button wide1 level2">
+                <a href="#" data-showaddress="true" data-showaddress-title="Add a new delivery address" id="showDeliveryAddress" aria-controls="newDeliveryAddress" aria-selected="false" class="inner add-new-item fa-plus">
+                  Add New Address
+                </a>
+              </div>
+
+              <!-- <li>
+                <a href="#" data-showaddress="true" data-showaddress-title="Add a new delivery address" id="showDeliveryAddress" aria-controls="newDeliveryAddress" aria-selected="false" class="add-new-item">
+                  <div class="address-item">
+                    <div class="address-details">
+                      <h3 class="h6-size">Add new <span class="show-for-sr">address</span></h3>
+                      <span class="icon plus add-icon icon-only" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </a>
+              </li> -->
+            }
+          </div>
+        </form>
+        <div style="display:@(!Model.IsGuestCheckout || Model.Addresses.Any() ? "none" : "block");" data-newaddress="true">
+          @Html.Partial("Delivery/_NewAddressBox", new DeliveryAddressViewModel
+          {
+            CanBeHidden = !Model.IsGuestCheckout || Model.Addresses.Any(),
+            IsGuest = Model.IsGuestCheckout
+          })
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+﻿@using System.Configuration
+@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@{
+    ViewBag.Title = "B2B";
+    Layout = "~/Templates/B2B.cshtml";
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+    var isContract = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current)) ? "1" : "0";
+}<script type="text/javascript">
+    var isContract = @isContract;
+</script>
+<style>
+    #container { padding-top: 0px !important; }
+
+    .site-header { margin-bottom: 0px !important; }
+</style>
+@{
+
+
+    if (string.IsNullOrEmpty(Request.QueryString["webtexUrl"]) || Request.QueryString["webtexUrl"] == "/"  || Request.QueryString["webtexUrl"] == "/Content/StockEnquiry/Default.aspx" || Request.QueryString["webtexUrl"] == "%2F")
+    {
+        <div id="content">
+            <h1>Price / Stock / Sample / Order</h1>
+            <form action="" class="contentForm" method="get">
+                <table class="quickPurchase">
+                    <colgroup>
+                        <col/>
+                        <col/>
+                        <col/>
+                        <col/>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col">Product name or code</th>
+                        <th scope="col" class="priceColumn">Price</th>
+                        <th scope="col" class="stockColumn">Stock</th>
+                        <th scope="col" class="removeItem"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="autoCompleteRow">
+                        <td colspan="5">
+                            <div class="contentForm">
+                                <div class="field text">
+                                    <label for="QuickPurchaseKeywords">
+                                        Find a product<span class="required">Required</span>
+                                    </label>
+                                    <input id="QuickPurchaseKeywords" type="text" name="QuickPurchaseKeywords" placeholder="Start typing a product code / description or scan the barcode" />
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+
+        if (!isB2B)
+        {
+            <div class="field formControls">
+
+                <button class="button" id="placeOrder">Order Sample(s)</button>
+            </div>
+
+            <div class="alertInfo">
+                @Html.Partial("~/Templates/_deliveryInfo.cshtml")
+            </div>
+        }
+        <script src="/_js/shared/quick-purchase.js"></script>
+    } else {
+        <iframe src="@(string.Format("{0}{1}/?THEME={2}", ConfigurationManager.AppSettings["WebtexBaseUrl"], Request.QueryString["webtexUrl"], ColonyContext.Current.CurrentSite.SiteKey.ToUpperInvariant()))" width="100%" height="600" frameborder="0" name="webtexIframe" id="webtexIframe"></iframe>
+    }
+}
+    <script type="text/javascript">
+        $('body').removeClass('home').addClass('b2b');
+        $('#webtexIframe').height($(window).height() + 'px');
+        $(window).resize(function(e) {
+            $('#webtexIframe').height($(window).height() + 'px');
+        });
+        $(document).ready(function () {
+            Wg.b2b.b2bNavigation();
+        });
+    </script>

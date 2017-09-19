@@ -1,0 +1,42 @@
+﻿@using Colony.CMS
+@model IList<WalkerGreenbank.Modules.Hotspots.Areas.Models.HotspotViewModel>
+
+@if (Model.Any())
+{
+    <ul class="hotspots">
+        @foreach (var hotspot in Model)
+        {
+            <li style="left: @hotspot.Left%; top: @hotspot.Top%;" class="hotspot">
+                @if (hotspot.Product != null)
+                {
+                    <a href="/shop/@Url.ProductUrl(hotspot.Product)?code=@hotspot.Sku.Code" class="hotspotTarget">@hotspot.Product.Name</a>
+
+                    var defaultItemImage = hotspot.SkuImages.OrderBy(x => x.Order).FirstOrDefault();
+                    var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+
+                    <div class="item hotspotItem">
+                        <div class="itemDetails">
+                            <a href="/shop/@Url.ProductUrl(hotspot.Product)?code=@hotspot.Sku.Code">
+                                <img src="@defaultItemImageUrl" alt="@hotspot.Sku.Name"/>
+                                <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@hotspot.Product.Name&#160;</h4>
+
+                                <ul>
+                                    @if (hotspot.Product.ProductCategory != null)
+                                    {
+                                        <li>@hotspot.Product.ProductCategory.Name&#160;</li>
+                                    }
+                                    <li>@hotspot.Attributes.GetValueOrNull("Design Code")&#160;</li>
+                                    <li>@hotspot.Attributes.GetValueOrNull("Product Group")&#160;</li>
+                                </ul>
+                                @if (hotspot.Sku.IsNew)
+                                {
+                                    <span class="itemNew">New</span>
+                                }
+                            </a>
+                        </div>
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+}

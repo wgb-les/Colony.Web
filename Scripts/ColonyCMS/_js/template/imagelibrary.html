@@ -1,0 +1,69 @@
+<h3><%=labelhelper()%></h3>
+<%=helpTextHelper()%>
+<div class="image-library-container" id="image-library-container-<%=componentId%>">
+    <div class="image-library-selected">
+		<input type="hidden" id="<%=componentId%>" name="<%=componentId%>" value="<%=value%>" <%=validationClasses()%> />
+	</div>
+    <% if (value && value != '') { %>
+        <% if (value.indexOf(',') >= 0) { %>
+			<% _.each(value.split(','), function(img) { %>
+                <div class="thumbnail"><img src="/_assets/images/cloud/<%=img%>/assetlibrary/gridview/" alt="placeholder"/></div>
+            <% }) %>
+        <% } else { %>
+            <div class="thumbnail"><img src="/_assets/images/cloud/<%=value%>/assetlibrary/gridview/" alt="placeholder"/></div>
+        <% } %>        
+        <a class="button changeImage"><span>Change</span></a>
+    <% } else { %>  
+	    <div class="image-library-search text">
+		    <input type="text" name="<%=componentId%>_imageSearch" id="<%=componentId%>_imageSearch" placeholder="Enter search terms" />
+		    <a class="button small image-library-search-button icon-search"><span>Search</span></a>
+		    <a class="button small image-library-add-button icon-plus-sign"><span>Add image(s)</span></a>
+	    </div>
+	    <div style="width:475px; height: 255px; margin-left: 42px;">
+	    <ul class="image-library-listing">
+	    </ul>
+	    </div>
+	    <a class="prev icon-arrow-left icon-3x icon-pull-left" href="#" id="<%=componentId %>_prev"><span>prev</span></a>
+	    <a class="next icon-arrow-right icon-3x icon-pull-right" href="#" id="<%=componentId %>_next"><span>next</span></a>
+    <% } %>
+	<div class="image-library-uploader"></div>
+    
+</div>
+<style type="text/css">
+	.image-library-container { position: relative; }
+	.image-library-container a.prev, .image-library-container a.next { position: absolute; top: 50%; }
+	.image-library-container a.prev:before, .image-library-container a.next:before { width: auto!important;} 
+	.image-library-container a.prev span, .image-library-container a.next span { display: none; }
+	.image-library-container a.prev { left: 0%; }
+	.image-library-container a.next { right: 0%; }
+	.image-library-listing { position: relative; }
+	.image-library-listing li { display: block; float: left; border: 1px solid #e2e2e2; margin: 3px; border-radius: 5px;vertical-align: top;}
+		.image-library-listing li .thumbnail { width: 150px; height: 150px; }
+	.image-library-listing li dl { font-size: 80%; line-height: 100%; margin: 2px; height: 7em; overflow: hidden;}
+	.image-library-listing li dl dt { margin: 5px 5px 5px 5px; }
+	.image-library-listing li dl dd { margin: 5px; }
+	.image-library-listing li.selected { border: 1px solid #666; }
+		.image-library-listing li .details {
+			width: 150px;
+		}
+	.image-library-listing li.hover { 
+		border: 1px solid #999; 
+		box-shadow: 0 2px 4px #666;
+		-webkit-box-shadow: 0 2px 4px #666;
+		-moz-box-shadow: 0 2px 4px #666;
+	}
+	/*.image-library-search-button { height: 22px; padding-top: 0px; padding-bottom: 0px; }
+	.image-library-search-button span { height: 22px; line-height: 20px;}*/
+	.image-library-uploader { width: 100%; height: 100%; position: absolute; top: 100%; left: 0; background-color: #fff; border: 1px solid #e2e2e2; box-shadow:inset; display: none;}
+	.image-library-search input[type="text"] { width: 275px; margin-right: 5px;}
+	.image-library-search .button.small {margin-top: 5px; vertical-align: top;}
+	
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+	    $('#image-library-container-<%=componentId%> .image-library-uploader').one('click', function (e) {
+			$(this).animate({ 'left': '0' }, 300);
+		});
+	});	
+</script>

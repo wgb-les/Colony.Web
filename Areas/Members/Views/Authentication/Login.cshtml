@@ -1,0 +1,85 @@
+﻿@using Colony.CMS
+@model Colony.CMS.Areas.Members.ViewModels.LoginInputViewModel
+@{
+    ViewBag.Title = "Customer Login";
+    Layout = "";
+}
+<div id="content">
+
+    <nav class="tabs" role="navigation">
+        <h2>Select a login method</h2>
+        <ul>
+            <li>
+                <a class="selected" href="/members/login?returnUrl=@Request["returnUrl"]">@(ColonyContext.Current.CurrentSite.SiteKey == "Wg" ? "Consumer" : "Customer") Login</a>
+            </li>
+            <li>
+                <a href="/trade-members/login/?returnUrl=@Request["returnUrl"]">Trade Login</a>
+            </li>
+            @*<li>
+                <a href="/press-members/login/?returnUrl=@Request["returnUrl"]">Press Login</a>
+            </li>*@
+        </ul>
+    </nav>
+
+    <h1>Login or Register</h1>
+
+    <p>
+        If you already have an account, please use the login form below to log into your account. If you do not already have an account, then please use the registration form on the right.
+    </p>
+    <p>
+        If you are a business customer, then please use the tabs located at the top of the page to login as the relevant customer type.
+    </p>
+
+    <div class="loginOrRegister">
+        <section class="boxSection login">
+            <header>
+                <h2>Sign in</h2>
+            </header>
+            <div class="bd">
+                @*<div class="socialAccounts">
+                    @using (Html.BeginForm("ExternalLogin", "Authentication", new {area = "Members", ViewBag.ReturnUrl, ssoLogin = true}))
+                    {
+                        <button type="submit" name="provider" class="facebookConnect" value="Facebook_@(ColonyContext.Current.CurrentSite.SiteKey.ToLowerInvariant())" title="Connect with Facebook">Connect with Facebook</button>
+                    }
+                </div>*@
+                @*<h2 class="divider">Or login with your account details</h2>*@
+                <div class="contentForm">
+                    @using (Html.BeginForm("Login", "Authentication", new {area = "Members", ViewBag.ReturnUrl, ssoLogin = true}, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.CustomValidationSummary(true)
+                        <fieldset>
+                            <legend>Login</legend>
+
+                            @Html.EditorFor(m => m.Email)
+
+                            @Html.EditorFor(m => m.Password)
+
+                            @Html.EditorFor(m => m.RememberMe)
+
+                        </fieldset>
+                        <div class="field formControls">
+                            <a href="@Url.Action("Index", "PasswordReset", new {area = "Members"})" class="forgottenPassword">Forgotten password?</a>
+                            <button class="button">Log in</button>
+                        </div>
+                    }
+                </div>
+                <p>
+                    By signing in you agree to our <a href="/terms-and-conditions/">Website Terms and Conditions of Use</a>, our <a href="/privacy-policy/">Privacy Policy</a> and our <a href="/privacy-policy/">Cookie Policy</a>.
+                </p>
+            </div>
+        </section>
+        <section class="boxSection register">
+            <header>
+                <h2>Register</h2>
+            </header>
+            <div class="bd">
+                <p>If you do not already have an account you can register here.</p>
+                <p class="continue">
+                    @Html.ActionLink("Register", "Register", "Register", new {area = "Members"}, new {@class = "button"})
+                </p>
+            </div>
+        </section>
+    </div>
+
+</div>

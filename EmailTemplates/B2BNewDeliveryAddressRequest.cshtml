@@ -1,0 +1,48 @@
+@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BAddDeliveryAddressEmailViewModel
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>B2B New Delivery Address Request</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>A B2B user has requested a new delivery address be added to Mertex for the followng customer.</h2>
+
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold">B2B User ID</td>
+        <td>@B2BCheckoutService.GetB2BLoggedInUser(new HttpContextWrapper(HttpContext.Current)).Username</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Customer Name</td>
+        <td>@Model.CustomerName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Customer Reference</td>
+        <td>@Model.CustomerReference</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">New Delivery Address</td>
+        <td>
+            <p>@Model.Address.Line1</p>
+            <p>@Model.Address.Line2</p>
+            <p>@Model.Address.Town</p>
+            <p>@Model.Address.County</p>
+            <p>@Model.Address.Postcode</p>
+            <p>@Model.Address.CountryName</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Site</td>
+        <td>@ColonyContext.Current.CurrentSite.Name</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

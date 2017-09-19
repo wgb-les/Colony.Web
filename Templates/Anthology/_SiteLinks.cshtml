@@ -1,0 +1,18 @@
+﻿@*<nav id="siteLinks" class="header-nav util-nav" role="navigation">
+    <ul class="util-nav-list">
+        <li><a href="/blogs/">Blogs</a></li>
+        <li><a href="/about/">About Us</a></li>
+
+        @if (!WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+        { 
+            <text>
+            <li><a href="/sample-service/">Sample Service</a></li>
+            
+            </text>
+        }
+        <li><a href="/faqs/">FAQs</a></li>
+        <li><a href="/technical-information/">Technical Information</a></li>
+        <li><a href="/contact-us/">Contact Us</a></li>
+        
+    </ul>
+</nav>*@

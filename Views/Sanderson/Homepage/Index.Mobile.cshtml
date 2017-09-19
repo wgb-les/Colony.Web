@@ -1,0 +1,69 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#fullpage').fullpage({
+            navigation: true,
+            navigationPosition: 'left',
+            navigationTooltips: ['First page', 'Second page', 'Third page', 'Fourth and last page']
+        });
+        $(".fullpageBlockItem").hover(function () {
+            $(this).children(".gridCaption").fadeToggle();
+        });
+    });
+</script>
+<div id="fullpage">
+    <div class="section active" id="section0">
+        <div class="fullpageColumn column01">
+            <div class="fullpageBlockItem block01">
+                <a class="fullLink" href="/shop/wallpaper/waterperry-wallpapers/"></a>
+                <div class="gridCaption">Waterperry Wallpapers</div>
+            </div>
+            <!-- <div class="fullpageBlockItem block02"></div> -->
+        </div>
+        <div class="fullpageColumn column02">
+            <div class="fullpageBlockItem block02">
+                <a class="fullLink" href="/shop/fabric/waterperry-fabrics/"></a>
+                <div class="gridCaption">Waterperry Fabrics</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section1">
+        <div class="fullpageColumn column03">
+            <div class="fullpageBlockItem block03">
+                <a class="fullLink" href="/shop/paint"></a>
+                <div class="gridCaption">Paint Colour Search</div>
+            </div>
+            <div class="fullpageBlockItem block04">
+                <a class="fullLink" href="/paint/"></a>
+                <div class="gridCaption">Discover Paint</div>
+            </div>
+        </div>
+        <div class="fullpageColumn column04">
+            <div class="fullpageBlockItem block05">
+                <a class="fullLink" href="/shop/fabric/arley/"></a>
+                <div class="gridCaption">Arley Fabrics</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section2">
+        <div class="fullpageColumn column05">
+            <div class="fullpageBlockItem block06">
+                <a class="fullLink" href="/shop/wallpaper/woodland-walk-wallpapers/"></a>
+                <div class="gridCaption">Woodland Walk Wallpapers</div>
+            </div>
+        </div>
+        <div class="fullpageColumn column06">
+            <div class="fullpageBlockItem block07">
+                <a class="fullLink" href="/shop/fabric/woodland-walk/"></a>
+                <div class="gridCaption">Woodland Walk Fabrics</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section3">
+        <div class="fullpageColumn column07">
+            <div class="fullpageBlockItem block08">
+                <a class="fullLink" href="/shop/fabric/potton-wood-fabrics/"></a>
+                <div class="gridCaption">Potton Wood Fabrics</div>
+            </div>
+        </div>
+    </div>
+</div>

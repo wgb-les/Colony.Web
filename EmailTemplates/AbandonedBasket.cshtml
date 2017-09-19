@@ -1,0 +1,292 @@
+@*@model  Colony.Commerce.Areas.ShopPurchase.Models.AbandonedBasketViewModel
+@using System.Web.Mvc.Html
+@{
+    setStyles();
+}
+@functions {
+    Colony.Models.Core.Sites.Site site = Colony.CMS.ColonyContext.Current.CurrentSite;
+    
+    //  TODO - check styles
+    
+    string email_bodyBackground = "#fff";
+    string email_background = "#fff";
+    string email_footerBackground = "#5b6e52";
+    string email_boxBackground = "#f7f7f7";
+    string email_border = "1px solid #cccccc";
+
+    string email_fontFamily = "Arial,Helvetica,sans-serif";
+    string email_headerColor = "#000";
+    string email_linkColor = "#111";
+    string email_fontColor = "#000";
+    string email_footerColor = "#e6e6e6";
+    string email_footerLinks = "#666";
+
+    string email_sizeHeader = "18px";
+    string email_sizeSubhead = "14px";
+    string email_sizeNormal = "12px";
+    string email_sizeSmall = "11px";
+
+    string facebookUrl = "https://www.facebook.com/";
+    string twitterUrl = "https://twitter.com/";
+    string pinterestUrl = "https://www.pinterest.com/";
+    string instagramUrl = "https://instagram.com/";
+    
+    void setStyles()
+    {        
+        if (site.SiteKey == "Harlequin")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+
+            facebookUrl += "sandersonfabricsandwallpapers";
+            twitterUrl += "SandersonFW";
+            pinterestUrl += "SandersonFW";
+            instagramUrl += "sanderson1860";
+        }
+        else if (site.SiteKey == "Sanderson")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#2d2d2d";
+            email_linkColor = "#858585";
+            email_fontColor = "#2d2d2d";
+            email_footerColor = "#2d2d2d";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+
+            facebookUrl += "sandersonfabricsandwallpapers";
+            twitterUrl += "SandersonFW";
+            pinterestUrl += "SandersonFW";
+            instagramUrl += "sanderson1860";
+        }
+        else if (site.SiteKey == "Morris")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#5b6e52";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#000";
+            email_linkColor = "#111";
+            email_fontColor = "#000";
+            email_footerColor = "#e6e6e6";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+
+            facebookUrl += "sandersonfabricsandwallpapers";
+            twitterUrl += "SandersonFW";
+            pinterestUrl += "SandersonFW";
+            instagramUrl += "sanderson1860";
+        }
+        else if (site.SiteKey == "Zoffany")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#555";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#bfbfbf";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+
+            facebookUrl += "sandersonfabricsandwallpapers";
+            twitterUrl += "SandersonFW";
+            pinterestUrl += "SandersonFW";
+            instagramUrl += "sanderson1860";
+        }
+        else if (site.SiteKey == "Scion")
+        {
+            email_bodyBackground = "#fff";
+            email_background = "#fff";
+            email_footerBackground = "#cccbcb";
+            email_boxBackground = "#f7f7f7";
+            email_border = "1px solid #cccccc";
+
+            email_fontFamily = "Arial,Helvetica,sans-serif";
+            email_headerColor = "#666";
+            email_linkColor = "#666";
+            email_fontColor = "#666";
+            email_footerColor = "#666";
+            email_footerLinks = "#666";
+
+            email_sizeHeader = "18px";
+            email_sizeSubhead = "14px";
+            email_sizeNormal = "12px";
+            email_sizeSmall = "11px";
+
+            facebookUrl += "sandersonfabricsandwallpapers";
+            twitterUrl += "SandersonFW";
+            pinterestUrl += "SandersonFW";
+            instagramUrl += "sanderson1860";
+        }
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>	
+	<title>Complete your purchase</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+</head>
+<body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" style="background-color: @email_bodyBackground;">    
+    <table cellspacing="0" border="0" style="background:@email_bodyBackground;" cellpadding="0" width="100%">
+        <tr>
+            <td>
+                <table width="588" cellspacing="0" border="0" cellpadding="0" align="center" style="margin-top:20px; margin-bottom:20px; ">
+                    
+                    <tr>
+                    	<td>
+                        	<table width="588" cellspacing="0" border="0" cellpadding="0" align="center">
+                                <tr>
+                                	<td>
+										<img style="display:block; border:none;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey )/basket-abandonment/header-logo.gif" border="0" height="104" width="588" alt="@site.Name" />
+                                    </td>
+                                </tr>
+                               
+                                <tr>
+                                    <td>
+                                        <a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/shop/new-collections")"><img style="display:block; border:none; float:left;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/button-new.gif" border="0" height="34" width="80" alt="New" /></a>
+                                        <a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/shop/fabric")"><img style="display:block; border:none; float:left;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/button-fabric.gif" border="0" height="34" width="92" alt="Fabric" />
+                                        <a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/shop/wallpaper")"><img style="display:block; border:none; float:left;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/button-wallpaper.gif" border="0" height="34" width="122" alt="Wallpaper" /></a>
+                                        <a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/shop/trimmings")"><img style="display:block; border:none; float:left;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/button-trimmings.gif" border="0" height="34" width="119" alt="Trimmings" /></a>
+                                        <a href="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/home-accessories")"><img style="display:block; border:none; float:left;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/button-accessories.gif" border="0" height="34" width="175" alt="Home Accessories" /></a>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <img style="display:block; border:none;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/divide.gif" border="0" height="3" width="588" alt="" />
+                                    </td>
+                                </tr>
+                                
+                        	</table>
+                        </td>
+                    </tr>
+                                        
+                    <tr>
+                    	<td>
+                            <table width="588" cellspacing="0" border="0" cellpadding="0" align="center" style="padding:0 0 10px 0; font-family:arial; color:#4c4c4c;">
+                                <tr>
+                                    <td>
+                                        <h1 style="margin:20px 0 20px 0; padding:0; font-weight:normal; font-size:12px;  font-family:arial; color:#4c4c4c;">Hi @Model.Person.FirstName</h1>
+                                       
+                                        <p style="margin:0 0 15px 0; padding:0; font-size:12px;">We've noticed that you've left some items in your basket and we don't want you to miss out!</p>
+                                        <p style="margin:0 0 15px 0; padding:0; font-size:12px;">Here's a reminder of what's in your basket. To complete your purchase, just click the 'buy now' button below.</p>
+                                        <p style="margin:0 0 15px 0; padding:0; font-size:12px;">Happy shopping!</p>
+        
+                                    </td>
+                                </tr>
+                        	</table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table style="border:1px solid #6e6e6e;  margin:0 0 15px 0; width:586px; font-weight:normal; font-size:12px; font-family:arial; color:#4c4c4c;" align="center">
+                                <tr style="border-top:none; display:block; float:left; width:586px; padding:5px 0 5px 0;" >
+                                    <td width="120" style="padding:0 5px 0 5px;"></td>
+                                    <td width="165" valign="top" style="padding:0 5px 0 5px;">Description</td>
+                                    <td width="72" valign="top" style="padding:0 5px 0 5px;">Item price</td>
+                                    <td width="72" valign="top" style="padding:0 5px 0 5px;">Quantity</td>
+                                    <td width="76" valign="top" style="padding:0 0px 0 5px;">Total price</td>
+                                </tr>
+
+                                @foreach (var line in Model.Basket.BasketLines)
+                                { 
+                                    <tr style=" border-top:1px solid #6e6e6e; display:block; float:left; width:586px;" >
+                                        <td width="120" style="padding:10px 5px 10px 5px;"><img style="display:inline; text-align:center; " src="@Colony.Util.Web.UriExtensions.AbsoluteUrl(line.ImageUrl)"/></td>
+                                        <td width="165" style="padding:0 5px 0 5px;">@line.Product.Name</td>
+                                        <td width="72" style="padding:0 5px 0 5px;">&pound;@line.UnitPriceEx.ToString("#0.00")</td>
+                                        <td width="72" style="padding:0 5px 0 5px;">@line.Quantity</td>
+                                        <td width="76" style="padding:0 5px 0 5px;">&pound;@line.TotalEx.ToString("#0.00")</td>
+                                    </tr>
+                                }
+                                                                
+                                <tr style=" border-top:1px solid #6e6e6e; display:block; float:right; width:586px;" >
+                                    <td width="357" style="padding:10px 15px 10px 15px;"></td>
+                                    <td width="72" style="padding:10px 5px 8px 5px;">Grand Total</td>
+                                    <td width="76" style="padding:10px 0px 8px 10px;">&pound;@Model.Basket.TotalInc.ToString("#0.00")</td>
+                                </tr>
+                                
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table style="width:586px; float:right;" align="right">
+                                <tr>
+                                    
+                                    <td> <a href="#"><img style="display:inline; border:none; text-align:center; text-decoration:none; float:right;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/buy-now.gif" border="0" alt="Buy now" /></a></td>
+                                </tr>
+                            </table>
+                        </td>       
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                    	<td align="center">
+                            <table width="588" align="center" cellspacing="0" border="0" cellpadding="0">
+                                
+                                <a href="https://www.facebook.com/HarlequinFabricsandWallcoverings" style="text-decoration:none;">
+                                    <img style="display:inline; border:none; text-align:center; margin:0 7px 0 7px;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/icon-fb.gif" border="0" height="30" width="30" alt="" />
+                                </a>
+                                
+                                <a href="https://twitter.com/HarlequinFW" style="text-decoration:none;">
+                                    <img style="display:inline; border:none; text-align:center; margin:0 7px 0 7px; text-decoration:none;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/icon-twitter.gif" border="0" height="30" width="30" alt="" />
+                                </a>
+                                
+                                <a href="https://www.pinterest.com/harlequinfw/" style="text-decoration:none;">
+                                    <img style="display:inline; border:none; text-align:center; margin:0 7px 0 7px; text-decoration:none;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/icon-pinterest.gif" border="0" height="30" width="30" alt="" />
+                                </a>
+                                
+                                <a href="https://instagram.com/harlequinfw" style="text-decoration:none;">
+                                    <img style="display:inline; border:none; text-align:center; margin:0 7px 0 7px; text-decoration:none;" src="@Colony.Util.Web.UriExtensions.AbsoluteUrl("/_images/email/" + site.SiteKey)/basket-abandonment/icon-instagram.gif" border="0" height="30" width="30" alt="" />
+                                </a>
+                                
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>*@

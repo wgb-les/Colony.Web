@@ -1,0 +1,132 @@
+﻿@using Colony.Commerce
+@using Colony.Commerce.Areas.ShopPurchase.Models
+@using Colony.Models.Base
+@model Colony.Commerce.Areas.ShopPurchase.Models.PaymentViewModel
+@{
+    ViewBag.Title = "Payment";
+    Layout = "";
+}
+@if (ViewBag.State == CheckoutSectionState.Active)
+{
+    <form action="@Url.Action("Payment", "Checkout", new {area = "ShopPurchase", edit = "payment"})" method="post" id="checkoutpayment">
+        @Html.AntiForgeryToken()
+        @Html.CustomValidationSummary(true)
+        <div id="payment" class="boxSection checkoutPayment editable">
+            <div class="header">
+                <h2>Billing</h2>
+            </div>
+            <fieldset>
+                @if (ViewBag.IsClickAndCollect == false)
+                {
+                    <div class="field checkbox ">
+
+                        <input type="checkbox" name="Address_UseAsDeliveryAddressAsBillingAddress" id="Address.UseAsDeliveryAddressAsBillingAddress">
+                        <label for="Address.UseAsDeliveryAddressAsBillingAddress">
+                            <span>My billing address is the same as my delivery address
+                            </span>
+                        </label>
+                    </div>
+                }
+                <div class="alertInfo message">
+                    Please ensure your billing address matches the details for the address at which your card is registered
+                </div>
+                @if (Model.SavedAddresses.Any())
+                {
+                    <div class="field select ">
+                        <label for="savedAddress">
+                            Select a saved address
+                        </label>
+                        @Html.DropDownList("savedAddress", Model.SavedAddresses, "Please select")
+                    </div>
+                }
+@*@Html.EditorFor(model => model.Address.UseAsDeliveryAddressAsBillingAddress, "Checkbox")*@@Html.EditorFor(model => model.Address, "Address", new {ShowAddressName = false, ShowPersonDetails = true})
+            </fieldset>
+
+            <div class="basketTotals">
+                <dl>
+                    <dt>Sub Total</dt>
+                    <dd>£@Model.Basket.TotalInc.ToString("#0.00")</dd>
+
+                    <dt>Delivery</dt>
+
+                    <dd>£@Model.Basket.DeliveryCost.ToString("#0.00")</dd>
+
+                    <dt class="total">Total</dt>
+                    <dd class="total">£@Model.Basket.GrandTotal.ToString("#0.00")</dd>
+                </dl>
+                <ul>
+                    <li>
+                        <img src="/_images/icons/payment/maestro.png" alt="Maestro">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/mastercard.png" alt="Mastercard">
+                    </li>
+                    @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+                    {
+                        <li>
+                            <img src="/_images/icons/payment/amex.png" alt="American Express">
+                        </li>
+                    }
+                    <li>
+                        <img src="/_images/icons/payment/paypal.png" alt="Paypal">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/visa.png" alt="Visa">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron">
+                    </li>
+                </ul>
+
+            </div>
+            <div class="field formControls">
+                @if (ViewBag.ShowPayPalPaymentMethod == true)
+                {
+                    <button class="button actionButton" name="paymentMethod" value="PayPal">Pay with PayPal</button>
+                }
+                <button class="button actionButton" name="paymentMethod" value="CreditCard">Pay with credit / debit card</button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#Address\\.UseAsDeliveryAddressAsBillingAddress").on("change", function(e) {
+                var target = this;
+
+                if ($(this).is(":checked")) {
+                    var url = "@Url.Action("GetAddress", "Checkout", new {area = "ShopPurchase", addressType = (int) AddressType.Delivery})";
+
+                    $.ajax({
+                        url: url,
+                        success: function(data) {
+                            if (data.Success) {
+                                $('#Address_Description').val(data.Address.Description);
+                                $('#Address_Title').val(data.Address.Title);
+                                $('#Address_FirstName').val(data.Address.FirstName);
+                                $('#Address_LastName').val(data.Address.LastName);
+                                $('#Address_Description').val(data.Address.Description);
+                                $('#Address_FirstName').val(data.Address.FirstName);
+                                $('#Address_LastName').val(data.Address.LastName);
+                                $('#Address_Line1').val(data.Address.Line1);
+                                $('#Address_Line2').val(data.Address.Line2);
+                                $('#Address_Town').val(data.Address.Town);
+                                $('#Address_County').val(data.Address.County);
+                                $('#Address_Postcode').val(data.Address.Postcode);
+                                $('#Address_CountryISO2').val(data.Address.CountryISO2);
+                            }
+                        }
+                    });
+                };
+            });
+        });
+    </script>
+}
+else if (ViewBag.State == CheckoutSectionState.Completed)
+{
+    <div id="payment" class="boxSection deliveryOptions completed">
+        <div class="header">
+            <h2 class="icon-ok left">Billing</h2>
+        </div>
+    </div>
+}

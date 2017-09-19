@@ -1,0 +1,36 @@
+﻿@model Colony.CMS.Areas.CRM.Models.AddressViewModel
+@{
+    Html.SetTitle("Address Book - Delete Address");
+}
+
+@Html.Partial("AccountMenu", "SavedAddresses")
+
+<div id="content" class="">
+    <h1>Delete Address</h1>
+
+    <div class="alertInfo message">
+        <strong class="icon">Message:</strong>
+        <br/>
+        <br/> @*TODO: UPDATE STYLES AND REMOVE THESE EXTRANEOUS LINE-BREAKS*@
+        <p>
+            Are you sure you want to delete the following address?
+        </p>
+        <ul>
+            <li>
+                <strong>@Model.Title @Model.FirstName @Model.LastName</strong>
+            </li>
+            <li><strong>@Model.Line1</strong>, @Model.Line2, @Model.Town, @Model.County, @Model.Postcode, @Model.CountryName</li>
+        </ul>
+        <p>This cannot be undone.</p>
+    </div>
+    <nav class="pageOptions" role="navigation">
+        <ul>
+            <li>
+                <a href="@Url.Action("AddressBook")" class="button">Cancel</a>
+            </li>
+            <li>
+                <a href="@Url.Action("DeleteAddress", new {addressId = Model.AddressId, confirmed = true})" class="button">Delete</a>
+            </li>
+        </ul>
+    </nav>
+</div>

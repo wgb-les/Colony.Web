@@ -1,0 +1,397 @@
+﻿@model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+
+
+<form action="" class="filterAccordion" id="searchProducts">
+    <!-- 
+		<section class="boxSection filterPatterns">
+
+			<div class="header">
+				<a href="#" class="toggle-filterAccordion">
+					<h2>Pattern</h2>
+				</a>		
+				<a href="#" class="clearFilter">Clear</a>
+			</div>
+			<div class="content-filterAccordion">
+					<ul>
+						@foreach (var pattern in Model.Patterns)
+      {
+						<li><a href="#"><img src="/_images/placeholders/thumbnail.jpg" alt="@pattern" /></a></li>
+      }
+					</ul>
+				</div>
+			</div>
+		</section>
+		-->
+     <section class="boxSection filterBrands">
+            <div class="header">
+                <a href="#" class="toggle-filterAccordion">
+                    <h2>Brand</h2>
+                </a>
+                <a href="#" class="clearFilter">Reset</a>
+            </div>
+            <div class="content-filterAccordion">
+
+                <div class="brands">
+                    <ul>
+                        @foreach (var option in Model.Options.Where(x => x.SkuAttribute.Name == "Brand").OrderBy(x => x.Name))
+                        {
+                            <li>
+                                <label for="brand_@option.Id" class="@GetBrandClassName(option.Name)  @if (Model.Brand.Contains(option.Id.ToString()))
+                                                                                                      { <text>selected</text> }">
+                                    <span>@option.Name</span>
+                                    <input type="checkbox" name="brand" id="brand_@option.Id" value="@option.Id.ToString()"  @if (Model.Brand.Contains(option.Id.ToString()))
+                                                                                                                             { <text>checked="checked"</text> }  />
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    @if (Model.IsMartindaleFilterVisible){
+    <section class="boxSection filterSlider filterMartindale">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Martindale</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <div class="field text slider single">
+                <label for="martindale">
+                    Filter by rubs
+                </label>
+
+                <input type="text" name="martindale" id="martindale" value="0" data-min-value="0" data-max-value="100000" data-step="1000" />
+                <div class="sliderBar" data-unit="rubs" data-unit-pos="after"></div>
+            </div>
+
+        </div>
+    </section>
+    }
+    <!--
+<section class="boxSection filterSlider">
+	<div class="header">
+		<a href="#" class="toggle-filterAccordion">
+			<h2>Distance</h2>
+		</a>		
+		<a href="#" class="clearFilter">Clear</a>
+	</div>
+	<div class="content-filterAccordion">
+		
+<div class="field text slider single">
+	<label for="distanceRange_sliderSingle">
+		Filter by distance
+	</label>
+	
+	<input type="text" name="distanceRange_sliderSingle" id="distanceRange_sliderSingle" value="25" data-min-value="0" data-max-value="50" />
+	<div class="sliderBar" data-unit="miles" data-unit-pos="after"></div>
+</div>
+
+	</div>
+</section>
+	-->
+    <!--
+    <section class="boxSection filterSlider filterPriceRange">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Price Range</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <div class="field text slider range">
+                <label for="priceRange_sliderRange">
+                    Filter by range
+                </label>
+
+                <input type="text" name="PriceRange" id="priceRange_sliderRange" value="0" data-min-value="0" data-max-value="500" />
+                <div class="sliderBar" data-unit="&pound;" data-unit-pos="before"></div>
+            </div>
+
+        </div>
+    </section>
+        -->
+    <!--
+<section class="boxSection filterCategory">
+	<div class="header">
+		<a href="#" class="toggle-filterAccordion">
+			<h2>Product Category</h2>
+		</a>		
+		<a href="#" class="clearFilter">Clear</a>
+	</div>
+	<div class="content-filterAccordion">	
+		
+<fieldset class="optionList">
+	<legend>Filter by category</legend>
+	<h3>
+		Filter by category
+	</h3>
+	
+	<ul>
+		@foreach (var category in Model.ProductCategories.Where(t => t.ParentID == null))
+  {
+		<li>
+			<input type="checkbox" name="Category" id="category_filterCategory_@category.Id" value="@category.Id" />
+			<label for="category_filterCategory_@category.Id">
+				<span>@category.Name</span>
+			</label>
+		</li>
+  }
+	</ul>
+</fieldset>
+
+	</div>
+</section>
+	-->
+    <section class="boxSection filterCategory filterEndUse">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>End Use</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <fieldset class="optionList ">
+                <legend>Filter by end use</legend>
+                <h3>Filter by end use
+                </h3>
+
+                <ul>
+                    @foreach (var endUse in Model.EndUse)
+                    {
+                        <li>
+                            <input type="checkbox" name="SelectedEndUses" id="type_filterCategory_@endUse.Id" value="@endUse.Id" />
+                            <label for="type_filterCategory_@endUse.Id">
+                                <span>@endUse.Name</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </fieldset>
+
+        </div>
+    </section>
+
+    <section class="boxSection filterCategory filterType">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Type</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <fieldset class="optionList ">
+                <legend>Filter by type</legend>
+                <h3>Filter by type
+                </h3>
+
+                <ul>
+
+                    @foreach (var type in Model.Type)
+                    {
+                        <li>
+                            <input type="checkbox" name="SelectedType" id="type_filterCategory_@type.Id" value="@type.Id" />
+                            <label for="type_filterCategory_@type.Id">
+                                <span>@type.Name</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </fieldset>
+
+        </div>
+    </section>
+
+    <section class="boxSection filterCategory filterFlameRetardant">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Flame Retardant</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <fieldset class="optionList ">
+                <legend>Filter by category</legend>
+                <h3>Filter by category
+                </h3>
+
+                <ul>
+                    @foreach (var flame in Model.FlameRetardant)
+                    {
+                        <li>
+                            <input type="checkbox" value="@flame.Id" name="SelectedFlameRetardant" id="flameRetardant_@flame.Id" />
+                            <label for="flameRetardant_@flame.Id">
+                                <span>@flame.Name</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </fieldset>
+
+        </div>
+    </section>
+
+
+
+
+
+    <section class="boxSection filterCategory filterProductGroup">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Product Group</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <fieldset class="optionList ">
+                <legend>Filter by Product Group</legend>
+                <h3>Filter by Product Group
+                </h3>
+
+                <ul>
+                    @foreach (var productGroup in Model.ProductGroup)
+                    {
+                        <li>
+                            <input type="checkbox" name="SelectedProductGroups" id="productGroup_filterCategory_@productGroup.Id" value="@productGroup.Id" />
+                            <label for="productGroup_filterCategory_@productGroup.Id">
+                                <span>@productGroup.Name</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </fieldset>
+        </div>
+    </section>
+    <section class="boxSection filterCategory filterDimOut">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Dim Out</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+
+            <fieldset class="optionList ">
+                <legend>Filter by Product Group</legend>
+                <h3>Filter by dim out
+                </h3>
+
+                <ul>
+                    @foreach (var dimOut in Model.DimOut)
+                    {
+                        <li>
+                            <input type="radio" name="SelectedDimOuts" id="dimout_filterCategory_@dimOut.Id" value="@dimOut.Id" />
+                            <label for="dimout_filterCategory_@dimOut.Id">
+                                <span>@dimOut.Name</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </fieldset>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    <section class="boxSection filterColours">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Colour</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+            <div class="colours">
+                @foreach (var cg in Model.ColourFilter.Groups)
+                {
+                    <div class="colourBand">
+                        <div class="toggleAll">
+                            <label for="colourgroup_@cg.Name" data-colour-group-all="colourgroup_@cg.Name">
+                                <span>Select all @cg.Name</span>
+                                <span class="toggleColours">
+                                    @foreach (var c in cg.Colours.GetRange(0, 4))
+                                    {
+                                        <span style="background-color:#@c.Colour"></span>
+                                    }
+                                </span>
+                                <span class="arrow" style="border-left-color:#@cg.Colours[4].Colour;"></span>
+                                <input type="checkbox" name="colourgroup_@cg.Name" id="colourgroup_@cg.Name">
+                            </label>
+                        </div>
+                        <ul>
+                            @foreach (var c in cg.Colours)
+                            {
+                                <li>
+                                    <label for="SelectedColours_@(c.Code)" style="background-color:#@c.Colour" data-colour-group="colourgroup_@cg.Name" data-colour-code="@c.Code" @if (Model.SelectedColours.Contains(c.Code))
+                                                                                                                                                                         { <text>class="selected"</text> }>
+                                        <span>@c.Name</span>
+                                        <input type="checkbox" name="SelectedColours" value="@c.Code" data-colour-group="colourgroup_@cg.Name" data-colour-code="@c.Code" id="SelectedColours_@c.Code" @if (Model.SelectedColours.Contains(c.Code))
+                                                                                                                                                                                              { <text>checked="checked"</text> }>
+                                    </label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <fieldset class="boxSection filterTags">
+        <div class="header">
+            <a href="#" class="toggle-filterAccordion">
+                <h2>Name or keyword</h2>
+            </a>
+            <a href="#" class="clearFilter">Reset</a>
+        </div>
+        <div class="content-filterAccordion">
+            <div class="details">
+                <div class="field tagpicker">
+                    <label for="keywords">
+                        Enter tag name
+                    </label>
+                    <div class="tagpickerSearch">
+                        <select name="keywords" id="keywords">
+                            @if (Model.Keywords != null)
+                            {
+                                foreach (var keyword in Model.Keywords.Split(' '))
+                                {
+                                <option value="@keyword" id="opt_@keyword" class="selected" selected="selected">@keyword</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+   
+
+</form>
+
+
+@functions
+{
+    public string GetBrandClassName(string brandName)
+    {
+        if (brandName == "Walker Greenbank")
+            return "all";
+
+        return brandName.ToLower();
+    }
+}

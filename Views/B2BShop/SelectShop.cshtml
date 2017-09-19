@@ -1,0 +1,36 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.SelectShopViewModel
+
+<section id="b2bSelectShop" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Select Shop</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+        <p>
+            You are currently viewing products from the <strong>@(Model.CurrentShop.Name)</strong> shop. To view products from other shops please select from the list below.
+        </p>
+
+        <ul class="brands selectShop">
+            @foreach (var shop in Model.Shops.Where(x => x.Name != Model.CurrentShop.Name && !x.ShopKey.Equals("wg", StringComparison.OrdinalIgnoreCase)))
+            {
+                <li>
+                    @{
+                        var image = "";
+                        if (shop.ShopKey == "zoffany")
+                        {
+                            image = "/_images/logos/header/" + shop.ShopKey + "-dark@" + "2x.png";
+                        }
+                        else
+                        {
+                            image = "/_images/logos/header/" + shop.ShopKey + "@" + "2x.png";
+                        }
+                    }
+                    <a href="@Url.Action("SelectShop", "B2BShop", new {area = "B2BMembers", shopId = shop.Id, returnUrl = Request.Url.AbsoluteUri})"
+                       style="background: url(@image) no-repeat center center">
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</section>

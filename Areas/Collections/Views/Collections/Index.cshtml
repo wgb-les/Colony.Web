@@ -1,0 +1,86 @@
+﻿@model Colony.Web.Areas.Collections.Models.CollectionsPageViewModel
+@{
+    Layout = "~/Areas/Collections/Views/Shared/CollectionTemplate.cshtml";
+}
+<div class="breadcrumbsContainer">
+    <ul>
+        <li class="fa-angle-right">
+            <a href="/">Home</a>
+        </li>
+        <li class="fa-angle-right">
+            Collections
+        </li>
+    </ul>
+</div>
+<div style="clear:both;"></div>
+<div class="row">
+    <div class="large-12 columns">
+        <div id="ModalHolder" name="ModalHolder" style="display:none"></div>
+        <div class="filter-top">
+            <h1>collections</h1><span>Filter our collections:</span>
+            <form id="collectionsSearchFilter" name="InspireSearchFilter">
+                <div id="collectionsFilterHolder" name="InspireFilterHolder">
+                    <div class="collectionsSearchHolder">
+                        <select id="parentCategoryId" name="parentCategoryId" onchange="filterCollections('cat')">
+                            <option value="ALL">All categories</option>
+                            <option value="19624" @(Model.filters.ParentCategoryId == 19624 ? "selected" : "")>Wallpaper</option>
+                            <option value="18496" @(Model.filters.ParentCategoryId == 18496 ? "selected" : "")>Fabric</option>
+                        </select>
+                        <select id="BrandKey" name="BrandKey" onchange="filterCollections('cat')">
+                            <option value="ALL">All brands</option>
+                            <option value="HAR" @(Model.filters.Brand == "HAR" ? "selected" : "")>Harlequin</option>
+                            <option value="SAN" @(Model.filters.Brand == "SAN" ? "selected" : "")>Sanderson</option>
+                            <option value="MOR" @(Model.filters.Brand == "MOR" ? "selected" : "")>Morris</option>
+                            <option value="ZOF" @(Model.filters.Brand == "ZOF" ? "selected" : "")>Zoffany</option>
+                            <option value="ANT" @(Model.filters.Brand == "ANT" ? "selected" : "")>Anthology</option>
+                            <option value="SCI" @(Model.filters.Brand == "SCI" ? "selected" : "")>Scion</option>
+                        </select>
+                        <input type="text" name="collectionsWordSearch" id="collectionsWordSearch" placeholder="Search by collection name..." />
+
+                        <div class="show-new"><input type="checkbox" name="isNew" id="isNew" onchange="filterCollections('cat')" /><label for="isNew">Show new collections only</label></div>
+                        <div class="clearfix"></div>
+                        <input type="hidden" name="pageNumber" id="pageNumber" value="1" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div id="InspireSearchbar" class="Collections" >
+            <span><label id="resultcount" name="resultcount" style="float: none !important;">@Model.Collections.RecordCount</label> RESULTS</span>
+            <select class="sorter" id="SortBy" name="SortBy" onchange="filterCollections('sort')">
+                <option value="Date">Sort results by newest</option>
+                <option value="ASC">Sort results alphabetically (A - Z)</option>
+                <option value="DESC">Sort results alphabetically (Z - A)</option>            
+            </select>
+            <ul id="pagination" name="pagination" class="content" style="float: right;"></ul>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        $(function () {
+            window.pagObj = $('#pagination').twbsPagination({
+                totalPages: 8,
+                visiblePages: 4,
+                onPageClick: function (event, page) {
+                    filterCollections(page);
+                }
+            }).on('page', function (event, page) {
+            });
+        });
+    </script>
+    <div id="inspire-results" class="row">
+        <div class="large-12 columns">
+            <div id="InspireSearchResultsHolder" name="InspireSearchResultsHolder">
+                @{
+                    if (Model.Collections.Collections.Count() > 0)
+                    {
+                        Html.RenderPartial("~/Areas/Collections/Views/Collections/_CollectionsSearchResults.cshtml", Model.Collections);
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

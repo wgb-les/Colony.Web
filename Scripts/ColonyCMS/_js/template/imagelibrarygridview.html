@@ -1,0 +1,71 @@
+﻿<h3><%=labelhelper()%></h3>
+<%=helpTextHelper()%>
+<div class="image-library-container">
+	<div class="image-library-search text">
+		<input type="text" name="<%=componentId%>_imageSearch" id="<%=componentId%>_imageSearch" placeholder="Enter search terms" />
+		<a class="button small image-library-search-button icon-search"><span>Search</span></a>
+		<a class="button small image-library-add-button icon-plus-sign"><span>Add image(s)</span></a>
+		<a class="button small image-library-delete-button icon-minus-sign"><span>Delete image(s)</span></a>
+	</div>
+	<ul class="image-library-listing">
+		
+	</ul>
+	<div class="image-library-selected">
+	</div>
+	<div class="image-library-uploader" ></div>
+</div>
+<style type="text/css">
+	.image-library-container { position: relative; }
+	.image-library-listing li { display: inline-block; border: 1px solid #e2e2e2; margin: 3px; border-radius: 5px; vertical-align: top;}
+		.image-library-listing li .thumbnail { width: 150px; height: 150px; }
+	.image-library-listing li dl { font-size: 80%; line-height: 100%; margin: 2px; height: 7em; overflow: hidden;}
+	.image-library-listing li dl dt { margin: 5px 5px 5px 5px; }
+	.image-library-listing li dl dd { margin: 5px; }
+	.image-library-listing li.selected { border: 1px solid #666; }
+        .image-library-listing li .details {
+            width: 150px;
+        }
+	.image-library-listing li .details .imageOptions {
+		position: relative;
+		display: none;
+	}
+
+	.image-library-listing li .details .imageOptions a,.image-library-listing li .details .imageOptions .imagelibrary-select-container {
+		display: block;
+		width: 25px!important;
+		padding-left: 6px;
+		height: 25px;
+		position: absolute;
+		bottom: 5px;
+		background-color: #dedede;
+		border: 1px solid #c0c0c0;
+	}
+	.image-library-listing li .details .imageOptions a span {
+		margin-left: -9999px;
+	}
+		.image-library-listing li .details .imageOptions a.edit {
+			left: 5px;
+		}
+		.image-library-listing li .details .imageOptions a.delete {
+			right: 5px;
+		}
+        .image-library-listing li .details .imageOptions .imagelibrary-select-container {
+            top: -230px;
+            padding: 2px;
+        }
+        .image-library-listing li .details .imageOptions .imagelibrary-select-container label {
+            display: none;
+        }
+	.image-library-listing li.hover { 
+        border: 1px solid #999; 
+        box-shadow: 0 2px 4px #666;
+        -webkit-box-shadow: 0 2px 4px #666;
+        -moz-box-shadow: 0 2px 4px #666;
+	}
+	/*.image-library-search-button { height: 22px; padding-top: 0px; padding-bottom: 0px; }
+	.image-library-search-button span { height: 22px; line-height: 20px;}*/
+	.image-library-uploader { width: 100%; height: 100%; position: absolute; top: 100%; left: 0; background-color: #fff; border: 1px solid #e2e2e2; box-shadow:inset; display: none;}
+
+	.image-library-search input[type="text"] { width: 275px; margin-right: 5px;}
+	.image-library-search .button.small {margin-top: 5px; vertical-align: top;}
+</style>

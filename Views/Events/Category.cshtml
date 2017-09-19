@@ -1,0 +1,37 @@
+﻿@model Colony.Modules.Events.Areas.Models.CategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.Name);
+    Html.SetMetaDescription(Model.Category.MetaDescription);
+    Html.SetMetaKeywords(Model.Category.MetaKeywords);
+}
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+
+        <header class="pageHeader">
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(@Model.Category.LongDescription)
+        </header>
+        @if (Model.EventCategories.Any())
+        {
+            <section class="categorySection events">
+                @{ Html.RenderPartial("_CategoryList", Model.EventCategories); }
+            </section>
+        }
+        @if (Model.Events.Any())
+        {
+            <section class="moduleSection events">
+                <h2>Events</h2>
+                @{ Html.RenderPartial("_EventsList", Model.Events); }
+            </section>
+        }
+        <nav class="pageOptions" role="navigation">
+            <ul>
+                <li>
+                    <a href="@ViewBag.PreviousUrl" class="prev">
+                        <span>Back to List</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

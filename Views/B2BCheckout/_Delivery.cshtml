@@ -1,0 +1,147 @@
+@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BCheckoutViewModel
+
+
+
+<div class="largeColumn">
+    <div class="blockSection wide1">
+        <div class="inner">
+            <div class="heading">
+                <h2 class="fa-truck">Delivery - @((Model.Address.FirstName + " " + Model.Address.LastName).Trim())</h2>
+            </div>
+            <div class="content form" id="@Model.Basket.CustomerReference">
+                @if (!string.IsNullOrEmpty(Model.AddressForMertex))
+                {
+                    var addressSplit = Model.AddressForMertex.Split('|');
+                    <div class="addressBook">
+                        <div class="addressItem selected wide2">
+                            <div class="inner">
+                                <div class="details b2bDelivery">
+                                    <h3 data-editaddressfield="Address.Description">Selected Delivery Address</h3>
+                                    <div class="deliveryAddress">
+                                        <ul>
+                                            <li><strong>@addressSplit[0] @addressSplit[1].Trim()</strong></li>
+                                            @for (var i = 2; i < addressSplit.Length; i++)
+                                            {
+                                                if (!string.IsNullOrWhiteSpace(addressSplit[i]) && addressSplit[i] != "Y" && addressSplit[i] != "D" && addressSplit[i] != "T")
+                                                {
+                                                    <li>@addressSplit[i]</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                    <a href="#" class="button small addNewAddress" id="addNewAddress" data-custref="@Model.Basket.CustomerReference" data-custname="@Server.UrlEncode(Model.Basket.CustomerName)">
+                                        <span>Change Address</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <fieldset>
+                            <legend>Order details</legend>
+                            @Html.EditorFor(t => t.OrderReference, "OrderReference")
+                            @Html.EditorFor(t => t.SpecialInstructions)
+                            @Html.HiddenFor(t => t.CustomerReference)
+                        </fieldset>
+                }
+                else
+                {
+                    <div class="addressBook">
+                        <div class="addressItem selected wide2">
+                            <div class="inner">
+                                <div class="details boxSection b2bDelivery completed">
+                                    <h3 data-editaddressfield="Address.Description">Use default address for this customer</h3>
+                                    <div class="deliveryAddress">
+                                        @if (Model.Address.Description == "Customer Default Address")
+                                        {
+                                            <ul>
+                                                <li>@((Model.Address.FirstName + " " + Model.Address.LastName).Trim())</li>
+                                                <li>@Model.Address.Line1</li>
+                                                <li>@Model.Address.Line2</li>
+                                                @if (!string.IsNullOrWhiteSpace(Model.Address.Town))
+                                                {
+                                                    <li>@Model.Address.Town</li>
+                                                }
+                                                @if (!string.IsNullOrWhiteSpace(Model.Address.Town))
+                                                {
+                                                    <li>@Model.Address.County</li>
+                                                }
+                                                @if (!string.IsNullOrWhiteSpace(Model.Address.Town))
+                                                {
+                                                    <li>@Model.Address.CountryName</li>
+                                                }
+                                                <li>@Model.Address.Postcode</li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <p>There is no default address for this customer.</p>
+                                        }
+                                    </div>
+
+                                        <a href="#" class="button small addNewAddress" id="addNewAddress" data-custref="@Model.Basket.CustomerReference" data-custname="@Server.UrlEncode(Model.Basket.CustomerName)">
+                                            <span>Change Address</span>
+                                        </a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    if (Model.IsCfaOrder)
+                    {
+                        <div class="addressBook">
+                            <div class="addressItem selected wide2">
+                                <div class="inner">
+                                    <div class="details boxSection b2bDelivery completed cfa">
+                                        <h3 data-editaddressfield="Address.Description">Address for CFA</h3>
+                                        <div class="deliveryAddress">
+                                            @if (Model.CfaAddress != null)
+                                            {
+                                                <ul>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.CfaAddress.Company))
+                                                    {
+                                                        <li>@Model.CfaAddress.Company</li>
+                                                    }
+                                                    <li>@Model.CfaAddress.Line1</li>
+                                                    <li>@Model.CfaAddress.Line2</li>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.CfaAddress.Town))
+                                                    {
+                                                        <li>@Model.CfaAddress.Town</li>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.CfaAddress.Town))
+                                                    {
+                                                        <li>@Model.CfaAddress.County</li>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.CfaAddress.Town))
+                                                    {
+                                                        <li>@Model.CfaAddress.CountryName</li>
+                                                    }
+                                                    <li>@Model.CfaAddress.Postcode</li>
+                                                </ul>
+                                            }
+                                            else
+                                            {
+                                                <p>There is no address selected.</p>
+                                            }
+                                            </div>
+                                            <a href="#" class="button small addNewAddress" id="addNewCfaAddress" data-isCfa="true" data-custref="@Model.Basket.CustomerReference" data-custname="@Server.UrlEncode(Model.Basket.CustomerName)">
+                                                <span>Change Address!</span>
+                                            </a>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    <fieldset>
+                        <legend>Order details</legend>
+                        @Html.EditorFor(t => t.OrderReference, "OrderReference")
+                        @Html.EditorFor(t => t.SpecialInstructions)
+                        @Html.HiddenFor(t => t.CustomerReference)
+                    </fieldset>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

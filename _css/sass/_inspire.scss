@@ -1,0 +1,434 @@
+﻿
+// Inspire header 
+
+.inspire-header {
+    background-image:url("/_images/photos/inspiration/005.jpg");
+    height:270px;
+    padding-top:25px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    img {
+        height:100%;
+        width:100%;
+    }
+    h1, h2 {
+        color:white;
+    }
+}
+.inspire-header-top {
+    background-color: white;
+    text-align:center;
+    padding:15px 40px;
+}
+
+
+// header bottom
+.inspire-header-bottom {
+    background-color: $scorpion;
+    color:white;
+    min-height:200px;
+    padding:15px;
+    text-align:center;
+    form {
+        float:none;
+    }
+    .InspireButton {
+        width:140px;
+        float:none;
+        margin:0 5px;
+        text-transform:uppercase;
+    }
+    button#keywordFilter {
+        width: 46px;
+        height:46px;
+        margin-left:-50px;
+        margin-top:-5px; 
+        /*text-indent:-9999px;*/ 
+        background-color:$action;
+        color:white;
+        font-size:20px;
+        border:none;
+    }
+    button#keywordFilter:before {
+        padding: 0 !important;
+    }
+    input#InspireWordSearch {
+        width:60%;
+        border:none;
+    }
+    button#clearfilter {
+        background: none;
+        color: white;
+        border: none;
+        /*text-indent:-9999px;*/
+        display:none;
+    }
+
+
+    // search
+    input.InspireButton {
+        border:1px solid white;
+        border-radius: $radius-base;
+        @include transition ($transition);
+        margin:10px;
+    }    
+    input.InspireButtonSelected {
+        background-color:$scorpion;
+        color:white;             
+    }
+    #InspireFilterHolder span {
+        position:relative;
+    }
+
+    .inspireSearchHolder {
+        input, span {
+            float:none;
+        }
+    }
+    input#InspireWordSearch {
+        height: 46px;
+    }
+    input#InspireWordSearch, #clearfilter {
+        color:$scorpion;
+    }
+    span.fa.fa-search:before {
+        position: absolute;
+        left: 7px;
+        font-size: 20px;
+        color: white;
+        top: 20px;
+        pointer-events: none;  // lets mouse target button through the icon
+    }
+    span.fa.fa-refresh:before {
+        position: absolute;
+        left: 10px;
+        font-size: 16px;
+        color: white;
+        top: 20px;
+        pointer-events: none;  // lets mouse target button through the icon
+    }
+    span.fa.fa-refresh {
+        display: none;  // hide reset icon
+    }
+}
+
+
+
+// Inspire results
+
+.InspireArticleHero img {
+    height:520px;
+}
+.InspireArticle img {
+    height:250px;
+}
+.InspireArticleHero, .InspireArticle {
+    position:relative;
+    margin-bottom:20px;
+    img {
+        width:100%;
+        object-fit:cover;
+    }
+}
+.InspireArticleHero .caption, .InspireArticle .caption {
+    bottom:0;
+    left:0;
+    background:rgba(255, 255, 255, $opacity-base);
+    width:100%;
+}
+
+
+
+
+// results bar and pagination
+
+#InspireSearchbar {
+    height:47px;
+    margin:10px 0;
+    border-top:1px solid $seashell;
+    border-bottom:1px solid $seashell;
+    padding-top:16px;
+}
+
+
+//   inspire article page
+
+.InspireArchiveLink ul {
+    margin-left:0;
+}
+.InspireArchiveLink li {
+    list-style-type: none;
+    border-top: 1px solid $seashell;
+    clear:both;
+}
+.InspireArchiveLink li:last-child {
+    border-bottom: 1px solid $seashell;
+}
+.InspireArchiveLink a {
+    display:block;
+    padding:10px 0;
+    text-decoration:none;
+}
+.InspireArchiveLink a:hover {
+    background-color:$seashell;
+}
+.InspireArticleBody h1, .InspireArticleArchive h2 {
+    margin-top:20px;
+}
+.InspireArchiveLink img {
+    width:150px;
+    padding:0px 10px 10px 0;
+    float:left;
+}
+.InspireArchiveArticle a {
+    min-height:114px;
+}
+.InspireArchiveArticleTitle { 
+    font-weight: $weight-bold;
+}
+.InspireArchiveArticleDate {
+    font-style:italic;
+}
+
+.InspireArticleBody {
+    width:100%;
+    float:left;
+}
+
+
+/* footbanner */
+#inspire-article {
+    .footBanner  {
+        background:#AC9FA6;
+    }
+    .moduleContainerInner {
+        display:block;
+    }
+}
+
+
+// additional to override marketings inline styles on article pages
+
+.textModule span {
+    @extend .bodyfont;
+    line-height:24px !important;
+}
+.InspireArticleBody .moduleItemInner {
+    background-size: contain;
+    padding: 12px 30px;
+
+    p:nth-of-type(1) {
+        clear:left;
+        /*margin-top:10px;*/
+    }
+}
+
+.moduleItemInner p.white-text, .moduleItemInner p.white-text:after {
+    color:#ffffff;
+}
+.moduleContainerInner img {
+    margin:10px 0;
+    object-fit:cover;
+    width:100%;
+} 
+
+
+// fixes for varying thumbnail sizes!
+@media only screen and (max-width:768px) {
+   .paintGrid img {
+        height: 156px;
+        object-position: 0 0;
+    } 
+}
+@media only screen and (min-width: 769px) {
+   .paintGrid img {
+        height: 120px;
+        object-position: 0 0;
+    } 
+}
+
+// remove searchbox and reduce header 
+@media only screen and (min-width: 1060px) {
+    .inspire-header {
+        height:210px;
+    }
+}
+.inspire-header-bottom {
+    min-height:140px;
+    margin-top:10px;
+}
+.inspireSearchHolder {
+    display:none;
+}
+
+
+
+
+// reduce gutter width
+.InspireArticle img {
+    height:255px;
+}
+.InspireArticleHero, .InspireArticle {
+    margin-bottom:10px;
+}
+
+// reduce gutter width - Foundation changes
+.row .column, .row .columns {
+    padding-left: .5em;
+    padding-right: .5em;
+}
+.row .row {
+    margin: 0 -.5em;
+    }
+
+// adjustments to areas impacted by gutter change
+@media only screen and (min-width: 1170px) {
+    .topNav {
+        /*max-width: 1220px;*/
+        }
+    .mainNav {
+        /*max-width: 1220px;*/
+    }
+    .siteLogo {
+        /*margin-left: -590px;*/
+        }
+    .footerContainer {
+        padding:0px;
+    }
+    .legalFooter {
+        padding: 0 10px;
+    }
+}
+
+.row div ul.articleOptions.pull-right.moduleShare {
+    z-index: 1;
+    margin-bottom:-100px;
+
+    .sl-trigger-share {
+        margin-top: -55px;
+        margin-right:5px;
+    }
+}
+
+// responsive adjustments
+
+@media only screen and (min-width: 580px) and (max-width:870px) {
+    #inspire-results {
+        .medium-12 {
+            position: relative;
+            width: 100%;
+        }
+        .medium-6 {
+            position: relative;
+            width: 50%;
+        }
+        .row .large-offset-2 {
+            margin-left:0;
+        }
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .inspire-header {
+        height:auto;
+        padding-top:0;
+        background-image:none;
+    }
+    .hide-mobile {
+        display:none;
+    }
+    .footBanner {
+        font-size:14px;
+    }
+}
+
+@media only screen and (max-width:870px) {
+    #inspire-article .medium-12 {
+            width: 100%;
+        } 
+} 
+
+
+
+//override requested by Bizarre Voice
+
+.bv-curations-cleanslate .fm-update-next:before, .bv-curations-cleanslate .fm-btn-right:before,
+.bv-curations-cleanslate .fm-update-previous:before, .bv-curations-cleanslate .fm-btn-left:before,
+.bv-curations-cleanslate .fm-channel-instagram-main:before, .bv-curations-cleanslate .fm-channel-twitter-main:before,
+.bv-curations-cleanslate .fm-channel-linkedin-main:before, .bv-curations-cleanslate .fm-channel-google-main:before,
+.bv-curations-cleanslate .fm-channel-google-main:before, .bv-curations-cleanslate .fm-channel-email-main:before, .bv-curations-cleanslate .fm-channel-pinterest-main:before
+{
+     font-family: feeddings !important;
+}
+
+.pageContainerInner {
+    .bv-curations-cleanslate {
+      &:before, &:after, .fm-update-next:before, .fm-btn-right:before, .fm-carousel .fm-info .fm-channel-icon a i:before, .fm-channel-instagram-main:before {
+        font-family: feeddings !important;
+      }
+      .fm-carousel {
+          a.fm-btn-right, a.fm-btn-left {
+              border-radius: 0px !important;
+              opacity:1 !important;
+          }
+      }
+
+      .fm-carousel.BVTemplateMedCarousel a {
+        &.fm-btn-left, &.fm-btn-right {
+        border-radius: 0px !important;
+        opacity:1 !important;
+        font-family: feeddings !important;
+        border:0px !important;
+        font-size: 10px!important;
+        padding: 20px 10px!important;
+        right: 0px !important;
+        box-shadow: 0 0 0px rgba(0,0,0,0) !important;
+        }
+      }
+    }
+
+
+//UGC for PDP
+
+
+
+    .bv-curations-cleanslate.bv-carousel-wrapper {
+        padding:10px !important;
+
+
+        .fm-carousel {
+            background:#f1f1f1 !important;
+            margin:0px 0!important;
+            border-radius:0px !important;
+            border:1px solid #ddd !important;
+
+            &.bv-carousel-theme-modern.fm-push-right {
+            
+                 .fm-title .fm-float-right {
+                    display:none !important;
+                }
+            
+                 .fm-carousel-wrapper {
+                     display:inline-block !important;
+                     float: left !important;
+                     left:0px !important;
+                 }
+
+             }
+        }
+
+        span.fm-float-left{
+            font-family: ProximaNovaA-Semibold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif !important;
+            font-weight:400 !important;
+            color: #6a6869 !important;
+            font-size: 14px !important;
+            letter-spacing: 0.03em !important;
+            text-transform:uppercase !important;
+            margin-bottom:20px !important;
+        }
+
+    }
+}
+
+

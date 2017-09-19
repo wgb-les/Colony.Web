@@ -1,0 +1,347 @@
+﻿@using Colony.CMS
+@using Colony.CMS.Security.Helpers
+@using Colony.Commerce
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+    var colourHex = "";
+    if (Model.Colours.Any())
+    {
+        colourHex = Model.Colours.First().CssColour;
+    }
+
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageZoomUrl = defaultImageZoom != null ? @Url.ImageUrl(defaultImageZoom.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageUrl).AbsoluteUri;
+
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+<div id="content">
+<style type="text/css">
+    .zoomLens { pointer-events: none; }
+
+    .zoomContainer { pointer-events: none; }
+</style>
+<div class="galleryContainer">
+
+    <div class="carousel imageCarousel">
+        @*<span class="itemNew tap-to-zoom">Pinch to zoom</span>*@
+        <ul class="items">
+            @if (Model.Images.Any())
+            {
+                var canvasId = 0;
+                foreach (var image in Model.Images)
+                {
+                    canvasId++;
+                    var altBrand = "";
+                    var altGroup = "";
+                    if (Model.Attributes.ContainsKey("Brand"))
+                    {
+                        altBrand = Model.Attributes["Brand"];
+                    }
+                    if (Model.Attributes.ContainsKey("Product Group"))
+                    {
+                        altGroup = Model.Attributes["Product Group"];
+                    }
+                    var altText = altBrand + " " + altGroup + " - " + Model.SelectedSku.Name;
+
+                    var imageUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "PaintProductDetail", @"/_images/placeholders/article.jpg");
+                    var imageZoomUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "PaintProductDetailZoom", @"/_images/placeholders/article.jpg");
+                    var imageThumbnailUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "PaintProductDetailThumbnail", @"/_images/placeholders/article.jpg");
+
+                    <li>
+                        <img id="zoom@(image.ImageAssetID)" class="no-drag" src="@imageUrl" alt="@altText" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name" data-url="@Request.Url.AbsoluteUri" data-productimage="@imageThumbnailUrl" data-skuid="@Model.SelectedSku.Id" @if (isB2B)
+                                                                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                                                                                   <text> data-isb2b="true" </text>
+                                                                                                                                                                                                                                                                                                               }/>
+
+                        <div class="canvas_container" style="width: 100%;" data-img="@imageZoomUrl">
+                            <canvas id="mycanvas@(canvasId)" class="canvasZoom" style="height: 100%; width: 100%;"></canvas>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <img id="zoom99999"class="mainZoom no-drag" src="@defaultImageUrl" data-zoom-image="@defaultImageZoomUrl"/>
+                </li>
+            }
+        </ul>
+        @if (Model.Images.Count > 1)
+        {
+            <a href="#" class="prev">
+                <span></span>
+                Previous
+            </a>
+            <a href="#" class="next">
+                <span></span>
+                Next
+            </a>
+            <div class="bullets">
+                <span class="icon icon-play icon-pause"></span>
+                <ul></ul>
+            </div>
+        }
+    </div>
+    <h3>
+        <a href="@Url.ProductCategoryUrl(Model.Category)">@Model.Category.Name</h3>
+</div>
+<div class="productDetails no-drag row" data-productcode="@Model.SelectedSku.Code">
+<div class="large-8 columns noPad">
+    <h1 class="pull-left">
+        @Model.Product.Name <span class="code"><b>@Model.Attributes.GetValueOrNull("Design Code")</b></span></h1>
+</div>
+<div class="large-4 columns noPad">
+    <ul class="articleOptions pull-right">
+        <li>
+            <a href="#" class="share" data-reveal-id="share">
+                <span>Share</span></a>
+        </li>
+        @*<li><a href="#" class="trade"><span>Information for Trade</span></a></li>*@
+    </ul>
+</div>
+
+@if (isB2B)
+{
+    <div class="clear"></div>
+    <span class="price"></span>
+    <div class="clear"></div>
+    <span class="stock"></span>
+    <div class="clear"></div>
+    <span class="pricinginfo">Prices do not include Tax / VAT or carriage costs.</span>
+}
+<hr/>
+<div class="row productOptionsButtons">
+    <div class="@if (isB2B)
+                {
+                    <text>large-6 columns</text>
+                }
+                else
+                {
+                    <text>large-4 columns</text>
+                }">
+        <a href="#" class="button" data-reveal-id="productDetails">Product Details</a>
+    </div>
+    @*@if (isB2B)
+			{ 
+				<div class="large-6 columns">
+					<a class="button b2baddtobasket" href="@Url.Action("BasketCommand", "Basket", new { area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.SkuId })">Add to Basket</a>
+				</div>
+			}*@
+    <div class="@if (isB2B)
+                {
+                    <text>large-6 columns</text>
+                }
+                else
+                {
+                    <text>large-4 columns</text>
+                }">
+        <a class="button" href="#" data-reveal-id="orderPaintCard">Order a Paint Chart</a>
+    </div>
+    @if (useraccount != null)
+    {
+        <div class="@if (isB2B)
+                    {
+                        <text>large-6 columns</text>
+                    }
+                    else
+                    {
+                        <text>large-4 columns</text>
+                    }">
+            @*<a href="#" id="addToScrapbookPopup" class="button scrapbook addToScrapbookPopup" data-noprice="true" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.Product.Name" data-skuid="@Model.SkuId" @if (defaultImage != null)
+                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                  <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                                                                              } data-productimage="@defaultImageUrl">
+                Add to Moodboard
+            </a>*@
+        </div>
+    }
+    else
+    {
+        <div class="@if (isB2B)
+                    {
+                        <text>large-6 columns</text>
+                    }
+                    else
+                    {
+                        <text>large-4 columns</text>
+                    }">
+            @*<a href="#" class="button scrapbook no-drag" data-noprice="true" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.Product.Name" data-skuid="@Model.SkuId" @if (defaultImage != null)
+                                                                                                                                                                                         {
+                                                                                                                                                                                             <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                                         } data-productimage="@defaultImageUrl">
+                Add to Scrapbook
+            </a>*@
+        </div>
+    }
+</div>
+@if (Model.SelectedSku != null)
+{
+    <p class="productDescription">@Html.Raw(Model.SelectedSku.LongDescription)</p>
+}
+else
+{
+    <p class="productDescription">@Html.Raw(Model.LongDescription)</p>
+}
+@if (useraccount != null)
+{
+    Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+}
+
+<hr/>
+
+@if (Model.Images.Any())
+{
+    <div class="shopExtraProducts inspirationProducts">
+        <hr/>
+        <section class="boxSection colourWays">
+            <div class="bd">
+                <div class="galleryToggles carousel productCarousel">
+                    <div class="items productList">
+                        @foreach (var productImage in Model.Images)
+                        {
+                            var imageUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "PaintProductDetail", @"/_images/placeholders/article.jpg");
+                            var imageZoomUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "PaintProductDetailZoom", @"/_images/placeholders/article.jpg");
+                            var imageThumbnailUrl = Url.ImageUrl(productImage.ImageAssetID, "ProductCatalogue", "PaintProductDetailThumbnail", @"/_images/placeholders/article.jpg");
+
+                            <div class="item" data-productcode="@Model.SelectedSku.Code" @if (Model.Images.IsFirst(productImage))
+                                                                                         {
+                                                                                             <text>class="selected"</text>
+                                                                                         }>
+                                <a href="#" data-image="@imageUrl" data-zoom-image="@imageZoomUrl" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name @Model.SelectedSku.Code" data-skuid="@Model.SelectedSku.Id" @if (productImage != null)
+                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                        <text>data-imageAssetId="@productImage.ImageAssetID"</text>
+                                                                                                                                                                                                                                                    } data-productimage="@imageUrl" @if (isB2B)
+                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                        <text>data-isb2b="true"</text>
+                                                                                                                                                                                                                                                                                    }>
+                                    <img src="@imageThumbnailUrl" alt="">
+                                </a>
+                            </div>
+                        }
+                        @if (Model.Images.Count > 1)
+                        {
+                            <a href="#" class="prev">
+                                <span></span>
+                                Previous
+                            </a>
+                            <a href="#" class="next">
+                                <span></span>
+                                Next
+                            </a>
+                        }
+                        <div class="bullets">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+
+</div>
+<hr style="margin-top: -20px;"/>
+<div class="clear"></div>
+@{
+    var skus = Model.Skus.Where(x => x.Sku != null && !string.IsNullOrWhiteSpace(x.Sku.IsOptionProduct) && x.Sku.IsOptionProduct.Equals("N"));
+}
+@if (skus.Any())
+{
+    <div class="productList no-quick-view">
+        <input type="hidden" name="ProductCodes" id="ProductCodes" value="@(string.Join<string>(",", Model.Skus.Select((model, index) => model.Sku.Code)))"/>
+        <h2>Available Colours (@skus.Count())</h2>
+        @foreach (var item in skus.Select((model, index) => new {index, model}))
+        {
+            var defaultItemImage = item.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+            var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "PaintProductDetailThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+
+            <div class="item "data-productcode="@item.model.Sku.Code" data-productname="@item.model.Sku.Name" data-skuid="@item.model.Sku.Id" @if (defaultImage != null)
+                                                                                                                                              {
+                                                                                                                                                  <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                              } data-productimage="@defaultItemImageUrl" data-skuid="@item.model.Sku.Id" data-url="@Request.Url.AbsolutePath?code=@item.model.Sku.Code" @if (isB2B)
+                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                            <text>data-isb2b="true"</text>
+                                                                                                                                                                                                                                                                                        }>
+                <a href="?code=@item.model.Sku.Code" data-productcode="@item.model.Sku.Code" class="detail-ordersampleurl">
+                    <img src="@defaultItemImageUrl" alt="@item.model.Sku.Name"/>
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@item.model.ProductDetail.Product.Name</h4>
+                    <ul>
+                        <li>@item.model.Attributes.GetValueOrNull("Design Code")</li>
+                    </ul>
+                    @if (item.model.Sku.IsNew)
+                    {
+                        <span class="itemNew">New</span>
+                    }
+                </a>
+            </div>
+        }
+    </div>
+}
+</div>
+
+<section id="productDetails" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Product Details</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+        <p>@Model.LongDescription</p>
+        <div class="productSpec">
+            <ul>
+                <li>
+                    <span class="title">Collection</span>
+                    <span class="value">
+                        <a href="@Url.ProductCategoryUrl(Model.Category)">@Model.Category.Name</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="title">Colour</span>
+                    <span class="value">@string.Join(",", Model.Colours.Select(x => x.Description))</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<section id="share" class="reveal-modal large" style="height: auto;">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Name}); }
+</section>
+
+@{ Html.RenderAction("OrderPaintCard", "Enquiries", new {area = "CustomShops"}); }
+
+@if (Model.Images.Count > 1)
+{
+    <section id="pinterestImages" class="reveal-modal medium">
+        <header class="header-reveal-modal">
+            <h2>Select Image to Share</h2>
+            <a class="close-reveal-modal icon-remove">
+                <span>Close</span></a>
+        </header>
+        <div class="bd-reveal-modal">
+            <div class="productList no-quick-view">
+                @foreach (var image in Model.Images)
+                {
+                    <div class="item">
+                        @{
+                            var imageUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetailZoom");
+                        }
+                        <a href="@Url.PinterestShareUrl(Request.Url.AbsoluteUri, imageUrl, Model.Name)" target="_blank">
+                            <img src="@imageUrl" alt="" style="max-height: 125px; max-width: 125px;">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

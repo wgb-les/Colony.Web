@@ -1,0 +1,360 @@
+﻿
+#content {
+    padding: 0;
+    padding-bottom: 50px !important;
+}
+
+
+
+#creditcard {
+    width: 95%;
+    height: 260px;
+    position: relative;
+    margin: 25px 2.5%;
+    overflow: hidden;
+    background: url('Images/ccBackBg.png') #ecebeb 0 0 repeat-x;
+    -webkit-box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+    box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+    border-radius: 11px;
+}
+
+.cardFront {
+    width: 75%;
+    height: 260px;
+    position: relative;
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    background: url('Images/ccFrontBg.png') 0 0 repeat-x;
+    border-radius: 11px;
+    padding: 65px 16.5px 5px 16.5px;
+    -webkit-box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+    box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+}
+
+    .cardFront label {
+        font-family: "OCR A Std","Courier New Bold",sans-serif;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 11px;
+        min-width: 100px;
+        display: inline-block;
+        padding: 4px 0;
+        vertical-align: baseline;
+        text-shadow: 0 -1px 1px #fff;
+        -webkit-text-stroke-width: .2px;
+        -webkit-text-stroke-color: #666;
+        -webkit-font-smoothing: antialiased;
+        line-height: normal;
+    }
+
+#card_number {
+    display: inline-block;
+    width: 90%;
+}
+
+
+.us:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 16.5px;
+    background: url("Images/cc-images-us-small.svg") 0 0 no-repeat;
+    width: 200px;
+    height: 24px;
+}
+.ww:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 16.5px;
+    background: url("Images/cc-images-4.svg") 0 0 no-repeat;
+    width: 200px;
+    height: 24px;
+}
+
+.required {
+    font-size: x-small;
+    color: red;
+    text-transform: none;
+}
+
+.available {
+    display: block;
+    font-size: x-small;
+    color: darkblue;
+    text-transform: none;
+    margin-left: 6px;
+}
+
+#ccSecurityCodeLabel {
+    display: block;
+    position: absolute;
+    width: 65px;
+    min-width: 65px;
+    left: 105%;
+    top: 140px;
+    z-index: 1;
+    text-shadow: 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+#cv2_number {
+    position: absolute;
+    width: 40px;
+    min-width: 40px;
+    margin-right: 10px;
+    left: 105%;
+    top: 96px;
+}
+
+#expiry label {
+    display: block;
+    margin-top: 5px;
+}
+
+#issuenumber label {
+    display: inline-block;
+    margin-top: 5px;
+    width: 50%;
+}
+
+.large {
+    height: 26px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.small {
+    height: 20px;
+    padding: 3px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+.text input[type="text"] {
+    width: 95%;
+}
+.checkoutDelivery .field, .checkoutPayment .field {
+    padding: 0;
+}
+#validation-box {
+    width: 200px;
+    margin: 15px 3%;
+    color: red;
+    word-spacing: 0;
+    display: block;
+}
+
+@media only screen and (min-width: 680px) {
+    #validation-box {
+    width: 600px;
+    margin: 15px auto;
+    color: red;
+    word-spacing: 0;
+    display: block;
+}
+    #creditcard {
+        width: 600px;
+        height: 260px;
+        position: relative;
+        margin: 25px auto;
+        overflow: hidden;
+        background: url('Images/ccBackBg.png') #ecebeb 0 0 repeat-x;
+        -webkit-box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+        box-shadow: 0 1px 3px 2px rgba(119,119,119,0.4),inset 0 0 0 1px #fff;
+        border-radius: 11px;
+    }
+
+    .cardFront {
+        width: 420px;
+        height: 260px;
+        position: relative;
+        float: left;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #fff;
+        background: url('Images/ccFrontBg.png') 0 0 repeat-x;
+        border-radius: 11px;
+        padding: 65px 16.5px 5px 16.5px;
+        -webkit-box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+        box-shadow: 23px 1px 39px 0 rgba(0,0,0,0.32);
+    }
+
+        .cardFront label {
+            font-family: "OCR A Std","Courier New Bold",sans-serif;
+            color: #666;
+            text-transform: uppercase;
+            font-size: 11px;
+            min-width: 100px;
+            display: inline-block;
+            padding: 4px 0;
+            vertical-align: baseline;
+            text-shadow: 0 -1px 1px #fff;
+            -webkit-text-stroke-width: .2px;
+            -webkit-text-stroke-color: #666;
+            -webkit-font-smoothing: antialiased;
+            line-height: normal;
+        }
+
+    #card_number {
+        display: inline-block;
+        width: 90%;
+    }
+
+
+.us:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 16.5px;
+    background: url("Images/cc-images-us.svg") 0 0 no-repeat;
+    width: 250px;
+    height: 24px;
+}
+.ww:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 16.5px;
+    background: url("Images/cc-images-4.svg") 0 0 no-repeat;
+    width: 200px;
+    height: 24px;
+}
+
+    .required {
+        font-size: x-small;
+        color: red;
+        text-transform: none;
+    }
+
+    .available {
+        font-size: x-small;
+        color: darkblue;
+        text-transform: none;
+        margin-left: 6px;
+    }
+   
+    #ccSecurityCodeLabel {
+        display: block;
+        position: absolute;
+        width: 65px;
+        min-width: 65px;
+        left: 447.5px;
+        top: 92px;
+        z-index: 1;
+        text-shadow: 0 -1px 1px rgba(255,255,255,0.3);
+    }
+
+    #cv2_number {
+        position: absolute;
+        width: 40px;
+        min-width: 40px;
+        margin-right: 10px;
+        left: 523.5px;
+        top: 96px;
+    }
+
+    #expiry label {
+        display: block;
+        margin-top: 5px;
+    }
+     #issuenumber  label {
+         display: inline-block;
+        margin-top: 5px;
+        width: 105px;
+    }
+    .large {
+        height: 26px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .small {
+        height: 20px;
+        padding: 3px 10px;
+        margin-right: 5px;
+        border-radius: 5px;
+    }
+}
+
+.checkoutPayment fieldset {
+    width: inherit;
+    padding: 0;
+}
+
+.text input[type="text"] {
+    background-color: white;
+}
+
+.basketTotals {
+    width: inherit;
+}
+
+
+.basketTotals dt {
+    margin: 5px 5px;
+    width: 95%;
+}
+
+.basketTotals .even:first-child {
+    background: inherit;
+}
+
+.basketTotals dd {
+    float: right;
+}
+.basketTotals dt, .basketTotals dd {
+    padding-right: 0;
+    margin-right: 0.5em;
+}
+.boxSection .alertInfo {
+    margin: 15px 3%;
+}
+
+.checkoutPayment .field.formControls {
+    width: inherit;
+    padding: 1em;
+    padding-left:0;
+    float: left;
+    margin-left: 3%;
+                 
+}
+   .checkoutPayment .basketTotals {
+       width: 94%;
+        float: left;
+    margin: 15px 3%;
+       border: 1px solid #bfbfbf;
+       border-radius: 0.5em;
+       padding-left: 0;
+       padding-right: 0;
+    }
+@media only screen and (min-width: 48.125em) {
+    .checkoutDelivery fieldset, .checkoutPayment fieldset {
+        width: 90%;
+        margin: 0 5%;
+    }
+
+    .checkoutPayment .basketTotals {
+       border: 1px solid #bfbfbf;
+       border-radius: 0.5em;
+        
+    }
+
+    .checkoutAbout .field.formControls, .checkoutDelivery .field.formControls, .checkoutPayment .field.formControls {
+        padding-left: 0;
+        margin: 0 2em;
+        width: 90%;
+    }
+
+    .basketTotals dd {
+        width: 96%;
+    }
+
+
+    .checkoutPayment .field.formControls {
+        text-align: left;
+    }
+}

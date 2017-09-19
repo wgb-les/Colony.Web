@@ -1,0 +1,146 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.Stockists.Models.StockistSearchResultsViewModel
+@{
+    Html.SetTitle("Search Stockists");
+}
+<script type="text/javascript">
+    $('body').addClass('mobileStockistsResults');
+</script>
+<div id="content">
+
+    <div class="stockistIntro">
+        <h1>Stockists</h1>
+
+        @if (Model.Results != null && Model.Results.Any())
+        {
+            <div class="alertInfo message">
+                Showing results near <strong>"@ViewBag.Postcode"</strong>
+            </div>
+            <a class="button small" href="/stockists/">Search again</a>
+        }
+    </div>
+    @if (Model.Results != null && Model.Results.Any())
+    {
+        <div id="whereToBuyResults">
+            <div class="scroller">
+                <ul class="results stockists">
+                    @foreach (var stockist in Model.Results)
+                    {
+                        <li class="featured" data-lat="@stockist.Stockist.Latitude" data-lng="@stockist.Stockist.Longitude">
+                            <div class="distance">
+                                @*@if (Colony.CMS.Security.Helpers.AuthenticationHelpers.IsLoggedIn())
+								{ 
+									<a href="@Url.Action("SetDefaultStockist", "Stockist", new { area = "Stockists", stockistId = stockist.Stockist.Id })" class="icon-heart setDefaultStockist @if (stockist.IsDefaultStockist)
+																																																{ <text>selected</text>}"></a>
+								}*@
+                                <span class="icon-map-marker">@(Math.Round(stockist.Stockist.Distance)) miles away</span>
+                                @{
+                                    var googleMapsUrl = string.Format("https://maps.google.com/maps?q={0}&hl=en&sll={1},{2}&t=h&z=16&iwloc=A", stockist.Stockist.Postcode, stockist.Stockist.Latitude, stockist.Stockist.Longitude);
+                                }
+                                <a class="button showOnMap" href="@googleMapsUrl">View on map</a>
+                            </div>
+
+                            <div class="details">
+                                <h2>@stockist.Stockist.Name</h2>
+                                <p>@stockist.Stockist.Address1</p>
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.Address2))
+                                {
+                                    <p>@stockist.Stockist.Address2</p>
+                                }
+                                <p>@stockist.Stockist.Town</p>
+                                <p>@stockist.Stockist.County</p>
+                                <p>@stockist.Stockist.Postcode</p>
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.TelephoneNumber))
+                                {
+                                    <span class="adressAction"><i class="icon-phone-square"></i><span>@stockist.Stockist.TelephoneNumber</span></span>
+                                }
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.Email))
+                                {
+                                    <a class="adressAction" href="mailto:@stockist.Stockist.Email">
+                                        <i class="icon-envelope"></i><span class="link">@stockist.Stockist.Email</span></a>
+                                }
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.Url))
+                                {
+                                    <a class="adressAction" href="@(stockist.Stockist.Url.Contains(":") ? stockist.Stockist.Url : "http://" + stockist.Stockist.Url)" target="_blank">
+                                        <i class="icon-desktop"></i><span class="link">@stockist.Stockist.Url</span></a>
+                                }
+                            </div>
+
+                            @if (stockist.Stockist.Shops.Any())
+                            {
+                                <div class="stockists-brands">
+                                    <ul>
+                                        @foreach (var shop in stockist.Stockist.Shops)
+                                        {
+                                            <li>
+                                                <span class="brand-@shop.ShopKey.ToLower()"></span>@shop.Name</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                            @if (stockist.Stockist.SellsFabric || stockist.Stockist.SellsWallpaper || stockist.Stockist.SellsHomeAccessories || stockist.Stockist.SellsPaint || stockist.Stockist.SellsTrimmings)
+                            {
+                                <div class="storeProducts">
+                                    <ul>
+                                        @if (stockist.Stockist.SellsFabric)
+                                        {
+                                            <li><span class="fabric"></span>Fabric</li>
+                                        }
+                                        @if (stockist.Stockist.SellsWallpaper)
+                                        {
+                                            <li><span class="wallpaper"></span>Wallpaper</li>
+                                        }
+                                        @if (stockist.Stockist.SellsHomeAccessories)
+                                        {
+                                            <li><span class="homeAccessories"></span>Home Accessories</li>
+                                        }
+                                        @if (stockist.Stockist.SellsPaint)
+                                        {
+                                            <li><span class="paint"></span>Paint</li>
+                                        }
+                                        @if (stockist.Stockist.SellsRugs)
+                                        {
+                                            <li><span class="rugs"></span>Rugs</li>
+                                        }
+                                        @if (stockist.Stockist.SellsTrimmings)
+                                        {
+                                            <li><span class="trimmings"></span>Trimmings</li>
+                                        }
+                                        @if (stockist.Stockist.SellsFurniture)
+                                        {
+                                            <li><span class="furniture"></span>Furniture</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="clear"></div>
+
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(ViewBag.Postcode) && ViewData.ModelState.IsValid)
+    {
+        <div class="alertInfo message">
+            There are no stockists near <strong>"@ViewBag.Postcode"</strong> <a class="pull-right" href="#searchForm">Search again</a>
+        </div>
+    }
+    <div id="searchForm">
+        <div class="contentForm">
+            @using (Html.BeginForm("List", "Stockist", new {area = "Stockists"}, FormMethod.Post, new {id = "stockistSearch"}))
+            {
+                @Html.CustomValidationSummary(false)
+                ;
+                <fieldset>
+                    <legend>Search</legend>
+                    <h2>Search</h2>
+                    @{ Html.RenderPartial("_SearchFilters", Model.SearchDetails); }
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>

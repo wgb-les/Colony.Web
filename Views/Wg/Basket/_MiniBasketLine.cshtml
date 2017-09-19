@@ -1,0 +1,79 @@
+﻿@using Colony.Commerce
+@model Colony.Commerce.Areas.ShopPurchase.Models.BasketLineViewModel
+
+@using (Html.BeginCollectionItem("basketLines"))
+{
+    if (!Model.CanPurchase)
+    {
+        <div class="alertInfo error">
+            <p>The item below is unavailable in your selected region. Either remove this item from your basket or change your region.</p>
+        </div>
+    }
+    <fieldset>
+        <legend>@Model.Sku.Name</legend>
+        <h2>
+            <a href="@string.Format("{0}/shop/{1}?code={2}", Model.ShopBaseUri, Model.Url, Model.Sku.Code)" @if (Model.Shop.Id != ColonyCommerceContext.Current.Shop.CurrentShop.Id)
+                {
+                    <text>target="_blank"</text>
+                }>
+                @Model.Sku.Name</a>
+        </h2>
+        @if (Model.SkuId != null)
+        {
+            <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuId = Model.SkuId.Value})" class="remove"
+               data-currencyCode="@Model.CurrencyRegion.RegionInfo.ISOCurrencySymbol"
+               data-itemName="@Model.Name"
+               data-itemId="@Model.Product.Name"
+               data-itemPrice="@(Model.UnitPriceInc.ToString("#0.00"))"
+               data-itemCategory="@Model.Attributes["Product Group"]"
+               data-variant="@(Model.IsSample ? "Sample": "Product")"
+               data-itemQuantity="@Model.Quantity"
+               data-itemDimension2="@Model.Attributes["Descriptive Colour"]"
+               data-itemDimension3="@Model.Category.Name"
+               data-itemDimension4="@Model.Attributes["Pattern Match Description"]"
+               data-itemDimension5="@((Model.Sku.Width ?? 0).ToString("0.0"))">
+                <span>Remove</span></a>
+        }
+        else
+        {
+            <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuBundleId = Model.SkuBundleId.Value})" class="remove"
+               data-currencyCode="@Model.CurrencyRegion.RegionInfo.ISOCurrencySymbol"
+               data-itemName="@Model.Name"
+               data-itemId="@Model.Product.Name"
+               data-itemPrice="@(Model.UnitPriceInc.ToString("#0.00"))"
+               data-itemCategory="@Model.Attributes["Product Group"]"
+               data-variant="@(Model.IsSample ? "Sample": "Product")"
+               data-itemQuantity="@Model.Quantity"
+               data-itemDimension2="@Model.Attributes["Descriptive Colour"]"
+               data-itemDimension3="@Model.Category.Name"
+               data-itemDimension4="@Model.Attributes["Pattern Match Description"]"
+               data-itemDimension5="0.0">
+                <span>Remove</span></a>
+        }
+
+        @if (Model.CanPurchase)
+        {
+            <div class="field text spinner split">
+                @Html.LabelFor(model => model.Quantity)
+
+                @if (Model.MaxQuantity != 0)
+                {
+                    @Html.TextBoxFor(model => model.Quantity, new {data_max_value = Model.MaxQuantity.ToString(), data_min_value = "0", disabled = "true"})
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.Quantity, new {data_min_value = "0", data_max_value = "100", disabled = "true"})
+                }
+
+                @Html.HiddenFor(model => model.Quantity)
+            </div>
+
+            <p class="price">@(Model.UnitPriceInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.UnitPriceInc.ToString("#0.00") : "FREE")</p>
+        }
+
+
+        @Html.HiddenFor(model => model.SkuId)
+        @Html.HiddenFor(model => model.ShopId)
+        @Html.HiddenFor(model => model.CanPurchase)
+    </fieldset>
+}

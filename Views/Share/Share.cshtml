@@ -1,0 +1,23 @@
+﻿@model Colony.Web.Areas.Sharing.Models.ShareViewModel
+
+<header class="header-reveal-modal">
+    <h2>Share</h2>
+    <a class="close-reveal-modal icon-remove">
+        <span>Close</span></a>
+</header>
+<div class="bd-reveal-modal">
+    <ul class="shareOptions small-block-grid-1 large-block-grid-3">
+        <li>
+            <a href="@Url.FacebookShare(Model.ShareUrl)" target="_blank" class="button facebook">Facebook</a>
+        </li>
+        <li>
+            <a href="@Url.TwitterShareUrl(Model.ShareUrl, Model.Description)" target="_blank" class="button twitter">Twitter</a>
+        </li>
+        <li>
+            <a href="@Url.PinterestShareUrl(Model.ShareUrl, Model.MediaUrl, Model.Description)" target="_blank" class="button pinterest">Pinterest</a>
+        </li>
+    </ul>
+    <p>
+        <strong>Sharing URL </strong>@Html.Raw(Model.ShareUrl)</p>
+    @{ Html.RenderAction("SendToAFriend", "Share", new {area = "Sharing", Model.ShareUrl}); }
+</div>

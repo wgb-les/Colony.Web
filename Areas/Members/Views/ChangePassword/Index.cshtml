@@ -1,0 +1,13 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.ChangePasswordInputViewModel
+@using (Html.BeginForm("Index", "ChangePassword", new {area = "Members"}))
+{
+    @Html.AntiForgeryToken()
+
+    <h2>Change your password</h2>
+
+    @Html.EditorForModel()
+
+    <div class="field formControls">
+        <button class="button">Save changes</button>
+    </div>
+}

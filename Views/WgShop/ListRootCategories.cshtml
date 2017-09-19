@@ -1,0 +1,34 @@
+﻿@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model IEnumerable<Colony.Commerce.Areas.Shops.Models.CategoryViewModel>
+
+<div id="content">
+
+    <h2>Products</h2>
+    <div class="collectionsPreview productCollections no-quick-view">
+        @*<div class="item">
+			<a href="/shop/new-collections">
+				<img src="/_images/placeholders/categoryList.jpg" alt="New Collections" />
+				<span class="itemTitle">New Collections</span>
+			</a>
+		</div>*@
+        @foreach (var cat in Model)
+        {
+            <div class="item">
+                <a href="/shop/@Url.ProductCategoryUrl(cat.Category)">
+                    <img src="@Url.ImageUrl(cat.ImageAssetId, "Shop", "ProductCategoryThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@cat.Name"/>
+                    <span class="itemTitle">@cat.Name</span>
+                    @if (cat.IsNew)
+                    {
+                        <span class="itemNew">New</span>
+                    }
+                </a>
+            </div>
+        }
+    </div>
+</div>
+@if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+{
+    Html.RenderAction("SelectShop", "B2BShop", new {area = "B2BMembers"});
+
+    ViewContext.Controller.TempData["ShowSelectShopLink"] = true;
+}

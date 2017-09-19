@@ -1,0 +1,67 @@
+<div class="contentForm">
+        <form>
+            <h4>Input field</h4>
+            <div class="section field select  sl-input-block">
+                <label for="FirstName"><span>First name</span><span class="required">Required</span></label>
+                <div for="" class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></div>
+                <input data-val="true" data-val-required="The First name field is required." id="FirstName" name="FirstName" placeholder="" type="text" value="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvElEQVQ4T2NkoBAwIukXALL9gViBgJkPgPIbgfgDSB2yAQVAfj+RDioEqpuAbkADUKAeiB0JGLIfKN8IxCD1KC6AGYDsqgtANf+B2BDJUBCfaAM2QDUGkGMAcpjA/Qx1EVEugHkJZDlcA7EGgKJSHi0wHwL5D4g1wAGoEISRwQEgB4SJCkSQZns0Aw6SYgDICyCMDEDOJ8oL6E5HMwfsDayxQHFSBmUmUIJBdzq6C0DeWAATRE626AqJ4gMAKh82EQu8MAEAAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            </div>
+
+            <h4>Select List</h4>
+            <div class="field select  sl-input-block">
+                <label for="Title"><span>Title</span><span class="required">Required</span></label>
+                <div for="" class="field-validation-valid" data-valmsg-for="Title" data-valmsg-replace="true"></div>
+                <select data-val="true" data-val-required="The Title field is required." id="Title" name="Title">
+                    <option value="">Please select</option>
+                    <option value="Mr">Mr</option>
+                    <option value="Mrs">Mrs</option>
+                    <option value="Ms">Ms</option>
+                </select>
+            </div>
+
+            <h4>Text Area</h4>
+            <div class="field textarea ">
+                <label for="Enquiry"><span>Enquiry</span><span class="required">Required</span></label>
+                <div for="" class="field-validation-valid" data-valmsg-for="Enquiry" data-valmsg-replace="true"></div>
+                <textarea cols="20" data-val="true" data-val-required="The Enquiry field is required." id="Enquiry" name="Enquiry" rows="2"></textarea>
+            </div>
+            
+            <h4>Checkboxes</h4>
+            <fieldset class="optionList short">
+                <legend>Available Categories</legend>
+                <div id="retailerCheckbox">
+                    <div class="retailer-checkbox">
+                        <div class="field checkbox">
+                            <span class="field-validation-valid" data-valmsg-for="HasFabric" data-valmsg-replace="true"></span>
+
+                            <input type="checkbox" name="HasFabric" id="HasFabric">
+                            <label for="HasFabric"><span>Fabrics</span></label>
+                        </div>
+                    </div>
+
+                    <div class="retailer-checkbox">
+                        <div class="field checkbox">
+                            <span class="field-validation-valid" data-valmsg-for="HasWallpaper" data-valmsg-replace="true"></span>
+
+                            <input type="checkbox" name="HasWallpaper" id="HasWallpaper">
+                            <label for="HasWallpaper"><span>Wallpaper</span></label>
+                        </div>
+                    </div>
+
+                    <div class="retailer-checkbox">
+                        <div class="field checkbox">
+                            <span class="field-validation-valid" data-valmsg-for="HasPaint" data-valmsg-replace="true"></span>
+
+                            <input type="checkbox" name="HasPaint" id="HasPaint">
+                            <label for="HasPaint"><span>Paint</span></label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <h4>Submit Button</h4>
+            <div class="field formControls retailSubmitButtonContainer">
+                <button class="actionButton retailSubmitButton">Search</button>
+            </div>
+        </form>
+    </div>

@@ -1,0 +1,77 @@
+﻿
+<link href="~/_js/vendor/Slick/slick.css" rel="stylesheet" />
+<link href="~/_js/vendor/Slick/slick-theme.css" rel="stylesheet" />
+
+
+<section id="harlequin-container">
+    <div id="harlequin-inner">
+        <a href='~/shop/cushions'>
+            <div class="harlequin-cushion-header">
+                <h1>Buy Cushions Online</h1>
+                <p>This statement collection features watercolour depictions of artistic feathers, fluttering butterflies and sumptuous ombre velvets all in a tropical bright, sumptuous jewel and soft vintage palette. Each cushion is supplied with a duck feather pad for the ultimate luxury accessory.</p>
+            </div>
+        </a>
+
+        <div class="center">
+            <div>
+                <a href="~/shop/cushions/paradise?code=HAMA150661C" target="_blank"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150661C_zoom.jpg" alt="Paridise Cushion"></a>
+            </div>
+            <div>
+                <a href="~/shop/cushions/java?code=HAMA150679E" target="_blank"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150679E_zoom.jpg" alt="orange and grey cushion"></a>
+            </div>
+            <div>
+                <a href="~/shop/cushions/savanna?code=HAMA150659B" target="_blank"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150659B_zoom.jpg" alt="Elephant cushion teal"></a>
+            </div>
+            <div>
+                <a href="~/shop/cushions/amazilia-velvets?code=HAMV150651A" target="_blank"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMV150651A_zoom.jpg" alt="stripy green velvet cushion"></a>
+            </div>
+            <div>
+                <a href="~/shop/cushions/papilio?code=HAMA150676C" target="_blank"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150676C_zoom.jpg" alt="butterfly cushion blues"></a>
+            </div>
+            <div>
+                <a href="~/shop/cushions/limosa?code=HAMA150673D" target="_blank"> <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/HAMA150673D_zoom.jpg" alt="golden feather cushion"></a>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="~/_js/vendor/Slick/slick.min.js"></script>
+<script>
+    $(document)
+        .ready(function () {
+            $('.center')
+                .slick({
+                    autoplay: true,
+                    centerMode: true,
+                    infinite: true,
+                    centerPadding: '80px',
+                    slidesToShow: 3,
+                    speed: 500,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '55px',
+                                slidesToShow: 3
+                            }
+                        },
+                        {
+                            breakpoint: 370,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '55px',
+                                slidesToShow: 1
+                            }
+                        }
+                    ]
+                });
+        });
+</script>

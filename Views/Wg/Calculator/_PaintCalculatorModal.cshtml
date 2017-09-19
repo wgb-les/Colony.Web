@@ -1,0 +1,77 @@
+﻿@model Colony.Models.Core.WGModels.WgViewModels.Calculator.PaintCalculatorViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<link href="~/_css/brands/wg/Calculator/Calculator.css" rel="stylesheet" />
+
+<div class="sl-modal-popup" id="PaintCalculatorModal" style="display: none">
+    <header>
+        <h1 class="sl-heading">
+            Paint Calculator
+        </h1>
+        <h1 class="sl-heading sl-close">
+            &times;
+        </h1>
+    </header>
+    <div class="sl-modal-content">
+        <section class="contentContainer container-flex">
+            @using (Html.BeginForm("CalculatePaper", "WgCalculator", FormMethod.Post))
+            {
+                <fieldset class="row">
+                    <p>Please select units of measurement</p>
+                    <div class="form-group unit-selection">
+
+                        <div>
+                            <input name="units" id="input-metres" type="radio" value="metres" checked="checked" />
+                            <label class="radio " for="input-metres"> Metres </label>
+                        </div>
+
+                        <div>
+                            <input name="units" id="input-feet" type="radio" value="feet" />
+                            <label class="radio " for="input-feet">Feet and Inches</label>
+                        </div>
+
+                        <div>
+                            <input name="units" id="input-inches" type="radio" value="inches" />
+                            <label class="radio " for="input-inches">Inches</label>
+                        </div>
+                    </div>
+
+                    <div id="wall-group">
+                    </div>
+                    <button id="add-row-btn" class="primaryButton"><span class="fa fa-plus" aria-hidden="true"></span>Add another wall</button>
+                    <div>
+                        <div id="suface-selector">
+                            @*@Html.DropDownListFor(e => e.Surfaces, Model.SelectedSurfaces,new { id = "surface-selector-id"})*@
+                            @Html.DropDownListFor(e => e.SelectedSurface, Model.Surfaces, new { id = "surface-selector-id" })
+                        </div>
+                        <div id="finish-selector">
+                            @Html.DropDownListFor(e => e.SelectedFinish, Model.Finishes, new { id = "finish-selector-id" })
+                        </div>
+                        <div id="coats-selector">
+                            @Html.DropDownListFor(e => e.SelectedCoats, Model.Coats, new { id = "coats-selector-id" })
+                        </div>
+                    </div>
+                    <button id="calculate-paint-btn" class="actionButton" type="button"><span class="fa fa-calculator" aria-hidden="true"></span>Calculate Litres</button>
+                    <button id="reset-btn" class="secondaryButton"><span class="fa fa-refresh" aria-hidden="true"></span>Reset</button>
+                </fieldset>
+            }
+        </section>
+        <section id="result">
+            <div id="roll-result">
+                <p>
+                    *You will need approximately <actual>0 litres</actual> rounded upto <approx>0 litres</approx>
+                </p>
+            </div>
+            <div id="disclaimer">
+                <p>*This is an approximation only. Style Library advise that you should always consult your decorator before ordering paint and as a result we cannot be held resposible for any wrongly ordered paint from using this calculator.</p>
+            </div>
+        </section>
+        <hr />
+    </div>
+</div>
+<script src="~/_js/brands/wg/Calculator/PaintCalculator.js"></script>
+

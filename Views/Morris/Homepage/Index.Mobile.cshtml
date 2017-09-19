@@ -1,0 +1,46 @@
+﻿@model WalkerGreenbank.Modules.Homepage.Areas.Models.HomepageViewModel
+@{
+    var i = 0;
+}
+<div id="content">
+    <ul class="mobileHome">
+        @foreach (var featuredItem in Model.FeaturedItems)
+        {
+            if (!string.IsNullOrWhiteSpace(featuredItem.Details.MobileContent))
+            {
+                <li>@Html.Raw(featuredItem.Details.MobileContent)</li>
+            }
+        }
+    </ul>
+    <ul class="mobileCorporate">
+        <li>
+            <a href="/about/">
+                <span class="icon-angle-right"></span><span class="link">ABOUT US</span></a>
+        </li>
+        <li>
+            <a href="/jobs/">
+                <span class="icon-angle-right"></span><span class="link">CAREERS</span></a>
+        </li>
+        <li>
+            <a href="/accessibility/">
+                <span class="icon-angle-right"></span><span class="link">ACCESSIBILITY</span></a>
+        </li>
+        <li>
+            <a href="/terms-and-conditions/">
+                <span class="icon-angle-right"></span><span class="link">TERMS & CONDITIONS</span></a>
+        </li>
+        <li>
+            <a href="/press/">
+                <span class="icon-angle-right"></span><span class="link">PRESS AREA</span></a>
+        </li>
+        <li>
+            <a href="/trade/">
+                <span class="icon-angle-right"></span><span class="link">TRADE AREA</span></a>
+        </li>
+        <li>
+            <a href="/brochures/">
+                <span class="icon-angle-right"></span><span class="link">DOWNLOAD BROCHURES</span></a>
+        </li>
+    </ul>
+</div>
+<!-- End of content -->

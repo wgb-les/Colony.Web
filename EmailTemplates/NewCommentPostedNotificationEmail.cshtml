@@ -1,0 +1,43 @@
+@using Colony.CMS
+@using Colony.Util.Web
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>New Comment</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>The following comment has been added to the @ColonyContext.Current.CurrentSite.Name website.</h2>
+<p>
+    This comment was added to the following page: <a href="@Model.Comment.SourceUrl">@Model.Comment.SourceUrl</a>
+</p>
+
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold">Name</td>
+        <td>@Model.Comment.Author</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Email Address</td>
+        <td>@Model.Comment.Email</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Comment Text</td>
+        <td>@Model.Comment.CommentText</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Site comment posted on</td>
+        <td>@ColonyContext.Current.CurrentSite.Name</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Actions</td>
+        <td>
+            <a href="@UriExtensions.AbsoluteUrl("/edit/#comments/view/?id=" + Model.Comment.Id)">Approve or Reject Comment</a><br/>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

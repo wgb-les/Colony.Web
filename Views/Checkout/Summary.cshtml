@@ -1,0 +1,107 @@
+﻿@using Colony.Commerce
+@using Colony.Commerce.Models
+@model Colony.Commerce.Areas.ShopPurchase.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "Checkout";
+
+    var aboutYouActive = Model.Checkout.CheckoutStage.HasFlag(CheckoutStage.None);
+    var aboutYouCompleted = Model.Checkout.CheckoutStage.HasFlag(CheckoutStage.AboutYouCompleted);
+    var deliveryActive = string.Equals(ViewBag.edit, "delivery");
+    ;
+    var deliveryCompleted = Model.Checkout.CheckoutStage.HasFlag(CheckoutStage.DeliveryCompleted);
+    var deliveryOptionsActive = string.Equals(ViewBag.edit, "delivery-options");
+    var deliveryOptionsCompleted = Model.Checkout.CheckoutStage.HasFlag(CheckoutStage.DeliveryOptionsCompleted);
+    var paymentInformationActive = string.Equals(ViewBag.edit, "payment");
+    var paymentInformationCompleted = Model.Checkout.CheckoutStage.HasFlag(CheckoutStage.PaymentCompleted);
+}
+<div id="container">
+
+    <div id="content" class="fullContent">
+        <header class="pageHeader">
+            <h1>Checkout</h1>
+        </header>
+
+        <div id="checkout-progress" class="checkout-progress fixed-on-scroll">
+
+            <ol class="checkout-steps">
+
+                @*        @Html.Raw((aboutYouCompleted ? "<a href=\"/checkout/?edit=aboutYou\">" : ""))*@
+                <li class="checkout-step @Html.Raw(aboutYouCompleted ? "complete" : (aboutYouActive ? "active" : ""))">
+
+                    <span class="checkout-step-label">@Html.Raw(aboutYouCompleted ? "<span class=\"icon icon-ok-sign\"></span>" : "") About you</span>
+
+                </li>
+                @*        @Html.Raw((aboutYouCompleted ? "</a>" : ""))        
+
+        @Html.Raw((deliveryCompleted ? "<a href=\"/checkout/?edit=delivery\">" : ""))*@
+                <li class="checkout-step @Html.Raw(deliveryCompleted ? "complete" : (deliveryActive ? "active" : ""))">
+
+                    <span class="checkout-step-label">@Html.Raw(deliveryCompleted ? "<span class=\"icon icon-ok-sign\"></span>" : "") Delivery address</span>
+
+                </li>
+                @*        @Html.Raw((deliveryCompleted ? "</a>" : ""))   
+
+        @Html.Raw((deliveryOptionsCompleted ? "<a href=\"/checkout/?edit=delivery-options\">" : ""))*@
+                <li class="checkout-step @Html.Raw(deliveryOptionsCompleted ? "complete" : (deliveryOptionsActive ? "active" : ""))">
+
+                    <span class="checkout-step-label">@Html.Raw(deliveryOptionsCompleted ? "<span class=\"icon icon-ok-sign\"></span>" : "") Delivery options</span>
+
+                </li>
+
+                @*        @Html.Raw((deliveryOptionsCompleted ? "</a>" : ""))   *@
+
+                <li class="checkout-step @Html.Raw(paymentInformationCompleted ? "complete" : (paymentInformationActive ? "active" : ""))">
+
+                    <span class="checkout-step-label">@Html.Raw(paymentInformationCompleted ? "<span class=\"icon icon-ok-sign\"></span>" : "") Billing address</span>
+
+                </li>
+
+                <li class="checkout-step">
+
+                    <span class="checkout-step-label">Payment information</span>
+             
+                </li>
+
+            </ol>
+
+        </div>
+
+        <section class="boxSection basketSummary">
+            <header>
+                <h3 class="left">
+                    <span>Your basket contains </span>@Model.BasketItemCount item@(Model.BasketItemCount != 1 ? "s" : "")
+                </h3>
+                @if (Model.BasketItemCount > 0)
+                {
+                    <a class="right" href="@Url.Action("Summary", "Basket", new {area = "ShopPurchase"})">
+                        <span>Edit</span></a>
+                }
+                <div class="clear"></div>
+            </header>
+            @Html.Action("Basket", "Basket", new {area = "ShopPurchase", isCheckout = true})
+        </section>
+        @if (Model.BasketItemCount > 0)
+        {
+            if (Model.User == null)
+            {
+                Html.RenderAction("Login", "Checkout", new {ViewBag.checkoutStage});
+            }
+
+            Html.RenderAction("AboutYou", "Checkout", new {area = "ShopPurchase", ViewBag.edit});
+
+            Html.RenderAction("Delivery", "Checkout", new {area = "ShopPurchase", ViewBag.edit});
+
+            Html.RenderAction("DeliveryOptions", "Checkout", new {area = "ShopPurchase", ViewBag.edit});
+
+            if (!ColonyCommerceContext.Current.Shop.CurrentShop.FreeSamples)
+            {
+                Html.RenderAction("Payment", "Checkout", new {area = "ShopPurchase", ViewBag.edit});
+            }
+        }
+        else
+        {
+            <a href="/" class="icon-double-angle-left pu">Back to Shop</a>
+        }
+    </div>
+
+</div>

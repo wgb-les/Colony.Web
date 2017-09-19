@@ -1,0 +1,171 @@
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 11;
+    padding: $padding-large;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: $overlay;
+}
+
+/* Modal Content - calculator etc */
+.sl-modal-popup {
+    background-color: $light-1;
+    margin: auto;
+    width: 100%;
+    max-width: 800px;
+    border-radius: $radius-base;
+    overflow: hidden;
+
+    header {
+        float: left;
+        width: 100%;
+        background: inherit;
+        position: relative;
+        padding: $padding-base;
+
+        h1 {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: $padding-base 43px $padding-base $padding-base;
+        }
+
+        .sl-close {
+            float: right;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: auto;
+            background: $light-1;
+            padding: $padding-base;
+        }
+
+        .sl-close:focus,
+        .sl-close:hover {
+            opacity: 1;
+        }
+    }
+
+    .sl-modal-content {
+        width: 100%;
+        float: left;
+        padding: $padding-base;
+    }
+}
+
+
+
+// share modal
+.sl-share-modal-wrapper {
+    width:1160px;
+    margin:0 auto;
+    transition: 1s;
+    /*height:200px;
+    background-color:red;*/  
+}
+
+.sl-share-modal {
+  background-color: #fff;
+  width: 400px;
+  border-radius: 0px;
+  overflow: hidden;
+  height:115px;
+  position:relative;
+  top:190px;
+  right:-760px;
+
+    header {
+      background: inherit;
+      position: relative;
+      padding:5px;
+        h1 {
+          width: 50%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          padding: 0px 0px 0px 10px;
+        }
+        .sl-close {
+          float: right;
+          cursor: pointer;
+          position: absolute;
+          right: 10px;
+          top: 0px;
+          width: auto;
+          padding: 0px; 
+        }
+    }
+    .sl-icon-inner {
+      padding: 10px 20px !important; 
+    }
+}
+
+@media (min-width:768px) and (max-width: 1240px) {
+    .sl-share-modal-wrapper {
+        width:100%;
+    }
+    .sl-share-modal{
+      right:0px;
+      float:right;
+    }
+}
+@media (max-width: 767px) {
+    .sl-share-modal-wrapper {
+            width:100%;
+        }
+    .sl-share-modal{
+      margin:0 auto;
+      top:100px;
+      right:0;
+    }
+}
+
+
+
+//Shop the Look Pop-up
+
+.sl-ShopTheLook-modal {
+    header {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+
+        h1 {
+            text-overflow: inherit;
+            padding-top: 0px;
+        }
+        .sl-close {
+            top: 2px;
+        }
+    }
+    .sl-modal-content {
+        .stl-details {
+            h2 {
+                margin: -2px 0px 2px 0px;
+                font-size: 19px;
+            }
+            span {
+                padding: 0px 0px 2px 0px; 
+                line-height: 18px;      
+            }
+            span:nth-of-type(4) {
+                padding: 14px 0px 2px 0px; 
+                display: none;
+            }
+         }
+        .stl-action {
+            a {
+                padding:10px;
+            }
+        }
+    }
+}
+
+

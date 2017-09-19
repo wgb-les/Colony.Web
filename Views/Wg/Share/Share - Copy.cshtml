@@ -1,0 +1,30 @@
+﻿@model Colony.Web.Areas.Sharing.Models.ShareViewModel
+
+<div class="sl-share-modal-wrapper">
+    <div class="sl-share-popup sl-share-modal">
+        <header>
+            <h1 class="sl-heading">
+                Share
+            </h1>
+            <h1 class="sl-heading sl-close">
+                &times;
+            </h1>
+        </header>
+        <div class="sl-modal-content">
+            <div class="sl-icon-list">
+                <a class="sl-icon sl-wide-4" href="@Url.TwitterShareUrl(Model.ShareUrl, Model.Description)" target="_blank">
+                    <div class="sl-icon-inner fa-twitter" data-value="shareTwitter"></div>
+                </a>
+                <a class="sl-icon sl-wide-4" href="@Url.FacebookShare(Model.ShareUrl)" target="_blank">
+                    <div class="sl-icon-inner fa-facebook" data-value="shareFacebook"></div>
+                </a>
+                <a class="sl-icon sl-wide-4" href="@Url.PinterestShareUrl(Model.ShareUrl, Model.MediaUrl, Model.Description)" target="_blank">
+                    <div class="sl-icon-inner fa-pinterest" data-value="sharePinterest"></div>
+                </a>
+                <a class="sl-icon sl-wide-4" href="mailto:?subject=Share with a friend&amp;body=@Html.Raw(Model.ShareUrl)">
+                    <div class="sl-icon-inner fa-envelope" data-value="shareEmail"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

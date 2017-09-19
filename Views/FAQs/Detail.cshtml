@@ -1,0 +1,62 @@
+﻿@model Colony.Modules.FAQs.Models.FAQ
+<article
+    data-fabric="@Model.IsFabricHelp.ToString().ToLowerInvariant()"
+    data-wallpaper="@Model.IsWallpaperHelp.ToString().ToLowerInvariant()"
+    data-trimmings="@Model.IsTrimmingsHelp.ToString().ToLowerInvariant()"
+    data-paint="@Model.IsPaintHelp.ToString().ToLowerInvariant()"
+    data-homeaccessories="@Model.IsHomeAccessoriesHelp.ToString().ToLowerInvariant()"
+    data-technical="@Model.IsTechnicalHelp.ToString().ToLowerInvariant()"
+    data-website="@Model.IsWebsiteHelp.ToString().ToLowerInvariant()"
+    data-account="@Model.IsAccountHelp.ToString().ToLowerInvariant()"
+    data-orders="@Model.IsOrdersHelp.ToString().ToLowerInvariant()"
+
+    data-europe="@Model.IsEurope.ToString().ToLowerInvariant()"
+    data-usa="@Model.IsUSA.ToString().ToLowerInvariant()"
+    data-world="@Model.IsRestOfWorld.ToString().ToLowerInvariant()">
+    <h3>
+        <a href="#">
+            @Model.Name
+            <span class="right remove-mobile">
+                 @if (Model.IsFabricHelp)
+                 {
+                     <i class="icon icon-fabric"></i>
+                 }
+                 @if (Model.IsWallpaperHelp)
+                 {
+                     <i class="icon icon-wallpaper"></i>
+                 }
+                 @if (Model.IsTrimmingsHelp)
+                 {
+                     <i class="icon icon-trimmings"></i>
+                 }
+                 @if (Model.IsPaintHelp)
+                 {
+                     <i class="icon icon-paint"></i>
+                 }
+                 @if (Model.IsHomeAccessoriesHelp)
+                 {
+                     <i class="icon icon-homeaccessories"></i>
+                 }
+                 @if (Model.IsTechnicalHelp)
+                 {
+                     <i class="icon icon-cogs icon-technicalhelp"></i>
+                 }
+                 @if (Model.IsWebsiteHelp)
+                 {
+                     <i class="icon icon-desktop icon-websitehelp"></i>
+                 }
+                 @if (Model.IsAccountHelp)
+                 {
+                     <i class="icon icon-user icon-account"></i>
+                 }
+                 @if (Model.IsOrdersHelp)
+                 {
+                     <i class="icon icon-paste icon-orders"></i>
+                 }
+             </span>
+        </a>
+    </h3>
+    <div class="details">
+        @Html.Raw(Model.Description)
+    </div>
+</article>

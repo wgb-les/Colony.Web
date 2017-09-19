@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10" lang="en"><![endif]-->
+<!--[if gt IE 10]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    @{ Html.RenderPartial("_Head.cshtml"); }
+    <link href="~/_css/brands/wg/Calculator/WallpaperCalculator.css" rel="stylesheet" />
+</head>
+<body class="wgSite">
+    <div class="sideModal right miniBasket">
+        <div class="sideInnerContainer">
+            @*@{
+                    Html.RenderPartial("~/Templates/Wg/_MiniBasket.cshtml");
+                }*@
+        </div>
+    </div>
+    <div class="sideModal sideMenu">
+        <div class="sideInnerContainer">
+            @{
+                Html.RenderPartial("_SiteNavigation.cshtml");
+            }
+        </div>
+    </div>
+<main class="mainViewPort">
+    <div class="darkenOverlay"></div>
+    <div class="mainContainer">
+    @{ Html.RenderPartial("_Header.cshtml", "wg"); }
+    <div class="pageContainer">
+        <div class="pageContainerInner">
+            @{ Html.RenderPartial("_Breadcrumbs.cshtml"); }
+            <h1 class="pageTitle">@Html.GetPageData().PageTitle</h1>
+            <div class="contentContainer">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <footer>
+        @Html.Partial("_Footer.cshtml")
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.blockUI.js"></script>
+        @{
+
+            if (ViewBag.IsPaint != true)
+            {
+                        @*<script src="~/_js/brands/wg/Calculator-min/unprocessed/WallpaperCalculator.js"></script>*@
+                <script src="~/_js/brands/wg/Calculator/WallpaperCalculator.js"></script>
+            }
+            else if (ViewBag.IsPaint == true)
+            {
+
+                <script src="~/_js/brands/wg/Calculator/PaintCalculator.js"></script>
+            }
+        }
+    </footer>
+</main>
+    @Html.Partial("_SideModals.cshtml")
+</body>
+</html>
+
+
+

@@ -1,0 +1,28 @@
+﻿@using Colony.CMS
+@{
+    ViewBag.Title = ViewBag.Title;
+}
+@if (ColonyContext.Current.Response.CurrentPageDataObject != null && string.IsNullOrWhiteSpace(ColonyContext.Current.Response.CurrentPageDataObject.ModuleActionUri))
+{
+    foreach (var t in ColonyContext.Current.Response.ContentSections)
+    {
+        if (!string.IsNullOrEmpty(t.ActionURI))
+        {
+            @Html.ActionUri(t.ActionURI)
+        }
+        else if (!string.IsNullOrEmpty(t.HtmlContent))
+        {
+            @Html.Raw(t.HtmlContent)
+        }
+    }
+}
+else
+{
+    foreach (var t in ColonyContext.Current.Response.ActionSections)
+    {
+        if (!string.IsNullOrEmpty(t.ActionURI))
+        {
+            @Html.ActionUri(t.ActionURI)
+        }
+    }
+}

@@ -1,0 +1,48 @@
+@using Colony.CMS
+@model WalkerGreenbank.Modules.Homepage.Areas.Models.ContactUsViewModel
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>General Enquiry</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>General Enquiry</h2>
+
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold">Customer Name</td>
+        <td>@Model.Title @Model.FirstName @Model.LastName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Customer Email</td>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Customer Phone</td>
+        <td>@Model.Telephone</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Reason</td>
+        <td>@Model.Subject</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Order No.</td>
+        <td>@Model.OrderNumber</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Enquiry</td>
+        <td>@Raw(Model.Enquiry)</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Site</td>
+        <td>@ColonyContext.Current.CurrentSite.Name</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

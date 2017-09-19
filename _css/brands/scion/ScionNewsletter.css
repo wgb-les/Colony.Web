@@ -1,0 +1,105 @@
+﻿
+
+
+#newsLetter-registration-modal {
+    color: #C4BAAD;
+    font-family: "square721_ex_btroman", arial, sans-serif !important;
+    width: 600px;
+    z-index: 20;
+    position: absolute;
+    /*height: 620px;*/
+    height: 230px;
+    top: 180px;
+    left: 50%;
+    margin: 0 0 0 -300px;
+    -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.3);
+-moz-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.3);
+box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.3);
+        }
+
+#newsletter-inner {
+    background-color: white;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+
+#submit-input-newsletter {
+        height: 45px;
+        margin-top: 20px;
+    display: block;
+        }
+
+#newsletterSubmitButton {
+    color: white;
+    background: #d5ce27;
+     width: 30%;
+    display: inline-block;
+    height: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#newsletter-inner > p {
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: justify;
+}
+
+#newsletter-inner > h1 {
+    margin-top: 0;
+    }
+
+#newsletterClose {
+    margin-bottom: 10px;
+    display: block;
+}
+
+#submit-input-newsletter > input {
+    /*width: 90%;
+    margin: 5%;*/
+    -webkit-transition: all 0.5s ease-out;
+    /*background-color: #C4BAAD;*/
+        background-color: rgba(196,186,173,.3);
+    border: 1px solid #c7c7c7;
+    padding: 7px;
+    transition: all 0.5s ease-out;
+     height: 100%;
+    width: 70%;
+    display: inline-block;
+        border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    }
+
+#har-newsletter-images {
+        margin-bottom: 20px;
+    display: block;
+    height: auto;
+        overflow: auto;
+    }
+
+.close-newsletter {
+        cursor: pointer;
+}
+
+    #har-newsletter-images > img {
+        margin: 0;
+        width: 48%;
+        display: inline-block;
+        float: left;
+}
+
+        #har-newsletter-images > img:nth-child(2) {
+            margin-left: 4%;
+}
+
+@media all and (max-width: 600px) {
+    #newsLetter-registration-modal {
+        width: 90%;
+        left: 0;
+        margin: 5%;
+        height: 270px;
+    }
+    }

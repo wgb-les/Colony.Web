@@ -1,0 +1,107 @@
+﻿<div class="quickview quickview-list selectedItem js-imageswap " data-quick-view-id="<%=rc.ProductId%>" data-productcode="<%=rc.Code%>" data-skuid="<%=rc.SkuId%>">
+  <div class="quickview-object">
+
+    <a href="<%= rc.Uri %>">
+        <img src="<%= rc.DetailImageUri || rc.ImageUri || '/_images/placeholders/article.jpg' %>" class="quickview-image js-imageswap-main" alt="<%=rc.Attributes['Brand']%> <%=rc.Attributes['Product Group']%> - <%=rc.Name%>" />
+    </a>
+
+  </div>
+  <div class="quickview-bd">
+    <div class="quickview-section quickview-hd">
+      <div class="row collapse">
+        <div class="columns small-9">
+          <h2 class="quickview-heading"> 
+            <a href="<%= rc.Uri %>">
+                <%=rc.Name%>
+                <% if(rc.IsB2B) {%>
+                <span class="code"><%=rc.Attributes['Design Code'] || rc.Code %></span>
+                <% } %>
+            </a>
+          </h2>
+        </div>
+        <div class="columns small-3">
+            <% if (rc && rc.PriceInc && rc.PriceInc != '0') {%>
+            £<%= rc.PriceInc.toFixed(2) %>
+            <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="quickview-section quickview-desc">
+      <% if (rc.Description && rc.Description.length) { %>
+      <p><%= rc.Description || '' %></p>
+      <% } %>
+    </div>
+
+    <div class="quickview-section">
+      
+    <% if (rc.Attributes['Product Group'] === 'Cushions') { %>
+      <ul class="button-grid button-grid-2">
+        <li class="has-tooltip">
+          <a href="<%= rc.Uri %>" class="button">See Full Details</a>
+          <div class="quickview-tooltip">
+            <span class="tooltip-content">
+              Image magnification, full product specification, complementary products and other colourways.
+            </span>
+          </div>
+        </li>
+        <!--<li><a href="#" class="button scrapbook no-drag" data-noprice="true" data-productcode="<%=rc.ProductCode%>" data-productname="<%=rc.Name%>" data-skuid="<%=rc.SkuId%>" data-imageassetid="<%= rc.ImageAssetId %>" data-productimage="<%= rc.ImageUri || '' %>">Add to Scrapbook</a></li>-->
+
+      </ul>
+        <% } else { %>
+        <ul class="button-grid button-grid-3">
+        <li class="has-tooltip">
+          <a href="<%= rc.Uri %>" class="button">See Full Details</a>
+          <div class="quickview-tooltip">
+            <span class="tooltip-content">
+              Image magnification, full product specification, complementary products and other colourways.
+            </span>
+          </div>
+        </li>
+
+        <li><a href="#" class="button scrapbook no-drag" data-noprice="true" data-productcode="<%=rc.ProductCode%>" data-productname="<%=rc.Name%>" data-skuid="<%=rc.SkuId%>" data-imageassetid="<%= rc.ImageAssetId %>" data-productimage="<%= rc.ImageUri || '' %>">Add to Scrapbook</a></li>
+
+      </ul>
+        <% } %>
+
+    </div>
+    <div class="quickview-section">
+      <ul class="quickview-meta">
+        <% if (rc.Attributes['Descriptive Colour']) { %>
+        <li>
+          <span class="title">Colour:</span>
+          <span class="value"><%= rc.Attributes['Descriptive Colour'] %></span>
+        </li>
+        <% } %>
+
+        <% if (rc.Attributes['Product Group']) { %>
+        <li>
+          <span class="title">Product Type:</span>
+          <span class="value"><%= rc.Attributes['Product Group'] %></span>
+        </li>
+        <% } %>
+
+
+      </ul>
+    </div>
+
+    <% if (rc.SecondaryImages.length) { %>
+    <div class="quickview-section">
+      <ul class="related-images js-imageswap-gallery">
+
+        <% _.each(rc.SecondaryImages, function(secondaryImage) { %>
+
+        <li>
+          <a href="<%= rc.Uri %>"><img src="<%= secondaryImage.DetailImageUri %>" alt="<%=rc.Attributes['Brand']%> <%=rc.Attributes['Product Group']%> - <%=rc.Name%> Lifestyle" data-productcode="<%=rc.Code%>" data-noprice="true" data-productname="<%=rc.Name%>" data-skuid="<%=rc.SkuId%>" data-productimage="<%= secondaryImage.DetailImageUri %>" data-url="<%= rc.Uri %>" /></a>
+        </li>
+
+        <% }); %>
+
+
+      </ul>
+    </div>
+    <% } %>
+
+  </div>
+
+</div>

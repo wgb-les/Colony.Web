@@ -1,0 +1,32 @@
+﻿@using Colony.CMS
+@model Colony.CMS.Areas.Members.ViewModels.LoginInputViewModel
+@{
+    Layout = "";
+}
+
+<div class="boxSection loginRegister" id="loginRegister">
+    <header>
+        <h2>Already a member? <span>Sign in to check out faster</span></h2>
+    </header>
+    <form id="login" action="@Url.Action("Login", "Checkout", new {area = "ShopPurchase", edit = "login"})" method="post">
+        @Html.AntiForgeryToken()
+        @Html.CustomValidationSummary(false)
+
+        @Html.EditorFor(model => model.Email)
+        @Html.EditorFor(model => model.Password)
+
+        <div class="field formControls">
+            <button class="button">Sign in</button>
+            <a href="@Url.Action("Index", "PasswordReset", new {area = "Members"})" class="forgottenPassword">Forgotten password?</a>
+        </div>
+    </form>
+    @*<div class="socialAccounts">
+        @using (Html.BeginForm("ExternalLogin", "Authentication", new {area = "Members", ReturnUrl = Request.Url.AbsolutePath}))
+        {
+            @Html.AntiForgeryToken()
+            ;
+
+            <button type="submit" name="provider" class="facebookConnect" value="Facebook_@ColonyContext.Current.CurrentSite.SiteKey.ToLower()" title="Connect with Facebook">Connect with Facebook</button>
+        }
+    </div>*@
+</div>

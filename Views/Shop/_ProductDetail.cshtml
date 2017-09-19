@@ -1,0 +1,171 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+
+<div id="content">
+    <div class="galleryContainer">
+        <div class="option" id="image001">
+            <img src="//placehold.it/800x800" alt="@Model.Name"/>
+        </div>
+        <nav class="controls" role="navigation">
+            <a href="#" class="zoom">Zoom</a>
+        </nav>
+    </div>
+    <div class="productDetails" data-productcode="@Html.ProductCode(Model.Product)">
+        <h1>@Model.Product.Name</h1>
+        <h2>
+            Part of the <a href="@Url.ProductCategoryUrl(Model.Category)">@Model.Category.Name</a> collection
+        </h2>
+        <p>@Model.LongDescription</p>
+        <ul class="articleOptions">
+            <li>
+                <a href="#" class="pinterest">
+                    <span>Pin it</span></a>
+            </li>
+            <li>
+                <a href="#" class="share">
+                    <span>Share</span></a>
+            </li>
+            <li>
+                <a href="#" class="trade">
+                    <span>Information for Trade</span></a>
+            </li>
+        </ul>
+        <ul class="productOptions">
+            <li>
+                <a href="#" class="more" data-reveal-id="productDetails">Product Details</a>
+            </li>
+            <li>
+                <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.SkuId})">
+                    <span>Order a Sample</span></a>
+            </li>
+            @*<li>
+                <a href="#" class="scrapbook">
+                    <span>Add to Scrapbook</span></a>
+            </li>*@
+        </ul>
+        <ul class="galleryToggles">
+            <li>
+                <a href="#" id="thumbnail001" class="selected">
+                    <img src="/_images/photos/product-page/thumb001.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="#" id="thumbnail002">
+                    <img src="/_images/photos/product-page/thumb002.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="#" id="thumbnail003">
+                    <img src="/_images/photos/product-page/thumb003.jpg" alt="">
+                </a>
+            </li>
+        </ul>
+        <div class="productList">
+            <h2>Complimentary Products</h2>
+            <div class="item ">
+                <a href="/shop/paint/collections/designs/product/">
+                    <span class="itemColour" style="background: #2d334b"></span>
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">Example Product Name</h4>
+                    <ul>
+                        <li>A1B2C3</li>
+                        <li>[Product type]</li>
+                    </ul>
+                    <span class="itemNew">New</span>
+                </a>
+            </div>
+            <div class="item ">
+                <a href="/shop/paint/collections/designs/product/">
+                    <img src="/_images/photos/products/thumb001.jpg" alt="Example Product Name">
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">Example Product Name</h4>
+                    <ul>
+                        <li>A1B2C3</li>
+                        <li>[Product type]</li>
+                    </ul>
+                    <span class="itemNew">New</span>
+                </a>
+            </div>
+            <div class="item ">
+                <a href="/shop/paint/collections/designs/product/">
+                    <img src="/_images/photos/products/thumb003.jpg" alt="Example Product Name">
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">Example Product Name</h4>
+                    <ul>
+                        <li>A1B2C3</li>
+                        <li>[Product type]</li>
+                    </ul>
+                    <span class="itemNew">New</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="productList">
+        <input type="hidden" name="ProductCodes" id="ProductCodes" value="@(string.Join<string>(",", Model.Skus.Select((model, index) => model.Sku.Code)))"/>
+        <h2>Available Colours (@Model.Skus.Count())</h2>
+        @foreach (var item in Model.Skus.Select((model, index) => new {index, model}))
+        {
+            <div class="item ">
+                <a href="@item.model.Sku.Code" data-productcode="@item.model.Sku.Code" class="detail-ordersampleurl">
+                    <img src="/_images/photos/products/thumb001.jpg" alt="@item.model.Sku.Name"/>
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@item.model.Sku.Name</h4>
+                    <ul>
+                        <li>@item.model.Sku.Code</li>
+                        <li>[Product type]</li>
+                    </ul>
+                    @if (item.model.Sku.IsNew)
+                    {
+                        <span class="itemNew">New</span>
+                    }
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<section id="productDetails" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Product Details</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+        <p>@Model.LongDescription</p>
+        <div class="productSpec">
+            <ul>
+                <li>
+                    <span class="title">Collection</span>
+                    <span class="value">
+					   <a href="@Url.ProductCategoryUrl(Model.Category)">@Model.Category.Name</a> 
+					</span>
+                </li>
+                <li>
+                    <span class="title">Colour</span>
+                    <span class="value">Ivory, Biscuit and Gold</span>
+                </li>
+                <li>
+                    <span class="title">Wallpaper type</span>
+                    <span class="value">Paper</span>
+                </li>
+                <li>
+                    <span class="title">Width</span>
+                    <span class="value">52cm</span>
+                </li>
+                <li>
+                    <span class="title">Vertical Pattern Repeat</span>
+                    <span class="value">52cm</span>
+                </li>
+                <li>
+                    <span class="title">Match</span>
+                    <span class="value">Half Drop</span>
+                </li>
+                <li class="icons">
+                    <span class="title">Care Instructions</span>
+                    <span class="value">
+						<img src="/_images/icons/care/washing.png" alt="" />
+						<img src="/_images/icons/care/ironing.png" alt="" />
+						<img src="/_images/icons/care/tumbledry.png" alt="" />
+					</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>

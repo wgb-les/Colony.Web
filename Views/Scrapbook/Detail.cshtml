@@ -1,0 +1,111 @@
+﻿@using Colony.Util.Web
+@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel
+@{
+    Html.SetTitle("Moodboards - " + (!string.IsNullOrWhiteSpace(Model.Name) ? Model.Name : "New Moodboard"));
+    var shareUrl = Url.Action("Detail", "Scrapbook", new {area = "Scrapbook", id = Model.Id}).AbsoluteUrl();
+    var defaultMediaImage = Model.Items.FirstOrDefault();
+    var pinterestMediaUrl = defaultMediaImage != null ? Url.ImageUrl(defaultMediaImage.ImageAssetId, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/thumbnail.jpg") : "/_images/placeholders/thumbnail.jpg";
+}
+<div id="content">
+    <style type="text/css">
+        @@import url(/_css/scrapbook.css);
+    </style>
+    <input id="scrapbookName" name="scrapbookName" type="text" maxlength="100" value="" placeholder="Enter a name for your moodboard"/>
+    <div id="scrapbook">
+        <div id="scrapbookInner">
+        </div>
+
+        <div class="scrapbook-status"></div>
+
+        <div id="scrapControls" class="scrapbook-button-bar">
+            <a class="button scrapbook-button" id="btnMoveToFront">
+                <b class="icon-arrow-up"></b>
+                Move to front
+            </a>
+            <a class="button scrapbook-button" id="btnMoveToBack">
+                <b class="icon-arrow-down"></b>
+                Move to back
+            </a>
+            <a class="button scrapbook-button" id="btnMoveForward">
+                <b class="icon-level-up"></b>
+                Move forward
+            </a>
+            <a class="button scrapbook-button" id="btnMoveBackward">
+                <b class="icon-level-down"></b>
+                Move backward
+            </a>
+            <a class="button scrapbook-button" id="btnRemove">
+                <b class="icon-trash"></b>
+                Remove
+            </a>
+            <a class="button scrapbook-button" id="btnSave">
+                <b class="icon-save"></b>
+                Save
+            </a>
+            <a class="button scrapbook-button" id="btnShare">
+                <b class="icon-share"></b>
+                Share
+            </a>
+            <a class="button scrapbook-button" id="btnPrint">
+                <b class="icon-print"></b>
+                Print
+            </a>
+            <a class="button scrapbook-button" id="btnOrder">
+                <b class="icon-shopping-cart"></b>
+                Order Samples
+            </a>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+
+
+    <section id="itemsInScrapbook" class="boxSection scrapBookCarousel">
+        <header class="header">
+            <h2>Items available on this moodboard</h2>
+            <span href="#" class="next right icon-angle-right"></span>
+            <span href="#" class="prev right icon-angle-left"></span>
+            <div class="clear"></div>
+        </header>
+        <div class="bd">
+            <div id="moodboardItems" class="carousel productCarousel scrapBookList productList">
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section id="itemsInStudio" class="boxSection scrapBookCarousel">
+        <header class="header">
+            <h2>Items in your scrapbook</h2>
+            <span href="#" class="next right icon-angle-right"></span>
+            <span href="#" class="prev right icon-angle-left"></span>
+            <div class="clear"></div>
+        </header>
+        <div class="bd">
+            <div id="scrapbookItems" class="carousel productCarousel scrapBookList productList">
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+</div>
+<script type="text/javascript" src="/_js/shared/scrapbook-new.js?v=20150302000000"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        window.sb = new Scrapbook($('#scrapbook'));
+        window.sb.init(@Model.Id);
+    });
+</script>
+</div>
+<section id="print-info" class="reveal-modal medium">
+    <div class="bd-reveal-modal text-center">
+        <h1>Information</h1>
+        <p>For best results printing your moodboard, please switch your page orientation settings to landscape.</p>
+        <a href="" class="button large print">OK</a>
+        <div class="clear"></div>
+    </div>
+</section>
+<section id="share" class="reveal-modal medium">
+    @Html.Action("Share", "Share", new {area = "Sharing", ShareUrl = shareUrl, MediaUrl = pinterestMediaUrl, Description = Model.Name})
+</section>
+
+<section id="scrapBookSamples" class="reveal-modal"></section>

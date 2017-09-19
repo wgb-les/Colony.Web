@@ -1,0 +1,30 @@
+﻿@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+
+<div class="sl-option sl-wide-1 sl-small-pad" data-product-option="@Model.SelectedSku.Code.GetLast(3)" data-product-option-price="@Model.Price.PriceInc.AsDecimal(0)" data-producti-option-skuid="@Model.SelectedSku.Id">
+    @*<div class="sl-option-inner">
+        <div class="sl-field-group">
+            <div class="sl-field">
+                <text class="sl-text">Matt Emulsion 125ml</text>
+            </div>
+        </div>        
+        <div class="sl-field-group sl-right">
+            @if (Model.PriceWas != null && Model.PriceWas.PriceInc > Model.Price.PriceInc)
+            {
+                <div class="sl-field">
+                    <text class="sl-text">SSP</text>
+                    <!-- Add disabled class if sale active -->
+                    <text class="sl-text disabled" data-value="productRRP">&pound;@Model.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                    <!-- If sale active then... -->
+                    <text class="sl-text" data-value="productSale">&pound;@Model.Price.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                </div>
+            }
+            else
+            {
+                <div class="sl-field">
+                    <text class="sl-text">SSP</text>
+                    <text class="sl-text" data-value="productRRP">&pound;@Model.Price.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                </div>
+            }
+        </div>
+    </div>*@
+</div>

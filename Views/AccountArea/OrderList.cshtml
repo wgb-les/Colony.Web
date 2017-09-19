@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Colony.Commerce.Models.ShopPurchase.Transaction>
+
+@if (!Model.Any())
+{
+    if (ViewBag.IsSearch)
+    {
+        <div class="alertInfo message">
+            There are no orders matching this criteria.
+        </div>
+    }
+    else
+    {
+        <div class="alertInfo message">
+            You have not completed any orders.
+        </div>
+    }
+}
+else
+{
+    <table cellspacing="0" cellpadding="0" summary="Data Table" class="orderTable">
+        <thead class="hide-for-small">
+        <tr>
+            <th scope="col">Order Number</th>
+            <th scope="col">Date Placed</th>
+            <th scope="col">Items</th>
+            <th scope="col">Value</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <th scope="row">
+                    <a href="@Url.Action("OrderDetail", "AccountArea", new {area = "AccountArea", transactionId = transaction.Id})">@transaction.OrderNumber</a>
+                </th>
+                <td class="hide-for-small">@transaction.LastModified.ToString("dd/MM/yyyy")</td>
+                <td class="hide-for-small">@transaction.Quantity</td>
+                <td class="hide-for-small">@(((transaction.AmountInc != null ? transaction.AmountInc.Value : 0) + transaction.DeliveryCost).ToString("C2"))</td>
+                <td class="hide-for-small">@transaction.TransactionStatus.GetDescription()</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

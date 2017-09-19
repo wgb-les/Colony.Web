@@ -1,0 +1,25 @@
+﻿@model Colony.CMS.Areas.CRM.Models.SelectAddressViewModel
+@using (Html.BeginForm("SelectAddress", "Address", new {area = "CRM", AddressType = ViewData["AddressType"]}, FormMethod.Post, new {@class = "ajax"}))
+{
+    @Html.AntiForgeryToken()
+    ;
+    if (Model.SavedAddresses.Any())
+    {
+        <h2>Select Address</h2>
+        foreach (var address in Model.SavedAddresses)
+        {
+            @Html.Partial("_Address", address)
+        }
+    }
+}
+@using (Html.BeginForm("AddAddress", "Address", new {area = "CRM", AddressType = ViewData["AddressType"]}, FormMethod.Post, new {@class = "ajax"}))
+{
+    @Html.AntiForgeryToken()
+    ;
+    <h2>Add Address</h2>
+    @Html.Partial("_Address", Model.NewAddress)
+
+    <div class="field formControls">
+        <button class="button">Save</button>
+    </div>
+}

@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Payment Page</title>
+    <link href="__DYNAMIC_DATA_FIELD_1__" type="text/css" rel="Stylesheet"/>
+    <link href="__DYNAMIC_DATA_FIELD_2__" type="text/css" rel="Stylesheet"/>
+    <!--[if IE]>
+        <link href="__DYNAMIC_DATA_FIELD_3__" type="text/css" rel="Stylesheet"/>
+        <link href="__DYNAMIC_DATA_FIELD_4__" type="text/css" rel="Stylesheet"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js" type="text/javascript"></script>
+    <![endif]-->
+    <link href="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/Datacash/dataCash.css" rel="stylesheet" />
+</head>
+<body class="harlequinSite">
+<div id="container" role="main">
+    <div id="content">
+        <div class="boxSection checkoutPayment editable">
+            <div class="header">
+                <h2>Payment Details</h2>
+            </div>
+            <form action="?" method="post" autocomplete="off" class="contentForm">
+                <fieldset>
+                    <legend>Payment Details</legend>
+                    <div class="alertInfo message">
+                        <span>
+                                Your card will be debited with __AMOUNT__ __CURRENCY__ when you click the continue button. This will be refunded if your offer is refused.
+                                <br />
+                                <br />
+                                Please complete the fields below and click Pay Now
+                                <br />
+                                <br />
+                                __ERROR_MESSAGE__
+                            </span>
+                    </div>
+                    <div id="creditcard">
+                        <div class="cardFront">
+                            <div class="field text">
+                                <label for="card_number">
+                                    Card number
+                                    <span class="required">required</span>
+                                </label>
+                                <div>
+                                    <input name="card_number" id="card_number" class="large" maxlength="23" type="text" placeholder="e.g. 123412341234"/>
+                                </div>
+                                <label for="cv2_number" id="ccSecurityCodeLabel">
+                                    Security code
+                                    <span class="required">required</span>
+                                </label>
+                                <input type="text" name="cv2_number" class="small" maxlength="4" id="cv2_number"/>
+                            </div>
+                            <div class="field text" id="expiry">
+                                <label for="exp_month">
+                                    Expiry date <span>(MM/YYYY)</span>
+                                    <span class="required">required</span>
+                                </label>
+                                <input name="exp_month" id="exp_month" class="small" style="width: 30px;" placeholder="MM" type="text" maxlength="2" minlength="2"/><span class="divider">/</span>
+
+                                <input name="exp_year" id="exp_year" class="small" style="width: 40px;" placeholder="YYYY" type="text" maxlength="4" minlength="4"/>
+
+                            </div>
+                            <div class="field text" id="issuenumber">
+                                <label for="issue_number">Issue number<span class="available">(if available)</span></label>
+                                <input id="issueNumberValue" type="text" name="issue_number" class="small" style="width: 40px; display: inline-block;" maxlength="4"/>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="validation-box">
+
+                    </div>
+                    <input value="__SESSION_ID__" name="HPS_SessionID" type="hidden"/>
+                    <input value="confirm" name="action" type="hidden"/>
+
+                    <div class="basketTotals">
+                        <dl>
+                            <!--<dt>Payment reference</dt>
+                            <dd>__MERCHANT_REF__</dd>-->
+                            <dt class="even total">Total</dt>
+                            <dd id="currency" class="even total">__AMOUNT__ __CURRENCY__</dd>
+                        </dl>
+
+                    </div>
+                    <div class="field formControls">
+                        <input type="submit" name="continue" value="Pay Now" id="continue" class="button"/>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var currency = $('#currency').text();
+        if (currency.indexOf('$') !== -1) {
+            //checking to see if us
+            $('.cardFront').addClass('us');
+            $('.cardFront').removeClass('ww');
+        } else {
+            $('.cardFront').removeClass('us');
+            $('.cardFront').addClass('ww');
+        }
+        $("#continue").click(function (e) {
+            var cardNumber = $("#card_number").val().replace(/\s/g, "").trim();
+            var csv = $("#cv2_number").val().replace(/\s/g, "").trim();
+            var expMonth = $("#exp_month").val().replace(/\s/g, "").trim();
+            var expYear = $("#exp_year").val().replace(/\s/g, "").trim();
+            var issueNum = $("#issueNumberValue").val().replace(/\s/g, "").trim();
+            var error = "";
+            $("#validation-box").empty();
+
+            function numCheck(value) {
+                return /^\d+$/.test(value);
+            }
+
+            if (cardNumber.length !== 16) {
+                if (numCheck(cardNumber)) {
+                    error = error + "<p>Card number must be 16 digits long</p>";
+                }
+                else {
+                    error = error + "<p>Card number must contain numbers only and be 16 digits long</p>";
+                }
+            }
+            else {
+                if (!numCheck(cardNumber)) {
+                    error = error + "<p>Card number must contain numbers only</p>";
+                }
+            }
+
+            if (csv.length !== 3) {
+
+                if (numCheck(csv)) {
+                    error = error + "<p>CSV number must be 3 digits long</p>";
+                }
+                else {
+                    error = error + "<p>CSV number must contain numbers only and be 3 digits long</p>";
+                }
+            }
+            else {
+                if (!numCheck(csv)) {
+                    error = error + "<p>CSV number must contain numbers only</p>";
+                }
+            }
+
+            if (expMonth.length !== 2) {
+                if (numCheck(expMonth)) {
+                    error = error + "<p>Month must be 2 digits long</p>";
+                }
+                else {
+                    error = error + "<p>Month must contain numbers only and be 2 digits long</p>";
+                }
+            }
+            else {
+                if (!numCheck(expMonth)) {
+                    error = error + "<p>Month must contain numbers only</p>";
+                }
+            }
+
+            if (expYear.length !== 4) {
+                if (numCheck(expYear)) {
+                    error = error + "<p>Year must be 4 digits long - eg. 2016</p>";
+                }
+                else {
+                    error = error + "<p>Year must contain numbers only and be 4 digits long - eg. 2016</p>";
+                }
+            }
+            else {
+                if (!numCheck(expYear)) {
+                    error = error + "<p>Year must contain numbers only</p>";
+                }
+            }
+
+            if (issueNum !== "") {
+                if (!numCheck(issueNum)) {
+                    error = error + "<p>Issue Number must be numbers only</p>";
+                }
+            }
+
+            if (error !== "") {
+                e.preventDefault;
+                $("#validation-box").html(error);
+                return false;
+            }
+
+        });
+    })
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿@model Colony.Models.PagingInformation
+@{
+    var url = ViewBag.Url as string;
+    var allowChangePageSize = (bool) ViewBag.AllowChangePageSize;
+    var changePageSizeIncrements = (int) ViewBag.ChangePageSizeIncrements;
+    var showAll = ViewBag.ShowAll as bool? ?? false;
+    var pageSizeSelected = false;
+}
+<nav class="pagination @ViewBag.ClassName" role="navigation">
+    <p>Showing @Model.StartRecord to @Model.EndRecord of @Model.RecordCount @ViewBag.TypeText</p>
+    @if (Model.RecordCount > 1 && Model.PageCount > 1)
+    {
+        <ul class="pageNumbers">
+            <li class="first">
+                <a href="@Url.UrlWithQuerystringValue(url, "page", "1")" title="First" rel="start" data-page="1">
+                    <span>First</span></a>
+            </li>
+            <li class="prev">
+                <a href="@Url.UrlWithQuerystringValue(url, "page", Model.PreviousPage.ToString())" title="Previous" rel="prev" data-page="@Model.PreviousPage">
+                    <span>Previous</span></a>
+            </li>
+            @for (var i = Model.FirstVisiblePage; i <= Model.LastVisiblePage; i++)
+            {
+                <li>
+                    <a href="@Url.UrlWithQuerystringValue(url, "page", i.ToString())" @if (i == Model.PageNumber)
+                                                                                      {
+                                                                                          <text>class="selected"</text>
+                                                                                      } data-page="@i">
+                        @i</a>
+                </li>
+            }
+            <li class="next">
+                <a href="@Url.UrlWithQuerystringValue(url, "page", Model.NextPage.ToString())" title="Next" rel="next" data-page="@Model.NextPage">
+                    <span>Next</span></a>
+            </li>
+            <li class="last">
+                <a href="@Url.UrlWithQuerystringValue(url, "page", Model.PageCount.ToString())" title="Last" data-page="@Model.PageCount">
+                    <span>Last</span></a>
+            </li>
+            @if (allowChangePageSize || showAll)
+            {
+                <li class="all">
+                    <a href="@Url.UrlWithQuerystringValue(url, new {page = 1, perpage = Model.RecordCount})" data-page="1" data-perpage="@Model.RecordCount">All</a>
+                </li>
+            }
+        </ul>
+    }
+    @if (allowChangePageSize && Model.RecordCount > 0)
+    {
+        <div class="contentForm">
+            <form id="pageCountChange" action="@Url.UrlWithQuerystringValue(url, "page", Model.PageNumber.ToString())">
+
+                <div class="field select ">
+                    <label for="selectStandard">
+                        Items per page
+                    </label>
+                    <select name="PerPage" id="PerPage">
+                        @for (var i = 1; i <= Model.RecordCount; i++)
+                        {
+                            if (i%changePageSizeIncrements == 0 || i == Model.RecordCount)
+                            {
+                                <option value="@i" @if ((Model.PageSize == i || Model.RecordCount == i) && !pageSizeSelected)
+                                                   {
+                                                       <text>selected="selected"</text>
+                                                   }>
+                                    @i.ToString()</option>
+
+                                if (Model.PageSize == i || Model.RecordCount == i)
+                                {
+                                    pageSizeSelected = true;
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </form>
+        </div>
+    }
+</nav>

@@ -1,0 +1,86 @@
+
+
+
+// REMOVE THIS AT GO-LIVE
+.pageContainer {
+    max-width: 1180px;
+
+    .pageContainerInner {
+        padding: 0 $padding-base;
+
+        .breadcrumbsContainer {
+            padding: 0 $padding-base $padding-base;
+        }
+    }
+}
+
+//Paint Options
+.sl-modal-image-option{
+  width: 50%;
+  float: left;
+  padding: $padding-base;
+
+  .inner{
+    float: left;
+    width: 100%;
+    position: relative;
+    border: 2px solid $light-4;
+    cursor: pointer;
+
+    .selectedTag{
+      display: none;
+      background: $action;
+      padding: $padding-base;
+      text-transform: uppercase;
+      letter-spacing: $letterspacing-base;
+      font-weight: $weight-base;
+      font-size: $font-small;
+      color: $light-1;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    h2{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.8);
+      color: $dark-1;
+      padding: $padding-base + 5px;
+      margin: 0;
+    }
+
+    img{
+      width: 100%;
+      float: left;
+
+      //Delete this when proper images are used
+      max-height: 235px;
+    }
+  }
+}
+.sl-modal-image-option.selected{
+  .inner{
+    border-color: $action;
+
+    .selectedTag{
+      display: block;
+    }
+  }
+}
+.sl-paintchart-modal label#MarkettingOptIn {
+        float:left !important;
+        width:80%;
+    }
+
+
+
+/* paint resp */
+@media (max-width: 480px) {
+    .sl-modal-image-option .inner h2 {
+    font-size:14px;
+    padding:10px;
+    }
+}

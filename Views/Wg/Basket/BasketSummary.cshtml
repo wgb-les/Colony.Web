@@ -1,0 +1,120 @@
+@using Colony.Commerce
+@model Colony.Commerce.Areas.ShopPurchase.Models.BasketSummaryViewModel
+@{
+  ViewBag.Title = "Summary";
+}
+
+@using (Html.BeginForm("Summary", "Basket", new { area = "ShopPurchase" }))
+{
+  <section class="wide" style="width:73%;">
+    <h1 style="padding:5px 0;">Basket</h1>
+
+    @Html.CustomValidationSummary(false)
+
+    @if (Model.BasketUpdated == true)
+    {
+      <div id="basketSummaryMessage" class="message success fa-times-after">
+        Your basket has been updated.
+      </div>
+    }
+
+    @Html.Action("Basket", "Basket", new {area = "ShopPurchase"})
+
+    @if (Model.Basket.BasketLines.Any())
+    {
+
+      <!-- <table class="basketTable">
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Item Price</th>
+          <th>Total</th>
+          <th>Quantity</th>
+          <th>Remove</th>
+        </tr>
+        <tr>
+          <td class="basketLineImage"><img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/shoppurchase/imagedownloadthumbnail/HAMA111062_zoom.jpg" alt="Amazilia"></td>
+          <td class="basketLineDetails">
+            <ul>
+              <li><b>Amazilia Silver</b></li>
+              <li>111062</li>
+              <li>Wallpaper</li>
+            </ul>
+          </td>
+          <td>FREE</td>
+          <td>FREE</td>
+          <td>+ -</td>
+          <td>bin</td>
+        </tr>
+      </table> -->
+
+    }
+
+  </section>
+  <section class="wide basketSection" style="margin-top:45px;">
+    <div class="sectionBox basketSummary">
+      <div class="sectionBoxInner">
+        <div class="specLine">
+          <span class="specItem"><b>Sub Total</b></span>
+          <span class="specItem">@Model.Basket.CurrencyRegion.RegionInfo.CurrencySymbol@Model.Basket.TotalInc.ToString("#0.00")</span>
+        </div>
+        <div class="specLine">
+          <span class="specItem"><b>Total</b></span>
+          <span class="specItem">@Model.Basket.CurrencyRegion.RegionInfo.CurrencySymbol@Model.Basket.GrandTotal.ToString("#0.00")</span>
+        </div>
+        <p>All prices include VAT</p>
+      </div>
+      <ul class="cardList">
+        <li>
+          <img src="/_images/icons/payment/maestro.png" alt="Maestro" />
+        </li>
+        <li>
+          <img src="/_images/icons/payment/mastercard.png" alt="Mastercard" />
+        </li>
+        @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+        {
+          <li>
+            <img src="/_images/icons/payment/amex.png" alt="American Express" />
+          </li>
+        }
+        <li>
+          <img src="/_images/icons/payment/paypal.png" alt="Paypal" />
+        </li>
+        <li>
+          <img src="/_images/icons/payment/visa.png" alt="Visa" />
+        </li>
+        <li>
+          <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron" />
+        </li>
+      </ul>
+      <a class="wideButton">
+        <button @(Model.Basket.BasketLines.Any() ? "" : "disabled") class="fa-lock actionButton">Go to Secure Checkout</button>
+      </a>
+    </div>
+    <div class="sectionBox basketSummary">
+      <div class="sectionBoxInner">
+        <h2>Delivery</h2>
+          <p>Delivery costs will be calculated and confirmed in the Checkout process.</p>
+         <p>Sample Delivery is charged at &pound;3.00, up to and including the first 4 samples per order. For additional samples, delivery is charged at &pound;0.75 each.</p>
+      </div>
+    </div>
+    <div class="sectionBox basketSummary">
+      <div class="sectionBoxInner">
+        <h2>Vouchers</h2>
+          <p>If you have a voucher code, you will be able to apply this during payment.</p>
+      </div>
+    </div>
+  </section>
+}
+
+<script src="~/Scripts/jquery.blockUI.js"></script>
+<script>
+
+    $(document).ready(function () {
+        setTimeout(function () {
+         //  $('.ui-spinner-button').off("click",  updateBasketItemQuantity());
+        window.classSelector();
+        window.updateBasketSummaryItemQuantity();
+        }, 1);
+    });
+</script>

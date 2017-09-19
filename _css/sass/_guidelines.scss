@@ -1,0 +1,1118 @@
+
+// Hide/Show Items Based On Device
+.sl-desktop{
+  display: block;
+}
+.sl-mobile{
+  display: none;
+}
+
+@media only screen and (max-width:768px) {
+  .sl-desktop{
+    display: none;
+  }
+  .sl-mobile{
+    display: block;
+  }
+}
+
+// Headings
+.sl-heading {
+    font-weight: $weight-base;
+    padding: $padding-base;
+    margin: 0;
+    /*letter-spacing: $letterspacing-base;*/
+    width: 100%;
+    float: left;
+}
+
+.sl-heading.sl-center{
+  text-align: center;
+}
+
+ .sl-ymal {
+   .sl-heading {
+    padding: 10px 0px 4px 10px;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .sl-ymal {
+        .sl-heading {
+            text-align: center;
+        }
+    }
+}
+
+
+
+// Font Awesome
+.fa-before:before {
+    padding: 0 $padding-small 0 0;
+    color: inherit;
+}
+// Copy 
+p.sl-copy {
+    width: 100%;
+    float: left;
+    font-size: $font-base;
+    font-weight: $weight-small;
+    text-align: justify;
+    margin: 0;
+    padding: $padding-base;
+    color: $color-dark2;
+
+    a {
+        color: $dark-1;
+        font-weight: $weight-base;
+    }
+}
+
+.sl-text {
+    font-size: $font-base;
+    font-weight: $weight-small;
+    color: $scorpion;
+}
+.sl-text.right{
+  text-align: right;
+}
+// Widths
+.sl-wide-1 {
+    width: 100%;
+}
+
+.sl-wide-2 {
+    width: 50%;
+}
+
+.sl-wide-3 {
+    width: 33.33%;
+}
+
+.sl-wide-4 {
+    width: 25%;
+}
+
+.sl-wide-6 {
+    width: 16.66%;
+}
+
+.sl-wide-10 {
+    width: 10%;
+}
+// Buttons
+a.sl-button, button.sl-button {
+    padding: $padding-base;
+    float: left;
+    background: transparent;
+    border: 0;
+
+    .sl-inner {
+        border-radius: $radius-base;
+        padding: $padding-base;
+        text-transform: uppercase;
+        text-align: center;
+        letter-spacing: $letterspacing-base;
+        position: relative;
+        border: $border-base;
+        line-height: $line-small;
+    }
+
+    .sl-level-1 {
+        background: $tacha;
+        border-color: $tacha;
+        color: $light-1;
+    }
+
+    .sl-level-2 {
+        background: $scorpion;
+        border-color: $scorpion;
+        color: $light-1;
+    }
+
+    .sl-level-3 {
+        border-color: $light-4;
+        color: $dark-2;
+    }
+
+    .sl-arrow {
+        position: absolute;
+        right: 0;
+        margin-top: -20px;
+        top: 50%;
+    }
+    /* this CS forms the triangles */
+    .sl-arrow:after,
+    .sl-arrow:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+    }
+    /* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+    .sl-arrow:after {
+        top: 10px;
+        border-color: transparent transparent transparent $light-1;
+        border-width: 10px;
+    }
+    /* this border color controlls the outside, thin border */
+    .sl-arrow:before {
+        top: 9px;
+        border-color: transparent transparent transparent $light-4;
+        border-width: 11px;
+    }
+}
+
+a.sl-button.wide{
+  width: 100%;
+}
+
+a.sl-button.sl-right, button.sl-button.sl-right {
+    float: right;
+}
+
+// Paint Sample Message
+.paint-sample-message {
+    margin:10px 0px 0px 0px;
+    float:left;
+    width:23%;
+    text-align:center;
+    font-weight:bold;
+    font-size:11px;
+    line-height:15px;
+}
+
+@media only screen and (max-width:768px) {
+.paint-sample-message {
+    width:100%;
+    text-align:left;
+    }
+}
+@media only screen and (max-width:420px) {
+.paint-sample-message {
+    width:auto;
+    text-align:left;
+    }
+}
+
+
+
+// Containers
+.sl-container {
+    float: left;
+    position: relative;
+    // padding: $padding-base;
+}
+
+.sl-split-55 {
+    width: 55.5%;
+}
+
+.sl-split-45 {
+    width: 44.5%;
+    float: right;
+}
+@media only screen and (max-width:768px) {
+    .sl-container {
+        width: 100%;
+    }
+}
+// Items
+.sl-items-container {
+    width: 100%;
+    float: left;
+    padding: $padding-base;
+
+    .sl-item {
+        float: left;
+
+        .sl-item-inner {
+            width: 100%;
+            float: left;
+            cursor: pointer;
+
+            img.sl-item-image {
+                width: 100%;
+                float: left;
+            }
+
+            .details {
+                float: left;
+                width: 100%;
+                padding: $padding-small 0;
+
+                .sl-text {
+                    float: left;
+                    width: 100%;
+                    padding: $padding-small 0;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                .sl-text[data-value="productTitle"] {
+                    //font-size: $font-large;
+                    font-size:19px;
+                    font-weight: $weight-base;
+                    text-transform:uppercase;
+                }
+
+                .sl-text[data-value="productCategory"], .sl-text[data-value="productSku"] {
+                    font-size:$font-tiny;
+                    line-height: initial;
+                }
+
+                .sl-text[data-value="productBrand"] {
+                    font-size:$font-small;
+                    font-weight: $weight-bold;
+                    line-height: initial;
+                }
+
+                .sl-text:nth-last-of-type(1) {
+                    padding-bottom: 0;
+                }
+
+            }
+        }
+    }
+}
+// Paddings
+.sl-large-pad {
+    padding: $padding-large;
+
+    .sl-large-pad {
+        padding: $padding-large;
+    }
+}
+
+.sl-small-pad {
+    padding: $padding-small;
+
+    .sl-small-pad {
+        padding: $padding-small;
+    }
+}
+// Options
+.sl-options-container {
+    width: 100%;
+    float: left;
+
+    .sl-option {
+        float: left;
+
+        .sl-option-inner {
+            background: $light-2;
+            float: left;
+            width: 100%;
+            /*max-height: 55px;*/
+
+            .sl-field-group {
+                float: left;
+                padding: $padding-base;
+                padding:8px;
+                //width:70%;
+
+                .sl-field {
+                    float: left;
+                    padding: $padding-base;
+                    width:100%;
+
+                    .sl-text {
+                        font-weight: $weight-bold; 
+                        line-height:1.4em;
+                    }
+
+                    .sl-text.fa-check:before {
+                        color: $green;
+                    }
+                }
+            }
+
+            .sl-field-group.sl-right {
+                text-align: right;
+                float: right;
+                //width:30%;
+            }
+            .sl-field-group.sl-center {
+                text-align: center;
+                float: left;
+                width: 100%;
+
+                .sl-field{
+                  width: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+
+// Options and pricing on small screens
+@media only screen and (max-width:420px) {
+
+.sl-options-container {
+
+    .sl-option {
+
+        .sl-option-inner {
+            //max-height: 57px;
+
+            .sl-field-group {
+                padding: 7px 0px 8px 0px;
+                /*width:50%;
+                text-align:left;*/
+            
+ 
+                .sl-field {
+                    padding:6px 10px 11px 10px;
+                    
+                    .sl-text {
+                        padding-top:2px;
+
+                        .peritem {
+                            display:none;
+                        }
+
+                        span {
+                           /*display:none;*/
+                        }
+                    }
+
+                    .sl-text.fa-check:before {
+                    }
+                }
+            }
+
+            .with-spin {
+              
+               
+             }
+
+            .sl-field-group.sl-right {
+                text-align: right;
+                float: right;
+
+                .sl-field {
+                    width:auto;
+                    float:right;
+                    clear:right;
+                }
+            }
+            .sl-field-group.sl-center {
+                text-align: left;
+               
+
+                .sl-field{
+                
+                }
+            }
+        }
+    }
+}
+ /*.furniture-option .sl-options-container .sl-option .sl-option-inner .sl-field-group{
+        width:70%;
+        border:1px solid red;
+    }
+
+    .furniture-option .sl-options-container .sl-option .sl-option-inner .sl-field-group.sl-right{
+       width:30%;
+    }*/
+
+}
+
+// Options and pricing on small screens
+@media only screen and (min-width:769px) and (max-width:892px) {
+
+.sl-options-container .sl-option .sl-option-inner .sl-field-group .sl-field .sl-text {
+
+                        .peritem {
+                            display:none;
+                        }
+                        span { 
+                           /*display:none;*/
+                        }
+                    }
+            }
+
+ 
+
+
+
+// UI spinner
+.sl-spinner-container {
+    float: left;
+    height: $option-value;
+
+    .ui-spinner {
+        height: 55px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: $cloud;
+        font-size: $font-base;
+        font-weight: $weight-small;
+        top:3px;
+
+        .ui-spinner-input {
+            float: left;
+            width: $option-value;
+            height: 100%;
+            padding: $padding-base;
+            margin: 0 $option-value;
+            text-align: center;
+            border: 0;
+            background: $light-1;
+            color: $dark-2;
+            font-size: inherit;
+            font-weight: inherit;
+        }
+
+        .ui-spinner-button {
+            background: $tacha;
+            width: $option-value;
+            height: 100%;
+            float: left;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: pointer;
+
+            .ui-button-text {
+                float: left;
+                width: 100%;
+                height: $option-value;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .ui-button-text:before {
+                font-size: inherit;
+                font-weight: inherit;
+                color: $light-1;
+            }
+        }
+
+        .ui-spinner-down {
+            .ui-button-text:before {
+                content: "\f068";
+            }
+        }
+
+        .ui-spinner-up {
+            left: auto;
+            right: 0;
+
+            .ui-button-text:before {
+                content: "\f067";
+            }
+        }
+    }
+}
+
+.sl-spinner-container.sl-right {
+    float: right;
+}
+//Tab Section
+.sl-tab-container {
+    width: 100%;
+    float: left;
+
+    .sl-tab-section {
+        float: left;
+        width: 100%;
+        padding: $padding-base;
+
+        .sl-tab {
+            float: left;
+            padding: $padding-base;
+            background: $light-2;
+            //opacity: $opacity-base;
+            opacity: 0.7;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            margin-right:2px;
+            
+
+            .inner {
+                width: 100%;
+                float: left;
+                padding: $padding-base;
+
+                .sl-text {
+                    font-weight: $weight-base;
+                    width: 100%;
+                    float: left;
+                }
+            }
+        }
+
+        .sl-tab.active {
+            opacity: 1;
+            border: $border-base;
+            border-bottom: 0;
+            margin-right:2px;
+        }
+
+        .sl-tab:hover {
+            opacity: 1;
+        }
+
+        .sl-content {
+            width: 100%;
+            float: left;
+            background: $light-2;
+            padding: $padding-base;
+            position: relative;
+            top: -1px;
+            border: $border-base;
+            display: none;
+
+            table {
+                float: left;
+                width: 100%;
+
+                tbody {
+                    float: left;
+                    width: 100%;
+                    padding: $padding-base;
+
+                    tr:nth-of-type(1) {
+                        padding-top: 0;
+
+                        td {
+                            padding-top: 0;
+                        }
+                    }
+
+                    tr:nth-last-of-type(1) {
+                        border: 0;
+                        padding-bottom: 0;
+
+                        td {
+                            padding-bottom: 0;
+                        }
+                    }
+
+                    tr {
+                        width: 100%;
+                        float: left;
+                        border-bottom: $border-base;
+                        padding: $padding-base 0;
+
+                        td {
+                            width: 50%;
+                            float: left;
+                            background: $light-2;
+                            color:$scorpion;
+                            padding: $padding-small 0;
+                            font-size: $font-base;
+                            font-weight: $weight-bold;
+                            line-height: $line-base;
+                            text-align: left;
+
+                            img {
+                                float: left;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .sl-content[data-value="productDetails"] {
+            display: block;
+        }
+    }
+}
+@media only screen and (max-width:414px) {
+    //Tab Section
+    .sl-tab-container {
+        .sl-tab-section {
+
+           .sl-tab {
+                .inner {
+                min-height:45px;
+
+                    .sl-text {
+                    white-space:normal;
+                    }
+                }
+            }
+
+            .sl-tab-slider {
+                width: 100%;
+                float: left;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+
+                .sl-tab {
+                    //width: 24%;
+                    float: none;
+                    display: inline-block;
+                    z-index: 0;
+                    text-align: center;
+                    //margin-left: -2px;
+                    margin-left:2px;
+                    flex-grow:1;
+                }
+
+                .sl-tab:nth-child(1) {
+                    margin-left: 0;
+                }
+
+                .sl-tab.active {
+                    z-index: 10;
+                }
+            }
+
+            .sl-content {
+                margin-top: -3px;
+                z-index: 1;
+            }
+        }
+    }
+}
+// Feature
+// .sl-feature-container {
+//     padding: $padding-base;
+//     float: left;
+//     width: 100%;
+//
+//     .sl-feature {
+//         width: 100%;
+//         float: left;
+//         position: relative;
+//
+//         .sl-overlay {
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             height: 100%;
+//             width: 100%;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             text-align: center;
+//
+//             .inner {
+//                 background: #fff;
+//                 width: 100%;
+//                 max-width: 50%;
+//                 float: left;
+//                 padding: $padding-base;
+//                 display: flex;
+//                 align-items: center;
+//                 justify-content: center;
+//                 text-align: center;
+//                 flex-direction: column;
+//
+//                 .sl-feature-logo {
+//                     width: 100%;
+//                     float: left;
+//                     text-align: center;
+//                     padding: $padding-base;
+//                 }
+//
+//                 .sl-feature-logo[data-value="Harlequin"] {
+//                     img {
+//                         max-width: 200px;
+//                     }
+//                 }
+//
+//                 .sl-feature-logo[data-value="Morris"] {
+//                     img {
+//                         max-width: 150px;
+//                     }
+//                 }
+//
+//                 .sl-feature-logo[data-value="Anthology"] {
+//                     img {
+//                         max-width: 200px;
+//                     }
+//                 }
+//
+//                 .sl-feature-logo[data-value="Sanderson"] {
+//                     img {
+//                         max-width: 150px;
+//                     }
+//                 }
+//
+//                 .sl-feature-logo[data-value="Zoffany"] {
+//                     img {
+//                         max-width: 175px;
+//                     }
+//                 }
+//
+//                 .sl-copy {
+//                     text-align: inherit;
+//                 }
+//             }
+//         }
+//
+//         img.sl-brand-feature-image {
+//             float: left;
+//             width: 100%;
+//         }
+//     }
+// }
+// @media only screen and (max-width:414px) {
+//     // Feature
+//     .sl-feature-container {
+//         .sl-feature {
+//             .sl-overlay {
+//                 position: relative;
+//                 float: left;
+//                 height: auto;
+//                 width: 100%;
+//                 display: block;
+//
+//                 .inner {
+//                     background: #fff;
+//                     width: 100%;
+//                     max-width: 100%;
+//                     float: left;
+//                     padding: $padding-base 0 0;
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: center;
+//                     text-align: center;
+//                     flex-direction: column;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// Icons Groups
+.sl-icon-list{
+  width: 100%;
+  float: left;
+
+  .sl-icon{
+    float: left;
+    padding: $padding-base;
+
+    .sl-icon-inner{
+      width: 100%;
+      float: left;
+      border-radius: $radius-base;
+      text-align: center;
+      padding: $padding-large;
+      font-size: $h1;
+      color: $light-1;
+      background: $light-2;
+      cursor: pointer;
+      opacity: $opacity-base;
+    }
+    .sl-icon-inner:before{
+      color: inherit;
+    }
+    .sl-icon-inner:hover{
+      opacity: 1;
+    }
+  }
+}
+
+.sl-share-modal .sl-modal-content .sl-icon-list .sl-icon .sl-icon-inner {
+    padding: $padding-large $padding-zero;
+}
+
+
+// Content Sections
+.sl-content-section{
+  width: 100%;
+  float: left;
+
+  .sl-content-inner{
+    width: 100%;
+    float: left;
+
+    .sl-content-block{
+      float: left;
+      padding: $padding-base;
+    }
+    // Design Notes
+    .sl-dn-banner{
+      position: relative;
+      margin-bottom: 85px;
+
+      .sl-dn-avatar{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        bottom: -80px;
+
+        .inner{
+          width: 100%;
+          position: absolute;
+          left: -50%;
+          border-radius: 100%;
+          background: #fff;
+          overflow: hidden;
+
+          img{
+            float: left;
+            border-radius: 100%;
+            width: 100%;
+            padding: $padding-small;
+          }
+        }
+      }
+    }
+    .sl-dn-intro{
+      padding: 0 $padding-base;
+      .sl-inner{
+        width: 100%;
+        max-width: $page-width-tiny;
+        margin: 0 auto;
+
+        p.sl-copy{
+          text-align: center;
+        }
+        h4.sl-heading{
+        }
+      }
+    }
+    .sl-dn-banner{
+
+    }
+  }
+}
+
+// Design Process
+.sl-content-section{
+  .sl-content-inner{
+    .sl-content-block.sl-dp-block{
+      .sl-dp-image{
+        float: left;
+        width: 100%;
+      }
+      .sl-copy{
+        padding: $padding-base 0;
+      }
+    }
+  }
+}
+
+
+// Brand Feauture
+.sl-brand-feature{
+  padding: $padding-base;
+
+  .sl-content-inner{
+    background: $light-2;
+
+    .sl-brand-feature-copy{
+
+      .sl-brand-feature-logo{
+        width: 100%;
+        float: left;
+        padding: $padding-base;
+
+        img{
+          width: 100%;
+          float: left;
+          max-width: 175px;
+        }
+      }
+    }
+    .sl-brand-feature-image{
+      padding: 0;
+
+      img{
+        width: 100%;
+        float: left;
+      }
+    }
+  }
+}
+
+
+
+
+
+@media only screen and (max-width:768px) {
+  // Content Sections
+  .sl-content-section{
+    .sl-content-inner{
+      // Design Notes
+      .sl-dn-banner{
+        position: relative;
+        margin-bottom: 40px;
+
+        .sl-dn-avatar{
+          width: 100px;
+          height: 100px;
+          bottom: -40px;
+        }
+      }
+    }
+  }
+  // Design Process
+  .sl-content-section{
+    .sl-content-inner{
+      .sl-content-block.sl-dp-block{
+        width: 100%;
+
+        .sl-dp-image{
+          float: left;
+          width: 100%;
+        }
+        .sl-copy{
+          padding: $padding-base 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width:414px) {
+  // Brand Feauture
+  .sl-brand-feature{
+    .sl-content-inner{
+      .sl-content-block{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+
+        .sl-brand-feature-logo{
+          width: auto;
+        }
+        .sl-copy{
+          text-align: inherit;
+        }
+      }
+    }
+  }
+}
+
+// NEW STYLE GUIDELINES 2017
+
+// Convert illustrator, indesign and photoshop tracking into letter spacing.
+
+@function tracking( $target ){
+  @return ($target / 1000) * 1em;
+}
+
+@mixin tracking( $target ){
+  letter-spacing: tracking( $target );
+}
+
+
+// ---------------- Fonts ----------------
+
+h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase;   
+}
+h1 {
+    font-family: ProximaNovaA-Bold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    /*color:$scorpion;*/
+    font-size: $font-large;
+    @include tracking(100);
+}
+h2 {
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    /*color:$scorpion;*/
+    font-size: $font-large;
+    @include tracking(100);
+}
+h3, h5, h6 {
+    font-family: ProximaNovaA-Semibold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    /*color:$scorpion;*/
+    font-size: $font-base;  
+    @include tracking(30);
+}
+h4 {
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    /*color:$scorpion;*/
+    font-size: $font-base;  
+    @include tracking(30);
+    margin-top: 15px;
+    margin-bottom: -5px;
+}
+
+
+body, p, .bodyfont {
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    /*color:$scorpion;*/
+    font-size: $font-base; 
+    @include tracking(30);
+}
+.italic {
+    font-style: italic;
+    font-family: ProximaNovaA-LightIt, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+}
+.bold { 
+    font-weight: bold;
+    font-family: ProximaNovaA-Semibold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+}
+a, .toggleColours {
+    text-decoration: none;
+}
+p a {
+    text-decoration: underline;
+}
+h1,h2,h3,h4,h5,h6,body,p {
+    color:black;
+}
+
+// ------------------- dopplegangers ---------
+
+.like-h1 { @extend h1; }
+.like-h2 { @extend h2; }
+.like-h3 { @extend h3; }
+
+// -------------------- Buttons --------------
+
+.primaryButton {
+    background-color: $scorpion;
+    a {
+        color:#fff;
+    }
+    span:before {
+        color:$color-light3;
+    }
+}
+.actionButton {
+    background-color: $tacha;
+    color:#fff;
+}
+.secondButton {
+    background-color: #fff;
+    color: $scorpion;
+}
+.thirdButton {
+    border:1px solid $scorpion;
+    color: $scorpion;
+}
+
+
+// --------------------- Messages --------------
+
+.alert-box {
+    background-color: $seashell;
+}
+.alert-box.error {
+    background-color: #ed3125;
+}
+.alert-box.warning {
+    background-color: #f1be46;
+}
+.alert-box.success {
+    background-color: #a8bf72;
+}
+
+

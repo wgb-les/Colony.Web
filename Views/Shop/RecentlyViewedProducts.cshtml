@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Colony.Commerce.Models.ProductCatalogue.Product>
+<div class="bottomMenu" id="recentlyViewed">
+    <div class="scroller">
+        <ul class="results">
+            @foreach (var product in Model)
+            {
+                <li style="width: 276px;">
+                    <article class="details recentlyViewedPod">
+                        <figure class="left">
+                            <img src="/_images/brands/sanderson/sections/Wallpaper.png" alt="">
+                        </figure>
+                        <div class="left rightCol">
+                            <h3>
+                                <a href="@product.Uri" title="@product.Name">@product.Name</a>
+                            </h3>
+                            @*<h4>£14.99</h4>*@
+                            <a class="block button left">Add to bakset</a>
+                        </div>
+                    </article>
+                    <div class="clear"></div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿<div style="width: 250px">
+    <!--<img src="_images/placeholders/article.jpg" class="left" width="250" style="margin-right:20px"/>-->
+    <div class="details">
+        <h2 style="white-space: normal;"><%=rc.stockistName%></h2>
+        <p>
+            <%=rc.stockistAddress%>
+        </p>
+        <% if (rc.stockistTelephoneNumber) { %>
+        <div class="addressAction" style="line-height: 1.25em;">
+            <span class="icon-phone" style="display: inline-block; vertical-align: middle;"></span><span><%=rc.stockistTelephoneNumber%></span></div>
+        <% } %>
+        <% if (rc.stockistEmail) { %>
+        <div class="addressAction" style="line-height: 1.25em;">
+            <span class="icon-envelope" style="display: inline-block; vertical-align: middle;"></span><span><a href="mailto:<%=rc.stockistEmail%>" target="_blank"><%=rc.stockistEmail%></a></span></div>
+        <% } %>
+        <% if (rc.stockistUrl) { %>
+        <div class="addressAction" style="line-height: 1.25em;">
+            <span class="icon-desktop" style="display: inline-block; vertical-align: middle;"></span><span><a href="http://<%=rc.stockistUrl.replace('http://', '')%>" target="_blank"><%=rc.stockistUrl%></a></span></div>
+        <% } %>
+        <% if (rc.stockistBrands.length > 0) { %>
+        <div class="stockist-brands" style="border-top: 1px solid; margin-top: 10px; padding-top: 10px;">
+            <ul style="list-style-type: none; margin: 0; margin-top: 2px; padding: 0;">
+                <% for (var i = 0; i < rc.stockistBrands.length; i++) { %>
+                <li style="display: inline; margin: 2px;">
+                    <img src="/_images/favicon/<%=rc.stockistBrands[i]%>.png" alt="<%=rc.stockistBrands[i]%>"/>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <% } %>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿<div class="thumbnail"><img src="/_assets/images/cloud/<%=ImageAssetID%>/assetlibrary/gridview/" alt="placeholder"/></div>
+<div class="details">
+	<dl>
+		<dt>Title</dt><dd title="<%=Name%>"><%=Name%>&#160;</dd>
+		<dt>Alt. Text</dt><dd title="<%=ImageAlt%>"><%=ImageAlt%>&#160;</dd>
+	</dl>
+	<div class="imageOptions">
+		<a href="/images/edit/?id=<%=ImageAssetID%>" role="nav-main" class="edit icon-pencil" title="Edit this Image"><span>Edit</span></a>
+		<a href="/images/delete/?id=<%=ImageAssetID%>" role="nav-main" class="delete icon-remove" title="Delete this Image"><span>delete</span></a>
+        <div class="imagelibrary-select-container">
+            <input type="checkbox" id="SelectedImageIds_<%=ImageAssetID%>" name="SelectedImageIds" value="<%=ImageAssetID%>" />
+            <label for="SelectedImageIds_<%=ImageAssetID%>">Select</label>
+        </div>
+	</div>
+</div>

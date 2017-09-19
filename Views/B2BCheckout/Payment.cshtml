@@ -1,0 +1,122 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BCheckoutPaymentViewModel
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<style media="screen">
+  .alertInfo {
+    display: none !important;
+  }
+</style>
+
+<main id="main">
+
+    @using (Html.BeginForm("MakePayment", "b2bcheckout", FormMethod.Post, new { id = "b2bMakePayment" }))
+    {
+
+
+        <div class="mediumColumn" style="width:73%;">
+            <div class="blockSection wide1">
+                <div class="inner">
+                    <div class="heading">
+                        <h2 class="fa-money">Payment</h2>
+                    </div>
+                    <div class="content form">
+                        <div class="boxSection checkoutPayment editable" id="b2bPaymentSection">
+                            <h3>Select payment type<span class="required">Required</span></h3>
+                                <div class="section tickbox">
+                                    <input type="radio" name="paymentType" id="paymentType_account" value="account">
+                                    <label for="paymentType_account">
+                                        <span>Pay on account</span>
+                                    </label>
+                                </div>
+                                @if (ColonyContext.Current.CurrentSite.SiteKey == "Wg" && Model.Checkouts.Any(x => x.Basket.CustomerCurrency == "USD") && Model.Checkouts.Any(t => t.Basket.WebAccount.ToLower().Contains("WG09".ToLower())))
+                                {
+                                    <div class="section tickbox">
+                                        <input type="radio" name="paymentType" id="paymentType_card" value="card">
+                                        <label for="paymentType_card">
+                                            <span>Pay by credit/debit card</span>
+                                        </label>
+                                    </div>
+                                }
+
+
+
+                                <div class="alertInfo error" id="termsAndConditionsError" style="display: none;">
+                                    You must accept the Terms and Conditions in order to continue.
+                                </div>
+
+                                <div class="section tickbox">
+                                    <input type="checkbox" id="b2bAcceptTermsAndConditions">
+                                    <label class="register">
+                                        <span>All Goods are sold subject to our Terms and Conditions of Sale. Please tick to confirm you have read and accept the <a href="/terms-and-conditions-of-sale/">Terms and Conditions of Sale</a>.</span>
+                                        <span class="required">Required</span>
+                                    </label>
+                                </div>
+
+
+
+                                <fieldset id="billingAddress" style="display: none;">
+                                    <legend>Billing Address Details</legend>
+                                    @Html.Partial("~/Views/Address/_Address.cshtml", Model.Address)
+                                </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="smallColumn" style="width:27%;">
+            <div class="blockSection wide1">
+                <form action="/b2b-members/b2bcheckout/" class="basketTotals" method="get" novalidate="novalidate">
+                    <div class="sectionBox basketSummary" style="margin:0;">
+                        <div class="sectionBoxInner">
+                            <div class="specLine">
+                                <span class="specItem"><b>Sub Total</b></span>
+                                <span class="specItem">@Model.Checkouts.FirstOrDefault().Basket.CustomerCurrency @(Model.Checkouts.Sum(v => v.Basket.BasketItems.Sum(t => decimal.Parse(t.Unit_Price) * decimal.Parse(t.Quantity_Ordered))).ToString("#0.00"))</span>
+                            </div>
+                            <div class="specLine">
+                                <span class="specItem"><b>Delivery</b></span>
+                                <span class="specItem">@Model.Checkouts.FirstOrDefault().Basket.CustomerCurrency @(Model.Checkouts.Sum(v => v.Basket.DeliveryValueInc).ToString("#0.00"))</span>
+                            </div>
+                            <div class="specLine">
+                                <span class="specItem"><b>Tax / VAT</b></span>
+                                <span class="specItem">@Model.Checkouts.FirstOrDefault().Basket.CustomerCurrency @(Model.Checkouts.Sum(v => v.Basket.Tax).ToString("#0.00"))</span>
+                            </div>
+                            <div class="specLine">
+                                <span class="specItem"><b>Total</b></span>
+                                <span class="specItem">@Model.Checkouts.FirstOrDefault().Basket.CustomerCurrency @((Model.Checkouts.Sum(v => v.Basket.BasketItems.Sum(t => decimal.Parse(t.Unit_Price) * decimal.Parse(t.Quantity_Ordered))) + Model.Checkouts.Sum(x => x.Basket.Tax) + Model.Checkouts.Sum(v => v.Basket.DeliveryValueInc)).ToString("#0.00"))</span>
+                            </div>
+                            <p>All unit prices are exclusive of Tax / VAT</p>
+                        </div>
+                        <ul class="cardList">
+                            <li>
+                                <img src="/_images/icons/payment/maestro.png" alt="Maestro" />
+                            </li>
+                            <li>
+                                <img src="/_images/icons/payment/mastercard.png" alt="Mastercard" />
+                            </li>
+                            <li>
+                                <img src="/_images/icons/payment/paypal.png" alt="Paypal" />
+                            </li>
+                            <li>
+                                <img src="/_images/icons/payment/visa.png" alt="Visa" />
+                            </li>
+                            <li>
+                                <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron" />
+                            </li>
+                        </ul>
+                        <input type="hidden" name="basketGuid" id="basketGuid" value="@Session["BasketGuid"]" />
+                        <a class="wideButton">
+                            <button class="fa-arrow-right actionButton checkout">Place Order</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    }
+
+</main>

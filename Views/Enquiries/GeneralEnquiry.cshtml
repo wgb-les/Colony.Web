@@ -1,0 +1,41 @@
+﻿@model WalkerGreenbank.Modules.Homepage.Areas.Models.ContactUsViewModel
+@{
+    ViewBag.Title = "Contact Us";
+}
+@{
+    var reasonForMessageOptions = new[] {"Suggestion", "Complaint", "Pre-sales enquiry", "Problem with an order", "Website support", "Other", "Online enquiries"};
+    var reasonForMessageOptionsSelectList = reasonForMessageOptions.Select(x => new SelectListItem {Value = x, Text = x});
+}
+
+<div id="content">
+    <header class="pageHeader">
+        <h1>Contact Us</h1>
+    </header>
+    <div>
+        <p>
+            We welcome any questions or comments about our products, services or the web site. Use the form below to send us your
+            feedback or alternatively contact us on +44 (0) 845 123 6815.
+        </p>
+        <p>Please key in your query in the "Enquiry" field to help determine which department will receive your email.</p>
+    </div>
+    <div class="contentForm">
+        <form method="post" action="@Url.Action("GeneralEnquiry", new {area = "Homepages"})">
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>Your Enquiry</legend>
+                @Html.EditorFor(model => model.Title, new {@class = "medium"})
+                @Html.EditorFor(model => model.FirstName, new {@class = "medium"})
+                @Html.EditorFor(model => model.LastName, new {@class = "medium"})
+                @Html.EditorFor(model => model.Email, new {@class = "medium"})
+                @Html.EditorFor(model => model.Telephone, new { @class = "medium" })
+                @Html.EditorFor(model => model.Subject, new {options = reasonForMessageOptionsSelectList})
+                @Html.EditorFor(model => model.OrderNumber)
+                @Html.EditorFor(model => model.Enquiry)
+                @Html.Partial("_ReCaptcha")
+                <div class="field formControls">
+                    <button class="button pull-right">Send</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

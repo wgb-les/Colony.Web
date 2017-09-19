@@ -1,0 +1,49 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.BasketViewModel
+<div class="miniBasket b2c">
+    @if (Model.BasketLines.Count > 0)
+    {
+        <div id="basketMessage" class="alertInfo confirmation" style="display: none;">
+            Your basket has been updated
+        </div>
+        <div class="contentForm">
+            @using (Html.BeginForm("MiniBasket", "Basket", new {returnUrl = Request.UrlReferrer.AbsoluteUri}, FormMethod.Post, null))
+            {
+                @Html.AntiForgeryToken()
+                <div class="items">
+                    @Html.Partial("_MiniBasketLines", Model.BasketLines)
+                </div>
+                <div class="items">
+                    <fieldset style="float: right;">
+                        <legend>Total</legend>
+                        <h2 style="display: inline;">
+                            <a id="total">Total:</a>
+                        </h2>
+                        <p class="price">@(Model.TotalInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.TotalInc.ToString("#0.00") : "FREE")</p>
+                    </fieldset>
+
+                </div>
+                <div class="field formControls">
+                    <button id="miniBasketUpdate" class="button left" name="Command" value="Update">
+                        <span>Update Basket</span></button>
+                    <button id="miniBasketCheckout" class="button" name="Command" value="GoToCheckout">
+                        <span>Go to Basket</span></button>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alertInfo message">
+            There are no items in your basket.
+        </div>
+    }
+    <div class="row delivery-info">
+        <div class="column large-12">
+            <p class="quick-purchase-cta">
+                <span class="icon-shopping-cart icon-2x"></span><a href="/shop/quick-order/">Order samples by product code using Quick Order</a>
+            </p>
+            <hr/>
+            @Html.Partial("~/Templates/_deliveryInfo.cshtml", Model)
+        </div>
+    </div>
+</div>

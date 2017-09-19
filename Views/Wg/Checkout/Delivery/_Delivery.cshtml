@@ -1,0 +1,45 @@
+﻿@using Colony.Commerce.Areas.ShopPurchase.Models
+@using Colony.Commerce.Models
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryViewModel
+@{
+  Layout = "";
+}
+
+
+<div class="columnContainer mediumColumn">
+
+@Html.Partial("Delivery/_DeliveryAddresses", Model)
+
+<div class="mediumColumn">
+  <div class="blockSection wide1">
+      <div class="inner">
+          <div class="heading">
+              <h2 class="fa-truck">Delivery Options</h2>
+          </div>
+          <div class="content form">
+
+              <form id="deliveryOptionsForm" action="@Url.Action("DeliveryOptions", "Checkout", new {area = "ShopPurchase", edit = "delivery-options"})" method="post">
+                  @Html.AntiForgeryToken()
+                  @{ Html.RenderAction("DeliveryOptions", "Checkout", new { step = CheckoutStep.Delivery }); }
+
+                  <div class="section">
+                      <div class="button level1 wide1">
+                          <input type="submit" id="continue" class="inner" value="Continue">
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+</div>
+
+<div class="smallColumn">
+  @Html.Action("Basket", "Basket", new {area = "ShopPurchase", isCheckout = true})
+</div>
+
+
+<script src="/_js/shared/checkout-delivery.js" type="text/javascript"></script>
+<script src="/_js/shared/checkout-summary.js" type="text/javascript"></script>
+<script src="/_js/shared/checkout-addresslookup.js" type="text/javascript"></script>

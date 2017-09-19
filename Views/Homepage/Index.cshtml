@@ -1,0 +1,41 @@
+﻿@model WalkerGreenbank.Modules.Homepage.Areas.Models.HomepageViewModel
+@{
+    int i = 0;
+}
+<div id="content">
+    <div id="collections">
+        @foreach (var featuredItem in Model.FeaturedItems)
+        {
+            i++;
+            var backgoundImage = featuredItem.Images.FirstOrDefault(x => x.Image.ImageType == WalkerGreenbank.Modules.Homepage.Models.ImageType.FullBleed);
+            var backgroundImageUrl = backgoundImage != null ? @Url.ImageUrl(backgoundImage.Image.ImageAssetID) : "";
+
+            <section class="homeCollection" id="collection@(i)" @{if (!string.IsNullOrEmpty(backgroundImageUrl)) {<text>style="background: url('@backgroundImageUrl') no-repeat top center; background-size: cover;"</text>} }>
+                <a class="toggle" href="#">@featuredItem.Details.Name</a>
+                <div class="panel">
+                    <h2>@featuredItem.Details.Name</h2>
+                    @Html.Raw(featuredItem.Details.LongDescription)
+                    @if (featuredItem != null && featuredItem.Products != null && featuredItem.Products.Any())
+                    {
+                        <h3>Some popular @featuredItem.Details.Name patterns:</h3>
+                        <ul>
+                            @foreach (var product in featuredItem.Products)
+                            {
+                                <li><a href="/shop/@Url.ProductUrl(product.Detail)?code=@product.Sku.Code">
+                                    <img alt="" src="@Url.ImageUrl(product.Images.First().Image.ImageAssetID, "Homepage", "HomepageProductThumbnail")" /></a></li>
+                            }
+                        </ul>
+                    }
+                    <a class="button-close"></a>
+                </div>
+            </section>
+        }
+    </div>
+    <ul id="collectionsControls">
+        @foreach (var featuredItem in Model.FeaturedItems)
+        {
+            <li><a href="#">Show @featuredItem.Details.Name collection</a></li>
+        }
+    </ul>
+</div>
+<!-- End of content -->

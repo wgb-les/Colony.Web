@@ -1,0 +1,55 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.HomeAccessories.Areas.Models.ListRootItemsViewModel
+<div class="collectionDetails">
+    <div class="collectionInfo">
+        <h1>@Model.Root.Category.Name</h1>
+        @Html.Raw(Model.Root.Category.LongDescription)
+    </div>
+    @if (Model.Root.Images.Any())
+    {
+        <div class="collectionShots">
+            <div class="carousel imageCarousel">
+                <ul class="items">
+                    @foreach (var image in Model.Root.Images)
+                    {
+                        <li>
+                            <img src="@Url.ImageUrl(image.ImageAssetID, "HomeAccessories", "HomeAccessoriesCollectionDetail", @"/_images/placeholders/article.jpg")"/>
+                        </li>
+                    }
+
+                </ul>
+                <a href="#" class="prev">
+                    <span></span>
+                    Previous
+                </a>
+                <a href="#" class="next">
+                    <span></span>
+                    Next
+                </a>
+                <div class="bullets">
+                    <span class="icon icon-play icon-pause"></span>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<hr/>
+<div class="collectionsPreview productCollections no-quick-view">
+    @foreach (var homeAccessory in Model.SubCategories)
+    {
+        <div class="item">
+            <a href="@ColonyContext.Current.Response.Url.TrimEnd('/')@(homeAccessory.Category.Uri)">
+                @{
+                    var imageUrl = Url.ImageUrl(homeAccessory.Category.ImageAssetID, "HomeAccessories", "HomeAccessoriesCollectionThumbnail");
+                    if (string.IsNullOrWhiteSpace(imageUrl))
+                    {
+                        imageUrl = "http://placehold.it/350x220";
+                    }
+                }
+                <img alt="@homeAccessory.Category.Name" src="@imageUrl">
+                <h3 class="itemTitle">@homeAccessory.Category.Name</h3>
+            </a>
+        </div>
+    }
+</div>

@@ -1,0 +1,44 @@
+﻿@using Colony.CMS.Areas.CRM.Models
+@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BCheckoutViewModel
+<header class="header-reveal-modal">
+    <h2>Change Address</h2>
+    <a class="close-reveal-modal icon-remove">
+        <span>Close</span></a>
+</header>
+<div class="bd-reveal-modal">
+    <div class="contentForm">
+        @using (Html.BeginForm("AddDeliveryAddress", "B2BCheckout", new {area = "B2BMembers"}, FormMethod.Post, null))
+        {
+            <fieldset>
+                <legend>Delivery Address Details</legend>
+
+                @if (Model.Basket.CustomerAddresses.Any())
+                {
+                    <h3>Select a saved address</h3>
+                    <div class="field select ">
+                        <label for="savedAddresses" style="display: none">
+                            Select a saved address
+                        </label>
+                        <select name="savedAddresses" id="savedAddresses" class="savedAddresses">
+                            <option value="">Enter New Address Below</option>
+                            @foreach (var address in Model.Basket.CustomerAddresses)
+                            {
+                                <option value="@address.DELREF|@address.DELNAME|@address.DELADDR1|@address.DELADDR2|@address.DELADDR3|@address.DELADDR4|@address.DELPCODE" selected="@(Model.Address.Description == address.DELREF)">@address.DELREF (@address.DELNAME, @address.DELADDR1)</option>
+                            }
+                        </select>
+                    </div>
+                }
+
+                <div class="addressDetails">
+                    @{ Html.RenderPartial("~/Views/Address/_Address.cshtml", new AddressViewModel(), new ViewDataDictionary {{"ShowCompanyDetails", "true"}}); }
+                </div>
+                @Html.Hidden("CustomerReference", Request["CustomerReference"])
+                @Html.Hidden("CustomerName", Request["CustomerName"])
+                @Html.Hidden("isCfaAddress", ViewData["IsCfaAddress"])
+                <div class="field formControls">
+                    <button class="button saveAddress">Save</button>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>

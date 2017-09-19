@@ -1,0 +1,25 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.PasswordResetInputViewModel
+@{
+    ViewBag.Title = "Reset Password";
+}
+<div id="content">
+    <h1>Reset your password</h1>
+    <div class="contentForm">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.CustomValidationSummary(true)
+            <fieldset class="editor small">
+                <legend>@ViewBag.Title</legend>
+
+                @Html.EditorFor(m => m.Email)
+                @Html.Partial("_ReCaptcha")
+                <div class="field formControls">
+                    <button class="button">Submit</button>
+                </div>
+
+            </fieldset>
+        }
+    </div>
+
+</div>

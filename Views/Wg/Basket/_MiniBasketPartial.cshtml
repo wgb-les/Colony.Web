@@ -1,0 +1,23 @@
+﻿@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@{ var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)); }
+
+    @if (!isB2B)
+    {
+        @*<a href="/basket/summary/" class="global-util-item global-util-basket">
+            <span class="global-util-icon icon-basket-grey"></span>
+            <span class="global-util-label">Basket</span>
+            <span class="global-util-count">*@
+    <span class="wgBasket-count">@ViewBag.BasketQuantity</span>
+        //</span></a>
+    }
+    else
+    {
+        @*<li class="basket">
+            <a href="/b2b-members/webtex/basketsummary/" class="global-util-item global-util-basket">
+                <span class="global-util-icon icon-basket-grey"></span>
+                <span class="global-util-label">Basket</span>
+                <span class="global-util-count">(@ViewBag.BasketQuantity)</span>
+            </a>
+        </li>*@
+    <span class="wgBasket-count">@ViewBag.BasketQuantity</span>
+    }

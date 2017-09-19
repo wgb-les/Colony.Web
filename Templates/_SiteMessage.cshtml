@@ -1,0 +1,27 @@
+﻿@using Colony.Util.Web;
+@using Colony.Util.Configuration;
+@{
+    var sitesService = Colony.Util.Configuration.DependencyResolver.Current.GetService<Colony.Services.Core.Abstract.Sites.ISitesService>();
+    var siteDomainService = Colony.Util.Configuration.DependencyResolver.Current.GetService<Colony.Services.Core.Abstract.Sites.ISiteDomainsService>();
+
+    var wgSite = sitesService.GetAll().FirstOrDefault(x => x.SiteKey == "Wg");
+    Colony.Models.Core.Sites.SiteDomain redirectSite = null;
+    if (wgSite != null)
+    {
+        redirectSite = siteDomainService.GetMainDomainForSite(wgSite.Id) ?? siteDomainService.GetSingleDomainForSite(wgSite.Id);
+    }
+}
+
+@*@if (ViewBag.IsInDefaultRegion == false && ViewBag.AcceptSiteRedirect == true)
+{ 
+    <section class="siteMessage">
+        <div class="message">
+            <p class="sub">We've noticed you are browsing from outside the UK and we may not be able to deliver samples to your address.</p>
+            <p>Would you like to go to our International site?</p>
+        </div>
+        <div class="options">
+            <a href="@Request.Url.AbsoluteUri" class="link" data-message-no="">Continue on UK site</a>
+            <a href="@(redirectSite != null ? "http://" + redirectSite.Uri : string.Empty)" class="button">Go to International site</a>
+        </div>
+    </section>
+}*@

@@ -1,0 +1,93 @@
+﻿@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@{
+    ViewBag.Title = "Quick Order";
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+    var isContract = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current)) ? "1" : "0";
+}
+<script type="text/javascript">
+    var isContract = @isContract;
+</script>
+<div id="content">
+    <h1>@ViewBag.Title</h1>
+    @if (!isB2B)
+    {
+        <div class="alertInfo message">
+            <p>Start typing a product code/description or scan the barcode in the field below and select the item you wish to add to your basket.</p>
+            <p>Once you're happy with your basket, click the Order Sample(s) button to add the samples to your basket.</p>
+        </div>
+    }
+@*else
+{     
+<div class="alertInfo message">
+    <p>Start typing a product code or description in the field below and select the item you wish to add to your basket.</p>
+    <p>Once you have added all of your items to the list, select whether you want a cutting, short length, long length or returnable sample.</p>
+    <p>Once you're happy with your basket, click the Place Order button to generate the appropriate order that will be created using your default Webtex details.</p>
+</div>
+
+}*@<form action="" class="contentForm" method="get">
+        <table class="quickPurchase">
+            <colgroup>
+                <col/>
+                @*<col />*@
+                <col/>
+                <col/>
+                <col/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">Product name or code</th>
+                @*<th scope="col" class="sampleType cuttingTypeColumn">Sample Type</th>*@
+                <th scope="col" class="priceColumn">Price</th>
+                <th scope="col" class="stockColumn">Stock</th>
+                <th scope="col" class="removeItem"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="autoCompleteRow">
+                <td colspan="5">
+                    <div class="contentForm">
+                        <div class="field text">
+                            <label for="QuickPurchaseKeywords">
+                                Find a product<span class="required">Required</span>
+                            </label>
+                            <input id="QuickPurchaseKeywords" type="text" name="QuickPurchaseKeywords" placeholder="Start typing a product code / description or scan the barcode" />
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        @if (!isB2B)
+        {
+            <div class="field formControls">
+
+                <button class="button" id="placeOrder">Order Sample(s)</button>
+            </div>
+
+            <div class="alertInfo">
+                @Html.Partial("~/Templates/_deliveryInfo.cshtml")
+            </div>
+        }
+    @*
+    else { 
+        <fieldset>
+            <legend>Order Details</legend>
+            <div class="field text">
+                <label for="OrderReference">Order Reference<span class="required">Required</span></label>
+                <input type="text" name="OrderReference" id="OrderReference" placeholder="Enter Order Reference" />
+            </div>
+            <div class="field text">
+                <label for="SpecialInstructions">Special Instructions</label>
+                <textarea name="SpecialInstructions" id="SpecialInstructions"></textarea>
+            </div>
+        </fieldset>
+        <div class="field formControls">
+            <button class="button" id="placeOrder">Place Order</button>
+        </div>
+    }
+    *@</form>
+    <script src="/_js/shared/quick-purchase.js"></script>
+
+</div>

@@ -1,0 +1,134 @@
+
+/* styles common to stylelibrary and contracts */
+
+/* filters */
+.hideAdvancedFilters, .revealAdvancedFilters{
+  display: none;
+  margin:5px 0;
+}
+a.button.clearAllFilters {
+    margin-top:20px;
+}
+
+
+// NEW STYLE GUIDELINES 2017
+
+// Convert illustrator, indesign and photoshop tracking into letter spacing.
+
+@function tracking( $target ){
+  @return ($target / 1000) * 1em;
+}
+
+@mixin tracking( $target ){
+  letter-spacing: tracking( $target );
+}
+
+
+// ---------------- Fonts ----------------
+
+h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase;   
+}
+h1 {
+    font-family: ProximaNovaA-Bold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    color:$scorpion;
+    font-size: $font-large;
+    @include tracking(100);
+}
+h2 {
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    color:$scorpion;
+    font-size: $font-large;
+    @include tracking(100);
+}
+h3, h5, h6 {
+    font-family: ProximaNovaA-Semibold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    color:$scorpion;
+    font-size: $font-base;  
+    @include tracking(30);
+}
+h4 {
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    color:$scorpion;
+    font-size: $font-base;  
+    @include tracking(30);
+    margin-top: 15px;
+    margin-bottom: -5px;
+}
+
+
+body, p, .bodyfont {
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    /*color:$scorpion;*/
+    font-size: $font-base; 
+    @include tracking(30);
+}
+.italic {
+    font-style: italic;
+    font-family: ProximaNovaA-LightIt, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+}
+.bold { 
+    font-weight: bold;
+    font-family: ProximaNovaA-Semibold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+}
+a, .toggleColours {
+    text-decoration: none;
+}
+p a {
+    text-decoration: underline;
+}
+body,p {
+    color:black;
+}
+
+li {
+    font-size:$font-size-medium; 
+}
+
+// ------------------- dopplegangers ---------
+
+.like-h1 { @extend h1; }
+.like-h2 { @extend h2; }
+.like-h3 { @extend h3; }
+
+// -------------------- Buttons --------------
+
+.primaryButton {
+    background-color: $scorpion;
+    color:#fff;
+
+    span:before {
+        color:$color-light3;
+    }
+}
+.actionButton {
+    background-color: $tacha;
+    color:#fff;
+}
+.secondButton {
+    background-color: #fff;
+    color: $scorpion;
+}
+.thirdButton {
+    border:1px solid $scorpion;
+    color: $scorpion;
+}
+
+
+// --------------------- Messages --------------
+
+.alert-box {
+    background-color: $seashell;
+}
+.alert-box.error {
+    background-color: #ed3125;
+}
+.alert-box.warning {
+    background-color: #f1be46;
+}
+.alert-box.success {
+    background-color: #a8bf72;
+}
+
+/* clearfix */
+.clearfix {clear:both;}

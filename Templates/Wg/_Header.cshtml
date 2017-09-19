@@ -1,0 +1,111 @@
+﻿@model string
+@using Colony.CMS
+@using Colony.Services
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@{
+    var useraccount = AuthorizationHelpers.GetLoggedInUser();
+}
+@{ Html.RenderPartial("_WgInitialiser.cshtml"); }
+
+<header>
+    <div class="darkenOverlayMenu"></div>
+    <div class="topNavWide">
+        <div class="topNav">
+            <div class="topNavInner">
+                <div class="topNavGroup left desktop">
+                    <a href="https://www.stylelibrarycontract.com/" target="_Blank">
+                        <div class="topNavItem">Contract Site</div>
+                    </a>
+                    <a href="#" class="toggleStockist">
+                        <div class="topNavItem">Find a Retailer</div>
+                    </a>
+                    <a href="/stockists" class="ipadStockists">
+                        <div class="topNavItem">Find a Retailer</div>
+                    </a>
+                    <a href="/contactus/">
+                        <div class="topNavItem">Contact Us</div>
+                    </a>
+                </div>
+                <div class="topNavGroup right">
+                    <div id="countrySelector">
+                        @{Html.RenderAction("CountriesSelector", "Currencies", new { area = "Currencies" });}
+                    </div>
+                    @if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+                    {
+
+                        <div class="account" id="customerName">
+                            <a href="#" class="global-util-item">
+                                <div class="topNavItemInner">
+                                <span class="topNavItem fa-user global-util-label triggerAccount">Change Customer</span>
+                                    </div>
+                            </a>
+                        </div>
+                        <div class="topNavItem fa-shopping-bag"><a href="/b2b-members/webtex/basketsummary/">Basket</a></div>
+                    }
+                    else if (useraccount != null)
+                    {                              
+                        <a href="/members/login/">
+                            <div class="topNavItem fa-user triggerAccount">@useraccount.FirstName</div>
+                        </a>
+                        <div class="topNavItem triggerBasket">
+                            <div class="topNavItemInner fa-shopping-bag">
+                                Basket <span class="wgBasket-count"></span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="/members/login/">
+                            <div class="topNavItem fa-user triggerAccount">Account</div>
+                        </a>
+                        <div class="topNavItem triggerBasket">
+                            <div class="topNavItemInner fa-shopping-bag">Basket <span class="wgBasket-count"></span>
+                                </div>
+                            </div>
+                    }
+                   
+                    <div class="topNavItem triggerSearch mobile">
+                        <div class="topNavItemInner fa-search">Search</div>
+                    </div>
+                    <div class="topNavItem searchNav">
+                        <div class="inputButtonSplit siteSearch">
+                            <form action="/search/" class="" method="post">
+                                <input type="text" name="keywords" id="searchPanelKeywords" autocomplete="off" placeholder="Search..." />
+                                <button class="primaryButton fa-search"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="topNavItem fa-times closeSearch"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainNavWide">
+        <div class="mainNav">
+            <div class="mainNavInner">
+                <div class="siteLogo">
+                    <div class="siteLogoInner">
+                        <a href="/">
+                            <img src="~/_images/brands/wg/logos/StyleLibrary.png" />
+                        </a>
+                    </div>
+                </div>
+                <div class="trigger triggerMenu fa-bars"></div>
+                <!-- <div class="trigger triggerSearch right fa-search"></div> -->
+                <div class="menu-container">
+                    <div class="menu-wrapper" role="navigation">
+                        @{
+                            Html.RenderPartial("_SiteNavigation.cshtml");
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+    var sitekey = '@Model';
+    $(document).ready(function() {
+        getMiniBasketPartial();
+    });
+</script>

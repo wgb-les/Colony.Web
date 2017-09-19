@@ -1,0 +1,75 @@
+﻿@model Colony.Modules.Blog.Areas.Models.CategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.WindowTitle ?? Model.Category.Name);
+    Html.AppendMetaKeywords(Model.Category.MetaKeywords);
+    Html.SetMetaDescription(Model.Category.MetaDescription);
+}
+<div id="container" role="main" class="col-1">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <header class="pageHeader">
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(Model.Category.LongDescription)
+        </header>
+        @if (Model.BlogCategories.Any())
+        {
+            <section class="categorySection blogs">
+                <h2>Categories</h2>
+                <ul class="categoryList">
+
+                    @foreach (var cat in Model.BlogCategories)
+                    {
+                        <li>
+                            <article>
+                                <a href="@Url.SanitiseUrl("blogs", cat.Uri)" class="thumbnail">
+                                    <img src="@Url.ImageUrl(cat.ImageAssetId, "Blogs", "CategoryThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@cat.Name"/>
+                                </a>
+                                <div class="details">
+                                    <h3>
+                                        <a href="@Url.SanitiseUrl("blogs", cat.Uri)">@cat.Name</a>
+                                    </h3>
+                                    <p>@cat.ShortDescription</p>
+                                </div>
+                            </article>
+                        </li>
+                    }
+                </ul>
+            </section>
+            <!-- categoryList -->
+        }
+        @if (Model.BlogPosts.Any())
+        {
+            <section class="moduleSection">
+                <h2>Blogs</h2>
+                @{ Html.RenderPartial("_BlogPostList", Model.BlogPosts); }
+            </section>
+        }
+        else
+        {
+            <div class="alertInfo message">
+                <strong class="icon"></strong>There are no blogs in this category
+            </div>
+        }
+    </div>
+    @if (Model.Tags.Any())
+    {
+        <aside class="sideCol rightCol">
+            <section class="boxSection tagList">
+                <header class="header">
+                    <h2 class="icon-tag">Tags</h2>
+                </header>
+                <div class="bd">
+                    <ul>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <li>
+                                <a href="/blogs/bytag/@tag" class="button">@tag</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </section>
+
+        </aside>
+    }
+</div>

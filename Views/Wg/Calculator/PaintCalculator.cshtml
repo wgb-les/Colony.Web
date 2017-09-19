@@ -1,0 +1,248 @@
+﻿@model Colony.Models.Core.WGModels.WgViewModels.Calculator.PaintCalculatorViewModel
+
+<!DOCTYPE html>
+<link href="~/_css/brands/wg/Calculator/Calculator.css" rel="stylesheet" />
+
+<h2 class="pageTitle">Paint Calculator</h2>
+<section class="contentContainer container-flex">
+   @using (Html.BeginForm()) { 
+        <fieldset class="row">
+            <p>Please select units of measurement:</p>
+            <div class="form-group unit-selection">
+
+                <div>
+                    <input name="units" id="input-metres" type="radio" value="metres" checked="checked" />
+                    <label class="radio " for="input-metres"> Metres </label>
+                </div>
+
+                <div>
+                    <input name="units" id="input-feet" type="radio" value="feet" />
+                    <label class="radio " for="input-feet">Feet and Inches</label>
+                </div>
+
+                <div>
+                    <input name="units" id="input-inches" type="radio" value="inches" />
+                    <label class="radio " for="input-inches">Inches</label>
+                </div>
+            </div>
+
+            <div id="wall-group">
+            </div>
+            <button id="add-row-btn" class="primaryButton button-holder"><span class="fa fa-plus" aria-hidden="true"></span>Add another wall</button>
+            <div class="form-group dropdown-holder">
+                <div id="suface-selector" class="paint-calc-select-holder">
+                    @*@Html.DropDownListFor(e => e.Surfaces, Model.SelectedSurfaces,new { id = "surface-selector-id"})*@
+                    @Html.DropDownListFor(e => e.SelectedSurface, Model.Surfaces, new { id = "surface-selector-id" })
+                </div>
+                <div id="finish-selector" class="paint-calc-select-holder">
+                    @Html.DropDownListFor(e => e.SelectedFinish, Model.Finishes, new { id = "finish-selector-id" })
+                </div>
+                <div id="coats-selector" class="paint-calc-select-holder">
+                    @Html.DropDownListFor(e => e.SelectedCoats, Model.Coats, new { id = "coats-selector-id" })
+                </div>
+            </div>
+            <div class="button-holder">
+            <button id="calculate-paint-btn" class="actionButton" type="submit"><span class="fa fa-calculator" aria-hidden="true"></span>Calculate Litres</button>
+            <button id="reset-btn" class="secondaryButton"><span class="fa fa-refresh" aria-hidden="true"></span>Reset</button>
+            </div>
+        </fieldset>
+   }
+
+</section>
+<section id="result">
+    <div id="roll-result">
+        <p>*You will need approximately <actual>0 litres</actual> rounded upto <approx>0 litres</approx>
+        </p>
+    </div>
+    <div id="disclaimer">
+        <p>*This is an approximation only. Style Library advise that you should always consult your decorator before ordering paint and as a result we cannot be held resposible for any wrongly ordered paint from using this calculator.</p>
+    </div>
+</section>
+<hr/>
+<section class="contentContainer">
+        <table class="paint-usage-table">
+            <thead>
+                <tr>
+                    <th>
+                        Usage
+                    </th>
+                    <th>
+                        Matt Emulsion
+                    </th>
+                    <th>
+                        Active Emulsion / Elite Emulsion
+                    </th>
+                    <th>
+                        Water-based Eggshell / Acrylic
+                    </th>
+                    <th>
+                        Eggshell / Oil / Gloss
+                    </th>
+                    </tr>
+            </thead>
+            <tbody>
+            <tr class="section-start">
+                <td><b>Interiors</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Walls</td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Ceilings</td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Woodwork</td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+            <tr class="section-end">
+                <td>Metals (primed)</td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr class="section-start">
+                <td><b>Kitchens</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Walls</td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Woodwork</td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+            <tr class="section-end">
+                <td>Metals (primed)</td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr class="section-start">
+                <td><b>Bathrooms</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Walls</td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Woodwork</td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+            <tr class="section-end">
+                <td>Metals (primed)</td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr class="section-start">
+                <td><b>Exteriors</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Woodwork</td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+            <tr class="section-end">
+                <td>Metals (primed)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr class="section-start">
+                <td><b>Coverage</b> (up to)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+                <tr class="section-end">
+                    <td>m<sup>2</sup></td>
+                    <td>14</td>
+                    <td>12</td>
+                    <td>14</td>
+                    <td>16</td>
+                </tr>
+            <tr class="section-start">
+                <td><b>Drying time</b> (hours)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1-2</td>
+                <td>1-2</td>
+                <td>1-2</td>
+                <td>4</td>
+            </tr>
+                <tr class="section-end">
+                    <td>recoat</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>12-16</td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr >
+                <td colspan="5" class="foot"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>Recommended</td>
+            </tr>
+                <tr >
+                    <td colspan="5" class="foot"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>Highly Recommended</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+<script src="~/_js/brands/wg/Calculator/PaintCalculator.js"></script>

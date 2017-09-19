@@ -1,0 +1,126 @@
+﻿@using Colony.CMS
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.BasketViewModel
+@if (ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+{
+    
+    //todo styles placed here temporarily for Stephen to review
+    <style>
+        .blockOverlay {
+            background-color: rgb(0, 0, 0) ;
+            background-color: rgba(0, 0, 0, .3) !important;
+        }
+
+        .blockMsg {
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, .8)!important;
+            width: 80% !important;
+                font-size: 2em !important;
+        }
+    </style>
+
+
+
+    <div class="darkenLevel"></div>
+    <div class="hideModal closeModal fa-times" id="closeBasket"></div>
+    <h1 class="modalTitle">Basket</h1>
+    <div class="">
+
+        @if (Model.BasketLines.Count > 0)
+        {
+
+            <div id="basketMessage" class="message success fa-times-after" style="display: none;">
+                Your basket has been updated
+            </div>
+            <div class="">
+                @*    @using (Html.BeginForm("MiniBasket", "Basket",, new {returnUrl = Request.UrlReferrer.AbsoluteUri}, FormMethod.Post, null))*@
+                @using (Html.BeginForm("MiniBasket", "Basket", FormMethod.Post, null))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="basketProductContainer">
+                        @Html.Partial("_MiniBasketLines", Model.BasketLines)
+                        @*<button id="miniBasketUpdate" class="primaryButton wideButton" name="Command" value="Update">Update Basket</button>*@
+                    </div>
+                    <div class="basketTotal">
+                        <span>Grand Total</span>
+                        <span id="totalValue">@(Model.TotalInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.TotalInc.ToString("#0.00") : "FREE")</span>
+                    </div>
+                }
+
+            </div>
+            <div class="basketButtons">
+                <a class="buttonWrap hideModal" href="#">
+                    <button  class="primaryButton fa-long-arrow-left back-out">Back</button>
+                </a>
+                <a class="buttonWrap" href="/basket/summary">
+                    <button class="actionButton fa-long-arrow-right-after">Checkout</button>
+                </a>
+            </div>
+
+        }
+        else
+        {
+            <div class="message warning fa-times-after">
+                There are no items in your basket.
+            </div>
+        }
+        <div class="message neutral">
+            Sample Delivery is charged at &pound;3.00, up to and including the first 4 samples per order. For additional samples, delivery is charged at &pound;0.75 each.
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="miniBasket b2c">
+        @if (Model.BasketLines.Count > 0)
+        {
+            <div id="basketMessage" class="alertInfo confirmation" style="display: none;">
+                Your basket has been updated
+            </div>
+            <div class="contentForm">
+                @using (Html.BeginForm("MiniBasket", "Basket", new { returnUrl = Request.UrlReferrer.AbsoluteUri }, FormMethod.Post, null))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="items">
+                        @Html.Partial("_MiniBasketLines", Model.BasketLines)
+                    </div>
+                    <div class="items">
+                        <fieldset style="float: right;">
+                            <legend>Total</legend>
+                            <h2 style="display: inline;">
+                                <a id="total">Total:</a>
+                            </h2>
+                            <p class="price">@(Model.TotalInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.TotalInc.ToString("#0.00") : "FREE")</p>
+                        </fieldset>
+                    </div>
+                    <div class="field formControls">
+                        <button id="miniBasketUpdate" class="button left" name="Command" value="Update">
+                            <span>Update Basket</span>
+                        </button>
+                        <button id="miniBasketCheckout" class="button" name="Command" value="GoToCheckout">
+                            <span>Go to Basket</span>
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alertInfo message">
+                There are no items in your basket.
+            </div>
+        }
+        <div class="row delivery-info">
+            <div class="column large-12">
+                <p class="quick-purchase-cta">
+                    <span class="icon-shopping-cart icon-2x"></span><a href="/shop/quick-order/">Order samples by product code using Quick Order</a>
+                </p>
+                <hr />
+                @Html.Partial("~/Templates/_deliveryInfo.cshtml", Model)
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery.blockUI.js"></script>

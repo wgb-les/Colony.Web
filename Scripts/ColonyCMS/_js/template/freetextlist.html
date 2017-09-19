@@ -1,0 +1,15 @@
+﻿<style type="text/css">
+    .text input[type=text].colony-freetext-multi-input { float: left; width: 80%; margin-right: 10px; }
+    .colony-freetext-multi .removeItem { padding: 3px 8px 3px 8px; border-radius: 8px; }
+    .colony-freetext-multi .removeItem:hover { background-color: #2ba6cb; border-color: #2284a1; color: #ffffff; }
+</style>
+<div class="field text colony-freetext-multi">
+    <label for="<%=componentId%>"><%=labelhelper()%></label>
+    <%=helpTextHelper()%>
+    <input type="text" name="colony-freetext-multi-input-<%=componentId%>" class="colony-freetext-multi-input" />
+    <input type="hidden" name="<%=componentId%>" class="colony-freetext-multi-input" />
+    <a class="button addItem icon-plus"><span>Add</span></a>
+    <ul class="colony-freetext-multi-list">
+
+    </ul>
+</div>

@@ -1,0 +1,50 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.GuestLoginInputViewModel
+@{
+    ViewBag.Title = "Login or Continue as a guest";
+}
+<div id="container">
+    <div id="content">
+        <header class="pageHeader">
+            <h2>Login or Continue as a guest</h2>
+        </header>
+
+        <div class="contentForm">
+            @using (Html.BeginForm("Login", "Guest", new {area = "Members", ViewBag.ReturnUrl}, FormMethod.Post))
+            {
+                <fieldset>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    @Html.EditorFor(model => model.Email)
+
+                    <fieldset class="optionList short">
+                        <legend>Member or Guest</legend>
+                        @Html.ValidationMessageFor(m => m.Member)
+                        <ul>
+                            <li>
+                                @Html.RadioButtonFor(model => model.Member, true, new {id = "Member_Yes"})
+                                <label for="Member_Yes">
+                                    <span>I am a member and will sign in</span></label>
+                            </li>
+                            <li>
+                                @Html.RadioButtonFor(model => model.Member, false, new {id = "Member_No"})
+                                <label for="Member_No">
+                                    <span>I will continue as a non-member</span></label>
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <div id="memberPassword" @if (Model.Member == null || Model.Member == false)
+                                             {
+                                                 <text>style="display: none;"</text>
+                                             }>
+                        @Html.EditorFor(model => model.Password)
+                    </div>
+                </fieldset>
+                <div class="field formControls">
+                    <button class="button">Continue</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

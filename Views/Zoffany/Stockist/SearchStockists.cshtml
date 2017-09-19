@@ -1,0 +1,21 @@
+@using Colony.CMS
+@model Colony.Commerce.Areas.Stockists.Models.StockistSearchViewModel
+<div id="whereToBuySearch">
+    <form id="stockistSearch" class="row" method="post">
+        <div id="PostcodeError" class="alertInfo error" style="display: none;">
+            Please enter a Postal / Zip code.
+        </div>
+        @{ Html.RenderPartial("_SearchFilters", Model); }
+    </form>
+    <div class="info row">
+        <div class="large-12 columns">
+        @if (ColonyContext.Current.CurrentSite.SiteKey.ToLowerInvariant() != "zoffany" || ColonyContext.Current.CurrentSite.SiteKey.ToLowerInvariant() != "sanderson"){
+                <p>
+                      Please be advised our paint stockists are able to offer expert advice on finishes, colours and application and order paint on a next day delivery service.  If you require to take the paint away with you on the same day, we recommend you contact the retailer in advance.
+                                        
+                </p>
+                }
+
+        </div>
+    </div>
+</div>

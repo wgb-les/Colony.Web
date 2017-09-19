@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Timeline";
+}
+<div id="content">
+    <div id="timeline-embed"></div>
+    <script type="text/javascript" src="@Url.Content("/_js/shared/storyjs-embed.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            createStoryJS({
+                type: 'timeline',
+                width: '100%',
+                height: '90%',
+                source: '/timeline/timeline/data',
+                embed_id: 'timeline-embed',
+                hash_bookmark: false,
+                css: '@Url.Content("~/_css/timeline_css/timeline.css")',
+                js: '@Url.Content("~/_js/timeline-min.js")'
+            });
+        });
+    </script>
+</div>

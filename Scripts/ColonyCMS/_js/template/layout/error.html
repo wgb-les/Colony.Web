@@ -1,0 +1,31 @@
+<div id="header" class="gradient-dark">
+	<a id="logo" href="#"><span></span></a>
+</div>
+<div id="statusBar" style="display: none;"></div>
+<nav id="nav" class="gradient-dark " role="navigation">
+	<ul id="main-nav" class="shadow">
+	</ul>
+</nav>
+<div id="container">
+	<div class="inner">
+		<% if (obj.status == 404) { %>
+		<div id="pageHeading"><h1>Page Not Found</h1></div>
+		<div id="content" class="">
+		   <p>The page you requested is not available.</p>
+		   <p>Please click here to <a href="/" role="nav-main">return to the dashboard</a></p>
+		</div>
+		<% } else {%>
+		<div id="pageHeading"><h1>Error</h1></div>
+		<div id="content" class="">
+			<p>There was an error loading the page you requested.</p>
+			<p>Please click here to <a href="/" role="nav-main">return to the dashboard</a></p>
+			<p>Details of the error are as follows:</p>
+			<div class="content contentForm">
+				<div class="field text">
+					<textarea readonly="readonly"><%= obj.responseText %></textarea>
+				</div>
+			</div>
+		</div>
+		<% } %>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model Colony.Modules.Events.Areas.Models.ListRootItemsViewModel
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+
+        <h1>Events</h1>
+        @{ Html.RenderPageSections(); }
+
+        @{ Html.RenderPartial("_CategoryList", Model.EventCategories); }
+
+        @{ Html.RenderPartial("_EventsList", Model.Events); }
+    </div>
+</div>

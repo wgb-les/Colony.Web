@@ -1,0 +1,41 @@
+﻿@model Colony.Modules.Events.Models.Event
+@{
+    Html.AppendTitle(Model.WindowTitle);
+    Html.SetMetaDescription(Model.MetaDescription);
+    Html.SetMetaKeywords(Model.MetaKeywords);
+}
+<div id="container" class="articleCol">
+@{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+<div id="content" class="">
+    <header class="pageHeader">
+        <h1>@Model.Name</h1>
+        <dl class="articleDetails">
+            <dt>Starts</dt>
+            <dd>
+                <time datetime="@Model.EventStart.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Model.EventStart.ToString("dd MMMM yyyy")</time>
+            </dd>
+            <dt>Ends</dt>
+            <dd>
+                <time datetime="@Model.EventEnd.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Model.EventEnd.ToString("dd MMMM yyyy")</time>
+            </dd>
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                <dt>Location</dt>
+                <dd>@Model.Location</dd>
+            }
+        </dl>
+    </header>
+    @if (Model.ImageAssetId.HasValue)
+    {
+        <img class="articleImage" src="@Url.ImageUrl(Model.ImageAssetId, "", "", "@/_images/placeholders/thumbnail.jpg")" alt="@Model.Name"/>
+    }
+    @Html.Raw(Model.LongDescription)
+
+    <div class="clear">
+
+        @if (Model.CommentsEnabled)
+        {
+            Html.RenderAction("Index", "Comments", new {area = "Comments", dataObjectId = Model.Id, dataTypeName = Model.DataTypeName});
+        }
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<label for="<%=componentId%>"><%=labelhelper()%></label>
+<%=helpTextHelper()%>
+<div class="tagpickerSearch">
+	<select id="<%=componentId%>" name="<%=componentId%>" <%=validationClasses()%>>
+		<% if (value.length > 0) { %>
+		<% _.each(value.split(','), function(item) { %>
+			<option value="<%= item %>" class="selected"><%= item %></option>
+			<% console.log(item) %>
+		<% }); %>
+		<% } %>
+	</select>
+</div>

@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="control left">
+        <div class="pagination pagination-centered"><span>Showing page <%=page%> of <%=pageCount%></span>
+            <ul style="display: inline-block">
+                <li class="firstPage <%= (page === 1) ? 'disabled' : ''%>"><a href="#">&lt;&lt;</a></li>
+                <li class="prevPage <%= (page === 1) ? 'disabled' : ''%>"><a href="#">&lt;</a></li>
+                <% for (var i = Math.max(1, page - 4); i <= Math.min(pageCount, page + 4); i++) { %>
+                <li <%= (page === i) ? 'class="active"' : ''%>><a href="#" class="pageNumber" data-page="<%=i%>"><%=i%></a></li>
+                <% } %>
+                <li class="nextPage <%= (page === pageCount) ? 'disabled' : ''%>"><a href="#">&gt;</a></li>
+                <li class="lastPage <%= (page === pageCount) ? 'disabled' : ''%>"><a href="#">&gt;&gt;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+

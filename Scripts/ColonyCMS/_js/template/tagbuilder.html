@@ -1,0 +1,18 @@
+<fieldset class="tagbuilder ">
+	<legend><%= labelhelper() %></legend>
+	<input type="hidden" class="collectionValues"/>
+	<div class="tagbuilderInput" id="tagbuilderInput_tags">
+	<div class="field text ">
+		<label for=""><%= labelhelper() %></label>
+        <%=helpTextHelper()%>
+		<input type="text" name="" id="" placeholder="" />
+	</div>
+	<button class="button" id="tagSubmit_tags"><span>Add</span></button>
+	</div>
+	<div class="tagbuilderOutput">
+		<div class="alertInfo message">
+			Type a new item in the box above and click the add button to place it in the list below
+		</div>
+		<ul id="tagbuilderList_tags"></ul>
+	</div>
+</fieldset>

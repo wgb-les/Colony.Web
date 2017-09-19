@@ -1,0 +1,134 @@
+@using Colony.CMS
+@using Colony.Commerce
+@using Colony.Services
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@using System.Security.Claims
+@using Colony.Models.Core.Security
+@using Colony.Services.Security
+@{
+    var cp = User as ClaimsPrincipal;
+    var user = cp.GetForTenant(Constants.TenantTypes.ColonyCMSFrontend);
+    
+}
+@{
+    var useraccount = AuthorizationHelpers.GetLoggedInUser();
+}
+
+<style>
+    .modalTitle #customerName, .modalTitle .global-util-item, .modalTitle .global-util-label {
+        float: left;
+        margin: 0px 0px 10px 0px;
+        padding: 0;
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        width: 100%;
+        max-width: 100%;
+        white-space: inherit;
+        text-overflow: initial;
+        overflow: visible;
+
+    }
+    #list-box {
+        padding:10px 20px;
+    }
+     #list-box >li {
+         line-height:40px;
+     }
+      #list-box >li>a:before {
+          padding-right:5px;
+      }
+       #list-box >li>hr {
+           width: 100%;
+           border-color:#757575;
+           margin:0;
+       }
+</style>
+
+<div class="sideModal right miniBasket">
+    <div class="sideInnerContainer">
+    </div>
+</div>
+<div class="sideModal sideMenu">
+    <div class="sideInnerContainer">
+        <div class="hideModal closeModal fa-times" id="closeMenuModal"></div>
+        @{
+            Html.RenderPartial("_SiteNavigation.cshtml");
+        }
+    </div>
+</div>
+<div class="sideModal right accountPanel">
+    <div class="sideInnerContainer">
+        <div class="darkenLevel"></div>
+        <div class="hideModal closeModal fa-times" id="closeAccountModal"></div>
+        @if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+        {
+
+
+            <h1 class="modalTitle">
+                <li class="account" id="customerNameModal">
+                    <a href="#" class="global-util-item">
+                        <span class="topNavItem fa-user global-util-label triggerAccount"></span>
+                    </a>
+                </li>
+            </h1>
+            <ul id="list-box">
+                <li>
+                    <hr />
+                    <a href="@Url.Action("Index", "Webtex", new {area = "B2BMembers"})" class="listing fa-dashboard">
+                        Trade Area
+                    </a>
+                </li>
+                <li>
+                    <hr />
+                    <a href="#" class="listing fa-group" id="b2bChangeCustomer">Change Customer</a>
+                  
+                </li>
+                <li>
+                    <hr />
+                    <a href="#" class="listing fa-sign-out" id="b2bLogout">Log off</a>
+                </li>
+            </ul>
+        }
+        else if (useraccount != null)
+        {
+            <h1 class="modalTitle fa-user">@useraccount.FirstName @useraccount.LastName</h1>
+            <div class="">
+                <div class="message neutral">
+                    Please select one of the following account types.
+                </div>
+                <a href="@Url.Action("Dashboard", "AccountArea", new { area = "AccountArea" })">
+                    <h2 class="fa-user">Dashboard</h2>
+                </a>
+                <a href="@Url.Action("Details", "AccountArea", new { area = "AccountArea" })">
+                    <h2 class="fa-home">Orders</h2>
+                </a>
+                <a href="@Url.Action("AddressBook", "AccountArea", new { area = "AccountArea" })">
+                    <h2 class="fa-home">Address Book</h2>
+                </a>
+                @using (Html.BeginForm("LogOut", "Authentication", new { area = "Members" }, FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    <a href="javascript:document.getElementById('logoutForm').submit()">
+                        <h2 class="fa-home">Log off</h2>
+                    </a>
+                }
+            </div>            
+        }
+        else
+        {
+
+            <span class="like-h1 modalTitle">Account Type</span>
+            <div class="">
+                <div class="message neutral">
+                    Please select one of the following account types.
+                </div>
+                <a href="/members/login">
+                    <h2 class="fa-user">Consumer</h2>
+                </a>
+                <a href="/trade-members/login">
+                    <h2 class="fa-home">Trade</h2>
+                </a>
+            </div>
+        }
+    </div>
+</div>

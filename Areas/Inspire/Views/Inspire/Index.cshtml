@@ -1,0 +1,81 @@
+﻿@model Colony.Web.Areas.Inspire.Models.InspireHomepageViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Inspire/Views/Shared/InspireTemplate.cshtml";
+}
+<div class="breadcrumbsContainer">
+    <ul>
+        <li class="fa-angle-right">
+            <a href="/">Home</a>
+        </li>
+        <li class="fa-angle-right">
+            Inspire
+        </li>
+    </ul>
+</div>
+<div style="clear:both;"></div>
+<div class="row">
+    <div class="large-12 columns">
+        <div id="ModalHolder" name="ModalHolder" style="display:none"></div>
+        <div class="inspire-header">
+            <div class="row">
+                <div class="large-offset-2 large-8 columns">
+                    <div id="inspire-search">
+                        @*<div class="inspire-header-top">
+                            <h1>Inspire</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>*@
+                        <div class="inspire-header-bottom">
+                            <h1>Be Inspired</h1>
+                            <form id="InspireSearchFilter" name="InspireSearchFilter">
+                                <div id="InspireFilterHolder" name="InspireFilterHolder">
+
+                                    <div class="inspireSearchHolder">
+                                        <input type="text" name="InspireWordSearch" id="InspireWordSearch" width="50" placeholder="Inspire me.." />
+                                        <button class="fa fa-search" value="Search" id="keywordFilter" class="actionButton" onclick="filterArticles('keyword')"></button>
+                                        <button class="fa fa-refresh" value="Clear" id="clearfilter" class="clearButton" onclick="filterArticles('clear')"></button> 
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    @*<h2>Or discover inspriring content by</h2>*@
+                                    <div classs="inspire-filters">
+                                        <input type="button" value="The Edit" id="theeditfilter" class="InspireButton @(Model.InspireFilters.isTheEdit ? "InspireButtonSelected" : "")" onclick="filterArticles('theedit')" />
+<input type="button" value="Advice" id="advicefilter" class="InspireButton @(Model.InspireFilters.isAdvice ? "InspireButtonSelected" : "")" onclick="filterArticles('advice')" />
+                                        @*<input type="button" value="Room" id="roomsfilter" class="InspireButton" onclick="filterArticles('rooms')" />
+    <input type="button" value="Our Picks" id="ourpicksfilter" class="InspireButton" onclick="filterArticles('ourpicks')" />*@
+                                        <input type="button" value="Videos" id="videofilter" class="InspireButton @(Model.InspireFilters.isVideo ? "InspireButtonSelected" : "")" onclick="filterArticles('video')" />
+                                        @*<input type="button" value="LookBook" id="lookbookfilter" class="InspireButton" onclick="filterArticles('lookbook')" />*@
+                                        <input type="button"  value="UGC" id="ugcfilter" class="InspireButton @(Model.InspireFilters.isUserContent ? "InspireButtonSelected" : "")" onclick="filterArticles('ugc')" />
+                                    </div>
+                                    <input type="hidden" name="pageNumber" id="pageNumber" value="1" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div id="InspireSearchbar">
+            <span>SHOWING <label id="resultcount" name="resultcount" style="float: none !important;">@Model.InspireArticles.Count()</label> RESULTS</span>
+        </div>
+    </div>
+</div>
+
+<div id="inspire-results" class="row">
+    <div class="large-12 columns">
+        <div id="InspireSearchResultsHolder" name="InspireSearchResultsHolder">
+            @{
+                if (Model.InspireArticles.Count() > 0)
+                {
+                    Html.RenderPartial("~/Areas/Inspire/Views/Inspire/_InspireSearchResults.cshtml", Model.InspireArticles);
+                }
+
+            }
+        </div>
+    </div>             
+</div>
+

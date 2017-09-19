@@ -1,0 +1,148 @@
+
+/*******************************************************/
+//            use this file for css tests
+/*******************************************************/
+
+
+
+/******************* slideshow img srcset test ***************/
+/*  test change slideshow images to foreground images for img srcset switching on Anthology brand page */
+@media
+only screen and (max-width:615px) { 
+    .sliderSlide.slick-slide img {
+        object-fit:cover;
+        min-height:300px;
+    }
+}
+@media
+only screen and (min-width:615px) { 
+    .sliderSlide.slick-slide img {
+        object-fit:cover;
+        min-height:500px;
+    }
+}
+
+
+/************ slideshow media query test **********/
+/* test switch slideshow bg imges dep on media queries on Zoffany brand page */
+
+/* smaller screens */
+@media
+only screen and (max-width:1000px) { 
+    .zoffany-slide1 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/compressed/mob/wallpaper-fabric-damask-alchemy-of-colour-villandry-zoffany-style-library.jpg');
+    }
+    .zoffany-slide2 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/compressed/mob/wallpaper-ruby-damask-alchemy-of-colour-villandry-zoffany-style-library.jpg');
+    }
+    .zoffany-slide3 {
+         background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/compressed/mob/fabric-paint-blue-emerald-serpentine-zoffany-style-library.jpg');
+    }
+}
+
+/* larger screens */
+@media
+only screen and (min-width:1001px) { 
+    .zoffany-slide1 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Module/wallpaper-fabric-damask-alchemy-of-colour-villandry-zoffany-style-library.jpg');
+    }
+    .zoffany-slide2 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Module/wallpaper-ruby-damask-alchemy-of-colour-villandry-zoffany-style-library.jpg');
+    }
+    .zoffany-slide3 {
+         background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/NSL/Module/fabric-paint-blue-emerald-serpentine-zoffany-style-library.jpg');
+    }
+}
+ 
+/* retina */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) { 
+  
+  /* Retina-specific stuff here */
+
+}
+
+/********************************************************************************************/
+
+
+
+/*             brand logos image sprite test            */
+
+// brand logos sprite test
+
+	/*.brandBlock.zof .brandBlockInner {
+		background:url('../../_images/brands/wg/logos/brandlogos-sprite.gif') no-repeat 50% 0px;
+        background-size:180px;
+        height:27px;
+	}
+	.brandBlock.har .brandBlockInner {
+		background:url('../../_images/brands/wg/logos/brandlogos-sprite.gif') no-repeat 50% -28px;
+        background-size: 200px;                                         
+        height:30px;                                                    
+	}                                                                   
+    .brandBlock.san .brandBlockInner {                                  
+		background:url('../../_images/brands/wg/logos/brandlogos-sprite.gif') no-repeat 50% -65px;
+        background-size: 200px;                                         
+        height:30px;                                                    
+	}                                                                   
+    .brandBlock.mor .brandBlockInner {                                  
+		background:url('../../_images/brands/wg/logos/brandlogos-sprite.gif') no-repeat 50% -98px;
+        background-size: 200px;                                         
+        height:30px;                                                    
+	}                                                                   
+    .brandBlock.sci .brandBlockInner {                                  
+		background:url('../../_images/brands/wg/logos/brandlogos-sprite.gif') no-repeat 50% -110px;
+        background-size: 170px;                                         
+        height:38px;                                                    
+	}                                                                   
+    .brandBlock.ant .brandBlockInner {                                  
+		background:url('../../_images/brands/wg/logos/brandlogos-sprite.gif') no-repeat 50% -164px;
+        background-size: 190px;
+        height:25px;
+	}*/
+
+ /* smaller screens */
+
+/*@media only screen 
+  and (max-device-width: 667px) 
+
+	.brandBlock.zof .brandBlockInner {
+        background-position: 50% 10px;
+        height:40px;
+        background-repeat:no-repeat;
+	}
+	.brandBlock.har .brandBlockInner {
+        background-position: 50% -32px;
+        height:30px;
+        background-repeat:no-repeat;
+        margin-top:15px
+	}
+    .brandBlock.san .brandBlockInner {
+        background-position: 50% -60px;
+        height:40px;
+        background-repeat:no-repeat;
+	}
+    .brandBlock.mor .brandBlockInner {
+        background-position: 50% -100px;
+        height:30px;
+        background-repeat:no-repeat;
+        margin-top:10px
+	}
+    .brandBlock.sci .brandBlockInner {
+        background-position: 50% -108px;
+        height:40px;
+        background-repeat:no-repeat;
+	}
+    .brandBlock.ant .brandBlockInner {
+        background-position: 50% -167px;
+        height:30px;
+        background-repeat:no-repeat;
+        margin-top:15px;
+	}
+
+}*/

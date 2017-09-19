@@ -1,0 +1,81 @@
+﻿@model Colony.Modules.Careers.Areas.Models.JobApplicationViewModel
+@{
+    ViewBag.Title = "Job Application - " + Model.Job.Name;
+}
+<div id="container" class="articleCol">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div class="" id="content">
+        @if (ViewBag.ApplicationSuccessful)
+        {
+            <h1>Thank you</h1>
+
+            <p>Your application has been successfully submitted.</p>
+        }
+        else
+        {
+            <header class="pageHeader">
+                <h1>Apply - @Model.Job.Name</h1>
+                <dl class="articleDetails">
+                    @if (!string.IsNullOrWhiteSpace(Model.Job.Salary))
+                    {
+                        if (Model.Job.Salary.IsNumeric())
+                        {
+                            <dd>&pound;@string.Format("{0:0,0}", Model.Job.Salary.AsDecimal(0))</dd>
+                        }
+                        else
+                        {
+                            <dd>@Model.Job.Salary</dd>
+                        }
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.Job.Location))
+                    {
+                        <dt>Location</dt>
+                        <dd>@Model.Job.Location</dd>
+                    }
+                    @if (Model.Job.Deadline != null)
+                    {
+                        <dt>Deadline</dt>
+                        <dd>
+                            <time pubdate datetime="@Model.Job.Deadline.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Model.Job.Deadline.Value.ToString("dd MMMM yyyy")</time>
+                        </dd>
+                    }
+                </dl>
+            </header>
+            <p>
+                @Model.Job.ShortDescription
+            </p>
+
+
+            <div class="contentForm">
+                <form action="@Url.Action("Apply", "Jobs", new {area = "Careers", @Model.JobId})" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <legend>Apply Now</legend>
+                        <h2>Apply Now</h2>
+
+                        @Html.EditorFor(model => model.Title, new {size = "medium"})
+                        @Html.EditorFor(model => model.FirstName)
+                        @Html.EditorFor(model => model.LastName)
+                        @Html.EditorFor(model => model.EmailAddress)
+                        @Html.EditorFor(model => model.Line1)
+                        @Html.EditorFor(model => model.Line2)
+                        @Html.EditorFor(model => model.Town)
+                        @Html.EditorFor(model => model.County)
+                        @Html.EditorFor(model => model.Postcode)
+                        @Html.EditorFor(model => model.CountryISO3, new {options = Model.CountiresList})
+
+                        @Html.EditorFor(model => model.TelephoneNumber, new {size = "medium"})
+                        @Html.EditorFor(model => model.Mobile, new {size = "medium"})
+                        @Html.EditorFor(model => model.CV)
+                        @Html.EditorFor(model => model.Comments)
+
+                        @Html.HiddenFor(model => model.JobId)
+                        <div class="field formControls">
+                            <button class="button">Submit application</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        }
+    </div>
+</div>

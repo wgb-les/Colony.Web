@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Password Changed";
+}
+<div id="content">
+    <h1>Password Changed</h1>
+    <p>
+        Your password has been changed.
+        You can now login @Html.ActionLink("here", "Login", "Authentication", new {area = "Members"}, null).
+    </p>
+</div>

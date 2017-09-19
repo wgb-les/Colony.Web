@@ -1,0 +1,71 @@
+﻿@using Colony.CMS
+@model Colony.CMS.Areas.Members.ViewModels.RegisterInputViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<script type="text/javascript">
+    $('#container').addClass('medium');
+</script>
+<div id="content">
+    @if (ViewBag.FromNewsLetter)
+        {
+    <section id="default-container">
+        <div id="default-inner" style="border-color:inherit">
+            <div style="padding:20px;">
+                <h2>
+                    <dark>Thank you,  your email has been saved. </dark>
+                </h2>
+                <h3><light>You may wish to register for an account below to make checkout faster.</light></h3>
+            </div>
+        </div>
+    </section>
+    }
+    <h1>@ViewBag.Title</h1>
+    <hr/>
+
+    <div class="contentForm">
+        @using (Html.BeginForm("Register", "Register", new {area = "Members", returnUrl = ViewBag.ReturnUrl}, FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+            @Html.CustomValidationSummary(true)
+            <fieldset>
+
+                <legend>Or register via @ColonyContext.Current.CurrentSite.Name</legend>
+                @*<h2>Or register via @ColonyContext.Current.CurrentSite.Name</h2>*@
+                @Html.EditorFor(m => m.Person.Title, new {size = "medium"})
+                @Html.EditorFor(m => m.Person.FirstName, new {size = "medium"})
+                @Html.EditorFor(m => m.Person.LastName, new {size = "medium"})
+                @Html.EditorFor(m => m.Person.Email, new {size = "medium"})
+                @if (!ViewBag.FromNewsLetter)
+                {
+                    @Html.EditorFor(m => m.Person.DateofBirth, new {size = "medium"})
+                    @Html.EditorFor(m => m.Person.TwitterHandle, new {size = "medium"})
+                }
+                @Html.EditorFor(m => m.Password, new {size = "medium"})
+                @Html.EditorFor(m => m.ConfirmPassword, new {size = "medium"})
+               
+                @if (!ViewBag.FromNewsLetter)
+                {
+                    @Html.EditorFor(m => m.Person.AllowMarketing, new {labelText = "I'm happy to receive marketing/promotional material from " + ColonyContext.Current.CurrentSite.Name})
+                    @Html.EditorFor(m => m.Person.AllowThirdParty)
+                    @Html.EditorFor(m => m.Person.Newsletter)
+                }
+                else
+                {
+                    @Html.HiddenFor(m => m.Person.AllowMarketing)
+                    ;
+                    @Html.HiddenFor(m => m.Person.AllowThirdParty)
+                    @Html.HiddenFor(m => m.Person.Newsletter)
+                }
+                @Html.EditorFor(m => m.AcceptTermsAndConditions, new {labelText = "<span>I accept <a href=\"/privacy-policy/\">Privacy Policy</a> and <a href=\"/privacy-policy/\">Cookie Policy</a></span>"})
+                @Html.Partial("_ReCaptcha")
+                <div class="field formControls">
+                    <button class="button pull-left">Submit</button>
+                </div>
+                <div class="clear"></div>
+                <hr/>
+                <a href="@Url.Action("Login", "Authentication", new {area = "Members", returnUrl = "/"})" class="icon-double-angle-left pu">Go Back</a>
+            </fieldset>
+        }
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@using Colony.Models.Core
+@{
+    IList<BreadcrumbItem> Breadcrumbs = Html.GetPageData().Breadcrumbs ?? ViewBag.Breadcrumbs ?? new List<BreadcrumbItem>();
+}
+@if (Breadcrumbs.Any())
+{
+    <div class="breadcrumbsContainer">
+        <ul>
+           <li class="fa-angle-right"><a href="/">Home</a></li>
+            @{
+    Breadcrumbs = Breadcrumbs.Reverse().ToList();
+            }
+            @for (var i = 0; i < Breadcrumbs.Count; i++)
+            {
+                var breadcrumbItem = Breadcrumbs[i];
+
+                if (i != Breadcrumbs.Count - 1)
+                {
+                    <li class="fa-angle-right">
+                        <a href="@breadcrumbItem.Url">@breadcrumbItem.Name</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="fa-angle-right">@breadcrumbItem.Name</li>
+                }
+            }
+        </ul>
+    </div>
+}

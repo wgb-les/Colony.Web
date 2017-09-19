@@ -1,0 +1,288 @@
+﻿/*--------------------------------------------- HOMEPAGE ---------------------------------------------*/
+
+/*header, .global-nav,  footer{
+  display:none;
+}*/
+
+#fp-nav {
+    position: fixed;
+    top: 50%;
+    left: 0px;
+    background: #fff;
+}
+
+.pagInner {
+    padding: 5px 0;
+}
+
+.pagItem {
+    padding: 5px 10px;
+}
+
+    .pagItem a {
+        width: 12px;
+        height: 12px;
+        background: #ccc;
+        display: block;
+        border-radius: 50%;
+    }
+
+        .pagItem a.active {
+            background: #003263;
+        }
+
+    .pagItem .fp-tooltip {
+        display: none;
+    }
+
+
+#fullpage {
+    width: 100%;
+    height: 100%;
+    position: absolute !important;
+    top: 0px;
+    left: 0px;
+}
+
+.homeSliderContainer {
+    width: 100%;
+    float: left;
+}
+
+.fullpageColumn {
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.fullpageBlockItem {
+    float: left;
+    background-repeat: no-repeat;
+    border: 2px solid #fff;
+    position: relative;
+}
+
+.fullLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.fullpageBlockItem .gridCaption {
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    display: none;
+    background: #fff;
+    font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+    padding: 15px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+/*---------------------------- SECTION 1 ----------------------------*/
+
+.column01 {
+    width: 64%;
+}
+
+.block01 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Wisteria-Falls-Sanderson-Wallpaper-Main-Landscape.png');
+    background-size: cover;
+    background-position: left bottom;
+}
+
+.column02 {
+    width: 36%;
+}
+
+.block02 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Waterperry-Sanderson-Boat-Fabric-Cushions.png');
+    background-size: cover;
+    background-position: left bottom;
+}
+
+/*---------------------------- SECTION 2 ----------------------------*/
+
+.column03 {
+    width: 30%;
+}
+
+.block03 {
+    width: 100%;
+    height: 39%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Paint-Sanderson-Waterperrry-Splodges.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.block04 {
+    width: 100%;
+    height: 61%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Bay-Willow-Paint-Portrait-New.png');
+    background-size: cover;
+    background-position: bottom;
+}
+
+.column04 {
+    width: 70%;
+}
+
+.block05 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Arley-Plains-Fabric-Landscape.png');
+    background-size: cover;
+    background-position: bottom;
+}
+
+/*---------------------------- SECTION 3 ----------------------------*/
+
+.column05 {
+    width: 60%;
+}
+
+.block06 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Chestnut-Tree-Wallpaper-Main-Landscape.png');
+    background-size: cover;
+    background-position: left bottom;
+}
+
+.column06 {
+    width: 40%;
+}
+
+.block07 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Fabric-Woodland-Advert-Portrait.png');
+    background-size: cover;
+    background-position: bottom;
+}
+
+/*---------------------------- SECTION 4 ----------------------------*/
+.column07 {
+    width: 100%;
+}
+
+.block08 {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/September16/Potton_Wood_Main_Landscape-xl.jpg');
+    background-size: cover;
+    background-position: left bottom;
+}
+
+
+
+/*---------------------------------------------------*/
+@media only screen and (max-width: 1024px) {
+    .fullpageBlockItem .gridCaption {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .section {
+        padding-top: 95px !important;
+    }
+
+
+
+    .column01, .column02 {
+        width: 100%;
+        height: 50%;
+    }
+
+    .block02 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Waterperry-Sanderson-Boat-Fabric-Cushions-Mobile.png');
+    }
+
+    .column03 {
+        width: 100%;
+        height: 30%;
+    }
+
+    .block04 {
+        background-position: 0px -220px;
+    }
+
+    .column03 .fullpageBlockItem {
+        width: 50%;
+        height: 100%;
+    }
+
+    .column04 {
+        width: 100%;
+        height: 70%;
+    }
+
+    .column05 {
+        width: 100%;
+        height: 50%;
+    }
+
+    .column07 {
+        width: 100%;
+        height: 100%;
+    }
+
+    .block06 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Fabric-Woodland-Advert-Portrait.png');
+        background-position: 0 -450px;
+    }
+
+    .column06 {
+        width: 100%;
+        height: 50%;
+    }
+
+    .block07 {
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/August%2016/Sanderson-Chestnut-Tree-Wallpaper-Main-Landscape.png');
+    }
+
+    .block08 {
+        width: 100%;
+        height: 100%;
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/September16/Potton_Wood_Main_Landscape-mob.jpg');
+        background-size: cover;
+        background-position: left bottom;
+    }
+
+        .block08 .text-overlay {
+            width: 50px;
+            height: 15px;
+        }
+}
+
+@media only screen and (max-width: 414px) {
+    .block04, .block06 {
+        background-position: bottom;
+    }
+    .block08 {
+        background-position:left bottom;
+    }
+    .block06 {
+        background-position: 0 80%;
+    }
+        /*.block08 {
+        width: 100%;
+        height: 100%;
+        background-image: url('https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/Sanderson%20Homepage/September16/ Potton_Wood_Main_Landscape-mobile.jpg');
+        background-size: cover;
+        background-position: bottom;
+    }*/
+
+        .block08 .text-overlay {
+            width: 50px;
+            height: 15px;
+        }
+}

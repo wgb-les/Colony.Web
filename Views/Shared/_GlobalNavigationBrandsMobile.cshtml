@@ -1,0 +1,24 @@
+﻿@model WalkerGreenbank.Modules.Homepage.Areas.ViewModels.GlobalNavigationBrandsViewModel
+<div id="brands" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Brands</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+
+
+        <ul class="logo-grid">
+            @foreach (var item in Model.Items)
+            {
+                <li>
+                    <div class="logo-thumb">
+                        <a href="//@item.Uri">
+                            <img src="@item.MobileLogoUri" alt="@item.Name"/>
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

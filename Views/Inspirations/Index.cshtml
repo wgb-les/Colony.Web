@@ -1,0 +1,103 @@
+﻿@model WalkerGreenbank.Modules.Inspirations.Areas.Models.InspirationIndexViewModel
+@{
+    ViewBag.Title = "Inspirations";
+}
+
+@if (Colony.CMS.ColonyContext.Current.CurrentSite.SiteKey != "Contracts")
+{
+    <div id="content">
+        <h1>Inspiration</h1>
+        @{ Html.RenderPageSections(); }
+        <div class="inspirationCategories productCollections collectionsPreview no-quick-view">
+            <div class="item @if (ViewBag.SelectedView == "bystyle")
+                         {
+                             <text>selected</text>
+                         }">
+                <a href="#byStyle" class="item">
+                    <img class="thumb" src="@Url.ImageUrl(Model.StylesCategory.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/article.jpg")" alt="" />
+                    <h3 class="itemTitle">Style</h3>
+                </a>
+            </div>
+            <div class="item @if (ViewBag.SelectedView == "byroom")
+                         {
+                             <text>selected</text>
+                         }">
+                <a href="#byRoom" class="item">
+                    <img class="thumb" src="@Url.ImageUrl(Model.RoomsCategory.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/article.jpg")" alt="" />
+                    <h3 class="itemTitle">Room</h3>
+                </a>
+            </div>
+            <div class="item @if (ViewBag.SelectedView == "bycolour")
+                         {
+                             <text>selected</text>
+                         }">
+                <a href="#byColour" class="item">
+                    <img class="thumb" src="@Url.ImageUrl(Model.ColoursCategory.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/article.jpg")" alt="" />
+                    <h3 class="itemTitle">Colour</h3>
+                </a>
+            </div>
+
+            <div id="byStyle" @if (ViewBag.SelectedView == "bystyle") { <text> style="height: auto" </text>  } else { <text> style="height: 0" </text>  }>
+                <section class="selectedItem">
+                    <div class="details">
+                        <h2>By Style</h2>
+                        @Html.Raw(Model.StylesCategory.LongDescription)
+                    </div>
+                    <ul class="inspirationList typeStyle">
+                        @foreach (var style in Model.Styles)
+                    {
+                            <li>
+                                <a href="@Url.Action("InspirationDetail", "Inspirations", new {area = "Inspirations", inspirationId = style.ID, uri = style.Name.ToFriendlyUrl()})">
+                                    <img src="@Url.ImageUrl(style.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/thumbnail.jpg")">
+                                    <span class="title">@style.Name</span>
+                                </a>
+                            </li>
+                    }
+                    </ul>
+                </section>
+            </div>
+            <div id="byRoom" @if (ViewBag.SelectedView == "byroom") { <text> style="height: auto" </text>  } else { <text> style="height: 0" </text>  }>
+                <section class="selectedItem">
+                    <div class="details">
+                        <h2>By Room</h2>
+                        @Html.Raw(Model.RoomsCategory.LongDescription)
+                    </div>
+                    <ul class="inspirationList typeStyle">
+                        @foreach (var room in Model.Rooms)
+                    {
+                            <li>
+                                <a href="@Url.Action("InspirationDetail", "Inspirations", new {area = "Inspirations", inspirationId = room.ID, uri = room.Name.ToFriendlyUrl()})">
+                                    <img src="@Url.ImageUrl(room.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/thumbnail.jpg")">
+                                    <span class="title">@room.Name</span>
+                                </a>
+                            </li>
+                    }
+                    </ul>
+                </section>
+            </div>
+            <div id="byColour" @if (ViewBag.SelectedView == "bycolour") { <text> style="height: auto" </text>  } else { <text> style="height: 0" </text>  }>
+                <section class="selectedItem">
+                    <div class="details">
+                        <h2>By Colour</h2>
+                        @Html.Raw(Model.ColoursCategory.LongDescription)
+                    </div>
+                    <ul class="inspirationList typeStyle">
+                        @foreach (var colour in Model.Colours)
+                    {
+                            <li>
+                                <a href="@Url.Action("InspirationDetail", "Inspirations", new {area = "Inspirations", inspirationId = colour.ID, uri = colour.Name.ToFriendlyUrl()})">
+                                    <img src="@Url.ImageUrl(colour.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/thumbnail.jpg")" alt="@colour.Name">
+                                    <span class="title">@colour.Name</span>
+                                </a>
+                            </li>
+                    }
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+     Html.RenderPartial("~/Views/Inspirations/_ContractInspirations.cshtml", Model);
+}

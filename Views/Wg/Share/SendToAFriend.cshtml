@@ -1,0 +1,23 @@
+﻿@model Colony.Web.Areas.Sharing.Models.SendToAFriendViewModel
+
+<div class="contentForm modal-inset" style="display: none;">
+    <div class="ajaxLoader"></div>
+    <p>Please wait while your message is sent</p>
+</div>
+<div class="contentForm modal-inset">
+    <form id="sendToAFriend" action="@Url.Action("SendToAFriend", "Share", new {area = "Sharing", shareUrl = Model.ShareUrl})" method="post">
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <legend>Send to a friend</legend>
+            <h2>Send to a friend</h2>
+
+            @Html.EditorFor(model => model.EmailFrom)
+            @Html.EditorFor(model => model.EmailTo)
+            @Html.EditorFor(model => model.Message)
+
+            <div class="field formControls">
+                <button class="button">Send</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

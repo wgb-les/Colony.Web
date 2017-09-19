@@ -1,0 +1,314 @@
+﻿@using Colony.Commerce
+@model IEnumerable<WalkerGreenbank.Modules.PressMembers.Mertex.BasketViewModel>
+@{
+    ViewBag.Title = "Basket";
+}
+
+
+<section class="wide" style="width:73%;">
+  <h1 style="padding:5px 0;">Basket</h1>
+
+
+@if (!Model.Any())
+{
+
+}
+else{
+  foreach (var basket in Model)
+  {
+    <div class="basket-summary">
+        <table class="basketTable">
+        <tbody>
+        <tr class="tableHeadings">
+            @*<th style="basketLineName-title">Product</th>*@
+            <th class="basketLineDetails-title">Product</th>
+            <th class="basketLinePrice-title">Price</th>
+            <th class="basketLineQuantity-title">Quantity</th>
+            <th class="basketLinePrice-title">Total</th>
+            <th class="basketLineRemove-title">Edit</th>
+            <th class="basketLineRemove-title">Remove</th>
+        </tr>
+
+    @foreach (var item in basket.BasketItems.Select((model, index) => new {index, model}))
+    {
+      <tr data-skuid="37784">
+            @*<td class="basketLineImage">
+                    <img src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/shoppurchase/imagedownloadthumbnail/  _zoom.jpg" alt="Amazilia">
+                </td>*@
+
+                    <td class="basketLineDetails">
+                <ul>
+                    <li><b>@item.model.Description</b></li>
+                    <li>Status: @item.model.Status</li>
+                    <li>Type: @(!string.IsNullOrEmpty(item.model.Sample_Indicator) ? "Sample Order" : "Sales Order")</li>
+                </ul>
+            </td>
+
+
+
+                    <td class="basketLinePrice basketTableItem">
+                @basket.CustomerCurrency @(decimal.Parse(item.model.Unit_Price).ToString("#0.00"))
+            </td>
+            <td class="basketLineQuantity basketTableItem">
+              @item.model.Quantity_Ordered @(string.IsNullOrEmpty(item.model.UNITSTOCK) ? "" : item.model.UNITSTOCK)
+            </td>
+                    <td class="basketLinePrice basketTableItem">
+                @basket.CustomerCurrency @((decimal.Parse(item.model.Unit_Price)*decimal.Parse(item.model.Quantity_Ordered)).ToString("#0.00"))
+            </td>
+            @if (!string.IsNullOrEmpty(item.model.Sample_Indicator))
+            {
+              <td class="basketTableOption edit">
+                  <a href="#" class="b2beditsamplebasket " data-linenumber="@item.model.Line_Number" data-customerref="@item.model.CUSREF">
+                      <div class="editBasketItem fa fa-pencil" data-skuid="37784"></div>
+                  </a>
+              </td>
+            }
+            else
+            {
+                    <td class="basketTableOption edit">
+                        <a href="#" class="b2beditbasket" data-linenumber="@item.model.Line_Number" data-customerref="@item.model.CUSREF">
+                            <div class="editBasketItem fa fa-pencil" data-skuid="37784"></div>
+                        </a>
+                    </td>
+            }
+
+            <td class="basketTableOption remove">
+                <a href="/b2b-members/webtex/basketcommand/?command=remove&customerRef=@item.model.CUSREF&lineNumber=@item.model.Line_Number&account=@item.model.MertexAccount&redirectUrl=@Request.Url.ToString()" class="remove">
+                    <div class="removeBasketItem fa fa-trash" data-sstyle="margin-top:45px;" kuid="37784"></div>
+                </a>
+            </td>
+
+    </tr>
+    }
+
+  </tbody>
+    </table>
+  </div>
+  }
+}
+</section>
+
+@if (Model.Any())
+{
+
+<section class="wide basketSection" >
+@using (Html.BeginForm("Index", "B2BCheckout", FormMethod.Get, new {@class = "basketTotals"}))
+{
+  <div class="sectionBox basketSummary">
+    <div class="sectionBoxInner">
+      <h2>Customers</h2>
+      <div class="form">
+      @foreach (var basket in Model)
+      {
+        <div class="section tickbox">
+            <input type="checkbox" id="SelectedCustomers_@basket.CustomerReference" name="SelectedCustomers" value="@basket.CustomerReference" checked="@if (Model.Count() == 1){<text>checked</text>}">
+            <label for="SelectedCustomers_@basket.CustomerReference" class="">
+                <span>
+                    @basket.CustomerName
+                </span>
+            </label>
+        </div>
+    }
+    </div>
+    </div>
+    </div>
+  <div class="sectionBox basketSummary">
+    <div class="sectionBoxInner">
+      <div class="specLine">
+        <span class="specItem"><b>Sub Total</b></span>
+        <span class="specItem">@Model.First().CustomerCurrency @(Model.Sum(t => t.BasketItems.Sum(v => decimal.Parse(v.Unit_Price)*decimal.Parse(v.Quantity_Ordered))).ToString("#0.00"))</span>
+      </div>
+      <div class="specLine">
+        <span class="specItem"><b>Delivery</b></span>
+        <span class="specItem">@Model.First().CustomerCurrency @(Model.Sum(t => t.DeliveryValueInc).ToString("#0.00"))</span>
+      </div>
+      <div class="specLine">
+        <span class="specItem"><b>Tax / VAT</b></span>
+        <span class="specItem">@Model.First().CustomerCurrency @(Model.Sum(t => t.Tax).ToString("#0.00"))</span>
+      </div>
+      <div class="specLine">
+        <span class="specItem"><b>Total</b></span>
+        <span class="specItem">@Model.First().CustomerCurrency @((Model.Sum(t => t.BasketItems.Sum(v => decimal.Parse(v.Unit_Price)*decimal.Parse(v.Quantity_Ordered))) + Model.Sum(x => x.Tax) + Model.Sum(t => t.DeliveryValueInc)).ToString("#0.00"))</span>
+      </div>
+      <p>All unit prices are exclusive of Tax / VAT</p>
+    </div>
+    <ul class="cardList">
+      <li>
+        <img src="/_images/icons/payment/maestro.png" alt="Maestro" />
+      </li>
+      <li>
+        <img src="/_images/icons/payment/mastercard.png" alt="Mastercard" />
+      </li>
+      @* @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+      {
+        <li>
+          <img src="/_images/icons/payment/amex.png" alt="American Express" />
+        </li>
+      } *@
+      <li>
+        <img src="/_images/icons/payment/paypal.png" alt="Paypal" />
+      </li>
+      <li>
+        <img src="/_images/icons/payment/visa.png" alt="Visa" />
+      </li>
+      <li>
+        <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron" />
+      </li>
+    </ul>
+    <a class="wideButton">
+      <button class="fa-lock actionButton">Go to Secure Checkout</button>
+    </a>
+  </div>
+  }
+</section>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+
+
+
+
+
+
+
+
+
+
+
+<div id="container" class="col-1">
+    <div id="content">
+        <header class="pageHeader">
+            <h1>Basket</h1>
+        </header>
+
+        @if (!Model.Any())
+        {
+            <div class="alertInfo message">
+                <strong class="icon"></strong>
+
+                There are no items in your basket.
+
+            </div>
+        }
+        else
+        {
+            foreach (var basket in Model)
+            {
+                <section class="boxSection basketSummary b2b">
+                    <div class="header">
+                        <h2>@basket.CustomerName (@basket.CustomerReference)</h2>
+                    </div>
+
+                    @foreach (var item in basket.BasketItems.Select((model, index) => new {index, model}))
+                    {
+                        <div class="basketItem">
+                            <div class="details">
+                                <h2>@item.model.Description</h2>
+                                <dl>
+                                    <dt>Status</dt><dd>@item.model.Status</dd>
+                                    <dt>Type</dt><dd>@(!string.IsNullOrEmpty(item.model.Sample_Indicator) ? "Sample Order" : "Sales Order")</dd>
+                                </dl>
+                            </div>
+                            <p class="value">
+                                <span>Item Price: </span>@basket.CustomerCurrency @(decimal.Parse(item.model.Unit_Price).ToString("#0.00"))
+                            </p>
+                            <p class="quantity">
+                                <span>Quantity: </span>@item.model.Quantity_Ordered @(string.IsNullOrEmpty(item.model.UNITSTOCK) ? "" : item.model.UNITSTOCK)
+                            </p>
+                            <p class="value">
+                                <span>Sub Total: </span>@basket.CustomerCurrency @((decimal.Parse(item.model.Unit_Price)*decimal.Parse(item.model.Quantity_Ordered)).ToString("#0.00"))
+                            </p>
+                            @if (!string.IsNullOrEmpty(item.model.Sample_Indicator))
+                            {
+                                <a href="#" class="button small b2beditsamplebasket" data-linenumber="@item.model.Line_Number" data-customerref="@item.model.CUSREF" data-invgroup="@item.model.Product_Code.Substring(0,4)">
+                                    <span>Edit</span></a>
+                            }
+                            else
+                            {
+                                <a href="#" class="button small b2beditbasket" data-linenumber="@item.model.Line_Number" data-customerref="@item.model.CUSREF" data-invgroup="@item.model.Product_Code.Substring(0,4)">
+                                    <span>Edit</span></a>
+                            }
+                            <a href="/b2b-members/webtex/basketcommand/?command=remove&customerRef=@item.model.CUSREF&lineNumber=@item.model.Line_Number&account=@item.model.MertexAccount&redirectUrl=@Request.Url.ToString()" class="remove">
+                                <span>Remove</span></a>
+                        </div>
+                    }
+                </section>
+            }
+            <p>All unit prices are exclusive of Tax / VAT</p>
+        }
+
+    </div>
+    @if (Model.Any())
+    {
+        <aside class="sideCol rightCol">
+            @using (Html.BeginForm("Index", "B2BCheckout", FormMethod.Get, new {@class = "basketTotals"}))
+            {
+                <h3>Customers</h3>
+                <ul class="b2bCheckoutCustomerSelection">
+                    @foreach (var basket in Model)
+                    {
+                        <li>
+                            <div class="field checkbox">
+                                <input type="checkbox" id="SelectedCustomers_@basket.CustomerReference" name="SelectedCustomers" value="@basket.CustomerReference" checked="@if (Model.Count() == 1)
+                                                                                                                                                                            {
+                                                                                                                                                                                <text>checked</text>
+                                                                                                                                                                            }"/>
+                                <label for="SelectedCustomers_@basket.CustomerReference">@basket.CustomerName</label>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <h3>Totals</h3>
+
+                <dl>
+                    <dt>Sub Total</dt>
+                    <dd>@Model.First().CustomerCurrency @(Model.Sum(t => t.BasketItems.Sum(v => decimal.Parse(v.Unit_Price)*decimal.Parse(v.Quantity_Ordered))).ToString("#0.00"))</dd>
+                    <dt>Delivery</dt>
+                    <dd>@Model.First().CustomerCurrency @(Model.Sum(t => t.DeliveryValueInc).ToString("#0.00"))</dd>
+                    <dt>Tax / VAT</dt>
+                    <dd>@Model.First().CustomerCurrency @(Model.Sum(t => t.Tax).ToString("#0.00"))</dd>
+                    <dt class="total">Total</dt>
+                    <dd class="total">@Model.First().CustomerCurrency @((Model.Sum(t => t.BasketItems.Sum(v => decimal.Parse(v.Unit_Price)*decimal.Parse(v.Quantity_Ordered))) + Model.Sum(x => x.Tax) + Model.Sum(t => t.DeliveryValueInc)).ToString("#0.00"))</dd>
+                </dl>
+                <ul>
+                    <li>
+                        <img src="/_images/icons/payment/maestro.png" alt="Maestro">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/mastercard.png" alt="Mastercard">
+                    </li>
+                    @if (ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.ThreeLetterISORegionName == "USA")
+                    {
+                        <li>
+                            <img src="/_images/icons/payment/amex.png" alt="American Express">
+                        </li>
+                    }
+                    <li>
+                        <img src="/_images/icons/payment/paypal.png" alt="PayPal">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/visa.png" alt="Visa">
+                    </li>
+                    <li>
+                        <img src="/_images/icons/payment/visa-electron.png" alt="Visa Electron">
+                    </li>
+                </ul>
+                <button class="checkout">
+                    <span>Go To Secure Checkout</span></button>
+            }
+        </aside>
+    }
+</div> *@

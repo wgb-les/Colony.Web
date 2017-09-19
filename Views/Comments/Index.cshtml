@@ -1,0 +1,89 @@
+﻿@model Colony.CMS.Areas.Comments.Models.CommentsViewModel
+
+<section id="articleComments">
+    <section id="comments" class="boxSection comments">
+        <header>
+            <h2 class="pull-left">Comments</h2>
+            @if (Model.Comments.Any() && Model.Comments.PageCount > 1)
+            {
+                @Html.Paging(Model.Comments, "comments", "pull-right", Url.Action("Index", "Comments", new {area = "Comments", dataTypeId = Model.DataType.DataTypeId, dataObjectId = Model.DateObjectId}))
+                ;
+            }
+            <div class="clear"></div>
+            <ul class="pageOptions">
+                <li>
+                    <a href="#postComment" class="down scroll postComment">
+                        <span>Post Comment</span></a>
+                </li>
+            </ul>
+        </header>
+        <div class="bd">
+            @if (Model.Comments.Any())
+            {
+                <ul class="commentsList">
+
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <li id="comment@(comment.Id.ToString().PadLeft(6, '0'))" class="bg">
+                            <ul>
+                                <li><cite>@comment.Author</cite> on <time datetime="@comment.Created.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@comment.Created.Value.ToString("dd MMMM yyyy")</time></li>
+                                <!-- <li>
+                                    <a href="/abuse-reports/" class="button">Abuse Report</a>
+                                </li> -->
+                            </ul>
+                            <blockquote>
+                                <p>@Html.Raw(comment.CommentText.Replace(Environment.NewLine, "<br />"))</p>
+                            </blockquote>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <ul class="commentsList">
+                    <li class="bg">There are currently no comments posted.</li>
+                </ul>
+            }
+        </div>
+    </section>
+
+    <section id="postComment" class="boxSection">
+        <header>
+            <h2>Post Comment</h2>
+        </header>
+        <ul class="commentsList">
+            <li class="bg" id="postCommentSuccess" style="display: none;">
+                <div class="alertInfo confirmation">
+                    Your post has been successfully submitted.
+                </div>
+            </li>
+            <li class="bg" id="postCommentError" style="display: none;">
+                <div class="alertInfo error">
+                    There was an error submitting your post. Please try again.
+                </div>
+            </li>
+        </ul>
+
+        <form id="postNewComment" action="@Url.Action("PostComment", "Comments", new {area = "Comments", returnUrl = Request.Url.AbsoluteUri})" method="post" class="contentForm">
+            <fieldset>
+                <legend>Post Comment Form</legend>
+
+                @Html.EditorFor(model => model.NewComment.Author)
+
+                @Html.EditorFor(model => model.NewComment.Email)
+
+                @Html.EditorFor(model => model.NewComment.CommentText)
+
+                @Html.HiddenFor(model => model.NewComment.DataObjectId)
+
+                @Html.HiddenFor(model => model.NewComment.DataTypeId)
+
+                @Html.Partial("_ReCaptcha")
+
+                <div class="field formButtons">
+                    <button class="button">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </section>
+</section>

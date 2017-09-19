@@ -1,0 +1,30 @@
+﻿<% if (!rc) { return; } %>
+<div class="item" data-quick-view-id="<%=rc.ProductId%>" data-productcode="<%=rc.ProductCode%>" data-skuid="<%=rc.SkuId%>" data-noprice="true" itemscope itemtype="http://schema.org/Product">
+    <% if (rc.Attributes["Item Type"] == "Cushions") {%>
+        <a href="<%=rc.Uri%>">
+    <% } else { %>
+        <a class="quickViewLink" href="<%=rc.Uri%>">
+    <%}%>
+        <% if (rc && rc.Images && rc.Images.length) {%>
+    <img src="<%=rc.ImageUri%>" alt="<%=rc.Attributes['Brand']%> <%=rc.Attributes['Product Group']%> - <%=rc.Name%>" itemprop="image" />
+        <%}%>
+        <h4 class="itemTitle <%=rc.Attributes['Brand']%>">
+            <span itemprop="name"><strong><%=rc.Name%> Cushion</strong></span></h4>
+        <% if (sitekey.toLowerCase() === 'wg') { %>
+        <p class="itemSubTitle">By <span itemprop="brand"><%=rc.Attributes["Brand"]%></span></p>
+        <% } %>
+        <ul>
+            <% if(rc.IsB2B) {%>
+            <li><%=rc.Attributes["Design Code"] || rc.Code %></li>
+            <% } %>
+            <li><span itemprop="description"><%=rc.Attributes['Descriptive Colour']%></span></li>
+            <% if (rc && rc.PriceInc && rc.PriceInc != '0') {%>
+            <meta itemprop="priceCurrency" content="GBP" />
+            <li>£<span itemprop="price"><%= rc.PriceInc.toFixed(2) %></span></li>
+            <% } %>
+        </ul>
+        <% if (rc.IsNew) { %>
+        <span class="itemNew">New</span>
+        <% } %>
+    </a>
+</div>

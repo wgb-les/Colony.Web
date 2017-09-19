@@ -1,0 +1,37 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryGroupViewModel
+@{
+    Layout = "";
+    var counter = 0;
+    var cssClass = "";
+}
+
+
+
+@foreach (var deliveryItem in Model.BasketLines)
+{
+    counter++;
+    <div class="content thin basket">
+        <div class="line">
+            <div class="inner">
+                <div class="flatshot">
+                    <img class="" src="@Url.ImageUrl(deliveryItem.ImageAssetId, "ShopPurchase", "ImageDownloadThumbnail")" alt="@deliveryItem.Name">
+                </div>
+                <div class="details">
+                    <h3>@deliveryItem.Name</h3>
+                    <span>By @deliveryItem.Attributes.GetValueOrNull("Brand")</span>
+                    <span>@deliveryItem.Attributes.GetValueOrNull("Descriptive Colour")  </span>
+                    <span>@deliveryItem.Sku.Code</span>
+                    <span>@deliveryItem.Attributes.GetValueOrNull("Product Group")</span>
+                    <div class="table">
+                        <div class="leftValue">Quantity:</div>
+                        <div class="rightValue">@deliveryItem.Quantity</div>
+                        <div class="leftValue">Price:</div>
+                        <div class="rightValue">@Model.DisplayPrice(deliveryItem.TotalInc)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

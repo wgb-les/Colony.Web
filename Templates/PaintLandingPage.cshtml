@@ -1,0 +1,138 @@
+﻿
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10" lang="en"><![endif]-->
+<!--[if gt IE 10]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    @{Html.RenderPartial("_Head.cshtml");}
+    <link href="~/_css/styles/style.css" rel="stylesheet" />
+    <style>
+h1, .like-h1, h2, .like-h2, h3, .like-h3, h4, h5, h6 {
+  text-transform: uppercase;
+}
+h2, .like-h2 {
+  font-family: ProximaNovaA-Light, Montserrat, "Open Sans", Verdana, Geneva, sans-serif;
+  color: rgb(106, 104, 105);
+  font-size: 20px;
+  letter-spacing: 0.1em;
+}
+.sl-modal-image-option .inner h2, .sl-modal-image-option .inner .like-h2 {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: rgb(30, 32, 34);
+  padding: 15px;
+  margin: 0;
+}
+    </style>
+
+    <script type="text/javascript">
+    $(function() {
+
+        $('#Address_Postcode').keydown(function(event) {
+            if (event.keyCode == 13) {
+                $('#findAddress').trigger('click');
+                return false;
+            }
+        });
+
+        $('#FindPaintAddress').hide();
+
+        $('#findAddress').text('FIND ADDRESS');
+
+        $('#findAddress').on("click", function(e) {
+            e.preventDefault();
+
+            var url = this.href;
+
+            $.ajax(url, {
+                data: { postcode: $('#Address_Postcode').val() },
+                success: function(data) {
+                    $('#selectAddress')
+                        .find('option')
+                        .remove()
+                        .end();
+                    if (data.Success) {
+                        $('#findAddressError').hide();
+                        $('#selectAddress')
+                            .append($('<option></option>')
+                                .attr('value', "")
+                                .text("Please Choose"));
+                        if (data.Addresses.length > 0) {
+                            $.each(data.Addresses, function(key, value) {
+                                $('#selectAddress')
+                                    .append($('<option></option>')
+                                        .attr('value', value.Id)
+                                        .text(value.StreetAddress));
+                            });
+                            $('#addressSelection').addClass('highlighted').show();
+                        } else {
+                            $('#findAddressError').show();
+                            $('#addressSelection').hide().removeClass('highlighted');
+                        }
+                    } else {
+                        $('#findAddressError').show();
+                    }
+                }
+            });
+        });
+
+        function isNullOrEmpty(str) {
+            return str == null || str == undefined || str == '';
+        }
+
+        $('#selectAddress').bind('change', function(e) {
+            $.ajax({
+                url: "/crm/address/getselected/",
+                data: { id: $('#selectAddress').val() },
+                success: function(data) {
+                    if (data.Success) {
+                        if (data.SelectedAddress != null) {
+                            console.log(data.SelectedAddress);
+                            if (isNullOrEmpty(data.SelectedAddress.BuildingName) && isNullOrEmpty(data.SelectedAddress.BuildingNumber) && !isNullOrEmpty(data.SelectedAddress.Company))
+                                $('#Address_Line1').val(data.SelectedAddress.Company + ', ' + data.SelectedAddress.Line1);
+                            else
+                                $('#Address_Line1').val(data.SelectedAddress.Line1);
+                            $('#Address_Line2').val(data.SelectedAddress.Line2);
+                            $('#Address_Town').val(data.SelectedAddress.PostTown);
+                            $('#Address_County').val(data.SelectedAddress.County);
+                            $('#Address_Postcode').val(data.SelectedAddress.Postcode);
+                            $('#Address_CountryISO2').val(data.SelectedAddress.CountryISO2);
+                            $('#addressSelection').hide();
+                        } else {
+                            $('#addressSelection').show();
+                        }
+                    }
+                }
+            });
+        });
+    });
+    </script>
+
+</head>
+
+<body class="harlequinSite shopPaint">
+    @{ Html.RenderPartial("_Header.cshtml", Colony.CMS.ColonyContext.Current.CurrentSite.SiteKey);}
+    <div id="container">
+        @{ Html.RenderPartial("_Breadcrumbs.cshtml");}
+        <div id="content">
+            <div id="sl-modal" class="modal">
+                <!-- ---------- Paint Card Popup ---------- -->
+                @{Html.RenderAction("OrderPaintCard", "Enquiries", new { area = "CustomShops" });}
+            </div>
+            @RenderBody()           
+        </div>
+    </div>
+    @Html.Partial("_Footer.cshtml")
+    <script src="/_js/shared/paintcard-addresslookup.js" type="text/javascript"></script>
+
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

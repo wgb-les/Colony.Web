@@ -1,0 +1,101 @@
+﻿@using Colony.CMS
+@using Colony.Services
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@{
+    var useraccount = AuthorizationHelpers.GetLoggedInUser();
+}
+@if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+{
+    <text>
+        <li>
+        <a href="@Url.Action("Index", "Webtex", new {area = "B2BMembers"})" class="global-util-item">
+            <span class="global-util-label">Trade Area</span>
+        </a>
+        @Html.Partial("~/Views/B2BShop/SelectShopLink.cshtml")
+        <li class="account has-dropdown" id="customerName">
+            <a href="#" class="global-util-item">
+                <span class="global-util-icon icon-account-grey"></span>
+                <span class="global-util-label">Change Customer</span>
+            </a>
+            <ul class="global-nav-dropdown">
+                <li id="customer">
+                    <a href="#" class="global-nav-dropdown-item">Change Customer</a>
+                </li>
+                <li>
+                    <a href="#" class="global-nav-dropdown-item" id="b2bLogout">Log off</a>
+                </li>
+            </ul>
+        </li>
+    </text>
+}
+else if (useraccount != null)
+{
+    <text>
+        <li class="has-dropdown">
+            <a class="global-util-item" @*href="@Url.Action("Dashboard", "AccountArea", routeValues: new { area = "AccountArea" })"*@>
+                <span class="global-util-icon icon-account-grey"></span>
+                <span class="global-util-label">@useraccount.FirstName @useraccount.LastName</span>
+            </a>
+            @Html.Partial("~/Views/AccountArea/_DashboardQuickView.cshtml")
+        </li>
+    </text>
+}
+else
+{
+    var loginLink = Url.Action("Login", "Authentication", new {area = "Members", returnUrl = Request.Url.PathAndQuery});
+    if (ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+    {
+        if (Request.Path.ToLowerInvariant().StartsWith("/members"))
+        {
+            loginLink = Url.Action("Login", "Authentication", new {area = "TradeMembers", returnUrl = ""});
+        }
+        else
+        {
+            loginLink = Url.Action("Login", "Authentication", new {area = "TradeMembers", returnUrl = Request.Url.PathAndQuery});
+        }
+    }
+    else
+    {
+        if (Request.Path.ToLowerInvariant().StartsWith("/members"))
+        {
+            loginLink = Url.Action("Login", "Authentication", new {area = "Members", returnUrl = ""});
+        }
+
+        if (ColonyContext.Current.CurrentSite.SiteKey.Equals("Contracts", StringComparison.InvariantCultureIgnoreCase))
+        {
+            loginLink = Url.Action("Login", "Authentication", new {area = "TradeMembers", returnUrl = Request.Url.PathAndQuery});
+        }
+    }
+    if (ColonyContext.Current.CurrentSite.SiteKey != "Contracts")
+    {
+        <li class="has-dropdown">
+            <a href="#" class="global-util-item">
+                <span class="global-util-icon icon-account-grey"></span>
+                <span class="global-util-label">Login</span>
+            </a>
+            @if (!ColonyContext.Current.CurrentSite.SiteKey.Equals("Contracts", StringComparison.InvariantCultureIgnoreCase))
+            {
+                <ul class="global-nav-dropdown">
+                    <li>
+                        <a href="@Url.Action("Login", "Authentication", new {area = "TradeMembers", returnUrl = Request.Url.PathAndQuery})" class="global-nav-dropdown-item">Trade</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Login", "Authentication", new {area = "PressMembers", returnUrl = Request.Url.PathAndQuery})" class="global-nav-dropdown-item">Press</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Login", "Authentication", new {area = "Members", returnUrl = Request.Url.PathAndQuery})" class="global-nav-dropdown-item">Consumer</a>
+                    </li>
+                </ul>
+            }
+        </li>
+    }
+    else
+    {
+        <li class="has-dropdown">
+            <a href="/trade-members/login/" class="global-util-item">
+                <span class="global-util-icon icon-account-grey"></span>
+                <span class="global-util-label">Login</span>
+            </a>
+        </li>
+    }
+}

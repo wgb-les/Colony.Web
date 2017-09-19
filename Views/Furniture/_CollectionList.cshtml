@@ -1,0 +1,52 @@
+﻿@model IList<WalkerGreenbank.Modules.Furniture.Areas.Models.FurnitureCollectionViewModel>
+@*<section class="collectionCategory">
+    @if (Model.Any(t => t.Included))
+    { 
+        <h2>Collections</h2>
+
+        foreach (var collection in Model)
+        {
+        <div class="item test  @((!collection.Included) ? "greyOut" : "")">
+            @{
+            var defaultCollectionImage = collection.Images.OrderBy(x => x.Order).FirstOrDefault();
+            var collectionImageUrl = defaultCollectionImage != null ? Url.ImageUrl(defaultCollectionImage.ImageAssetID, "Furniture", "FurnitureCollectionThumbnail", "/_images/placeholders/categoryList.jpg") : "/_images/placeholders/categoryList.jpg";
+            }
+            <a href="/shop/furniture/@collection.URI/">
+                <img src="@collectionImageUrl" alt="@collection.Name" />
+                <span class="itemTitle">@collection.Name</span>
+            </a>
+        </div>
+        }
+    }
+    else
+    { 
+        <div class="alertInfo message">
+            There are no collections for the selected furniture type. Click <a href="/shop/furniture">here</a> to view all Furniture Collections.
+        </div>
+    }
+</section>*@
+@if (Model.Any(t => t.Included))
+{
+    <h2>Collections</h2>
+    <div class="collectionsPreview productCollections no-quick-view">
+        @foreach (var collection in Model)
+        {
+            <div class="item test  @(!collection.Included ? "greyOut" : "")">
+                @{
+                    var defaultCollectionImage = collection.Images.OrderBy(x => x.Order).FirstOrDefault();
+                    var collectionImageUrl = defaultCollectionImage != null ? Url.ImageUrl(defaultCollectionImage.ImageAssetID, "Furniture", "FurnitureCollectionThumbnail", "/_images/placeholders/categoryList.jpg") : "/_images/placeholders/categoryList.jpg";
+                }
+                <a href="/shop/furniture/@collection.URI/">
+                    <img src="@collectionImageUrl" alt="@collection.Name"/>
+                    <span class="itemTitle">@collection.Name</span>
+                </a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alertInfo message">
+        There are no collections for the selected furniture type. Click <a href="/shop/furniture">here</a> to view all Furniture Collections.
+    </div>
+}

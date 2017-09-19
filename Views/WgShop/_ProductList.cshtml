@@ -1,0 +1,42 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model IEnumerable<Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel>
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+<div class="@(ViewBag.CssClass) productList">
+    @if (ViewBag.ProductListTitle != null)
+    {
+        <h2>@ViewBag.ProductListTitle</h2>
+    }
+    @foreach (var design in Model)
+    {
+        var defaultImage = design.Images.OrderBy(x => x.Order).FirstOrDefault();
+        var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/thumbnail.jpg") : @"/_images/placeholders/thumbnail.jpg";
+
+        <div class="item" data-quick-view-id="product_@design.Id">
+            <a href="/shop/@Url.ProductUrl(design.Product)?code=@design.Code">
+                <img src="@defaultImageUrl" alt="@design.Name" height="125" data-productcode="@design.SelectedSku.Code" data-productname="@design.SelectedSku.Name" data-skuid="@design.SelectedSku.Id" @if (defaultImage != null)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                            <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                                                        } data-productimage="@defaultImageUrl" data-url="/shop/@Url.ProductUrl(design.Product)?code=@design.Code" @if (isB2B)
+                                                                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                                                                      <text>data-isb2b="true"</text>
+                                                                                                                                                                                                                                                                                                                  }/>
+                <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@design.Product.Name</h4>
+                @if (ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+                {
+                    <p class="itemSubTitle">By @design.Attributes.GetValueOrNull("Brand")</p>
+                }
+                <ul>
+                    <li>@(design.Attributes.GetValueOrNull("Design Code") ?? design.Code)</li>
+                    <li>@design.Attributes.GetValueOrNull("Product Group")</li>
+                </ul>
+                @if (design.IsNew)
+                {
+                    <span class="itemNew">New</span>
+                }
+            </a>
+        </div>
+    }
+</div>

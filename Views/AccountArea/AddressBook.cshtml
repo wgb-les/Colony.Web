@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Colony.CMS.Areas.CRM.Models.AddressViewModel>
+@{
+    Html.SetTitle("Address Book");
+}
+
+@Html.Partial("AccountMenu", "SavedAddresses")
+
+<div id="content" class="">
+    <header class="pageHeader">
+        <h1 class="left">Address Book</h1>
+        <a href="@Url.Action("AddAddress", "AccountArea")" class="addAddress right">
+            <span>Add a new Address</span></a>
+        @*<a href="/account/address-book/add-address/" class="addAddress right"><span>Add a new Address</span></a>*@
+        <div class="clear"></div>
+    </header>
+
+    @if (ViewBag.Edit == "AddressAdded")
+    {
+        <div class="alertInfo confirmation">
+            Address has been added to the address book.
+        </div>
+    }
+    else if (ViewBag.Edit == "AddressUpdated")
+    {
+        <div class="alertInfo confirmation">
+            Address updated successfully.
+        </div>
+    }
+    else if (ViewBag.Edit == "AddressDeleted")
+    {
+        <div class="alertInfo confirmation">
+            Address has been deleted from the address book.
+        </div>
+    }
+    <div class="addressBook">
+        @if (Model.Any())
+        {
+            foreach (var address in Model)
+            {
+                Html.RenderPartial("AddressBookEntry", address);
+            }
+        }
+        else
+        {
+            <div class="alertInfo message">
+                You have not added any addresses to your address book.
+            </div>
+        }
+
+    </div>
+</div>

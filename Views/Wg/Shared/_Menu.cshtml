@@ -1,0 +1,8 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.Homepage.Areas.Models.Menu>
+@{
+    var isMobile = ViewData["IsMobile"].AsBool(false);
+}
+
+    <ul class="nav" role="menubar">
+      @{ Html.RenderPartial("_MenuItems", Model); }
+    </ul>

@@ -1,0 +1,23 @@
+﻿@model Colony.CMS.Areas.Members.ViewModels.GuestDetailsViewModel
+@{
+    ViewBag.Title = "GuestDetails";
+}
+
+<h2>About You</h2>
+
+@Html.EditorFor(model => model.Title)
+@Html.EditorFor(model => model.FirstName)
+@Html.EditorFor(model => model.LastName)
+
+@Html.CheckBoxFor(model => model.AllowMarketing)
+<label for="AllowMarketing">I would like to receive special offers and news from Harlequin.</label>
+
+<fieldset>
+    <legend>Would you like to become a member?</legend>
+    <h2>Would you like to become a member?</h2>
+
+    <p>This is optional but it would allow you to track the progress of your order and make your shopping experience even quickier and easier in the future.</p>
+
+    @Html.EditorFor(model => model.Password)
+    @Html.EditorFor(model => model.ConfirmPassword)
+</fieldset>

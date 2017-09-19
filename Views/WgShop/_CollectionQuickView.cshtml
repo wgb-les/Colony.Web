@@ -1,0 +1,42 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Web.Areas.Shop.Models.CollectionQuickViewViewModel
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+<section class="selectedItem" id="category_@Model.ProductCategoryId" style="display: none;">
+    <div class="details">
+        <h2>
+            <a href="/shop/@Model.Url">@Model.Name</a>
+        </h2>
+        @Html.Raw(Model.LongDescription)
+        <a href="/shop/@Model.Url">View this Collection</a>
+    </div>
+    <div class="productList">
+
+        @foreach (var product in Model.Products)
+        {
+            var defaultItemImageUrl = @Url.ImageUrl(product.ImageAssetId, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+
+            <div class="item">
+                <a href="/shop/@product.Url?code=@product.ProductCode" data-noprice="true">
+                    <img src="@defaultItemImageUrl" style="height: 123px" alt="@product.Name" data-productcode="@product.ProductCode" data-productname="@product.FullName" data-skuid="@product.SkuId" data-imageAssetId="@product.ImageAssetId" data-productimage="@defaultItemImageUrl" data-url="/shop/@product.Url?code=@product.ProductCode" @if (isB2B)
+                                                                                                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                                                                                                      <text>data-isb2b="true"</text>
+                                                                                                                                                                                                                                                                                                                                                  }>
+                    <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@product.Name</h4>
+                    <ul>
+                        <li>@(product.Attributes.GetValueOrNull("Design Code") ?? product.ProductCode)</li>
+                        <li>@product.Attributes.GetValueOrNull("Product Group")</li>
+                    </ul>
+                    @if (product.IsNew)
+                    {
+                        <span class="itemNew">New</span>
+                    }
+                </a>
+            </div>
+        }
+    </div>
+    <a class="button-close paint-button-colse">
+        <span></span></a>
+</section>

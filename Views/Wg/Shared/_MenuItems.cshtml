@@ -1,0 +1,152 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.Homepage.Areas.Models.Menu>
+
+@foreach (var menu in Model)
+{
+    if (menu != null && menu.MegaMenu != null)
+    {
+        if (menu.MegaMenu.Name == "Our Story")
+        {
+            <li class="">
+                <a href="/our-story" class="" alt="@menu.Name">@menu.Name</a>
+            </li>
+        }
+        else
+        {
+            <li class="" role="menuitem">
+                <a href="@menu.Uri" class="menuItemAnchor" alt="@menu.Name">@menu.Name</a>
+                @if (menu.HasMegaMenu)
+                {
+                    <div class="mega-menu" aria-hidden="true" role="menu">
+                        <div class="mega-menu-inner">
+                            <div class="megaMenuGroupContainer @if (menu.MegaMenu.Name == "Our Brands")
+                                                               {
+                                                                   <text>wideGroupContainer</text>
+                                                               }">
+                                @foreach (var megaMenuItem in menu.MegaMenu.MegaMenuItems.Take(6))
+                                {
+                                    <div class="megaMenuGroup @if (menu.MegaMenu.Name == "Our Brands")
+                                                              {
+                                                                  <text>sixthGroup</text>
+                                                              }">
+                                        @Html.Raw(megaMenuItem.HtmlContent)
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(menu.MegaMenu.ButtonText))
+                                {
+                                    <div class="megaMenuButtons">      
+                                        <button class="primaryButton"><a href="@menu.MegaMenu.ButtonUrl">@menu.MegaMenu.ButtonText</a></button>      
+                                        
+                                        @if (menu.MegaMenu.Name == "Fabric")
+                                        { 
+                                        <button class="primaryButton"><a href="/shop/collections/?category=fabric">Discover our Fabric Collections</a></button>
+                                        }
+                                        else if (menu.MegaMenu.Name == "Wallpaper")
+                                        {
+                                            <button class="primaryButton"><a href="/shop/collections/?category=wallpaper">Discover our Wallpaper Collections</a></button>
+                                        }
+                                        else {
+                                        }
+
+                                    </div>
+                                }
+
+                            </div>
+                            @if (menu.MegaMenu.ImageAssetId.HasValue)
+                            {
+                                @*<div class="megaMenuFeatureContainer">
+                                    <a href="@menu.MegaMenu.PromoUrl">
+                                        <div class="megaMenuFeature" style="background-image: url('@Url.ImageUrl(menu.MegaMenu.ImageAssetId, "Homepages", "MegaMenuPromoThumbnail")');">                                            
+                                        </div>
+                                        
+                                        <div class="megaMenuFeatureCaption">
+                                                <h2>@menu.MegaMenu.PromoName</h2>
+                                            </div>
+                                    </a>
+
+                                </div>*@
+
+
+                                <div class="megaMenuFeatureContainer">
+                                    <a href="@menu.MegaMenu.PromoUrl">
+                                        @if ((menu.MegaMenu.Name == "Paint") || (menu.MegaMenu.Name == "Homeware"))
+                                        {
+                                            <div class="exclusiveTag">UK Only</div>
+                                        }
+                                       <img src="@Url.DirectImageUrl(menu.MegaMenu.ImageAssetId, "Homepages", "MegaMenuPromoThumbnail")" />
+
+                                        @*<img src="~/_assets/images/2-Amazilia-Cut-Sl.jpg" />*@
+                                        <div class="megaMenuFeatureCaption">
+                                            <span class="megaMenuFeatureTitle">@menu.MegaMenu.PromoName</span>
+                                            <span class="megaMenuFeatureSubtitle">@menu.MegaMenu.PromoSubTitle</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                
+                            }
+
+                            </div>
+                    </div>
+                }
+            </li>
+        }
+    }
+}
+
+<div class="mobileMenuLevel mobile">
+    <div class="darkenLevel"></div>
+    <div class="megaMenuGroup">
+        @foreach (var menu in Model)
+        {
+            <div class="mobileMenuItem">
+                @if (menu.HasMegaMenu)
+                {
+                    <a class="mobileMenuItemTitle hasChildren fa-long-arrow-right" href="@menu.Uri" title="@menu.Name">@menu.Name</a>
+                    <div class="mobileMenuLevel subLevel">
+                        <div class="darkenLevel"></div>
+                        <div class="mobileMenuItem">
+                            <a class="mobileMenuItemTitle backUp fa-long-arrow-left" href="">Back Up</a>
+                        </div>
+                        <a class="mobileMenuItemTitle" href="@menu.Uri" title="@menu.Name"><b>@menu.Name</b></a>
+                        @foreach (var megaMenuItem in menu.MegaMenu.MegaMenuItems)
+                        {
+                            if (menu.MegaMenu.Name != "Our Brands")
+                            {
+                                <div class="megaMenuGroup subGroup">
+                                    @Html.Raw(megaMenuItem.HtmlContent)
+                                    @*     @if (!string.IsNullOrWhiteSpace(menu.MegaMenu.ButtonText))
+                                        {
+                                            <a class="mobileMenuItemTitle" href="@menu.MegaMenu.ButtonUrl" alt="@menu.MegaMenu.ButtonText">@menu.MegaMenu.ButtonText</a>
+                                        }*@
+                                </div>
+                            }
+                        }
+                        @if (menu.MegaMenu.Name == "Our Brands")
+                        {
+                            <div class="megaMenuGroup subGroup">
+                                <a class="mobileMenuItemTitle" href="/brands/sanderson">Sanderson</a>
+                                <a class="mobileMenuItemTitle" href="/brands/harlequin">Harlequin</a>
+                                <a class="mobileMenuItemTitle" href="/brands/scion">Scion</a>
+                                <a class="mobileMenuItemTitle" href="/brands/morris">Morris & Co</a>
+                                <a class="mobileMenuItemTitle" href="/brands/zoffany">Zoffany</a>
+                                <a class="mobileMenuItemTitle" href="/brands/anthology">Anthology</a>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <a class="mobileMenuItemTitle" href="@menu.Uri" alt="@menu.Name">@menu.Name</a>
+                }
+            </div>
+        }
+        <div class="mobileMenuItem">
+            <a href="https://www.stylelibrarycontract.com/" class="mobileMenuItemTitle">Contract Site</a>
+        </div>
+        <div class="mobileMenuItem">
+            <a href="/stockists/" class="mobileMenuItemTitle">Find a Retailer</a>
+        </div>
+        <div class="mobileMenuItem">
+            <a href="/contactus/" class="mobileMenuItemTitle">Contact Us</a>
+        </div>
+    </div>
+</div>

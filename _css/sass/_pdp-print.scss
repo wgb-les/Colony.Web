@@ -1,0 +1,148 @@
+@media print {
+
+    .siteLogoInner{
+        padding-top: 16px;
+        
+        a img {
+            display: none !important;
+            opacity: 0 !important;
+        }
+
+        &::after {
+            content:url(/../../../_images/brands/wg/logos/stylelibrary-darkgrey.svg);
+        }
+    }
+       
+
+    p.sl-copy {
+        color:#000;
+        font-size:12px;
+        line-height:20px;
+        padding-bottom:4px;
+    }
+
+    .sl-product-buttons {
+        float:left;
+        padding-left:10px;
+    }
+
+    .paint-sample-message {
+        width:100%;
+        text-align:left;
+        float:left;
+        display:block;
+    }
+
+
+    /*------ Remove page elements at print  -------*/
+    .slick-prev, .slick-next, .sl-ymal, .sl-desktop, .sl-slide-image, .sl-item, .sl-slide, .sl-product-thumbs, .sl-trigger-share, #WallpaperCalculatorLink, #PaintCalculatorLink, .sl-button, .slider-recents, .sl-center, .toggleColours {
+        display:none !important;
+        opacity: 0 !important;
+    }
+
+    /*------ Keep page elements at print  -------*/
+    .slick-list, .sl-zoom, .sl-slide:nth-of-type(1), .slick-slide, .slick-current, .slick-active, .sl-slide-image, .sl-item:nth-of-type(1), .sl-slide-image, .sl-tab-container   {
+        display:block !important;
+        opacity: 1 !important;
+    }
+
+    .sl-options-container .sl-option .sl-option-inner .sl-field-group {
+        padding:0px;
+        
+        .sl-field {
+            padding:0px;
+            
+            .sl-text {
+             color:#000;
+             }
+         }
+    }
+
+    .sl-slide-image {
+        width: 55% !important;
+    } 
+
+    .sl-tab-container {
+        position:relative;
+        left: -420px;
+        z-index: 1001;
+        width: 240%;
+    }
+
+    .sl-tab-container .sl-tab-section .sl-tab, .sl-tab-container .sl-tab-section .sl-tab.active {
+
+         display:none !important;
+        opacity: 0 !important;
+
+    }
+
+    .sl-tab-container .sl-tab-section .sl-tab .inner .sl-text {
+        color:#000;
+        padding:0px;
+        border:0px;
+    }
+
+    .sl-tab-container .sl-tab-section .sl-content {
+        display:block !important;
+        opacity: 1 !important;
+        margin-bottom:20px;
+        border:0px;
+        padding:0px;
+        background:none;
+        width: 48%;
+        float: left;
+        margin-left: 10px;
+
+
+        &::before {
+            background: none;
+            color: #000;
+            padding: 10px 10px 6px 0px;
+            margin-left:10px;
+            font-size:18px;
+            width: 96%;
+            border: 0px;
+            border-bottom: 2px solid #000;
+            display:block;
+            font-family: ProximaNovaA-Bold, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+            text-transform:uppercase;
+            letter-spacing:2px;
+        }
+
+        &[data-value="productDetails"] {
+            width:50%;
+            margin-right:20px;
+        }
+        
+        &[data-value="productTechSpecs"], &[data-value="productCare"] {
+             width:40%;
+             margin-right:0px;
+        } 
+
+        &[data-value="productDetails"]::before {
+            content:"Product Details";
+        }
+
+        &[data-value="productTechSpecs"]::before {
+            content:"Tech Specs";
+        }
+
+        &[data-value="productCare"]::before {
+            content:"Care Info";
+        }
+
+        table tbody tr {
+            border-bottom:1px solid #000;
+            padding:0px;
+
+            td {
+                font-size:12px;
+                background:none;
+                color:#000;
+                border:0px;
+                padding:3px 1px;
+             }
+        }
+    }
+
+}

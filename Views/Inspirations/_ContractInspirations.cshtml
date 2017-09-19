@@ -1,0 +1,20 @@
+﻿@model WalkerGreenbank.Modules.Inspirations.Areas.Models.InspirationIndexViewModel
+<div id="content">
+    <h1>Inspiration</h1>
+
+    <section>
+        <ul class="inspirationList typeStyle">
+            @foreach (var style in Model.Styles)
+            {
+                <li>
+                    <a href="@Url.Action("InspirationDetail", "Inspirations", new {area = "Inspirations", inspirationId = style.ID, uri = style.Name.ToFriendlyUrl()})">
+                        <img src="@Url.ImageUrl(style.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/thumbnail.jpg")">
+                        <span class="title">@style.Name</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </section>
+</div>
+
+

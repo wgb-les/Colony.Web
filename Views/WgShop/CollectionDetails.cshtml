@@ -1,0 +1,292 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+
+<div class="collectionDetails">
+    <div class="collectionInfo">
+        @if (Model.Category.IsNew)
+        {
+            <span class="itemNew">New</span>
+        }
+        <header>
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(@Model.Category.LongDescription)
+        </header>
+    </div>
+    <div class="collectionShots">
+        <div class="carousel imageCarousel">
+            <ul class="items">
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    foreach (var img in Model.Images)
+                    {
+                        <li>
+                            @{ Html.RenderAction("HotspotsForImage", "Hotspots", new {area = "Hotspots", imageAssetId = img.ImageAssetID}); }
+
+                            <img class="lazyload" src="@Url.ImageUrl(img.ImageAssetID, "Shop", "HotspotsSmaller")" alt="@img.Name"/>
+                        </li>
+                    }
+                }
+            </ul>
+            @if (Model.Images != null && Model.Images.Count > 1)
+            {
+                <a href="#" class="prev">
+                    <span></span>
+                    Previous
+                </a>
+                <a href="#" class="next">
+                    <span></span>
+                    Next
+                </a>
+                <div class="bullets">
+                    <span class="icon icon-play icon-pause"></span>
+                    <ul></ul>
+                </div>
+            }
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <span class="left info-text"><span>Rollover the image to view the products in this set</span></span>
+            }
+        </div>
+    </div>
+</div>
+<div class="tabContainer" id="productsViewTab">
+    <nav class="tabs" role="navigation">
+        <h2>The Collection</h2>
+        <ul>
+            <li>
+                <a href="?show=designs" @if ((Model.Tab == "" && Model.Products.Count > 1) || Model.Tab == "designs")
+                                        {
+                                            <text> class="selected"</text>
+                                        }>
+                    Designs (@Model.Products.Count())
+                </a>
+            </li>
+            <li>
+                <a href="?show=colourways" @if (Model.Tab == "colourways" || (Model.Tab == "" && Model.Products.Count == 1))
+                                           {
+                                               <text> class="selected"</text>
+                                           }>
+                    Colourways (@Model.Products.SelectMany(x => x.Skus).Count())
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="tabSection @if ((Model.Tab == "" && Model.Products.Count > 1) || Model.Tab == "designs")
+                               {
+                                   <text> active</text>
+                               } ">
+        <h2>Designs in this collection (@Model.Products.Count())</h2>
+        @if ((Model.Tab == "" && Model.Products.Count > 1) || Model.Tab == "designs")
+        {
+            <div class="productList product no-quick-view">
+                @foreach (var design in Model.Products.Select((model, index) => new {index, model}).OrderBy(x => x.model.Product.Name))
+                {
+                    var defaultItemImage = design.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+                    var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/article.jpg";
+
+                    <div class="item" data-quick-view-id="product_@design.model.Product.Id" data-productcode="@design.model.SelectedSku.Code" data-skuid="@design.model.SelectedSku.Id">
+                        <a href="/shop/@Url.ProductUrl(design.model.Product)?code=@design.model.SelectedSku.Code">
+                            <img src="@defaultItemImageUrl" alt="@design.model.Product.Name" data-productcode="@design.model.SelectedSku.Code" data-productname="@design.model.SelectedSku.Name" data-skuid="@design.model.SelectedSku.Id" @if (defaultItemImage != null)
+                                                                                                                                                                                                                                           {
+                                                                                                                                                                                                                                               <text>data-imageAssetId="@defaultItemImage.ImageAssetID"</text>
+                                                                                                                                                                                                                                           } data-productimage="@defaultItemImageUrl" data-url="/shop/@Url.ProductUrl(design.model.Product)?code=@design.model.SelectedSku.Code" data-noprice="true" @if (isB2B)
+                                                                                                                                                                                                                                                                                                                                                                                                     {
+                                                                                                                                                                                                                                                                                                                                                                                                         <text>data-isb2b="true"</text>
+                                                                                                                                                                                                                                                                                                                                                                                                     }/>
+                            <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@design.model.Product.Name</h4>
+                            <ul>
+                                <li>@design.model.Attributes.GetValueOrNull("Design Code")</li>
+                                <li>@design.model.Attributes.GetValueOrNull("Product Group")</li>
+                            </ul>
+                            @if (design.model.IsNew || design.model.SelectedSku.IsNew)
+                            {
+                                <span class="itemNew">New</span>
+                            }
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+    <section class="tabSection @if (Model.Tab == "colourways" || (Model.Tab == "" && Model.Products.Count == 1))
+                               {
+                                   <text> active</text>
+                               }">
+        @{ var skus = Model.Products.SelectMany(x => x.Skus); }
+        <h2>Colourways in this collection (@skus.Count())</h2>
+        @if (Model.Tab == "colourways" || (Model.Tab == "" && Model.Products.Count == 1))
+        {
+            <div class="productList no-quick-view">
+                <input type="hidden" name="ProductCodes" id="ProductCodes" value="@(string.Join<string>(",", skus.Select((model, index) => model.Sku.Code)))"/>
+                @*<h2>Available Colours (@skus.Count())</h2>*@
+                @foreach (var item in skus.Select((model, index) => new {index, model}))
+                {
+                    var defaultItemImage = item.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+                    var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+
+                    <div class="item" data-quick-view-id="product_@item.model.ProductDetail.Product.Id" data-noprice="true" data-productcode="@item.model.Sku.Code" data-skuid="@item.model.Sku.Id">
+                        <a href="/shop/@Url.ProductUrl(item.model.ProductDetail.Product)?code=@item.model.Sku.Code">
+                            <img src="@defaultItemImageUrl" alt="@item.model.Sku.Name" data-productcode="@item.model.Sku.Code" class="detail-ordersampleurl" data-productname="@item.model.Sku.Name" data-skuid="@item.model.Sku.Id" @if (defaultItemImage != null)
+                                {
+                                    <text>data-imageAssetId="@defaultItemImage.ImageAssetID"</text>
+                                } data-productimage="@defaultItemImageUrl" data-url="/shop/@Url.ProductUrl(item.model.ProductDetail.Product)?code=@item.model.Sku.Code" @if (isB2B)
+                                    {
+                                        <text>data-isb2b="true"</text>
+                                    }/>
+                            @*<h4 class="itemTitle @Colony.CMS.ColonyContext.Current.CurrentSite.SiteKey">@item.model.Sku.Name</h4>*@
+                            <h4 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@Model.Products.FirstOrDefault(t => t.Skus.Any(v => v.Sku.Id == item.model.Sku.Id)).Product.Name</h4>
+                            @*<ul>
+                                <li>@item.model.Sku.Code</li>
+                                <li>@item.model.Attributes.GetValueOrNull("Product Group")</li>
+                            </ul>*@
+                            <ul>
+                                <li>@item.model.Attributes.GetValueOrNull("Design Code")</li>
+                                <li>@item.model.Attributes.GetValueOrNull("Descriptive Colour")</li>
+                                <li>@item.model.Attributes.GetValueOrNull("Product Group")</li>
+                            </ul>
+                            @if (item.model.Sku.IsNew)
+                            {
+                                <span class="itemNew">New</span>
+                            }
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>
+@if (Model.DisplayRelatedContent)
+{
+    string activeRelatedContentTab = ViewBag.RelatedContentTab;
+
+    bool? hasBlogs = false;
+    bool? hasVideos = false;
+    bool? hasAsSeenIn = false;
+    bool? hasFaqs = false;
+
+    var blogs = Html.Action("BlogPostForTags", "Blog", new {area = "Blog", tags = Model.Category.TagIds.ToDelimitedString()});
+    hasBlogs = (bool?) TempData["HasBlogs"];
+
+    var videos = Html.Action("VideosForTags", "Videos", new {area = "Videos", tags = Model.Category.TagIds.ToDelimitedString()});
+    hasVideos = (bool?) TempData["HasVideos"];
+
+    var asSeenIn = Html.Action("AsSeenInItemsForTags", "AsSeenIn", new {area = "AsSeenIn", tags = Model.Category.TagIds.ToDelimitedString()});
+    hasAsSeenIn = (bool?) TempData["HasAsSeenIn"];
+
+    var faqs = Html.Action("FAQsForTags", "FAQs", new {area = "FAQs", tags = Model.Category.TagIds.ToDelimitedString()});
+    hasFaqs = (bool?) TempData["HasFAQs"];
+
+    if (hasBlogs == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+    {
+        activeRelatedContentTab = "blogs";
+    }
+    if (hasVideos == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+    {
+        activeRelatedContentTab = "videos";
+    }
+    if (hasAsSeenIn == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+    {
+        activeRelatedContentTab = "asSeenIn";
+    }
+    if (hasFaqs == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+    {
+        activeRelatedContentTab = "faqs";
+    }
+
+    <div class="tabContainer">
+        <nav class="tabs" role="navigation">
+            <h2>Related Content</h2>
+            <ul>
+                @*@if (hasBlogs == true)
+                {
+                    <li>
+                        <a href="?relatedContentTab=blogs" @if (activeRelatedContentTab == "blogs")
+                                                           {
+                                                               <text> class="selected" </text>
+                                                           } data-tab-content-id="blogs">
+                            Blog Articles
+                        </a>
+                    </li>
+                }*@
+                @if (hasVideos == true)
+                {
+                    <li>
+                        <a href="?relatedContentTab=videos" data-tab-content-id="videos" @if (activeRelatedContentTab == "videos")
+                                                                                         {
+                                                                                             <text> class="selected" </text>
+                                                                                         }>
+                            Videos
+                        </a>
+                    </li>
+                }
+                @if (hasAsSeenIn == true)
+                {
+                    <li>
+                        <a href="?relatedContentTab=asSeenIn" data-tab-content-id="asSeenIn" @if (activeRelatedContentTab == "asSeenIn")
+                                                                                             {
+                                                                                                 <text> class="selected" </text>
+                                                                                             }>
+                            As Seen In
+                        </a>
+                    </li>
+                }
+                @if (hasFaqs == true)
+                {
+                    <li>
+                        <a href="?relatedContentTab=faqs" data-tab-content-id="faqs" @if (activeRelatedContentTab == "faqs")
+                                                                                     {
+                                                                                         <text> class="selected" </text>
+                                                                                     }>
+                            FAQs
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+        <section class="tabSection @if (activeRelatedContentTab == "blogs")
+                                   {
+                                       <text>active</text>
+                                   }" id="blogs">
+            <h2>Blog Articles</h2>
+            <div class="tabContent">
+                @Html.Raw(blogs)
+            </div>
+        </section>
+        <section class="tabSection @if (activeRelatedContentTab == "videos")
+                                   {
+                                       <text>active</text>
+                                   }" id="videos">
+            <section class="moduleSection videos">
+                <h2>Videos</h2>
+                <div class="tabContent">
+                    @Html.Raw(videos)
+                </div>
+            </section>
+        </section>
+        <section class="tabSection @if (activeRelatedContentTab == "asSeenIn")
+                                   {
+                                       <text>active</text>
+                                   }" id="asSeenIn">
+            <h2>As Seen In</h2>
+            <div class="tabContent">
+                @Html.Raw(asSeenIn)
+            </div>
+        </section>
+        <section class="tabSection @if (activeRelatedContentTab == "faqs")
+                                   {
+                                       <text>active</text>
+                                   }" id="faqs">
+            <section class="moduleSection faqs">
+                <h2>FAQs</h2>
+                <div class="tabContent">
+                    @Html.Raw(faqs)
+                </div>
+            </section>
+        </section>
+    </div>
+}

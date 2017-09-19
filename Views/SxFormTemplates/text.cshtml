@@ -1,0 +1,20 @@
+﻿@{
+    var mandatory = Model.mandatory as bool? ?? false;
+    var disabled = Model.disabled as bool? ?? false;
+    string id = Model.id;
+    string helpMessage = Model.helpMessage;
+    string title = Model.title;
+    var defaultValue = Model["default"];
+    var value = Model.value;
+    var valid = Model.valid as bool? ?? false;
+}
+
+<div class="field text">
+    <label for="@id">
+        @title @if (mandatory)
+               {
+                   <span>Required</span>
+               })
+    </label>
+    <input type="text" id="@id" name="@id"/>
+</div>

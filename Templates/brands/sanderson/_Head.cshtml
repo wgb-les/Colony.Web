@@ -1,0 +1,45 @@
+﻿<meta charset="utf-8" />
+<title>@(Html.GetPageData().WindowTitle ?? Colony.CMS.ColonyContext.Current.CurrentSite.WindowTitle ?? ViewBag.Title)</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="title" content="@(Html.GetPageData().WindowTitle ?? Colony.CMS.ColonyContext.Current.CurrentSite.WindowTitle ?? ViewBag.Title)" />
+<meta name="description" content="@(Html.GetPageData().MetaDescription ?? Colony.CMS.ColonyContext.Current.CurrentSite.MetaDescription)" />
+<meta name="keywords" content="@(Html.GetPageData().MetaKeywords ?? Colony.CMS.ColonyContext.Current.CurrentSite.MetaKeywords)" />
+
+<meta name="dc.title" content="@(Html.GetPageData().WindowTitle ?? Colony.CMS.ColonyContext.Current.CurrentSite.WindowTitle ?? ViewBag.Title)" />
+<meta name="dc.description" content="@(Html.GetPageData().MetaDescription ?? Colony.CMS.ColonyContext.Current.CurrentSite.MetaDescription)" />
+<meta name="dc.keywords" content="@(Html.GetPageData().MetaKeywords ?? Colony.CMS.ColonyContext.Current.CurrentSite.MetaKeywords)" />
+
+<link href="/_images/favicon/sanderson/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="apple-touch-icon-precomposed" href="/_images/app-icons/sanderson/apple-touch-icon.png">
+
+@Styles.Render("~/_css/sanderson")
+
+<!--[if IE]>
+	<link rel="stylesheet" href="/_css/framework/ie_fixes.css" />
+<![endif]-->
+
+<link rel="stylesheet" href="/_css/print.css" media="print" />
+
+<link rel="stylesheet" type="text/css" href="/_css/allcustom.css" />
+
+<link rel="stylesheet" type="text/css" href="/_css/brands/sanderson/custom.css?v=1" />
+<link href="~/_css/brands/sanderson/SandersonHomepage.css" rel="stylesheet"/>
+<link href="~/_css/brands/sanderson/SandersonNewsletter.css" rel="stylesheet" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="/_js/brands/sanderson/jquery.fullPage.js"></script>
+
+@*<script src="/_js/vendor/jquery.js"></script>*@
+    <script src="/_js/vendor/jquery-ui-ra-edit.js" type="text/javascript"></script>
+    <script src="/_js/vendor/custom.modernizr.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+    <script src="/_js/shared/selectivizr-min.js" type="text/javascript"></script>
+    <script src="/_js/shared/ie8.js" type="text/javascript"></script><![endif]-->
+    <!-- Custom Meta-tags -->
+    @Html.Raw(Html.GetPageData().CustomMetaTags)
+    <!-- Custom Meta-tags ends -->
+    <!-- Analytics code -->
+    @Html.Raw(Html.GetPageData().AnalyticsCode)
+    <!-- Analytics code ends -->

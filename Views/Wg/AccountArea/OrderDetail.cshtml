@@ -1,0 +1,124 @@
+﻿@model Colony.Commerce.Areas.AccountArea.Controllers.Models.OrderDetailViewModel
+@{
+    Html.SetTitle("Order Detail - " + Model.OrderNumber);
+}
+
+<div id="container" role="main" class="col-1">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content" class="">
+        <h1 class="pull-left">Order Number @Model.OrderNumber</h1>
+        <time class="pull-right" datetime="@Model.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Model.OrderDate.ToString("hh:mm tt dd MMMM yyyy")</time>
+        <div class="clear"></div>
+        <div class="boxSection checkoutDelivery completed">
+            <div class="header">
+                <h2>Delivery</h2>
+            </div>
+            <ul>
+                @if (Model.Basket.DeliveryMethod == 1)
+                {
+                    <li>
+                        <strong>@Model.DeliveryAddress.Title @Model.DeliveryAddress.FirstName @Model.DeliveryAddress.LastName</strong>
+                    </li>
+                    <li>
+                        <strong>@Html.FormatAddress(Model.DeliveryAddress, HtmlHelpers.FormatAddressStyle.SingleLine)</strong>
+                    </li>
+                    <li><strong>Delivery</strong> - &pound;3 for the first 4 items and then &pound;0.75 for each additional item.</li>
+                }
+                else
+                {
+                    if (Model.SelectedStockist != null)
+                    {
+                        <li><strong>Click & Collect</strong> - Have your items delivered to a local stockist for collection at a time that is convenient for you.</li>
+                        <li><strong>@Model.SelectedStockist.Name</strong>, @Html.FormatAddress(Model.SelectedStockist.Address1, Model.SelectedStockist.Address2, Model.SelectedStockist.County, Model.SelectedStockist.Postcode, HtmlHelpers.FormatAddressStyle.SingleLine)</li>
+                    }
+                }
+            </ul>
+        </div>
+        @if (Model.BillingAddress != null)
+        {
+            <div class="boxSection checkoutDelivery completed">
+                <div class="header">
+                    <h2>Billing</h2>
+                </div>
+
+                <ul>
+                    <li>
+                        <strong>@Model.BillingAddress.Title @Model.BillingAddress.FirstName @Model.BillingAddress.LastName</strong>
+                    </li>
+                    <li>@Html.FormatAddress(Model.BillingAddress, HtmlHelpers.FormatAddressStyle.SingleLine)</li>
+                </ul>
+
+            </div>
+        }
+        <section class="boxSection basketSummary with-status">
+            <header>
+                @{
+                    var quantiy = Model.Basket.BasketLines.Sum(x => x.Quantity);
+                }
+                <h2>
+                    <span>Your order contains </span>@quantiy item@(quantiy != 1 ? "s" : "")
+                </h2>
+            </header>
+            @foreach (var basketLine in Model.Basket.BasketLines)
+            {
+                <div class="basketItem">
+                    <div class="details">
+                        <h2>
+                            <a href="/shop/@basketLine.Url?code=@basketLine.Sku.Code">@basketLine.Sku.Name</a>
+                        </h2>
+                        <dl>
+                            @if (basketLine.Attributes.ContainsKey("Descriptive Colour"))
+                            {
+                                <dt>Colour</dt>
+                                <dd>@(basketLine.Attributes.GetValueOrNull("Descriptive Colour"))</dd>
+                            }
+                            <dt>@basketLine.Attributes.GetValueOrNull("Product Group")</dt>
+                            <dd>@basketLine.Sku.Code</dd>
+                        </dl>
+                    </div>
+                    <p class="value">
+                        <span>Item Price: </span>@basketLine.UnitPriceEx.ToString("C2")</p>
+                    <p class="quantity">
+                        <span>Quantity: </span>@basketLine.Quantity</p>
+                    <p class="value">
+                        <span>Sub Total: </span>@basketLine.TotalEx.ToString("C2")</p>
+                    <p class="value value-status">
+                        <span>Order Status: </span>@basketLine.TransactionStatus</p>
+                </div>
+            }
+        </section>
+        <nav class="pageOptions" role="navigation">
+            <ul>
+                <li>
+                    <a href="@Url.Action("OrderHistory", "AccountArea", new {area = "AccountArea"})" class="prev">
+                        <span>Back to List</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <aside class="sideCol rightCol">
+
+        <div class="basketTotals">
+            <dl>
+                <dt>Sub Total</dt>
+                <dd>@Model.Basket.TotalEx.ToString("C2")</dd>
+                <dt>Tax / VAT</dt>
+                <dd>@Model.Basket.TotalVat.ToString("C2")</dd>
+                @if (ViewBag.IsClickAndCollect)
+                {
+                    <dt>Click and Collect</dt>
+                }
+                else
+                {
+                    <dt>Delivery</dt>
+                }
+                <dd>@Model.Basket.DeliveryCost.ToString("C2")</dd>
+                <dt class="total">Total</dt>
+                <dd class="total">@Model.Basket.GrandTotal.ToString("C2")</dd>
+            </dl>
+
+        </div>
+
+    </aside>
+</div>

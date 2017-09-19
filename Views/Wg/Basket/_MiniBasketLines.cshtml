@@ -1,0 +1,51 @@
+﻿@using Colony.CMS
+@model IList<Colony.Commerce.Areas.ShopPurchase.Models.BasketLineViewModel>
+
+@for (var i = 0; i < Model.Count; i++)
+{
+    var basketLine = Model.ElementAt(i);
+
+    using (Html.BeginCollectionItem("basketLines"))
+    {
+      if (ColonyContext.Current.CurrentSite.SiteKey == "Wg"){
+        Html.RenderPartial("_WGMiniBasketLine", basketLine);
+      }
+      else{
+        Html.RenderPartial("_MiniBasketLine", basketLine);
+      }
+    }
+}
+<script type="text/javascript">
+        $(document)
+            .ready(function() {
+                $('a[data-currencyCode]')
+                    .on('click',
+                        function () {
+                            debugger;
+                            dataLayer.push({
+                                'event': 'ga-ee',
+                                'eventAction': 'removeFromBasket',
+                                'ecommerce': {
+                                    'currencyCode': $(this).attr('data-currencyCode'),
+                                    'remove': {
+                                        'products': [
+                                            {
+                                                'name': $(this).attr('data-itemName'),
+                                                'id': $(this).attr('data-itemId'),
+                                                'price': $(this).attr('data-itemPrice'),
+                                                    'brand': $(this).attr('data-itemBrand'),
+                                                'category': $(this).attr('data-itemCategory'),
+                                                'variant': $(this).attr('data-variant'),
+                                                'quantity': $(this).attr('data-itemQuantity'),
+                                                'dimension2': $(this).attr('data-itemDimension2'),
+                                                'dimension3': $(this).attr('data-itemDimension3'),
+                                                'dimension4': $(this).attr('data-itemDimension4'),
+                                                'dimension5': $(this).attr('data-itemDimension5')
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                        });
+            });
+</script>

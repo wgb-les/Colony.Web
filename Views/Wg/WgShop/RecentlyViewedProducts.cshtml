@@ -1,0 +1,24 @@
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model IEnumerable<Colony.Commerce.Areas.Shops.Models.RecentlyViewedProductViewModel>
+
+@if (Model.Any())
+{
+  foreach (var product in Model)
+  {
+      var defaultImage = product.Images.OrderBy(x => x.Order).FirstOrDefault();
+      var defaultImageUrl = defaultImage != null ? Url.ImageUrl(defaultImage.ImageAssetID, "productcatalogue", "productthumbnail", "/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg"; //"/_assets/images/cloud/" + defaultImage.ImageAssetID.ToString() + "/ProductCatalogue/ProductThumbnail/" : @"/_images/placeholders/article.jpg";
+      var showPrice = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current)) ? "false" : "true";
+
+      <a href="/shop/@(product.Url)?code=@product.Sku.Code" class="sl-item sl-slide sl-small-pad">
+        <div class="sl-item-inner" data-value="productThumb" data-productcode="@(product.Sku != null ? product.Sku.Code : product.Attributes.GetValueOrNull("Design Code"))" data-productname="@product.Product.Name" data-skuid="@(product.Sku != null ? product.Sku.Id : product.Product.SkuGroupId)" @if (defaultImage != null){<text>data-imageAssetId="@defaultImage.ImageAssetID"</text>} data-productimage="@defaultImageUrl">
+          <img class="lazyload" data-original="@defaultImageUrl" alt="@product.Name"/>
+          <div class="details">
+            <text class="sl-text" data-value="productTitle">@product.Product.Name</text>
+              <text class="sl-text" data-value="productBrand">By @product.Attributes.GetValueOrNull("Brand")</text>
+              <text class="sl-text" data-value="productSku">@(product.Sku != null ? product.Sku.Code : product.Attributes.GetValueOrNull("Design Code"))</text>
+              <text class="sl-text" data-value="productCategory">@product.Attributes.GetValueOrNull("Product Group")</text>
+          </div>
+        </div>
+      </a>
+  }
+}

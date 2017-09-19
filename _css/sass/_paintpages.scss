@@ -1,0 +1,195 @@
+﻿
+
+
+    /* header banner */
+    #banner {
+        height:420px;
+        position:relative;
+        margin-top:60px;
+    }
+    #banner.row {
+        max-width:1280px;
+    }
+    .sanderson div#banner {
+        background:#dcd8cc;
+    }
+    .zoffany div#banner {
+        background:#2C6872;
+    }
+    .paintfinishes  div#banner {
+        background:#E8B6B5;
+    }
+    .paintadvice  div#banner {
+        background:#2B475C;
+    }
+    .environment  div#banner {
+        background:#B9B89A;
+    }
+    .introtocolour  div#banner {
+        background:#65A6A0;
+    }
+    #headerImg {
+        margin-top:-60px;        
+    }
+    #headerImg img {
+        border:solid $padding-base white;
+        height:530px;
+        object-fit:cover;
+    }
+    .headerImgLeft {      
+        left:-$padding-base;
+        img {
+            width: 100%;
+            object-fit: cover;
+            }
+        }
+    .headerImgRight {
+        right:-$padding-base;
+        img {
+            width: 100%;
+            object-fit: cover;
+            }
+        }
+    #brandLogo img {
+        max-width:440px;
+        width:100%;
+    }
+
+    #headerImgLeft {
+      height:420px; // match the banner height for vert alignment
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-pack: left;
+      -webkit-box-align: left;
+    }
+    #headerImgRight {
+      height:420px; // match the banner height for vert alignment
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-pack: right;
+      -webkit-box-align: right;
+    }
+    // vertical align logo
+    #brandLogo {
+      height:420px; // match the banner height for vert alignment
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-pack: center;
+      -webkit-box-align: center;
+    }
+    #brandText h1 {
+        font-size: 50px;
+        //height:420px; // match the banner height for vert alignment
+        text-align: right;
+        border: none;
+        color:white;
+        margin-top:50px;
+    }
+    
+
+
+    /* Text */
+
+    .cmspage h2 {
+       // border-bottom:1px solid $scorpion;
+        border-bottom: 1px solid #c9c9c9;
+        padding-bottom:0.5em;
+        margin-bottom:0.5em;
+        margin-top:1em;
+    }
+   
+
+    /* buttons */
+
+    .columns.row.brand {
+        background-color: red;
+        max-height: 480px;
+    }
+    
+    #sectionAnchors {
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+    #sectionAnchors a.button {
+        background-color: white;
+        color: $scorpion;
+        margin-right: 20px;
+    }
+
+    #paintfinishes h3 {
+        font-size: $font-base;
+        text-align: center;
+    }
+
+    /* foot banner */
+     .sanderson .footBanner  {
+        background:#B5BD93;
+     }
+     .zoffany .footBanner  {
+        background:#C59895;
+     }
+
+
+
+    /* stretch those small images to fill their parent div */
+    .cmspage .pageContainer section img {
+        width:100%;
+        object-fit:cover;
+        margin:$padding-base 0;
+    }
+
+
+    @media (max-width:768px) {
+        #sectionAnchors {
+            margin-top: 20px;
+        }        
+        #sectionAnchors a.button {
+            width: 100%;
+            margin:10px 0;
+        }
+    }
+
+    // version 4 header
+    
+    @media (max-width: 768px) { 
+        #banner {
+            height:560px;
+            .brand {
+                  display: flex;
+                  flex-flow: row wrap;
+            } 
+        } 
+        // -- Carousel fix for brand pages --//
+        .sliderContainer .brand {
+                display:inline-block; 
+        }
+        #brandLogo, #brandText {
+            order:1;
+            width:100%;
+        }
+        #headerImg  {
+            order:2;
+            width:100%;
+        }
+        #brandLogo img{
+            max-width:400px;
+            margin-top:-40px;
+        }
+        #brandLogo, #brandText, #headerImg img {
+            height:300px;
+        }
+        .headerImgLeft, #brandLogo {
+            margin-left:0px;
+            left:0;
+        }
+        .headerImgRight{
+            margin-left:-10px;
+        }
+    }
+
+    @media (min-width:481px) and (max-width: 767px) { 
+        .brand {
+            width:90% !important;
+            margin:auto !important;
+        } 
+    }

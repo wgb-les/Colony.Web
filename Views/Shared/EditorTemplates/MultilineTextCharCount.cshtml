@@ -1,0 +1,18 @@
+﻿@model string
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+    var size = ViewData["size"] ?? string.Empty;
+}
+<div class="field textarea wordCount @size">
+    <div class="label">
+        @Html.CustomLabelFor(x => x)
+    </div>
+
+    @Html.ValidationMessageFor(t => t)
+    @Html.TextAreaFor(x => x)
+    <p class="counter">Maximum characters <span>250</span></p>
+</div>

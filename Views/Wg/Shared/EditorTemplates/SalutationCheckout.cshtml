@@ -1,0 +1,23 @@
+﻿@model object
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+    var salutationList = new[] { "Mr", "Mrs", "Miss", "Ms", "Dr", "Sir", "Lady" };
+    var options = salutationList.OrderBy(x => x).Select(s => new SelectListItem { Value = s, Text = s, Selected = s == (Model as string ?? string.Empty) });
+    var size = ViewData["size"] ?? string.Empty;
+    options = new[] { new SelectListItem { Value = "", Text = "Please select" } }.Concat(options);
+}
+
+<div class="section field text @size">
+    @Html.CustomLabelFor(x => x)
+    @Html.CustomStyledValidationMessageFor(t => t)
+    <select data-val="true" data-val-required="The Title field is required." id="Title" name="Title">
+        @foreach (var option in options)
+        {
+            <option value="@option.Value" @(option.Value == (string)Model ? "selected=\"selected\"" : "")>@option.Text</option>
+        }
+    </select>
+</div>

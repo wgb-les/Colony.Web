@@ -1,0 +1,64 @@
+﻿@using Colony.Commerce.Areas.ShopPurchase.Models
+@using Colony.Models.Base
+@model Colony.Commerce.Models.ShopPurchase.ICheckout
+
+<div class="card-header tab-sub-header">
+    <h3 class="card-heading">
+        About you
+    </h3>
+</div>
+<dl class="summary-meta">
+    <dt>
+        Name:
+    </dt>
+    <dd>
+        @(Model.Person.Title + " " + Model.Person.FirstName + " " + Model.Person.LastName)
+    </dd>
+    <dt>
+        Name:
+    </dt>
+    <dd>
+        <span class="truncate">@Model.Person.EmailAddress</span>
+    </dd>
+    <dt>
+        Telephone:
+    </dt>
+    <dd>
+        @(Model.Person.PrimaryTelephone == null ? "" : Model.Person.PrimaryTelephone.Number)
+    </dd>
+</dl>
+@if (Model.Person.UserAccountId == null)
+{
+    <a class="underline" href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.AboutYouGuest})">Edit your details</a>
+}
+
+@if (@Model.Addresses.ContainsKey(AddressType.Delivery))
+{
+    <div class="card-header tab-sub-header">
+        <h3 class="card-heading tab-sub-heading">
+            Delivery
+        </h3>
+    </div>
+    <address>
+        <span>@Model.Addresses[AddressType.Delivery].Line1</span>
+        <span>@Model.Addresses[AddressType.Delivery].Town</span>
+        <span>@Model.Addresses[AddressType.Delivery].County</span>
+        <span>@Model.Addresses[AddressType.Delivery].Postcode</span>
+    </address>
+    <a class="underline" href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.Delivery})">Edit your delivery address</a>
+}
+@if (@Model.Addresses.ContainsKey(AddressType.Billing))
+{
+    <div class="card-header tab-sub-header">
+        <h3 class="card-heading tab-sub-heading">
+            Billing
+        </h3>
+    </div>
+    <address>
+        <span>@Model.Addresses[AddressType.Billing].Line1</span>
+        <span>@Model.Addresses[AddressType.Billing].Town</span>
+        <span>@Model.Addresses[AddressType.Billing].County</span>
+        <span>@Model.Addresses[AddressType.Billing].Postcode</span>
+    </address>
+    <a class="underline" href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.Payment})">Edit your delivery address</a>
+}

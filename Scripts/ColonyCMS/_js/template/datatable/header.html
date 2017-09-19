@@ -1,0 +1,12 @@
+<thead>
+    <tr>
+        <th colspan="<%=mapping.length() %>"></th>
+        <th>col actions</th>
+    </tr>
+<tr>
+<%_.each(mapping, function (i) {%>
+<th><%=i.friendlyName%></th>
+<%});%>
+<th>Actions</th>
+</tr>
+</thead>

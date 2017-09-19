@@ -1,0 +1,35 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BRegisterInterestViewModel
+@{
+    ViewBag.Title = "Web Portal Access";
+}
+<div id="content">
+    <h1>@ViewBag.Title</h1>
+
+    <div class="contentForm">
+        <form action="@Url.Action("B2BRegisterInterest", "Enquiries", new {area = "B2BMembers"})" method="post">
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>@ViewBag.Title</legend>
+
+                <p>For access to the Business web portal please enter your details below including your customer number.</p>
+
+                @Html.EditorFor(model => model.CompanyName)
+                @Html.EditorFor(model => model.CustomerNumber)
+                @Html.EditorFor(model => model.Person.Title)
+                @Html.EditorFor(model => model.Person.FirstName)
+                @Html.EditorFor(model => model.Person.LastName)
+                @Html.EditorFor(model => model.Person.Email, new {labelText = "Contact Email"})
+                @Html.EditorFor(model => model.PhoneNumber, new {@class = "medium", labelText = "Contact Phone no."})
+                @Html.Partial("_ReCaptcha")
+
+                <p>
+                    If your form submission is successful then you will receive a confirmation e-mail containing login details
+                    and instructions on how to access our web portal
+                </p>
+                <div class="field formControls">
+                    <button class="button pull-right">Send</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

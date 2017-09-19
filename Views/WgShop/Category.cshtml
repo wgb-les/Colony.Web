@@ -1,0 +1,230 @@
+﻿@using Colony.CMS
+@using Colony.CMS.Security.Helpers
+@using Colony.Commerce.Models
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+@{
+    if (Model.Category != null)
+    {
+        Html.AppendTitle(Model.Category.MetaTitle);
+        Html.SetPageData(Model.Category.AnalyticsCode, Model.Category.MetaTitle, Model.Category.MetaKeywords, Model.Category.MetaDescription, Model.Category.MetaCustomTags);
+    }
+    var defaultImage = Model.Images != null ? Model.Images.Where(x => x != null).OrderBy(x => x.Order).FirstOrDefault() : null;
+    var defaultImageUrl = defaultImage != null ? "/_assets/images/cloud/" + defaultImage.ImageAssetID + "/productcatalogue/productdetail/" : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images != null ? Model.Images.Where(x => x != null).OrderBy(x => x.Order).FirstOrDefault() : null;
+    var defaultImageZoomUrl = defaultImageZoom != null ? "/_assets/images/cloud/" + defaultImageZoom.ImageAssetID + "/productcatalogue/productdetailzoom/" : @"/_images/placeholders/article.jpg";
+
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageUrl).AbsoluteUri;
+
+    var siteKey = ColonyContext.Current.CurrentSite.SiteKey;
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+@if (Model.IsParent)
+{
+    <div id="content" class="">
+        @if (useraccount != null)
+        {
+            Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+        }
+        @if (Model.Category != null)
+        {
+            <div class="collectionDetails">
+                <div class="collectionInfo">
+                    <h1>@Model.Name</h1>
+                    @Html.Raw(Model.LongDescription)
+                    @if (Model.Name == "Sanderson Home")
+                    {
+                        <a href="/search/#keywords=sanderson+Home" class="button" style="width: 100%;">Search all of Sanderson Home</a>
+                    }
+                    @if (Model.Name == "Fabric")
+                    {
+                        <a href="/search/?SelectedProductGroups=2981" class="button" style="width: 100%;">Search all @Model.Name</a>
+                    }
+                    @if (Model.Name == "Wallpaper")
+                    {
+                        <a href="/search/?SelectedProductGroups=2982" class="button" style="width: 100%;">Search all @Model.Name</a>
+                    }
+                    @if (Model.Name == "Trimmings")
+                    {
+                        <a href="/search/?SelectedProductGroups=2980" class="button" style="width: 100%;">Search all @Model.Name</a>
+                    }
+                </div>
+                <div class="collectionShots">
+                    <div class="carousel imageCarousel">
+                        <ul class="items">
+                            @if (Model.Images != null && Model.Images.Any())
+                            {
+                                foreach (var img in Model.Images.Where(x => x.Type == ProductImageType.Gallery).OrderBy(x => x.Order))
+                                {
+                                    <li>
+                                        @{ Html.RenderAction("HotspotsForImage", "Hotspots", new {area = "Hotspots", imageAssetId = img.ImageAssetID}); }
+
+                                        <img src="/_assets/images/cloud/@img.ImageAssetID/shop/hotspotssmaller/" alt="@img.Name"/>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <img src="@defaultImageUrl" alt="@(defaultImage != null ? defaultImage.Name : "Placeholder")"/>
+                                </li>
+                            }
+                        </ul>
+                        @if (Model.Images != null && Model.Images.Count > 1)
+                        {
+                            <a href="#" class="prev">
+                                <span></span>
+                                Previous
+                            </a>
+                            <a href="#" class="next">
+                                <span></span>
+                                Next
+                            </a>
+                            <div class="bullets">
+                                <span class="icon icon-play icon-pause"></span>
+                                <ul></ul>
+                            </div>
+                        }
+                        @if (Model.Images != null && Model.Images.Any())
+                        {
+                            <span class="left info-text"><span>Rollover the image to view the products in this set</span></span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            if (!ViewContext.HttpContext.IsMobile())
+            {
+                <hr/>
+            }
+            if (Model.SubCategories.Any())
+            {
+                <form class="filter-bar" id="formSearch">
+                    <div class="row collapse">
+                        <div class="columns small-12 large-4">
+                            <h2 class="filter-bar-heading">@Model.Category.Name</h2>
+                        </div>
+
+                        @if (Model.ShouldShowBrandFilter)
+                        {
+                            <div class="columns small-12 large-4">
+                                <div class="field select ">
+                                    <label for="brandKey">
+                                        Filter by brand<span class="required">Required</span>
+                                    </label>
+
+                                    <select name="brandKey" id="selectStandard">
+                                        <option value="">All Brands</option>
+                                        <option value="ANT">Anthology</option>
+                                        <option value="HAR">Harlequin</option>
+                                        <option value="MOR">Morris &amp; Co</option>
+                                        <option value="SAN">Sanderson</option>
+                                        <option value="SCI">Scion</option>
+                                        <option value="ZOF">Zoffany</option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.ShouldShowSearch && siteKey.ToLower() != "scion")
+                        {
+                            <div class="columns small-12 large-4">
+                                <div class="input-postfix input-postfix-filled">
+                                    <div class="field text">
+                                        <label for="keywords">Filter by name</label>
+                                        <input type="text" name="keywords" id="filterKeyword" placeholder="Collection name" value="@Model.SearchKeywords">
+                                    </div>
+                                    <button class="input-postfix-reset">
+                                        <span class="input-postfix-icon icon-remove"></span>
+                                        <span class="input-postfix-label">Search</span>
+                                    </button>
+                                    <button type="submit" class="button input-postfix-button">
+                                        <span class="input-postfix-icon icon-search"></span>
+                                        <span class="input-postfix-label">Search</span>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </form>
+                if (Model.SubCategories.PageCount > 1)
+                {
+                    @Html.Paging(Model.SubCategories)
+                    ;
+                }
+
+                <div id="subCategories" class="collectionsPreview productCollections">
+                    @{
+                        Html.RenderPartial("_SubCategories", Model);
+                    }
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(Model.SearchKeywords))
+            {
+                <p id="noCollectionFoundMessage">No collections found</p>
+            }
+            else if (Model.Products.Any())
+            {
+                Html.RenderPartial("_ProductList", Model.Products);
+            }
+        }
+        @if (useraccount != null)
+        {
+            Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+        }
+    </div>
+}
+else
+{
+    <div id="content">
+        @if (useraccount != null)
+        {
+            Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+        }
+        @{
+            Html.RenderPartial("CollectionDetails", Model);
+        }
+
+        @if (Model.SubCategories.Any())
+        {
+            <h1>@Model.Name</h1>
+            <div class="productCollections">
+                @foreach (var item in Model.SubCategories.Select((model, index) => new {index, model}))
+                {
+                    <div class="item">
+                        <a href="/shop/@(item.model.Url)">
+                            <img src="@Url.ImageUrl(item.model.ImageAssetId, "Shop", "ProductCategoryThumbnail", "/_images/placeholders/categoryList.jpg")" alt="@item.model.Name"/>
+                            <h3 class="itemTitle">@item.model.Name</h3>
+                            @if (item.model.IsNew)
+                            {
+                                <span class="itemNew">New</span>
+                            }
+                        </a>
+                    </div>
+
+                    <section class="selectedItem">
+                        <article class="details">
+                            <h2>
+                                <a href="/shop/@(item.model.Url)">@item.model.Name</a>
+                            </h2>
+                            @Html.Raw(item.model.LongDescription)
+                            <a href="/shop/@(item.model.Url)">See all 50 [type]</a>
+                        </article>
+                        <aside class="productList">
+                        </aside>
+                    </section>
+                }
+            </div>
+        }
+    </div>
+}
+@if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+{
+    Html.RenderAction("SelectShop", "B2BShop", new {area = "B2BMembers"});
+
+    ViewContext.Controller.TempData["ShowSelectShopLink"] = true;
+}
+
+<script src="/_js/shared/category-search.js" type="text/javascript"></script>

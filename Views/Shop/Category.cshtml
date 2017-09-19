@@ -1,0 +1,42 @@
+﻿@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+@{
+    ViewBag.Title = Model.Category.Name;
+}
+@*<aside class="sideCol leftCol">
+    @{Html.RenderAction("Search", "Shop", new { area = "CustomShops" });}
+</aside>*@
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('productCollections');
+</script>
+<div id="content">
+    @{ Html.RenderPartial("CollectionDetails", Model); }
+
+    <h1>@Model.Category.Name</h1>
+    <div class="productCollections">
+        @foreach (var item in Model.SubCategories.Select((model, index) => new {index, model}))
+        {
+            <div class="item">
+                <a href="@Html.ProductCategoryUrl(item.model.Category)">
+                    <img src="@Url.ImageUrl(item.model.Category.ImageAssetId)" alt="@item.model.Category.Name"/>
+                    <span class="itemTitle">@item.model.Category.Name</span>
+                    @if (item.model.Category.IsNew)
+                    {
+                        <span class="itemNew">New</span>
+                    }
+                </a>
+            </div>
+
+            <section class="selectedItem">
+                <article class="details">
+                    <h2>
+                        <a href="@Html.ProductCategoryUrl(item.model.Category)">@item.model.Category.Name</a>
+                    </h2>
+                    <p>@item.model.Category.LongDescription</p>
+                    <a href="@Html.ProductCategoryUrl(item.model.Category)">See all 50 [type]</a>
+                </article>
+                <aside class="productList">
+                </aside>
+            </section>
+        }
+    </div>
+</div>

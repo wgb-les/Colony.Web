@@ -1,0 +1,49 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.PaymentViewModel
+@{
+    Layout = "";
+}
+
+<h3>Billing Address</h3>
+<p>
+    Please ensure your billing address matches the details for the address at which your card is registered.
+</p>
+<fieldset class="optionList">
+        <div class="section tickbox">
+            <input type="radio" name="billingAddress" data-input="address" id="billingAddress_1" value="same" checked="">
+            <label for="billingAddress_1" class="register">
+                <span>My billing address is the same as my delivery address</span>
+            </label>
+      </div>
+        <div class="section tickbox">
+            <input type="radio" name="billingAddress" data-input="address" id="billingAddress_2" value="new">
+            <label for="billingAddress_2" class="register">
+                <span>I have a different billing address</span>
+            </label>
+        </div>
+</fieldset>
+<div data-content="billing-address">
+    @Html.Partial("Payment/_BillingAddress", Model.Address)
+</div>
+
+<div class="section tickbox">
+    @if (TempData["termserror"] != null)
+    {
+        <div for="" class="field-validation-error" data-valmsg-for="AcceptTermsAndConditions" data-valmsg-replace="true">
+            <div for="AcceptTermsAndConditions" class="alertInfo error">@TempData["termserror"]</div>
+        </div>
+    }
+    <input type="checkbox" name="terms" id="terms">
+    <label for="terms" class="register">
+        <span>
+            I accept the website <a href="@Url.Content("~/Terms-and-conditions")">Website Terms of Use</a>, <a href="@Url.Content("~/Terms-and-conditions-of-sale/")">Terms and Conditions of Sale and </a><a href="@Url.Content("~/privacy-policy/")">Privacy Policy</a>. I also acknowledge that the goods ordered incorporate works and/or designs that are protected by intellectual property rights owned by or licensed to Abaris Holdings Limited or affiliated entities. Any infringement or attempted infringement of those rights will be pursued.
+        </span>
+        <span class="required">Required</span>
+    </label>
+</div>
+<div class="section">
+    <div class="button level1 wide1">
+        <button type="submit" class="inner" name="paymentMethod" value="CreditCard">
+            Pay by card
+        </button>
+    </div>
+</div>

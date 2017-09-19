@@ -1,0 +1,455 @@
+@using Colony.CMS
+@using Colony.CMS.Security.Helpers
+@using Colony.Commerce
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+@{
+
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageZoomUrl = defaultImageZoom != null ? @Url.ImageUrl(defaultImageZoom.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageUrl).AbsoluteUri;
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+
+    var isContract = B2BCheckoutService.IsContractUser(new HttpContextWrapper(HttpContext.Current));
+
+    var isSampleable = Model.AllowSamples && int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") > 0;
+    var productGroupValue = Model.Attributes.GetValueOrNull("Product Group") ?? "";
+    var shop = ShopContext.Current.CurrentShop.ShopKey;
+    var isTrimmingsProductGroup = productGroupValue == "Trimmings";
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+
+<div class="pageContainer mobileNoPad">
+  <div class="detailImageContainer">
+    <div class="linePlaster"></div>
+
+    <!-- ------------------- Images Section ------------------- -->
+
+    <div class="sliderContainer">
+      <div class="slider">
+        @if (Model.Images.Any())
+        {
+          var canvasId = 0;
+          foreach (var image in Model.Images)
+          {
+            canvasId++;
+
+            var imageUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg");
+            var imageZoomUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/article.jpg");
+            var imageThumbnailUrl = Url.ImageUrl(image.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+
+            <div class="sliderSlide">
+              <span class="zoom" id="ex1" style="position: relative; overflow: hidden;">
+                <img id="zoom@(image.ImageAssetID)" class="mainZoom no-drag lazyload" src="@imageZoomUrl" data-productcode="@Model.SelectedSku.Code" data-productname="@Model.SelectedSku.Name" data-url="@Request.Url.AbsoluteUri" data-productimage="@imageThumbnailUrl" data-skuid="@Model.SelectedSku.Id" />
+              </span>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <!-- ------------------- Desktop Complementary Section ------------------- -->
+
+    <div class="mobileHide">
+      @if (Model.RelatedProducts.Any())
+      {
+        <h3 class="productPageHeading">Complete the Look</h3>
+        <div class="complementaryContainer">
+          @{ ViewBag.CssClass = "items"; }
+          @{ Html.RenderPartial("_ProductList", Model.RelatedProducts); }
+        </div>
+      }
+    </div>
+  </div>
+  <div class="detailInfoContainer">
+
+    <!-- ------------------- Product Overview Section ------------------- -->
+
+    <div class="detailTitleContainer">
+      @if (Model.Attributes.GetValueOrNull("Brand")=="Morris &amp; Co."){
+      <div class="brandLogo Morris">
+        <img src="/_images/brands/wg/logos/Morris.png" alt="">
+      </div>
+      }
+      else{
+        <div class="brandLogo @(Model.Attributes.GetValueOrNull("Brand"))">
+          <img src="/_images/brands/wg/logos/@(Model.Attributes.GetValueOrNull("Brand")).png" alt="">
+        </div>
+      }
+      <div class="detailActions">
+        <button class="subtleButton favourite padIcon">Add</button>
+        <button class="subtleButton print padIcon">Print</button>
+        <button class="subtleButton share padIcon">Share</button>
+      </div>
+      <h1>@Model.Product.Name</h1>
+      <h2>@Model.Category.Name</h2>
+      <h2>@(Model.Attributes.GetValueOrNull("Design Code") ?? Model.SelectedSku.Code)</h2>
+    </div>
+
+    <!-- ------------------- Intro Descriptive Section ------------------- -->
+
+    <div class="detailIntroContainer">
+      @Html.Raw(Model.SelectedSku.LongDescription)
+      @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Other Info"))){
+        <p>@(Model.Attributes.GetValueOrNull("Other Info"))</p>
+      }
+    </div>
+
+    <!-- ------------------- Other Colourways Section ------------------- -->
+
+    <!-- @if (Model.Skus.Any() && Model.Category.Name!="Bedding")
+    {
+      <div class="otherColours">
+        @foreach (var item in Model.Skus.Select((model, index) => new {index, model}))
+        {
+          var defaultItemImage = item.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+          var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+          <a href="?code=@item.model.Sku.Code">
+            <div class="colourWay @if (Model.SelectedSku.Id == item.model.Sku.Id) {<text>active</text>}">
+              <img src="@defaultItemImageUrl" alt="@item.model.Sku.Name" data-productcode="@item.model.Sku.Code" data-productname="@item.model.Sku.Name" data-skuid="@item.model.Sku.Id" @if (defaultImage != null){<text>data-imageAssetId="@defaultImage.ImageAssetID"</text>} data-productimage="@defaultItemImageUrl" data-skuid="@item.model.Sku.Id" data-url="@Request.Url.AbsolutePath?code=@item.model.Sku.Code" @if (isB2B){<text>data-isb2b="true"</text>}/>
+            </div>
+          </a>
+        }
+      </div>
+    } -->
+
+    <!-- ------------------- Price RRP & SALE Section ------------------- -->
+
+    <div class="detailPriceContainer">
+      <p class="priceValue">SSP</p>
+      <p class="priceValue oldPrice">&pound; 69.99R</p>
+      <p class="priceValue salePrice">&pound; 49.99R</p>
+    </div>
+
+    <!-- ------------------- Paint Section ------------------- -->
+
+    @if (Model.ProductOptions.Any(x => x.Price.PriceInc > 0 || 1==1))
+    {
+      <div class="productBuyingSection">
+        <div class="product-questions productQuestionsContainer">
+            <div class="paintSurfaceWrapper">
+                <label for="paintSurface productQuestion surfaceSection">
+                    What do you want to paint?
+                </label>
+                <select name="paintSurface" id="paintSurface">
+                    <option value="">Please select...</option>
+                    <option value="EMU-ELI-ACR">Interior Walls and Ceilings</option>
+                    <option value="ELI-ACR-EGG">Interior Wood and Metal</option>
+                    <option value="ELI-EGG">Kitchen Walls</option>
+                    <option value="ELI-ACR-EGG">Kitchen Wood and Metal (Primed)</option>
+                    <option value="ACR">Bathroom Walls</option>
+                    <option value="ACR-EGG">Bathroom Wood and Metal (Primed)</option>
+                    <option value="ACR-EGG">Exterior Wood and Metal</option>
+                </select>
+            </div>
+            <div class="productQuestion finishSection paintFinishWrapper hide">
+                <label for="paintFinish">
+                    What finish do you want?
+                </label>
+                <select name="paintFinish" id="paintFinish">
+                    <option value="">Please select...</option>
+                    <option value="ACR">Acrylic Eggshell</option>
+                    <option value="ELI">Elite Emulsion</option>
+                    <option value="EMU">Flat Emulsion</option>
+                    <option value="EGG">Oil Eggshell</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="productOptionContainer">
+          @foreach (var productOption in Model.ProductOptions.Where(x => x.Price.PriceInc > 0 || 1==1))
+          {
+              <div class="productOption product-option" data-product-option="@productOption.Sku.Code.GetLast(3)" data-product-option-price="@productOption.Price.PriceInc.AsDecimal(0)" data-producti-option-skuid="@productOption.Sku.Id" style="display: none;">
+                  <div class="activeOption check"></div>
+                  <div class="productOptionDetails">
+                    <h3>@productOption.Sku.Name</h3>
+                    <span>@productOption.Sku.Attributes.GetValueOrNull("Design Code")</span>
+                  </div>
+                  <div class="optionQuantityContainer">
+                    <div class="field text spinner split">
+                      <input type="text" class="js-spinner-split" name="quantity" id="spinnerSplit_@productOption.Sku.Code" value="@(Model.ProductOptions.Count == 1 ? 1 : 0)" data-max-value="100" data-min-value="1"/>
+                    </div>
+                  </div>
+                  <div class="productOptionPrice">
+                    <h3>@productOption.RegionInfo.CurrencySymbol@productOption.Price.PriceInc.AsDecimal(0).ToString("#0.00")</h3>
+                  </div>
+              </div>
+          }
+          <div class="product-option no-products" style="display: none;">
+              <div class="product-option-details">
+                  <div class="alertInfo message">Sorry, there are no products matching your selection.</div>
+              </div>
+          </div>
+          <div class="product-summary hide">
+            <span class="product-totals-count">0 items selected</span>
+            <div class="buyingTotalContainer">
+              <span>Total inc VAT</span><h3>@(ColonyCommerceContext.Current.Currency.CurrentForPricing.RegionInfo.CurrencySymbol)</h3><h3 id="totalProductOptionsCost">0.00</h3>
+            </div>
+            <div class="products-summary-action">
+              <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.ProductOptions.Count == 1 ? Model.ProductOptions.First().Sku.Id : 0, quantity = Model.ProductOptions.Count == 1 ? 1 : 0})" class="button primaryButton wideButton bag padIcon addToBasket @if (Model.ProductOptions.Count > 1){<text>disabled</text>}">Add to basket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+
+    <!-- ------------------- Info / Spec Section ------------------- -->
+
+    <!-- <h3 class="productPageHeading">More Information</h3> -->
+    <div class="moreInfoContainer">
+      <div class="moreInfoSection">
+        <div class="moreInfoTitle">
+          <p class="afterAngleUp">Product Details</p>
+        </div>
+        <div class="toggleContent">
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Descriptive Colour"))){
+            <div class="specLine">
+              <div class="specItem">Colour</div>
+              <div class="specItem colourData">@Model.Attributes.GetValueOrNull("Descriptive Colour")</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Type"))){
+            <div class="specLine">
+              <div class="specItem">Product Type</div>
+              <div class="specItem colourData">@Model.Attributes.GetValueOrNull("Type")</div>
+            </div>
+          }
+          <div class="specLine">
+            <div class="specItem">Design Scale</div>
+            <div class="specItem">@(Model.Attributes.GetValueOrNull("Small Scale") != null && Model.Attributes.GetValueOrNull("Small Scale") == "Y" ? "Small" : "Large")</div>
+          </div>
+          @if (Model.SelectedSku.Width.HasValue){
+            if (Model.SelectedSku.Width.Value > 0){
+              <div class="specLine">
+                <div class="specItem">Width</div>
+                <div class="specItem">@((Model.SelectedSku.Width ?? 0).ToString("0.0"))cm (@(((Model.SelectedSku.Width ?? 0)/(decimal) 2.54).ToString("0.0")))</div>
+              </div>
+            }
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Vertical Pattern Repeat"))){
+            decimal temp;
+            if (decimal.TryParse(Model.Attributes.GetValueOrNull("Vertical Pattern Repeat"), out temp)){
+              if (temp > 0){
+                <div class="specLine">
+                  <div class="specItem">Vertcial Pattern Repeat</div>
+                  <div class="specItem">@((temp > 0 ? temp/10 : temp).ToString("0.0"))cm (@(((temp > 0 ? temp/10 : temp)/(decimal) 2.54).ToString("0.0")))</div>
+                </div>
+              }
+            }
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Horizontal Pattern Repeat"))){
+            decimal temp;
+            if (decimal.TryParse(Model.Attributes.GetValueOrNull("Horizontal Pattern Repeat"), out temp)){
+              if (temp > 0){
+                <div class="specLine">
+                  <div class="specItem">Horizontal Pattern Repeat</div>
+                  <div class="specItem">@((temp > 0 ? temp/10 : temp).ToString("0.0"))cm (@(((temp > 0 ? temp/10 : temp)/(decimal) 2.54).ToString("0.0")))</div>
+                </div>
+              }
+            }
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Pattern Match Description"))){
+            <div class="specLine">
+              <div class="specItem">Match</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("Pattern Match Description"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Composition Description"))){
+            <div class="specLine">
+              <div class="specItem">Composition</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("Composition Description"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Domestic"))){
+            <div class="specLine">
+              <div class="specItem">FR Domestic</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("FR Domestic"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Contract"))){
+            <div class="specLine">
+              <div class="specItem">FR Contract</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("FR Contract"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Drapes"))){
+            <div class="specLine">
+              <div class="specItem">FR Drapes</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("FR Drapes"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Wallpaper"))){
+            <div class="specLine">
+              <div class="specItem">FR Wallpaper</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("FR Wallpaper"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Inherent"))){
+            <div class="specLine">
+              <div class="specItem">FR Inherent</div>
+              <div class="specItem">@Html.Raw(Model.Attributes.GetValueOrNull("FR Inherent").Replace("|", "<br/>"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("FR Treatable"))){
+            <div class="specLine">
+              <div class="specItem">FR Treatable</div>
+              <div class="specItem">@Html.Raw(Model.Attributes.GetValueOrNull("FR Treatable").Replace("|", "<br/>"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Martindale"))){
+            <div class="specLine">
+              <div class="specItem">Martindale Rub Test</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("Martindale"))</div>
+            </div>
+          }
+          @if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Blackout"))){
+            <div class="specLine">
+              <div class="specItem">Dim Out / Black Out</div>
+              <div class="specItem">@(Model.Attributes.GetValueOrNull("Blackout"))</div>
+            </div>
+          }
+          @if (shop.ToLower() == "contracts"){
+            if (!string.IsNullOrEmpty(Model.Attributes.GetValueOrNull("Contract Usage"))){
+              <div class="specLine">
+                <div class="specItem">Other Info</div>
+                <div class="specItem">@(Model.Attributes.GetValueOrNull("Other Info"))</div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+      <div class="moreInfoSection">
+        <div class="moreInfoTitle">
+          <p class="afterAngleDown">Delivery</p>
+        </div>
+        <div class="toggleContent">
+          <div class="specLine">
+            <div class="specItem">Standard Delivery</div>
+            <div class="specItem colourData">&pound;3.95</div>
+          </div>
+          <div class="specLine">
+            <div class="specItem">Express Delivery</div>
+            <div class="specItem colourData">&pound;5.95</div>
+          </div>
+          <div class="specLine">
+            <div class="specItem">Saturday Delivery</div>
+            <div class="specItem colourData">&pound;9.95</div>
+          </div>
+        </div>
+      </div>
+      <div class="moreInfoSection">
+        <div class="moreInfoTitle">
+          <p class="afterAngleDown">How to Use</p>
+        </div>
+        <div class="toggleContent">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit voluptates saepe voluptatum repellat ducimus quam distinctio odio itaque odit quasi reiciendis asperiores hic minus, iusto aut! Quae ipsam, maxime dolores.</p>
+          <p>Velit voluptates saepe voluptatum repellat ducimus quam distinctio odio itaque odit quasi...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------- Mobile Complementary Section ------------------- -->
+
+    <div class="mobileShow">
+      @if (Model.RelatedProducts.Any())
+      {
+        <h3 class="productPageHeading">Complete the Look</h3>
+        <div class="complementaryContainer">
+          @{ ViewBag.CssClass = "items"; }
+          @{ Html.RenderPartial("_ProductList", Model.RelatedProducts); }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ------------------- Designer Notes Section ------------------- -->
+
+  <div class="prodWideSection">
+    <h3 class="wideSectionTitle">Designer Notes</h3>
+    <div class="designerNotesBackground" style="background-image:url(https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/@(Model.SelectedSku.Code)_zoom.jpg)">
+      <div class="designerHeadshot"></div>
+    </div>
+    <div class="designerNotes">
+      <div class="designerNotesInner">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis deleniti dolorem, minus omnis vel error iure fuga exercitationem magni inventore asperiores totam pariatur rerum, rem alias repellendus dolores consequuntur facere. Lorem ipsum dolor sit amet, lorem ipsum erspiciatis deleniti dolorem.</p>
+        <h3>Harlequin Designer</h3>
+      </div>
+    </div>
+    <div class="designerNotesFull">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque et error dolor, quis eligendi rerum, earum omnis sint, molestiae sapiente quibusdam sunt! Ipsam vitae, impedit nobis consequatur reprehenderit ullam in?</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque et error dolor, quis eligendi rerum, earum omnis sint, molestiae sapiente quibusdam sunt! Ipsam vitae, impedit nobis consequatur reprehenderit ullam in?</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque et error dolor, quis eligendi rerum, earum omnis sint, molestiae sapiente quibusdam sunt! Ipsam vitae, impedit nobis consequatur reprehenderit ullam in?</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque et error dolor, quis eligendi rerum, earum omnis sint, molestiae sapiente quibusdam sunt! Ipsam vitae, impedit nobis consequatur reprehenderit ullam in?</p>
+    </div>
+  </div>
+
+  <!-- ------------------- Design Process Section ------------------- -->
+
+  <div class="prodWideSection">
+    <h3 class="wideSectionTitle">The Design Process</h3>
+    <div class="designProcess">
+      <div class="processBox">
+        <div class="processHeroImage"></div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil deleniti nisi odit atque accusamus, sequi alias culpa quidem exercitationem pariatur numquam, facere id mollitia blanditiis. Veniam, officiis asperiores amet nihil!</p>
+      </div>
+      <div class="processBox">
+        <div class="processHeroImage"></div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil deleniti nisi odit atque accusamus, sequi alias culpa quidem exercitationem pariatur numquam, facere id mollitia blanditiis. Veniam, officiis asperiores amet nihil!</p>
+      </div>
+      <div class="processBox">
+        <div class="processHeroImage"></div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil deleniti nisi odit atque accusamus, sequi alias culpa quidem exercitationem pariatur numquam, facere id mollitia blanditiis. Veniam, officiis asperiores amet nihil!</p>
+      </div>
+      <div class="processBox">
+        <div class="processHeroImage"></div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil deleniti nisi odit atque accusamus, sequi alias culpa quidem exercitationem pariatur numquam, facere id mollitia blanditiis. Veniam, officiis asperiores amet nihil!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------- Brand Feature Section ------------------- -->
+
+  <div class="prodWideSection">
+    @if (Model.Attributes.GetValueOrNull("Brand")=="Morris &amp; Co."){
+      <div class="wideImagePromo" style="background-image: url(/_images/brands/wg/images/brand-features/MorrisFeature.png);">
+        <div class="promoCaption">
+          <div class="promoCaptionInner">
+            <div class="promoBrandLogo Morris">
+              <img src="/_images/brands/wg/logos/Morris.png" alt="">
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore laborum, similique velit enim itaque molestiae, ipsam saepe dolorum impedit voluptatum deleniti, magnam. Sint quam, doloribus quos cum quis provident labore?</p>
+            <button class="primaryButton">Discover Morris &amp; Co.</button>
+          </div>
+        </div>
+      </div>
+    }
+    else{
+        
+      <div class="wideImagePromo" style="background-image: url(/_images/brands/wg/images/brand-features/@(Model.Attributes.GetValueOrNull("Brand"))Feature.png);">
+        <div class="promoCaption">
+          <div class="promoCaptionInner">
+            <div class="promoBrandLogo @(Model.Attributes.GetValueOrNull("Brand"))">
+              <img src="/_images/brands/wg/logos/@(Model.Attributes.GetValueOrNull("Brand")).png" alt="">
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore laborum, similique velit enim itaque molestiae, ipsam saepe dolorum impedit voluptatum deleniti, magnam. Sint quam, doloribus quos cum quis provident labore?</p>
+            <button class="primaryButton">Discover @(Model.Attributes.GetValueOrNull("Brand"))</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- ------------------- Recently Viewed Section ------------------- -->
+
+<div class="recentlyViewedContainer">
+  <h3 class="wideSectionTitle">Recently Viewed</h3>
+  @Html.Action("RecentlyViewedProducts", "WgShop", new {area = "CustomShops"})
+</div>

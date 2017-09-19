@@ -1,0 +1,54 @@
+﻿@model bool?
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var isRequired = metaData.IsRequired;
+
+    bool? value = null;
+
+    if (Model.HasValue)
+    {
+        value = Model.Value;
+    }
+
+    var yesFieldId = fieldName + "_yes";
+    var noFieldId = fieldName + "_no";
+}
+
+<fieldset class="optionList short">
+    <legend>@displayText</legend>
+    <div class="label">
+        <h2>
+            @displayText
+            @if (isRequired)
+            {
+                <span class="required">Required</span>
+            }
+        </h2>
+    </div>
+    @*@Html.CustomStyledValidationMessageFor(x => x)*@
+
+    @Html.CustomStyledValidationMessageFor(t => t)
+    <ul>
+        <li>
+            <input type="radio" value="true" id="@yesFieldId" name="@fieldName" @if (value == true)
+                                                                                {
+                                                                                    <text>checked="checked"</text>
+                                                                                }/>
+            <label for="@yesFieldId">
+                Yes
+            </label>
+        </li>
+        <li>
+            <input type="radio" value="false" id="@noFieldId" name="@fieldName" @if (value == false)
+                                                                                {
+                                                                                    <text>checked="checked"</text>
+                                                                                }/>
+            <label for="@noFieldId">
+                No
+            </label>
+        </li>
+    </ul>
+</fieldset>

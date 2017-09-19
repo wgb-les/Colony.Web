@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.Homepage.Areas.Models.Menu>
+@{
+    var isMobile = ViewData["IsMobile"].AsBool(false);
+}
+@if (isMobile)
+{
+    <ul id="mobile-nav" class="mobile-nav-list">
+        @foreach (var menu in Model)
+        {
+            <li>
+                <a href="@menu.Uri">@menu.Name</a>
+            </li>
+        }
+        <li class="sandersonHome" style="width: 75px !important;">
+            <a href="/sanderson-home">
+                <img src="/_images/logos/header/sanderson_home@2x.jpg" width="75" alt="">
+                <span class="tip">
+                    <span class="tipContent">Sanderson's diffusion line offering aspirational design at easily accessible prices.
+                    </span>
+                </span>
+            </a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="site-nav-list">
+        @{ Html.RenderPartial("_MenuItems", Model); }
+        <li class="sandersonHome" style="width: 75px !important;">
+            <a href="/sanderson-home">
+                <img src="/_images/logos/header/sanderson_home@2x.jpg" width="75" alt="">
+                <span class="tip">
+                    <span class="tipContent">Sanderson's diffusion line offering aspirational design at easily accessible prices.
+                    </span>
+                </span>
+            </a>
+        </li>
+    </ul>
+}

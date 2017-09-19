@@ -1,0 +1,40 @@
+@using Colony.CMS
+@model WalkerGreenbank.Modules.PressMembers.Areas.PressMembers.Models.EnquiryViewModel
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>Press Enquiry</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>Press Enquiry</h2>
+
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold">Name</td>
+        <td>@Model.Person.Title @Model.Person.FirstName @Model.Person.LastName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Email</td>
+        <td>@Model.Person.Email</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Publication</td>
+        <td>@Model.Publication</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Enquiry</td>
+        <td>@Raw(Model.Enquiry)</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Site</td>
+        <td>@ColonyContext.Current.CurrentSite.Name</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,169 @@
+/******************************************************/
+/*													  */
+/*	SCION STYLES								 	  */
+/*													  */
+/******************************************************/
+
+/******************************************************/
+/*	FONTS											  */
+/******************************************************/
+
+
+/* Brand font */
+@font-face {
+    font-family: "AlternateGothicW02-No1";
+    src: url("[path-to-font]/55f9eb5f-e951-4950-ae37-a189506cb4c6.eot?#iefix");
+    src: url("[path-to-font]/55f9eb5f-e951-4950-ae37-a189506cb4c6.eot?#iefix") format("eot"), url("[path-to-font]/a1407601-eb60-4c9c-9210-910e6da5be39.woff") format("woff"), url("[path-to-font]/2e0efbc7-c675-4a48-a8a7-4b9af1e2a2cb.ttf") format("truetype"), url("[path-to-font]/1df8467f-53c7-4c32-b004-640e52452762.svg#1df8467f-53c7-4c32-b004-640e52452762") format("svg");
+}
+
+/* Alternative font */
+
+@font-face {
+    font-family: "Square721W01-Condensed";
+    src: url("[path-to-font]/5c2cd436-c980-431b-8320-037d4d008757.eot?#iefix");
+    src: url("[path-to-font]/5c2cd436-c980-431b-8320-037d4d008757.eot?#iefix") format("eot"), url("[path-to-font]/5eda4436-0998-4423-9361-ddb919dbae44.woff") format("woff"), url("[path-to-font]/b295defe-4c93-46c4-954c-8b9edec4bd0b.ttf") format("truetype"), url("[path-to-font]/e985d371-2d75-42ca-9328-b301b5518273.svg#e985d371-2d75-42ca-9328-b301b5518273") format("svg");
+}
+
+/******************************************************/
+
+/*	COLOURS											  */
+
+/******************************************************/
+
+/* Primary color */
+
+.primary-color { color: #bcb801; }
+
+/* Grey color - background, borders etc... */
+
+.light-grey { color: #e2e2e2; }
+
+.medium-grey { color: #858585; }
+
+.dark-grey { color: #2d2d2d; }
+
+/* Default color i.e. paragraphs, lists etc... */
+
+.default-colour { color: #666; }
+
+/* Default link color */
+
+.link-color { color: #222; }
+
+/* Default link state colors */
+
+.link-color:hover,
+.link-color:active,
+.link-color:focus { color: #bcb801; }
+
+/* Site Background */
+
+body { background-color: #fff; }
+
+/******************************************************/
+
+/*	TYPOGRAPHY										  */
+
+/******************************************************/
+
+/* Default copy font */
+
+body { font-family: Arial, verdana, sans-serif; }
+
+/* Heading font i.e. H1, H2, H3 etc... */
+
+h1 {
+    font-family: "Square721W01-Condensed", arial, sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+h2,
+h3 {
+    font-family: "HelveticaNeueW02-45Ligh", arial, sans-serif;
+    font-weight: normal;
+}
+
+/* Body copy i.e. paragraphs, lists etc... */
+
+body {
+    font-size: 13px;
+    line-height: 20px;
+}
+
+/* H1 - Heading */
+
+h1 {
+    font-size: 45px;
+    line-height: 63px;
+}
+
+/* H2 - Heading */
+
+h2 {
+    font-size: 21px;
+    line-height: 29px;
+}
+
+/* H3 - Heading */
+
+h3 {
+    font-size: 16px;
+    line-height: 21px;
+}
+
+/******************************************************/
+
+/*	LISTS										  */
+
+/******************************************************/
+
+ul,
+ol {
+    line-height: 20px;
+    margin: 0 0 15px 0;
+}
+
+/******************************************************/
+
+/*	BUTTONS											  */
+
+/******************************************************/
+
+/* Primary Button */
+
+.button {
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    -webkit-transition: .3s;
+    background: #bcb801;
+    color: #fff;
+    display: inline-block;
+    *display: inline;
+    font-family: "AlternateGothicW02-No1", arial, sans-serif;
+    font-size: 29px;
+    font-weight: normal;
+    line-height: 28px;
+    padding: 5px 15px;
+    text-decoration: none;
+    transition: .3s;
+    zoom: 1;
+}
+
+.button:hover, .button:hover, .button:hover { background-color: #898601; }
+
+/* Secondary Button */
+
+.button-secondary {
+    background-color: #DADADA;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F3F3F3), color-stop(100%, #DADADA));
+    background-image: -webkit-linear-gradient(#F3F3F3, #DADADA);
+    background-image: -moz-linear-gradient(#F3F3F3, #DADADA);
+    background-image: -o-linear-gradient(#F3F3F3, #DADADA);
+    background-image: linear-gradient(#F3F3F3, #DADADA);
+    color: #2d2d2d;
+}
+
+.button-secondary:hover,
+.button-secondary:active,
+.button-secondary:focus { background: #DADADA; }

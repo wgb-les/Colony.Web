@@ -1,0 +1,72 @@
+@using Colony.CMS.Areas.Members.ViewModels
+@using Colony.Commerce.Areas.ShopPurchase.Models
+@model AboutYouViewModel
+
+<div class="splitColumn">
+  <div class="blockSection wide1">
+    <div class="inner">
+      <div class="heading">
+        <h2>Returning Customer</h2>
+      </div>
+      <div class="content form">
+        @Html.Partial("AboutYou/_Login", new LoginInputViewModel())
+      </div>
+    </div>
+  </div>
+</div>
+<div class="splitColumn">
+  <div class="blockSection wide1">
+    <div class="inner">
+      <div class="heading">
+        <h2>Guest Checkout</h2>
+      </div>
+      <div class="content form">
+        <p>You can create a password at the end of the checkout, allowing you to checkout quicker next time by saving your delivery and billing details.</p>
+          <div class="section">
+              <div class="button level1 wide1">
+                  <a href="@Url.Action("Summary", new {step = CheckoutStep.AboutYouGuest})" class="inner">Continue as guest</a>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="row">
+  <div class="large-12 columns">
+    <div class="page-content">
+      <h1 class="show-for-sr">About you</h1>
+      <div class="loginOrRegister">
+        <div class="boxSection login">
+          <div class="header">
+            <h2>Returning Customer</h2>
+          </div>
+          <div class="bd">
+            <div class="contentForm">
+              @Html.Partial("AboutYou/_Login", new LoginInputViewModel())
+            </div>
+          </div>
+        </div>
+
+        <div class="boxSection register">
+          <div class="header">
+            <h2>Guest Checkout</h2>
+          </div>
+          <div class="bd">
+
+            <div class="guest-content">
+              <p>
+                You can create a password at the end of the checkout, allowing you to checkout quicker next time by saving your delivery and billing details.
+              </p>
+            </div>
+            <div class="contentForm">
+              <div class="field formControls">
+                <a href="@Url.Action("Summary", new {step = CheckoutStep.AboutYouGuest})" class="button actionButton">Continue as guest</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

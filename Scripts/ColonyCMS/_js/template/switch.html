@@ -1,0 +1,9 @@
+<h3><%=labelhelper()%></h3>
+<%=helpTextHelper()%>
+<div class="switch">
+	<input id="<%=componentId+'_left'%>" name="<%=componentId%>" type="radio" <%if (checkedHelper() != true) { %>checked="checked"<% } %> value="false">
+	<label for="<%=componentId+'_left'%>" onclick="">No</label>
+	<input id="<%=componentId+'_right'%>" name="<%=componentId%>" type="radio" <%if (checkedHelper() == true) { %>checked="checked"<% } %> value="true">
+	<label for="<%=componentId+'_right'%>" onclick="">Yes</label>
+	<span></span>
+</div>

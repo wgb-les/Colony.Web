@@ -1,0 +1,59 @@
+﻿@model Colony.Commerce.Areas.Stockists.Models.StockistSearchViewModel
+<div class="large-2 columns">
+    @Html.EditorFor(model => model.Region, new { options = Model.RegionList })
+</div>
+<div class="large-2 columns stockistSearchTerms">
+    @*@{
+            //var placeholderText = "Postal / zip code";
+            //if (Model.Region != "1")
+            //{
+                placeholderText = "Name, Towm or City";
+            }
+        }*@
+    @Html.HiddenFor(model => model.Latitude)
+    @Html.HiddenFor(model => model.Longitude)
+    @Html.EditorFor(model => model.Postcode, new { placeholder = "Enter Postcode, Town or City" })
+    <div class="field select stockistEuropeanCountrySelect">
+        @Html.DropDownListFor(model => model.EuropeanCountryId, Model.Countries.Where(t => t.Region == "Europe").OrderBy(t => t.Name).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }))
+    </div>
+    <div class="field select stockistWorldCountrySelect">
+        @Html.DropDownListFor(model => model.WorldCountryId, Model.Countries.Where(t => t.Region == "Rest of World").OrderBy(t => t.Name).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }))
+    </div>
+    <div class="field select stockistStateSelect">
+        @Html.DropDownListFor(model => model.StateId, Model.States.OrderBy(t => t.Name).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }))
+    </div>
+</div>
+<div class="large-7 end columns">
+    <fieldset class="optionList short">
+        <legend>Available Categories</legend>
+        <h3>Available categories</h3>
+        <ul>
+            <li>
+                @Html.EditorFor(model => model.HasFabric)
+            </li>
+            <li>
+                @Html.EditorFor(model => model.HasWallpaper)
+            </li>
+            <li @if (Model.Region != "1") { <text> style="display: none;" </text>  }>
+                @Html.EditorFor(model => model.HasPaint)
+            </li>
+            @if (Colony.CMS.ColonyContext.Current.CurrentSite.SiteKey.ToLowerInvariant() != "wg")
+            {
+                <li @if (Model.Region != "1") { <text> style="display: none;" </text>  }>
+                    @Html.EditorFor(model => model.HasRugs)
+                </li>
+            }
+            <li>
+                @Html.EditorFor(model => model.HasTrimmings)
+            </li>
+            <li @if (Model.Region != "1" || Colony.CMS.ColonyContext.Current.CurrentSite.SiteKey != "Zoffany") { <text> style="display: none;" </text>  }>
+                @Html.EditorFor(model => model.HasFurniture)
+            </li>
+        </ul>
+    </fieldset>
+    <div class="field formControls">
+        <button class="button">Search</button>
+    </div>
+</div>
+
+@Html.HiddenFor(model => model.StockistSearchIsVisible)

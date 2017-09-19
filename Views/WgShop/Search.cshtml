@@ -1,0 +1,45 @@
+﻿@using Colony.CMS.Security.Helpers
+@model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+<nav class="tabs" role="navigation">
+    <ul>
+        <li>
+            <a href="/search/?keywords=@Model.Keywords" class="selected">Products</a>
+        </li>
+        @if (!string.IsNullOrEmpty(Model.Keywords))
+        {
+            <li>
+                <a href="/search/faqs/?keywords=@Server.UrlEncode(Model.Keywords)">FAQs</a>
+            </li>
+            <li>
+                <a href="/search/videos/?keywords=@Server.UrlEncode(Model.Keywords)">Videos</a>
+            </li>
+        }
+    </ul>
+</nav>
+@*@{
+    var brands = Request.QueryString["brand"] ?? string.Join(",", Model.SelectedBrands.ToArray());
+}*@
+<script src="/_js/shared/ajax-search.js?v=6" type="text/javascript"></script>
+<form id="initializeSearch" action="#" method="get">
+    <input id="keywords" name="keywords" type="hidden" value="@Model.Keywords"/>
+    <input id="page" name="page" type="hidden" value="@Request.QueryString["Page"]"/>
+    <input id="brand" name="brand" type="hidden" value="@string.Join(" ,", Model.SelectedBrands.ToArray())" />
+    <input id="SelectedColours" name="SelectedColours" type="hidden" value="@string.Join(",", Model.SelectedColours.ToArray())"/>
+    <input id="SelectedProductGroups" name="SelectedProductGroups" type="hidden" value="@string.Join(",", Model.SelectedProductGroups.ToArray())"/>
+    <input id="SelectedBrands" type="hidden" value="@string.Join(" ,", Model.SelectedBrands.ToArray())"/>
+    <input id="SelectedTrimmingTypes" name="SelectedTrimmingTypes" type="hidden" value="@string.Join(" ,", Model.SelectedTrimmingTypes.ToArray())" />
+    <input id="SelectedUsage" name="SelectedUsage" type="hidden" value="@string.Join(" ,", Model.SelectedUsage.ToArray())" />
+    <input type="hidden" id="SelectedRooms" name="SelectedRooms" value="@string.Join(" ,", Model.SelectedRooms.ToArray())" />
+    <input type="hidden" id="selectedpatterns" name="selectedpatterns" value="@string.Join(" ,", Model.SelectedPatterns.ToArray())" />
+    <input id="answerHandle" name="answerHandle" type="hidden" value=""/>
+    <input id="searchHandle" name="searchHandle" type="hidden" value=""/>
+    <input id="searchTerm" name="searchTerm" type="hidden" value=""/>
+    <input id="LastPage" name="LastSearchPage" type="hidden" value="" />
+</form>
+@if (useraccount != null) {
+    Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+}
+@{ Html.RenderAction("OrderPaintCard", "Enquiries", new {area = "CustomShops"}); }

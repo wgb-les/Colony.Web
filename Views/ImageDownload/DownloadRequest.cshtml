@@ -1,0 +1,233 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.PressMembers.Models.DownloadRequestViewModel
+@{
+    ViewBag.Title = "Image Library Basket";
+
+    //IEnumerable<SelectListItem> usageOptions = Model.UsageTypes.OrderBy(x => x).Select(s => new SelectListItem { Value = s.Value, Text = s.Key, Selected = s.Value == ((Model.Usage as string) ?? string.Empty) });
+    //usageOptions = (new SelectListItem[] { new SelectListItem { Value = "", Text = "Please select" } }).Concat(usageOptions);
+}
+<div id="content">
+<h1>@ViewBag.Title</h1>
+
+<div class="contentForm imageCheckout">
+<form action="./" method="post">
+@Html.AntiForgeryToken()
+@Html.CustomValidationSummary()
+<div class="imageSizeOptions">
+    @if (Model.Security.LowRes)
+    {
+        <a href="#" class="button imageresselector" id="imageRes_lo" data-imageres="lo">
+            All low res
+        </a>
+    }
+    @if (Model.Security.LowResSpoiler)
+    {
+        <a href="#" class="button imageresselector" id="imageRes_lo_spoiler" data-imageres="lo-spoiler">
+            All low res with spoiler
+        </a>
+    }
+    @if (Model.Security.HighRes || Model.Security.RequestHighRes)
+    {
+        <a href="#" class="button imageresselector" id="imageRes_hi" data-imageres="hi">
+            All hi res
+        </a>
+    }
+
+@*                <fieldset class="optionList short">
+					<legend>Image Resolution</legend>
+					<h3>Image Resolution
+					</h3>
+					<ul>
+						@if (Model.Security.LowRes)
+						{
+							<li>
+								<input type="radio" name="imageRes" id="imageRes_lo" value="lo" />
+								<label for="imageRes_lo">
+									<span>All low res</span>
+								</label>
+							</li>
+						}
+						@if (Model.Security.LowResSpoiler)
+						{
+							<li>
+								<input type="radio" name="imageRes" id="imageRes_lo_spoiler" value="lo-spoiler" />
+								<label for="imageRes_lo_spoiler">
+									<span>All low res with spoiler</span>
+								</label>
+							</li>
+						}
+						@if (Model.Security.HighRes || Model.Security.RequestHighRes)
+						{
+							<li>
+								<input type="radio" name="imageRes" id="imageRes_hi" value="hi" />
+								<label for="imageRes_hi">
+									<span>All hi res</span>
+								</label>
+							</li>
+						}
+					</ul>
+				</fieldset>*@</div>
+<!--
+<div class="alertInfo message">
+    <strong>1 of 8</strong> hi-res flatshot images selected
+</div>
+
+<div class="alertInfo message">
+    <strong>1</strong> hi-res lifestyle images selected
+</div>
+-->
+<fieldset>
+    <legend>Requested Images</legend>
+    <ul class="imageBasket">
+        @if (Model.Images.Any())
+        {
+            foreach (var image in Model.Images)
+            {
+                <li class="item boxSection">
+                    <div class="media">
+                        <span class="img">
+									<img src="@Url.ImageUrl(@image.LowResSpoiler, "imagedownloads", "ImageDownloadThumbnail", "")" alt="" />
+								</span>
+                        <div class="bd details">
+                            <h2 class="itemTitle">@image.Name</h2>
+                            <p>@image.DesignName</p>
+                            @if (Model.Security.LowRes)
+                            {
+                                <div class="lowResMetaData">
+                                    <dl>
+                                        @if (!string.IsNullOrWhiteSpace(image.LowResDimensions))
+                                        {
+                                            <dt>Dimensions</dt>
+                                            <dd>@image.LowResDimensions</dd>
+                                        }
+                                        @if (image.LowResSize != null)
+                                        {
+                                            <dt>Size</dt>
+                                            <dd>@image.LowResSize.Value.ToFileSize()</dd>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(image.TypeText))
+                                        {
+                                            <dt>Type</dt>
+                                            <dd>@image.TypeText</dd>
+                                        }
+                                    </dl>
+                                </div>
+                            }
+
+                            @if (Model.Security.LowResSpoiler)
+                            {
+                                <div class="lowResSpoilerMetaData" style="display: none;">
+                                    <dl>
+                                        @if (!string.IsNullOrWhiteSpace(image.LowResSpoilerDimensions))
+                                        {
+                                            <dt>Dimensions</dt>
+                                            <dd>@image.LowResSpoilerDimensions</dd>
+                                        }
+                                        @if (image.LowResSpoilerSize != null)
+                                        {
+                                            <dt>Size</dt>
+                                            <dd>@image.LowResSpoilerSize.Value.ToFileSize()</dd>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(image.TypeText))
+                                        {
+                                            <dt>Type</dt>
+                                            <dd>@image.TypeText</dd>
+                                        }
+                                    </dl>
+                                </div>
+                            }
+                            @if (Model.Security.HighRes)
+                            {
+                                <div class="highResMetaData" style="display: none;">
+                                    <dl>
+                                        @if (!string.IsNullOrWhiteSpace(image.HighResDimensions))
+                                        {
+                                            <dt>Dimensions</dt>
+                                            <dd>@image.HighResDimensions</dd>
+                                        }
+                                        @if (image.HighResSize != null)
+                                        {
+                                            <dt>Size</dt>
+                                            <dd>@image.HighResSize.Value.ToFileSize()</dd>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(image.TypeText))
+                                        {
+                                            <dt>Type</dt>
+                                            <dd>@image.TypeText</dd>
+                                        }
+                                    </dl>
+                                </div>
+                            }
+                            <div class="field select ">
+                                <label for="selectMedium">
+                                    Resolution<span class="required">Required</span>
+                                </label>
+
+                                <select name="Res_@image.Id" id="Res_@image.Id" class="imageResolution">
+                                    @if (Model.Security.LowRes)
+                                    {
+                                        <option value="lo">Low Res</option>
+                                    }
+                                    @if (Model.Security.LowResSpoiler)
+                                    {
+                                        <option value="lo-spoiler">Low Res with Spoiler</option>
+                                    }
+                                    @if (Model.Security.HighRes || Model.Security.RequestHighRes)
+                                    {
+                                        <option value="hi">Hi Res</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <a href="./?remove=@image.Id" class="remove" data-imageid="@image.Id">
+                                <span>Remove</span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</fieldset>
+<!--
+<div class="alertInfo message">
+    <strong>1 of 8</strong> hi-res flatshot images selected
+</div>
+
+<div class="alertInfo message">
+    <strong>1</strong> hi-res lifestyle images selected
+</div>
+-->
+<section class="boxSection">
+    <header class="header">
+        <h2>Additional Information</h2>
+    </header>
+    <div class="bd">
+        <fieldset class="nested">
+            <legend>Additional Information</legend>
+            <div class="field select medium">
+                <label for="usage">
+                    Publication Type<span class="required">Required</span>
+                </label>
+
+                @Html.DropDownListFor(model => model.Usage, Model.UsageTypes)
+            </div>
+
+            @Html.EditorFor(m => Model.PublicationName)
+            @Html.EditorFor(m => m.PublicationDate)
+            @Html.EditorFor(m => m.Reason)
+            @Html.EditorFor(m => m.FlatshotImagesRequired)
+            @Html.EditorFor(m => m.TermsAndConditions, new {labelText = "<span>I have read and agree to the <a href=\"../../terms-and-conditions\" target=\"_blank\">Terms &amp; Conditions</a></span>"})
+            @Html.EditorFor(m => m.RequestCaptionsAndPrices)
+
+            <div class="field formControls">
+                <a href="../../image-library/" class="icon-double-angle-left left" style="line-height: 42px;">Back to image library</a>
+                <button class="button">Request Images</button>
+            </div>
+        </fieldset>
+    </div>
+</section>
+</form>
+
+</div>
+
+</div>

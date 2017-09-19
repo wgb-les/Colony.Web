@@ -1,0 +1,31 @@
+﻿@using Colony.CMS
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryOptionsViewModel
+@{
+    Layout = "";
+    var deliveryNo = 0;
+}
+
+@if ((bool)(TempData["MissingDelivery"] ?? false))
+{
+    <p>Please select a delivery type.</p>
+}
+<div class="blockSection wide1">
+    <div class="inner">
+        @foreach (var deliveryOption in Model.DeliveryGroups)
+        {
+            {
+                deliveryNo++;
+            }
+            <div class="heading thin">
+                <h3>Delivery @deliveryNo of @Model.DeliveryGroups.Count()</h3>
+            </div>
+            <div class="content thin basket">                
+                @Html.Partial("Delivery/_DeliveryGroup", deliveryOption)                
+            </div>
+        }
+    </div>
+</div>
+
+
+
+

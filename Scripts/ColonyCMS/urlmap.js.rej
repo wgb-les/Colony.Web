@@ -1,0 +1,12 @@
+diff a/src/Colony.Web/Scripts/ColonyCMS/urlmap.js b/src/Colony.Web/Scripts/ColonyCMS/urlmap.js	(rejected hunks)
+@@ -1107,9 +1107,5 @@
+ {
+     'uri': 'podplacements/delete',
+     'behaviour': 'CmsDeletePodPlacement'
+-},
+-{
+-    'uri': 'tags/index',
+-    'behaviour': 'CmsListTag'
+ }
+ ]
+\ No newline at end of file

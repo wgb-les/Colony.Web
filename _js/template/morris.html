@@ -1,0 +1,36 @@
+﻿<div class="info">
+    <ul id="collectionsControls">
+        <li>
+            <span class="carousel-play-pause"><span class="icon icon-pause"></span></span></li>
+        <% _.each(rc.item.Images, function(image) { %>
+        <li>
+            <a></a>
+        </li>
+        <% }) %>
+    </ul>
+    <% _.each(rc.item.Images, function(image) { %>
+    <div class="background lazy" style="background-image: url('<%= _.escape(image.Url) %>');">&nbsp;</div>
+    <% }) %>
+    <div class="panel">
+        <h1><%= rc.item.Name %></h1>
+        <%= rc.item.LongDescription %>
+
+        <% if (rc.item.Products.length > 0) { %>
+        <h3>View Designs</h3>
+        <ul>
+            <% _.each(rc.item.Products, function(product) { %>
+            <li>
+                <a href="<%= _.escape(product.Url) %>">
+                    <% if (product.Images.length > 0) { %>
+                    <img class="lazy" src="<%= _.escape(product.Images[0].Url) %>" width="85" alt=""/>
+                    <% } else { %>
+                    <img class="lazy" src="/_images/placeholders/article.jpg" alt=""/>
+                    <% } %>
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+
+    </div>
+</div>

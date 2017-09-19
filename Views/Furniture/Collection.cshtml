@@ -1,0 +1,363 @@
+﻿@using Colony.CMS.Security.Helpers
+@model WalkerGreenbank.Modules.Furniture.Areas.Models.FurnitureCollectionViewModel
+@{
+    var defaultImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "Furniture", "FurnitureCollectionDetail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var defaultImageZoom = Model.Images.OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageZoomUrl = defaultImageZoom != null ? @Url.ImageUrl(defaultImageZoom.ImageAssetID, "Furniture", "FurnitureCollectionDetailZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var pinterestMediaUrl = new Uri(Request.Url, defaultImageZoomUrl).AbsoluteUri;
+
+    Html.AppendTitle(Model.Name);
+    Html.SetPageData(Model.AnalyticsCode, Model.MetaTitle, Model.MetaKeywords, Model.MetaDescription, Model.MetaCustomTags);
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+<script type="text/javascript">
+    $('body').removeClass('home').addClass('productPage');
+</script>
+
+<div id="content">
+
+<div class="galleryContainer">
+
+    <div class="carousel imageCarousel productDetailsCarousel furnitureCarousel">
+        <div class="scroll-pane"></div>
+        <div class="zoom-helper">
+            <h3>Pinch the image to zoom</h3>
+        </div>
+
+        <span class="itemNew tap-to-zoom">Enable Zoom</span>
+        <ul class="items">
+            @if (Model.Images.Any())
+            {
+                var canvasId = 0;
+                foreach (var image in Model.Images.OrderBy(x => x.Order))
+                {
+                    canvasId++;
+                    var imageUrl = Url.ImageUrl(image.ImageAssetID, "Furniture", "FurnitureCollectionDetail", @"/_images/placeholders/article.jpg");
+                    var imageZoomUrl = Url.ImageUrl(image.ImageAssetID, "Furniture", "FurnitureCollectionDetailZoom", @"/_images/placeholders/article.jpg");
+                    var imageThumbnailUrl = Url.ImageUrl(image.ImageAssetID, "Furniture", "FurnitureLifeStyleThumbnail", @"/_images/placeholders/article.jpg");
+
+                    <li>
+                        <div class="canvas_container" style="width: 100%;" data-img="@imageZoomUrl">
+                            <canvas id="mycanvas@(canvasId)" class="canvasZoom" style="height: 100%; width: 100%;"></canvas>
+                        </div>
+                        <img id="zoom@(image.ImageAssetID)"class="mainZoom" src="@imageUrl" data-zoom-image="@imageZoomUrl" data-productname="@Model.Name" data-url="@Request.Url.AbsoluteUri" data-productimage="@imageThumbnailUrl"/>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <img id="zoom99999"class="mainZoom" src="@defaultImageUrl" data-zoom-image="@defaultImageZoomUrl"/>
+                </li>
+            }
+        </ul>
+        @if (Model.Images.Count > 1)
+        {
+            <a href="#" class="prev">
+                <span></span>
+                Previous
+            </a>
+            <a href="#" class="next">
+                <span></span>
+                Next
+            </a>
+        }
+        <div class="bullets">
+            <span class="icon icon-play"></span>
+            <ul></ul>
+        </div>
+    </div>
+</div>
+
+<div class="productDetails">
+    <h1>@Model.Name</h1>
+    <p>@Html.Raw(Model.LongDescription)</p>
+    <ul class="articleOptions">
+        <li>
+            <a href="@Url.PinterestShareUrl(Request.Url.AbsoluteUri, pinterestMediaUrl, Model.Name)" target="_blank" class="pinterest">
+                <span>Pin it</span></a>
+        </li>
+        <li>
+            <a href="#" class="share" data-reveal-id="share">
+                <span>Share</span></a>
+        </li>
+        @*<li><a href="#" class="trade" data-reveal-id="tradeInfo"><span>Information for Trade</span></a></li>
+			<li><a href="#" class="fabrics"><span>View Upholstery Fabrics</span></a></li>*@
+    </ul>
+    <ul class="productOptions">
+        @*<li><a href="#" class="more" data-reveal-id="furnitureQuote">Get A Quote</a></li>*@
+        @*<li><a href="#" class="more" data-reveal-id="productDetails">Product Details</a></li>*@
+        @if (useraccount != null)
+        {
+            @*<li>
+                <a href="#" id="addToScrapbookPopup" class="scrapbook" data-noprice="true" data-productname="@Model.Name" @if (defaultImage != null)
+                                                                                                                          {
+                                                                                                                              <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                          } data-productimage="@defaultImageUrl">
+                    <span class="icon-scrapbook-add"></span>Add to Moodboard
+                </a>
+            </li>*@
+        }
+        else
+        {
+            @*<a href="#" id="addToScrapbook" class="button scrapbook no-drag" data-noprice="true" data-productcode="" data-productname="@Model.Name" data-skuid="" @if (defaultImage != null)
+                                                                                                                                                                  {
+                                                                                                                                                                      <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                                                                                                                                                                  } data-productimage="@defaultImageUrl">
+                Add to Scrapbook
+            </a>*@
+        }
+    </ul>
+    @if (useraccount != null)
+    {
+        Html.RenderAction("ScrapbookList", "Scrapbook", new {area = "Scrapbook"});
+    }
+    @if (Model.Images.Any())
+    {
+        <div class="shopExtraProducts inspirationProducts">
+            <hr/>
+            <div class="header">
+                <span href="#" class="next right icon-angle-right "></span>
+                <span href="#" class="prev right icon-angle-left disabled"></span>
+            </div>
+            <section class="boxSection colourWays">
+                <div class="bd">
+                    <div class="galleryToggles carousel productCarousel">
+                        <div class="items productList">
+                            @{ var itemIndex = 0; }
+                            @foreach (var productImage in Model.Images.OrderBy(x => x.Order))
+                            {
+                                var imageUrl = Url.ImageUrl(productImage.ImageAssetID, "Furniture", "FurnitureCollectionDetail", @"/_images/placeholders/article.jpg");
+                                var imageZoomUrl = Url.ImageUrl(productImage.ImageAssetID, "Furniture", "FurnitureCollectionDetailZoom", @"/_images/placeholders/article.jpg");
+                                var imageThumbnailUrl = Url.ImageUrl(productImage.ImageAssetID, "Furniture", "FurnitureLifeStyleThumbnail", @"/_images/placeholders/article.jpg");
+
+                                <div class="item @if (Model.Images.IsFirst(productImage))
+                                                 {
+                                                     <text>selected</text>
+                                                 }">
+                                    <a href="#" data-slide="@itemIndex" data-image="@imageUrl" data-zoom-image="@imageZoomUrl" data-productname="@Model.Name" @if (productImage != null)
+                                                                                                                                                              {
+                                                                                                                                                                  <text>data-imageAssetId="@productImage.ImageAssetID"</text>
+                                                                                                                                                              } data-productimage="@imageUrl" data-url="@Request.Url.AbsoluteUri">
+                                        <img src="@imageThumbnailUrl" alt="">
+                                    </a>
+                                </div>
+                                itemIndex++;
+                            }
+                            @if (Model.Images.Count > 1)
+                            {
+                                <a href="#" class="prev">
+                                    <span></span>
+                                    Previous
+                                </a>
+                                <a href="#" class="next">
+                                    <span></span>
+                                    Next
+                                </a>
+                            }
+                            <div class="bullets">
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+</div>
+
+<div class="furnitureDetails furnitureAccordion">
+    <section class="boxSection furnitureSpecs">
+        <header>
+            <a href="#" class="toggle-furnitureAccordion">
+                <h2>Dimensions and Specifications</h2>
+            </a>
+        </header>
+        <div class="content-furnitureAccordion dimensionsSpecifications">
+            <div class="bd">
+
+                <ul class="furnitureItems">
+                    @foreach (var item in Model.Types)
+                    {
+                        <li class="item furnitureItemImages">
+                            <h3>@item.Name</h3>
+                            <a href="@Url.ImageUrl(item.ImageAssetId, "", "", @"/_images/placeholders/article.jpg")">
+                                <img class="thumb" src="@Url.ImageUrl(item.ImageAssetId, "ProductCatalogue", "ProductDetail", @"/_images/placeholders/article.jpg")" alt="@item.Name"/>
+                            </a>
+                            <ul>
+                                @if (item.Depth != null)
+                                {
+                                    <li>
+                                        <span class="title">Depth:</span>
+                                        <span class="value">@(item.Depth.Value.ToString("N0"))cm</span>
+                                    </li>
+                                }
+                                @if (item.Width != null)
+                                {
+                                    <li>
+                                        <span class="title">Width:</span>
+                                        <span class="value">@(item.Width.Value.ToString("N0"))cm</span>
+                                    </li>
+                                }
+                                @if (item.Height != null)
+                                {
+                                    <li>
+                                        <span class="title">Height:</span>
+                                        <span class="value">@(item.Height.Value.ToString("N0"))cm</span>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    @foreach (var options in Model.Options.OrderBy(x => x.Category.Order).GroupBy(x => x.FurnitureOptionCategoryId))
+    {
+        <section class="boxSection furnitureOptions @if (options.FirstOrDefault().Category.Name == "Fillings")
+                                                    {
+                                                        <text>furnitureFilling</text>
+                                                    }">
+            <header>
+                <a href="#" class="toggle-furnitureAccordion">
+                    <h2>@options.FirstOrDefault().Category.Name</h2>
+                </a>
+            </header>
+            <div class="content-furnitureAccordion">
+                <div class="bd">
+                    <ul>
+                        @foreach (var option in options.OrderBy(x => x.Order))
+                        {
+                            <li>
+                                @if (option.ImageAssetId != null)
+                                {
+                                    <img src="@Url.ImageUrl(option.ImageAssetId, "Furniture", "FurinuteOptionThumbnail")"/>
+                                    <span>@option.Name</span>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(option.LongDescription))
+                                {
+                                    <h3>@option.Name</h3>
+                                    @Html.Raw(option.LongDescription)
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    }
+</div>
+</div>
+<section id="share" class="reveal-modal medium">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Name}); }
+</section>
+<section id="productDetails" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Product Details</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+        <p>An all over surface printed floral deign with with subtle hints of metallic.</p>
+        <div class="productSpec">
+            <ul>
+                <li>
+                    <span class="title">Collection</span>
+                    <span class="value">
+                        <a href="/shop/wallpaper/collections/collection/">Extravagance Wallpapers</a> and <a href="#">Feature Walls</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="title">Colour</span>
+                    <span class="value">Silver, Charcoal and Gold</span>
+                </li>
+                <li>
+                    <span class="title">Wallpaper type</span>
+                    <span class="value">Vinyl</span>
+                </li>
+                <li>
+                    <span class="title">Width</span>
+                    <span class="value">52cm</span>
+                </li>
+                <li>
+                    <span class="title">Vertical Pattern Repeat</span>
+                    <span class="value">52cm</span>
+                </li>
+                <li>
+                    <span class="title">Match</span>
+                    <span class="value">Half Drop</span>
+                </li>
+                <li class="icons">
+                    <span class="title">Care Instructions</span>
+                    <span class="value">
+                        <img src="/_images/icons/care/washing.png" alt="" />
+                        <img src="/_images/icons/care/ironing.png" alt="" />
+                        <img src="/_images/icons/care/tumbledry.png" alt="" />
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- <footer class="controls-reveal-modal">
+        <a href="#" class="button">Action</a>
+        <a href="#" class="button">Another Action</a>
+    </footer> -->
+</section>
+
+<section id="tradeInfo" class="reveal-modal medium">
+    <header class="header-reveal-modal">
+        <h2>Information for trade</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="bd-reveal-modal">
+        <p>The following is dummy text, used purely to give an indication of how your page will look once populated with wysiwyg content. By using this type of indicative text the standard wysiwyg elements such as lists, links within the copy and basic information tables will appear as though populated with natural content. This opening example paragraph contains sixty four words and four hundred characters.</p>
+        <p>In normal content, sentences and paragraphs have both long and short words in them, so by using this dummy text we can replicate that appearance. This paragraph contains thirty words.</p>
+        <h2>Sub Heading</h2>
+        <p>
+            Within pages of content there will be the occassional need to display a list of information, or contain <a href="#">links to other pages</a>. The following list displays information in no particular order:
+        </p>
+        <ul>
+            <li>This list contains dummy text and this is the first example of a list item.</li>
+            <li>Every separate item within this list will be displayed with a bullet point.</li>
+            <li>Regardless of how many items are added to the list, all will appear with a bullet point.</li>
+        </ul>
+    </div>
+</section>
+
+@*@{Html.RenderAction("FurnitureQuote", "Enquiries", new { area = "Furniture" });}*@
+
+@if (Model.Images.Count > 1)
+{
+    <section id="pinterestImages" class="reveal-modal medium">
+        <header class="header-reveal-modal">
+            <h2>Select Image to Share</h2>
+            <a class="close-reveal-modal icon-remove">
+                <span>Close</span></a>
+        </header>
+        <div class="bd-reveal-modal">
+            <div class="productList no-quick-view">
+                @foreach (var image in Model.Images)
+                {
+                    <div class="item">
+                        @{
+                            var imageUrl = Url.ImageUrl(image.ImageAssetID, "Furniture", "FurnitureCollectionDetailZoom");
+                        }
+                        <a href="@Url.PinterestShareUrl(Request.Url.AbsoluteUri, imageUrl, Model.Name)" target="_blank">
+                            <img src="@imageUrl" alt="" style="max-height: 125px; max-width: 125px;">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,69 @@
+﻿@using Colony.CMS.Security.Helpers
+@using Colony.Commerce.Areas.ShopPurchase.Models
+@model Colony.Commerce.Areas.ShopPurchase.Models.DeliveryViewModel
+@{
+    ViewBag.Title = "Delivery Address";
+}
+@{
+    var useraccount = AuthenticationHelpers.GetLoggedInUser();
+}
+@if (ViewBag.State == CheckoutSectionState.Active)
+{
+    <form id="deliveryForm" action="@Url.Action("Delivery", "Checkout", new {area = "ShopPurchase", edit = "delivery"})" method="post">
+        @Html.AntiForgeryToken()
+        <div id="delivery" class="boxSection checkoutDelivery editable">
+            <div class="header">
+                <h2>Delivery Address</h2>
+            </div>
+            @Html.CustomValidationSummary(false)
+            <fieldset id="address">
+
+                @if (Model.SavedAddresses.Any())
+                {
+                    <div class="field select ">
+                        <label for="savedAddress">
+                            Select a saved address
+                        </label>
+                        @Html.DropDownList("savedAddress", Model.SavedAddresses, "Please select")
+                    </div>
+                }
+
+                @Html.EditorFor(model => model.Address, "Address", new {ShowAddressName = false, ShowPersonDetails = true, AllowPostcodeLookup = Model.CurrencyRegion.DefaultCountryId == 93})
+
+            </fieldset>
+
+            <div class="field formControls">
+                <button class="button actionButton">Next</button>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.SelectedStockistId)
+    </form>
+}
+else if (ViewBag.State == CheckoutSectionState.Completed)
+{
+    <div id="delivery" class="boxSection checkoutDelivery completed">
+
+        <div class="header">
+            <h2 class="icon-ok left">Delivery Address</h2>
+            <a href="@Url.Action("Summary", "Checkout", new {area = "ShopPurchase", edit = "delivery"})">
+                <span>Edit</span></a>
+            <div class="clear"></div>
+        </div>
+        <ul>
+            <li>
+                <strong>@Model.Address.Title @Model.Address.FirstName @Model.Address.LastName</strong>
+            </li>
+            <li>
+                <strong>@Html.FormatAddress(Model.Address, HtmlHelpers.FormatAddressStyle.SingleLine)</strong>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <div id="delivery" class="boxSection checkoutDelivery editable">
+        <div class="header">
+            <h2>Delivery Address</h2>
+        </div>
+    </div>
+}

@@ -1,0 +1,73 @@
+﻿@using Colony.CMS
+@model IList<WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookItemViewModel>
+
+<section id="itemsInScrapbook" class="boxSection scrapBookCarousel">
+    <header class="header">
+        <h2>Items available on this moodboard (@Model.Count)</h2>
+        @if (Model.Any())
+        {
+            <span href="#" class="next right icon-angle-right"></span>
+            <span href="#" class="prev right icon-angle-left"></span>
+        }
+        <div class="clear"></div>
+    </header>
+    <div class="bd">
+        <div class="carousel productCarousel">
+            <div class="items productList scrapBookList">
+                @if (!Model.Any())
+                {
+                    <div class="item">
+                        <h3>There are no items in this moodboard</h3>
+                    </div>
+                }
+                @foreach (var item in Model)
+                {
+                    <div class="item @if (item.IsOnCanvas)
+                                     {
+                                         <text>greyOut</text>
+                                     }
+                                     else if (ViewBag.IsReadonly == false)
+                                     {
+                                         <text>scrapAdd</text>
+                                     }" data-scrapbookitemid="@item.ScrapbookItemId" data-skuid="@item.SkuId" data-imageassetid="@item.ImageAssetId">
+                        <a>
+                            <img src="@Url.ImageUrl(item.ImageAssetId, "ProductCatalogue", "ProductThumbnail")" alt="@item.Name" data-image-zoom="@Url.ImageUrl(item.ImageAssetId, "ProductCatalogue", "ProductDetailZoom")">
+                            <h3 class="itemTitle @ColonyContext.Current.CurrentSite.SiteKey">@(!string.IsNullOrWhiteSpace(item.Name) ? item.Name : item.Description)</h3>
+                            @if (item.SkuId != null)
+                            {
+                                <ul>
+                                    <li>@item.Code</li>
+                                    <li>@item.Attributes.GetValueOrNull("Product Group")</li>
+                                </ul>
+                            }
+                        </a>
+                        @if (ViewBag.IsReadOnly == false)
+                        {
+                            <div class="actions">
+                                @if (!item.IsOnCanvas)
+                                {
+                                    <a href="#" class="plus"></a>
+                                }
+                                <a href="@Url.Action("DeleteScrapbookItem", "Scrapbook", new {area = "Scrapbook", scrapbookId = item.ScrapbookId, scrapbookItemId = item.ScrapbookItemId})" class="remove">
+                                    <span>Remove</span>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <a href="#" class="prev">
+                <span></span>
+                Previous
+            </a>
+            <a href="#" class="next">
+                <span></span>
+                Next
+            </a>
+            <div class="bullets">
+                <ul></ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>

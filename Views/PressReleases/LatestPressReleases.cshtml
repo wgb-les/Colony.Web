@@ -1,0 +1,59 @@
+﻿@model Colony.Modules.PressReleases.Areas.Models.LatestPressReleasesViewModel
+
+@if (Model.PressReleases.Any())
+{
+    <ul class="articleList">
+        @foreach (var item in Model.PressReleases.OrderByDescending(x => x.PublishStart ?? x.Created))
+        {
+            <li>
+                <article class="media">
+                    <span class="thumbnail img">
+                        <img src="@Url.ImageUrl(item.ImageAssetId, "PressReleases", "PressReleaseThumbnailPortrait", @"/_images/placeholders/categoryList.jpg")" alt="@item.Name"></span>
+                    <div class="details bd">
+                        <header>
+                            <h3>@item.Name</h3>
+                            <dl>
+                                <dt>Date</dt>
+                                <dd>
+                                    <time datetime="@((item.PublishStart ?? item.Created).Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz"))">@((item.PublishStart ?? item.Created).Value.ToString("dd MMMM yyyy"))</time>
+                                </dd>
+                            </dl>
+                        </header>
+                        @Html.Raw(item.LongDescription)
+                        @if (item.Files != null && item.Files.Any())
+                        {
+                            <div class="downloadFile">
+                                <div class="splitButton">
+                                    @{
+                                        var firstFile = item.Files.OrderBy(x => x.Order).First();
+                                    }
+                                    <a href="@Url.Action("Download", "File", new {area = "Assets", fileGuid = firstFile.FileGuid})" class="button">@firstFile.Name</a>
+                                    @if (item.Files.Count() > 1)
+                                    {
+                                        <a href="#" class="button dropdownToggle" data-dropdown="pressDownload_1">
+                                            <span>Other</span></a>
+                                        <ul id="pressDownload_1" class="f-dropdown" data-dropdown-content="" style="left: -99999px;">
+                                            @foreach (var file in item.Files.OrderBy(x => x.Order).Skip(1))
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("Download", "File", new {area = "Assets", fileGuid = file.FileGuid})">@file.Name</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </article>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="alertInfo message">
+        <strong class="icon"></strong>
+        There are no press releases to display
+    </div>
+}

@@ -1,0 +1,69 @@
+@using Colony.CMS
+@using Colony.Util.Web
+@model WalkerGreenbank.Modules.PressMembers.Areas.TradeMembers.ViewModels.TradeRegisterInputViewModel
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>Trade Registration</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>The following has registered an interest to become a trade member.</h2>
+
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold">Name</td>
+        <td>@Model.Person.Title @Model.Person.FirstName @Model.Person.LastName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Company name</td>
+        <td>@Model.CompanyName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Brand Account number</td>
+        <td>@Model.BrandAccountNumber</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Brand Sales Manager names</td>
+        <td>@Model.BrandSalesManagersNames</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Website</td>
+        <td>@Model.Website</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Address</td>
+        <td>
+            <p>@Model.Address.Line1</p>
+            <p>@Model.Address.Line2</p>
+            <p>@Model.Address.Town</p>
+            <p>@Model.Address.County</p>
+            <p>@Model.Address.Postcode</p>
+            <p>@Model.Address.CountryName</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Phone Number</td>
+        <td>@Model.Person.PhoneNumber</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Email</td>
+        <td>@Model.Person.Email</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Site registered on</td>
+        <td>@ColonyContext.Current.CurrentSite.Name</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            To approve this trade member and assign them a webtex login and level of access, please visit <a href="@UriExtensions.AbsoluteUrl("/edit/#/members/tradelink/?useraccountid=" + Model.UserAccountId)">@UriExtensions.AbsoluteUrl("/edit/#/members/tradelink/?useraccountid=" + Model.UserAccountId)</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

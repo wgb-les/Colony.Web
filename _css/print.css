@@ -1,0 +1,46 @@
+.alertInfo {
+    background: #F2F2F2 !important;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+#header {
+    padding: 0 0 1.5em 0;
+    position: static;
+}
+
+#header .inner { height: auto !important; }
+
+
+.infoContainer, .content-furnitureAccordion { display: block !important; }
+
+.inspirationCategories .category { text-decoration: none; }
+
+.inspirationCategories .category .thumb {
+    display: block;
+    float: none;
+    opacity: 1;
+}
+
+.inspirationCategories .category .title {
+    background: none;
+    display: block;
+    padding: 0.5em 0;
+    position: static;
+}
+
+
+
+.inspirationCarousel { page-break-after: always; }
+
+.basketTotals { position: relative; }
+
+.sideCol.rightCol {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    width: 100%;
+}
+
+#footer, #corporateInfo, #siteLinks, #nav, .searchSite, .searchPanel, .bottomMenu, #map_content, .notification, .breadcrumb, .leftCol, #comments .button, #postComment, .pageOptions, .morrisHistory, .inspirationActions, .inspirationHeader .toggle, .orbit-prev, .orbit-next, .orbit-bullets, a.print, .articleOptions, .productOptions, .pagination, .imageMiniBasket, .show-for-small, #productFilters, .imageSizeOptions, .tabs, .scrapBookCarousel, .scrapControls, #scrapbookName, .bd-reveal-modal, .back-to-top, #cookiePolicy, .hide-for-print { display: none !important; }
+
+.show-for-print { display: block !important; }

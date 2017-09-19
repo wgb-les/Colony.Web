@@ -1,0 +1,65 @@
+﻿@if (!Model.BasketLines.Any())
+{
+    if (!Model.IsCheckoutBasket)
+    {
+        <div class="alertInfo message">
+            <strong class="icon"></strong>
+
+            There are no items in your basket.
+
+        </div>
+    }
+}
+else
+{
+    foreach (var item in Model.BasketLines.Select((model, index) => new {index, model}))
+    {
+        <div class="basketItem">
+            <a href="@item.model.Url">
+                <img src="@item.model.ImageUrl" alt="@item.model.Name">
+            </a>
+
+            <div class="details">
+                <h2>
+                    <a href="@item.model.Url">@item.model.Name</a>
+                </h2>
+                <dl>
+                    <dt>Colour</dt>
+                    <dt>Ocean, Khaki and Natural</dt>
+                    <dt>Fabric</dt>
+                    <dt>3230</dt>
+                </dl>
+            </div>
+            <p class="value"><span>Item Price: </span>&pound;@item.model.UnitPriceInc</p>
+
+            @if (!Model.IsCheckoutBasket)
+            {
+                <div class="field text spinner split">
+                    <label for="quantity001">
+                        Select Quantity
+                    </label>
+                    <input type="text" name="quantity001" id="quantity001" value="@item.model.Quantity" data-max-value="100" data-min-value="0"/>
+                </div>
+            }
+            else
+            {
+                <p class="quantity">
+                    <span>Quantity: </span>@item.model.Quantity</p>
+            }
+            <p class="value"><span>Sub Total: </span>&pound;@item.model.TotalInc</p>
+            @if (!Model.IsCheckoutBasket)
+            {
+                if (item.model.SkuId != null)
+                {
+                    <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuId = item.model.SkuId.Value})" class="remove">
+                        <span>Remove</span></a>
+                }
+                else
+                {
+                    <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuBundleId = item.model.SkuBundleId.Value})" class="remove">
+                        <span>Remove</span></a>
+                }
+            }
+        </div>
+    }
+}

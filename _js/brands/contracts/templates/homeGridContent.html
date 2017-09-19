@@ -1,0 +1,17 @@
+<div class="gridContent-image" style="background-image: url('<%= _.escape(rc.item.Images[0].Url) %>');"></div>
+<div class="gridContent-details">
+    <div class="inner">
+        <a class="hide-toggle" href="#">
+            <span class="icon icon-caret-down"></span>
+            <span class="hide-label">Hide</label>
+        </a>
+        <h2><%= rc.item.Brand.Name %> - <%= rc.item.CollectionContent.Name %></h2>
+        <%= rc.item.LongDescription %>
+        <p>
+            <a href="<%= rc.item.CollectionLink %>" class="button small">View Products From This Collection</a>
+            <a href="<%= rc.item.BrandLink %>" class="button small">Discover <%= rc.item.Brand.Name %></a>
+        </p>
+    </div>
+</div>
+<a href="#" class="close">
+    <span>Close</span></a>

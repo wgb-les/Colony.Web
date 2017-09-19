@@ -1,0 +1,48 @@
+﻿@model Colony.Modules.Blog.Areas.Models.BlogPostForTagViewModel
+@{
+    Html.AppendTitle("Blog posts tagged with \"" + Model.Tag + "\"");
+    Html.AppendMetaKeywords(Model.Tag);
+    Html.SetMetaDescription("Blog posts tagged with \"" + Model.Tag + "\"");
+}
+<div id="container" role="main" class="col-1">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <header class="pageHeader">
+            <h1>@("Blog posts tagged with \"" + Model.Tag + "\"")</h1>
+        </header>
+        @if (Model.BlogPosts.Any())
+        {
+            <section class="moduleSection">
+                <h2>Blogs</h2>
+                @{ Html.RenderPartial("_BlogPostList", Model.BlogPosts); }
+            </section>
+        }
+        else
+        {
+            <div class="alertInfo message">
+                <strong class="icon"></strong>There are no blogs in this category
+            </div>
+        }
+    </div>
+    @if (Model.Tags.Any())
+    {
+        <aside class="sideCol rightCol">
+            <section class="boxSection tagList">
+                <header class="header">
+                    <h2 class="icon-tag">Tags</h2>
+                </header>
+                <div class="bd">
+                    <ul>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <li>
+                                <a href="/blogs/bytag/@tag" class="button">@tag</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </section>
+
+        </aside>
+    }
+</div>

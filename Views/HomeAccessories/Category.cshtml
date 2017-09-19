@@ -1,0 +1,98 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.HomeAccessories.Areas.Models.CategoryViewModel
+@{
+    Html.AppendTitle(Model.Category.Name);
+    Html.SetPageData(Model.Category.AnalyticsCode, Model.Category.MetaTitle, Model.Category.MetaKeywords, Model.Category.MetaDescription, Model.Category.MetaCustomTags);
+}
+<div class="collectionDetails">
+    <div class="collectionInfo">
+        <header>
+            <h1>@Model.Category.Name</h1>
+            @Html.Raw(Model.Category.LongDescription)
+        </header>
+    </div>
+    @if (Model.Images.Any())
+    {
+        <div class="collectionShots">
+            <div class="carousel imageCarousel">
+                <ul class="items">
+                    @foreach (var image in Model.Images)
+                    {
+                        <li>
+                            <img src="@Url.ImageUrl(image.ImageAssetID, "HomeAccessories", "HomeAccessoriesCollectionDetail", @"/_images/placeholders/article.jpg")"/>
+                        </li>
+                    }
+                </ul>
+                <a href="#" class="prev">
+                    <span></span>
+                    Previous
+                </a>
+                <a href="#" class="next">
+                    <span></span>
+                    Next
+                </a>
+                <div class="bullets">
+                    <span class="icon icon-play icon-pause"></span>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (Model.SubCategories.Any())
+{
+    <h2>@Model.Category.Name (@Model.SubCategories.Count())</h2>
+@*
+	<div class="productList product no-quick-view">
+		@foreach (var subCategory in Model.SubCategories)
+		{
+			var defaultImageUrl = Url.ImageUrl(subCategory.Category.ImageAssetID, "HomeAccessories", "HomeAccessoriesThumbnail", @"/_images/placeholders/article.jpg");
+			<div class="item" data-imageAssetId="@subCategory.Category.ImageAssetID" data-productimage="@defaultImageUrl" data-productname="@subCategory.Category.Name" data-url="/home-accessories@(subCategory.Category.Uri)">
+				<a href="@Colony.CMS.ColonyContext.Current.Response.Url.TrimEnd('/')@(subCategory.Category.Uri)">
+					<img src="@defaultImageUrl" alt="@subCategory.Category.Name" />
+					<h4 class="itemTitle Harlequin">@subCategory.Category.Name</h4>
+				</a>
+			</div>
+		}
+	</div>*@
+    <div class="collectionsPreview productCollections no-quick-view">
+        @foreach (var homeAccessory in Model.SubCategories)
+        {
+            <div class="item">
+                <a href="@ColonyContext.Current.Response.Url.TrimEnd('/')@(homeAccessory.Category.Uri)">
+                    @{
+                        var imageUrl = Url.ImageUrl(homeAccessory.Category.ImageAssetID, "HomeAccessories", "HomeAccessoriesCollectionThumbnail");
+                        //string imageUrl = Url.ImageUrl(homeAccessory.Category.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg");
+                    }
+                    <img alt="@homeAccessory.Category.Name" src="@imageUrl">
+                    <h3 class="itemTitle">@homeAccessory.Category.Name</h3>
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@if (Model.HomeAccessories.Any())
+{
+    <h2>Designs (@Model.HomeAccessories.Count())</h2>
+    <div class="productList product no-quick-view">
+        @foreach (var accessory in Model.HomeAccessories)
+        {
+            var defaultImage = accessory.Images.FirstOrDefault();
+            var defaultImageUrl = defaultImage != null ? Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+            <div class="item"@if (defaultImage != null)
+                             {
+                                 <text>data-imageAssetId="@defaultImage.ImageAssetID"</text>
+                             } data-productimage="@defaultImageUrl" data-productname="@accessory.HomeAccessory.Name" data-url="/home-accessories@(accessory.HomeAccessory.Uri)">
+                <a href="@ColonyContext.Current.Response.Url.TrimEnd('/')@(accessory.HomeAccessory.Uri)">
+                    <img src="@defaultImageUrl" alt="@accessory.HomeAccessory.Name"/>
+                    <h4 class="itemTitle Harlequin">@accessory.HomeAccessory.Name</h4>
+                    <ul>
+                        <li>@accessory.HomeAccessory.SubTitle</li>
+                    </ul>
+                </a>
+            </div>
+        }
+    </div>
+}

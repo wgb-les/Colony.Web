@@ -1,0 +1,62 @@
+@using Colony.CMS
+@using Colony.Util.Web
+@model WalkerGreenbank.Modules.PressMembers.Areas.PressMembers.Models.DownloadRequestViewModel
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--#include virtual="/_includes/shared/global.asp" -->
+    <title>Press/Trade Area Image Download Request</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+</head>
+<body>
+<h2>The following request has been received for a Press/Trade image library download.</h2>
+
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold">Name</td>
+        <td>@Model.UserAccount.Title @Model.UserAccount.FirstName @Model.UserAccount.LastName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Email</td>
+        <td>@Model.UserAccount.Email</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Usage</td>
+        <td>@Model.Usage</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Publication Name</td>
+        <td>@Model.PublicationName</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Publication Date</td>
+        <td>@Model.PublicationDate.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Reason</td>
+        <td>@Model.Reason</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Product Flatshots Required</td>
+        <td>@Model.FlatshotImagesRequired</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Captions/Prices Requested</td>
+        <td>@Model.RequestCaptionsAndPrices</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Site from which request was generated</td>
+        <td>@ColonyContext.Current.CurrentSite.Name</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            To view full details for the request, please visit <a href="@UriExtensions.AbsoluteUrl("/edit/#/pressimagedownloads/edit/?id=" + Model.DownloadRequestId)">@UriExtensions.AbsoluteUrl("/edit/#/pressimagedownloads/edit/?id=" + Model.DownloadRequestId)</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

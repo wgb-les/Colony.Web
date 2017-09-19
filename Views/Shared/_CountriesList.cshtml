@@ -1,0 +1,39 @@
+﻿@model Colony.Commerce.Areas.Currencies.ViewModels.CountrySelectionViewModel
+<header class="header-reveal-modal">
+    <h2>Location</h2>
+    <a class="close-reveal-modal icon-remove">
+        <span>Close</span>
+    </a>
+</header>
+<div class="bd-reveal-modal">
+    <p>
+        <b>Please note:</b> We currently only ship consumer orders to mainland UK.
+    </p>
+    <ul class="country-list">
+        @foreach (var region in Model.CurrencyRegions.OrderBy(x => x.Order))
+        {
+            var isCurrentRegion = Model.CurrentCurrencyRegionId.HasValue && Model.CurrentCurrencyRegionId.Value == region.Id;
+            <li>
+                <a class="country-item @if (isCurrentRegion)
+                                       {
+                                           <text>country-item-active</text>
+                                       }" href="@Url.Action("SwitchCurrency", "Currencies", new {area = "Currencies", currencyRegionId = region.Id, currencyId = region.CurrencyId, countryId = region.DefaultCountryId, returnUrl = Model.ReturnUrl})">
+
+                    <img src="@region.FlagImageUrl" class="country-flag"/>
+                    <span class="country-label">@region.Name</span>
+                    <span class="country-symbol">@region.RegionInfo.CurrencySymbol</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+@*The script below updates the flag in the header*@
+
+<script>
+    $(document).ready(function () {
+        $(".country-item").click(function () {
+            location.reload();
+        });
+    });
+</script>  

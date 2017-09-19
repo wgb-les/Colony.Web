@@ -1,0 +1,140 @@
+@using Colony.CMS
+@using Colony.Commerce
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.ProductDetailViewModel
+
+<div class="productBuyingSection">
+    <div class="paintSurfaceWrapper">
+      <fieldset class="sl-fieldset">
+        <div class="field select sl-input-block">
+          <label for="paintSurface productQuestion surfaceSection">
+            <span>What would you like to paint?</span>
+          </label>
+          <select name="paintSurface" id="paintSurface">
+              <option value="">Please select...</option>
+              <option value="EMU-ELI-ACT-ACR">Interior Walls &amp; Ceilings</option>
+              <option value="ELI-ACR-EGG-ACT">Interior Woodwork</option>
+              <option value="ELI-ACR-EGG">Interior Metals (Primed)</option>
+              <option value="ACR-EGG">Exterior Woodwork</option> 
+              <option value="EGG">Exterior Metals (Primed)</option>
+              <option value="ELI-ACT-ACR">Kitchen Walls</option> 
+              <option value="ELI-ACT-ACR-EGG">Kitchen Woodwork</option>
+              <option value="ELI-ACR-EGG">Kitchen Metals (Primed)</option>
+              <option value="ACR">Bathroom Walls</option>
+              <option value="ACR-EGG">Bathroom Woodwork &amp; Bathroom Metals (Primed)</option>
+          </select>
+        </div>
+        <div class="field select sl-input-block productQuestion finishSection paintFinishWrapper hide">
+          <label for="paintFinish">
+            What finish do you want?
+            <a href="/paint/paint-finishes" target="_blank">
+            <i class="fa-info-circle"></i>
+            </a>
+          </label>
+            <select name="paintFinish" id="paintFinish">
+                <option value="">Please select...</option>
+                <option value="EMU">@(Model.Attributes.GetValueOrNull("Brand") == "Zoffany" ? "Flat Emulsion" : "Matt Emulsion")</option>
+                @{
+                    if (Model.Attributes.GetValueOrNull("Brand") == "Zoffany") {
+                        <option value="ELI">Elite Emulsion</option>
+                    }
+                    else if (Model.Attributes.GetValueOrNull("Brand") == "Sanderson")
+                    {
+                        <option value="ACT">Active Emulsion</option>
+                    }
+
+                }
+                <option value="ACR">@(Model.Attributes.GetValueOrNull("Brand") == "Zoffany" ? "Acrylic Eggshell" : "Water Based Eggshell")</option>
+                <option value="EGG">@(Model.Attributes.GetValueOrNull("Brand") == "Zoffany" ? "Eggshell" : "Oil Based Eggshell")</option>
+            </select>
+        </div>
+      </fieldset>
+    </div>
+
+  <div class="sl-options-container sl-small-pad">
+    @foreach (var productOption in Model.ProductOptions.Where(x => x.Price.PriceInc > 0 || 1 == 1))
+    {
+        if (!(productOption.Sku.Code == "SP" + Model.SelectedSku.Code.Substring(2)) && !productOption.Sku.Code.Contains(".125"))
+        {
+          <div class="sl-option sl-wide-1 sl-small-pad product-option" data-product-option="@productOption.Sku.Code.GetLast(3)" data-product-option-price="@productOption.Price.PriceInc.AsDecimal(0)" data-producti-option-skuid="@productOption.Sku.Id" style="display: none;">
+            <div class="sl-option-inner">
+              <div class="sl-field-group">
+                <div class="sl-field">
+                  <text class="sl-text">@productOption.Sku.Name</text>
+                </div>
+              </div>
+              <!-- <div class="spinner sl-spinner-container sl-right">
+              <input type="text" class="js-spinner-split" name="quantity" id="spinnerSplit_@productOption.Sku.Code" value="@(Model.ProductOptions.Count == 1 ? 1 : 0)" data-max-value="100" data-min-value="0" />
+            </div> -->
+            <div class="sl-field-group sl-right">
+              @if (productOption.PriceWas != null && productOption.PriceWas.PriceInc > productOption.Price.PriceInc)
+              {
+                <div class="sl-field">
+                  <text class="sl-text">SSP</text>
+                  <!-- Add disabled class if sale active -->
+                  <text class="sl-text disabled" data-value="productRRP">&pound;@productOption.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                  <!-- If sale active then... -->
+                  <text class="sl-text" data-value="productSale">&pound;@productOption.Price.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                </div>
+              }
+              else
+              {
+                  if (@productOption.PriceWas.PriceInc.AsDecimal(0) > 0)
+                  {
+                          <div class="sl-field">
+                              <text class="sl-text">SSP</text>
+                              <text class="sl-text" data-value="productRRP">&pound;@productOption.PriceWas.PriceInc.AsDecimal(0).ToString("#0.00")</text>
+                          </div>
+                  }
+                  else
+                  {
+                        <div class="sl-field">
+                            <text class="sl-text">TBC</text>
+                        </div>
+                  }
+              }
+            </div>
+          </div>
+        </div>
+        }
+    }
+
+      @{
+        Html.RenderPartial("_PaintSamples");
+      }
+      
+
+
+
+  <div class="product-option no-products" style="display: none;">
+    <div class="product-option-details">
+      <div class="alertInfo message">Sorry, there are no products matching your selection.</div>
+    </div>
+  </div>
+  <!-- <div class="sl-product-buttons sl-right">
+  <a class="sl-button addToBasket">
+  <div class="sl-inner sl-level-3">
+  <div class="sl-arrow"></div>
+  <text>Total: &pound;</text>
+  <text id="totalProductOptionsCost">0.00</text>
+</div>
+</a>
+<a href="@Url.Action("BasketCommand", "Basket", new { area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = Model.ProductOptions.Count == 1 ? Model.ProductOptions.First().Sku.Id : 0, quantity = Model.ProductOptions.Count == 1 ? 1 : 0 })" class="sl-button addToBasket">
+<div class="sl-inner sl-level-1">
+<text>Add</text>
+<text class="product-totals-count"></text>
+<text>to Basket</text>
+</div>
+</a>
+</div> -->
+<div></div>
+        @{
+            var sampleProduct = Model.ProductOptions.FirstOrDefault(x => x.Sku.Code == "SP" + Model.SelectedSku.Code.Substring(2) || x.Sku.Code.Contains(".125"));
+            if (sampleProduct != null)
+            {
+               @*<div class="paint-sample-alert @(Model.Attributes.GetValueOrNull("Brand").ToLower())-pot">125ml @(Model.Attributes.GetValueOrNull("Brand") == "Zoffany" ? "Flat Emulsion" : "Matt Emulsion") Sample pot available for £@sampleProduct.Price.PriceInc.AsDecimal(0).ToString("#0.00") from local retailers</div>*@
+            }
+}
+    </div>
+</div>
+

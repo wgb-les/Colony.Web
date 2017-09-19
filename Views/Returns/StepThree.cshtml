@@ -1,0 +1,87 @@
+﻿@model Colony.Commerce.Areas.Returns.ViewModels.StepThreeModel
+
+@{
+    ViewBag.Title = "Returns";
+}
+
+<header class="pageHeader">
+    <h1>RETURNS</h1>
+</header>
+
+@using (Html.BeginForm("StepThree", "returns", null, FormMethod.Post,
+    new
+    {
+        @class = "boxSection boxSection-returns returns-contact active"
+    }))
+{
+    if (ViewBag.ReturnsLabelException != null && ViewBag.ReturnsLabelException)
+    {
+        <div class="alertInfo error">
+            An error occurred when processing your returns label.
+        </div>
+    }
+
+    <header class="returns-header">
+        <h2>3. Contact details</h2>
+        <span class="icon icon-check"></span>
+    </header>
+    <div class="boxSection-content inset">
+
+        <div class="contentForm">
+            <div class="row">
+                <div class="columns small-12 large-6">
+
+                    <div class="field text ">
+                        <label for="returnsContactName">
+                            Full name<span class="required">Required</span>
+                        </label>
+
+                        @Html.TextBoxFor(b => Model.CustomerName, new {id = "returnsContactName"})
+
+                    </div>
+
+                </div>
+                <div class="columns small-12 large-6">
+
+                    <div class="field text ">
+                        <label for="returnsContactPhone">
+                            Phone no.<span class="required">Required</span>
+                        </label>
+
+                        @Html.TextBoxFor(b => Model.Tel, new {id = "returnsContactPhone"})
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns small-12 large-6">
+
+                    <div class="field text ">
+                        <label for="returnsContactEmail">
+                            Email address<span class="required">Required</span>
+                        </label>
+
+                        @Html.TextBoxFor(b => Model.EmailAddress, new {id = "returnsContactEmail"})
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns small-24 large-12">
+                    <div class="field text">
+                        @Html.CheckBoxFor(model => model.AcceptUps, new {id = "acceptTerms"})
+                        <label for="acceptTerms" class="returns-accept-terms">
+                            I am happy for my details to be passed on to the courier generating my returns label. <span class="required">Required</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="boxSection-action">
+        <input type="submit" value="Email me my return label" class="button"/>
+    </div>
+}

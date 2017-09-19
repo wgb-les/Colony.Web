@@ -1,0 +1,100 @@
+﻿@using Colony.CMS
+@using Colony.Commerce
+@model Colony.Commerce.Areas.ShopPurchase.Models.BasketLineViewModel
+@using (Html.BeginCollectionItem("basketLines"))
+{
+    if (!Model.CanPurchase)
+    {
+        <div class="message error fa-times-after">
+            The item below is unavailable in your selected region. Either remove this item from your basket or change your region.
+        </div>
+    }
+
+    <div class="basketProduct">
+        <a href="@string.Format("{0}/shop/{1}?code={2}", Model.ShopBaseUri, Model.Url, Model.Sku.Code)" @if (Model.Shop.Id != ColonyCommerceContext.Current.Shop.CurrentShop.Id) { <text> target="_blank" </text>  }>
+            <img class="basketFlatshot" src="https://69445235844b78bbd4c8-40765e7850b487e7db6d0b1ca2adcee0.ssl.cf3.rackcdn.com/_assets/images/cache/productcatalogue/productdetailzoom/@(Model.Sku.Code)_zoom.jpg" alt="">
+        </a>
+        <div class="basketProductDetails">
+            <a href="@Url.Action("BasketCommand", "Basket", new {area = "ShopPurchase", command = "Remove", skuId = @Model.SkuId.Value})" class=""
+               data-currencyCode="@Model.CurrencyRegion.RegionInfo.ISOCurrencySymbol"
+               data-itemName="@Model.Name"
+               data-itemId="@Model.Product.Name"
+               data-variant="@(Model.IsSample ? "Sample": "Product")"
+               data-itemPrice="@(Model.UnitPriceInc.ToString("#0.00"))"
+               data-itemCategory="@Model.Attributes["Product Group"]"
+               data-itemBrand="@(Model.Attributes.GetValueOrNull("Brand") ?? "")"
+               data-itemQuantity="@Model.Quantity"
+               data-itemDimension2="@Model.Attributes["Descriptive Colour"]"
+               data-itemDimension3="@Model.Category.Name"
+               data-itemDimension4="@Model.Attributes["Pattern Match Description"]"
+               data-itemDimension5="@((Model.Sku.Width ?? 0).ToString("0.0"))">
+                <div class="removeBasketItem fa-trash"></div>
+            </a>
+
+            @*<div class="removeBasketItem fa-trash" data-skuid="@Model.SkuId"></div>*@
+
+            <h3>@Model.Sku.Name</h3>
+            <div class="basketPrice">
+                @(Model.UnitPriceInc > 0 ? Model.CurrencyRegion.RegionInfo.CurrencySymbol + Model.UnitPriceInc.ToString("#0.00") : "FREE")
+            </div>
+            <a>@Model.Quantity</a>
+            @*@if (Model.CanPurchase)
+                {
+                    <div class="field text spinner split" data-divId="@Model.SkuId">
+                        @if (Model.MaxQuantity == 0)
+                        {
+                            if (int.Parse(Model.Attributes.GetValueOrNull("Sample Code") ?? "0") == 0)
+                            {
+                                @Html.TextBoxFor(model => model.Quantity, new { data_max_value = Model.MaxQuantity.ToString(), data_min_value = "0", disabled = "true" })
+
+                            }
+                        }
+                        else
+                        {
+
+                            @Html.TextBoxFor(model => model.Quantity, new { data_min_value = "0", data_max_value = "100", disabled = "true", @class = "quantitySpinner", data_id = Model.SkuId })
+                        }
+                    </div>
+
+                }*@
+        </div>
+    </div>
+
+}
+<script>
+    $(".quantitySpinner").spinner();
+</script>
+    <script>
+        $(document)
+            .ready(function() {
+                $('a[data-currencyCode]')
+                    .on('click',
+                        function () {
+                            debugger;
+                            dataLayer.push({
+                                'event': 'ga-ee',
+                                'eventAction': 'removeFromBasket',
+                                'ecommerce': {
+                                    'currencyCode': $(this).attr('data-currencyCode'),
+                                    'remove': {
+                                        'products': [
+                                            {
+                                                'name': $(this).attr('data-itemName'),
+                                                'id': $(this).attr('data-itemId'),
+                                                'price': $(this).attr('data-itemPrice'),
+                                                'brand': $(this).attr('data-itemBrand'),
+                                                'category': $(this).attr('data-itemCategory'),
+                                                'variant': $(this).attr('data-variant'),
+                                                'quantity': $(this).attr('data-itemQuantity'),
+                                                'dimension2': $(this).attr('data-itemDimension2'),
+                                                'dimension3': $(this).attr('data-itemDimension3'),
+                                                'dimension4': $(this).attr('data-itemDimension4'),
+                                                'dimension5': $(this).attr('data-itemDimension5')
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                        });
+            });
+    </script>

@@ -1,0 +1,222 @@
+﻿@using Colony.CMS
+@using Colony.Commerce.Areas.ShopPurchase.Models;
+@model AboutYouViewModel
+
+
+
+<div class="mediumColumn">
+    <div class="blockSection wide1">
+        <div class="inner">
+            <div class="heading">
+                <h2 class="fa-pencil">About You</h2>
+            </div>
+            <div class="content form">
+                <form action="@Url.Action("AboutYou", "Checkout", new {area = "ShopPurchase", edit = "aboutYou"})" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    @*Email text  box input*@
+                    <div class="section" style="margin-bottom:0px; padding-bottom:0px !important;">
+                        <div for="email" class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></div>
+                    </div>
+                    <div class="section">
+                        <!-- Alert for Email-->
+                       
+                        <label for="email">
+                            <span>Email Address</span>
+                            <span class="required">required</span>
+                        </label>
+
+                        <!-- @if (TempData["ErrorExistingUser"] != null && TempData["ErrorExistingUser"].ToString() == "TRUE")
+                        {
+                            <div for="email" class="field-validation-error" data-valmsg-for="email" data-valmsg-replace="true">
+                                <div for="email" class="alertInfo error">There is already an account with this email address</div>
+                            </div>
+                        } -->
+                        <input data-val="true" data-val-required="Enter an email address" data-val-email="Enter a valid email address" type="text" name="email" id="email" value="@Model.Email" placeholder="example@gmail.com">
+                    </div>
+                    
+                    <div class="section tickbox">
+                        <input type="checkbox" name="Register" id="GuestRegister">
+                        <label for="GuestRegister" class="register">
+                            <span>
+                                I would like to register to @ColonyContext.Current.CurrentSite.Name
+                            </span>
+                        </label>
+                    </div>
+
+                    <div data-password-visible="false" style="display: none;">
+                        <div class="section">
+                            <div for="password" data-errormessage="password" class="hide alertInfo error">Enter a password</div>
+                            <label for="password">
+                                <span>Password</span>
+                                <span class="required">Required</span>
+                            </label>
+                            <input data-password="password" data-val="true" data-val-required="Enter a password" type="password" name="password" id="password">
+                        </div>
+
+                        <div class="section">
+                            <div for="confirmPassword" data-errormessage="confirm" class="hide alertInfo error">Re-enter the password</div>
+                            <label for="confirmPassword">
+                                <span>Confirm Password</span>
+                                <span class="required">Required</span>
+                            </label>
+                            <input data-password="confirm" data-val="true" data-val-required="Re-enter the password" type="password" name="confirmPassword" id="confirmPassword">
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div for="email" data-errormessage="match" class="hide alertInfo error">passwords don't match</div>
+                    </div>
+
+
+                    @Html.EditorFor(model => model.Title)
+
+                    @Html.EditorFor(model => model.FirstName)
+
+                    @Html.EditorFor(model => model.LastName)
+
+                    @Html.EditorFor(model => model.PhoneNumber)
+
+                    <p>Click here to read our <a href="@Url.Content("~/Terms-and-conditions")">Website Terms of Use, </a><a href="@Url.Content("~/Terms-and-conditions-of-sale/")">Terms and Conditions of Sale</a> and <a href="@Url.Content("~/privacy-policy/")">Privacy Policy</a></p>
+
+
+
+                    <div class="section tickbox">
+                        <input type="checkbox" name="AllowMarketing" id="AllowMarketing">
+                        <label for="AllowMarketing" class="register">
+                            <span>I would like to receive marketing communications from @ColonyContext.Current.CurrentSite.Name</span>
+                        </label>
+                    </div>
+
+                    @Html.EditorFor(model => model.AcceptTermsAndConditions)
+
+
+                    <div class="section">
+                        <div class="button level1 wide1">
+                            <input type="submit" class="inner" value="Continue">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="smallColumn">
+    @Html.Action("Basket", "Basket", new { area = "ShopPurchase", isCheckout = true })
+</div>
+
+<script src="/_js/shared/checkout-confirmation.js" type="text/javascript"></script>
+<script src="/_js/shared/checkout-guest.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="row">
+    <div class="small-12 large-8 columns">
+        <div class="boxSection">
+            <div class="header">
+                <h1>Guest checkout</h1>
+            </div>
+            <div class="card-content">
+
+                <div class="contentForm">
+                    <form action="@Url.Action("AboutYou", "Checkout", new {area = "ShopPurchase", edit = "aboutYou"})" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="field text">
+                            <label for="email">
+                                What is your email address? <span class="required">Required</span>
+                            </label>
+                            @if (TempData["ErrorExistingUser"] != null && TempData["ErrorExistingUser"].ToString() == "TRUE")
+                            {
+                                <div for="email" class="field-validation-error" data-valmsg-for="email" data-valmsg-replace="true">
+                                    <div for="email" class="alertInfo error">There is already an account with this email address</div>
+                                </div>
+                            }
+                            <div for="email" class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></div>
+                            <input data-val="true" data-val-required="Enter an email address" data-val-email="Enter a valid email address" type="text" name="email" id="email" value="@Model.Email">
+                        </div>
+
+                        @Html.EditorFor(model => model.Title)
+
+                        @Html.EditorFor(model => model.FirstName)
+
+                        @Html.EditorFor(model => model.LastName)
+
+                        @Html.EditorFor(model => model.PhoneNumber)
+
+                        <div class="field">
+                            Click here to read our <a href="@Url.Content("~/Terms-and-conditions")">Website Terms of Use, </a><a href="@Url.Content("~/Terms-and-conditions-of-sale/")">Terms and Conditions of Sale and </a><a href="@Url.Content("~/privacy-policy/")">Privacy Policy</a>
+                        </div>
+
+                        <div data-password-visible="false" style="display: none;">
+                            <div class="field text">
+                                <label for="password">
+                                    Password <span class="required">Required</span>
+                                </label>
+                                <div for="email" data-errormessage="password" class="hide alertInfo error">Enter a password</div>
+                                <p></p>
+                                <input data-password="password" data-val="true" data-val-required="Enter a password" type="password" name="password" id="password">
+                            </div>
+
+                            <div class="field text">
+                                <label for="confirmPassword">
+                                    Confirm Password <span class="required">Required</span>
+                                </label>
+                                <div for="email" data-errormessage="confirm" class="hide alertInfo error">Re-enter the password</div>
+                                <p></p>
+                                <input data-password="confirm" data-val="true" data-val-required="Re-enter the password" type="password" name="confirmPassword" id="confirmPassword">
+                            </div>
+                            <div for="email" data-errormessage="match" class="hide alertInfo error">passwords don't match</div>
+                        </div>
+
+                        <div class="field checkbox">
+                            <input type="checkbox" name="Register" id="GuestRegister">
+                            <label for="GuestRegister" class="register">
+                                <span>
+                                    I would like to register to @ColonyContext.Current.CurrentSite.Name
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="registerParent">
+                            @Html.EditorFor(model => model.AcceptTermsAndConditions)
+                        </div>
+                        <div class="field checkbox">
+                            <input type="checkbox" name="AllowMarketing" id="AllowMarketing">
+                            <label for="AllowMarketing" class="register">
+                                <span>
+                                    I would like to receive marketing communications from @ColonyContext.Current.CurrentSite.Name
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="field formControls">
+                            <input type="submit" class="button large actionButton" value="Continue">
+                        </div>
+
+                        <input type="hidden" name="IsMember" value="false" />
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="small-12 large-4 columns">
+        @Html.Action("Basket", "Basket", new { area = "ShopPurchase", isCheckout = true })
+    </div>
+</div>*@

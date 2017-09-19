@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Colony.Models.Core.Pages.Page>
+
+<aside class="sideCol leftCol">
+    <nav class="subNav" role="navigation">
+        <ul>
+            @foreach (var page in Model.OrderBy(x => x.Order))
+            { 
+                <li><a href="@page.Uri" class="@(((Request.Url.PathAndQuery) == page.Uri) ? "selected" : "")">@page.Name</a></li>
+            }
+        </ul>
+    </nav>
+</aside>

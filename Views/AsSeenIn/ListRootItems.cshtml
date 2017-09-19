@@ -1,0 +1,28 @@
+﻿@model WalkerGreenbank.Modules.AsSeenIn.Areas.Models.ListRootItemsViewModel
+
+<div id="container">
+    @{ Html.RenderPartial("~/Templates/_Breadcrumbs.cshtml"); }
+    <div id="content">
+        <h1>As Seen In</h1>
+        @{ Html.RenderPageSections(); }
+        @if (Model.Categories.Any())
+        {
+            <section class="categorySection videos">
+                <h2>Categories</h2>
+                @{ Html.RenderPartial("_AsSeenInCategoryList", Model.Categories); }
+            </section>
+        }
+
+        @if (Model.Items.Any())
+        {
+            Html.RenderPartial("_AsSeenInList", Model.Items);
+        }
+        else
+        {
+            <div class="alertInfo message">
+                There are currently no items to display
+            </div>
+        }
+
+    </div>
+</div>

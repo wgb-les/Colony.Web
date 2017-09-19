@@ -1,0 +1,230 @@
+.sl-slider {
+    width: 100%;
+    float: left;
+    position: relative;
+    padding: $padding-small;
+    z-index: 1;
+
+    .sl-slide {
+        float: left;
+        height: auto !important;
+        padding: $padding-small;
+
+        img.sl-slide-image {
+            float: left;
+            width: 100%;
+        }
+    }
+}
+
+.sl-slider {
+    .slick-arrow {
+        left: 10px;
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 50px !important;
+        padding: 0;
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        cursor: pointer;
+        border: none;
+        outline: none;
+        margin: 0;
+        opacity: $opacity-base;
+    }
+    .slick-arrow:before {
+        color: $dark-1;
+        font-size: $h2;
+        background: $light-1;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+    .slick-next {
+        right: 10px;
+        left: auto;
+    }
+    .slick-dots { 
+        display: none !important;
+    } 
+} 
+
+.sl-slider.slider-recents {
+   .slick-arrow {
+     top: 80px;
+    }
+
+    .slick-next {
+    right: 4px;
+    }
+}
+
+.slider-items {
+     .slick-arrow {
+        top: 37%;
+    
+        &.slick-next {
+            right:7px;
+        }
+    }
+}
+/* Landscape */
+
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+     .sl-slider.slider-recents {
+           .slick-arrow {
+            top: 28%;
+           }
+    }
+    .slider-items {
+         .slick-arrow {
+            top: 35%;
+           }
+     }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+ .sl-slider.slider-recents, .slider-items {
+       .slick-arrow {
+        top: 37%;
+       }
+    }
+}
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+    .sl-slider.slider-recents, .slider-items {
+       .slick-arrow {
+        top: 33%;
+       }
+    }
+}
+
+@media only screen and (max-width:420px) {
+    .sl-slider.slider-recents, .slider-items {
+       .slick-arrow {
+        top: 62px;
+       }
+
+       .slick-next {
+        right: 6px;
+       }
+    }
+}
+/******************* REPOSITION FOR YMAL SECTION ON PDP ***************/
+.sl-ymal {
+    .sl-slider {
+        .slick-arrow {
+        top: 38%;
+        }
+
+        .slick-next {
+        right: 6px;
+        }
+    }
+}
+
+@media only screen and (max-width:420px) {
+    .sl-ymal {
+        .sl-slider {
+            .slick-arrow {
+            top: 34%;
+            }
+        }
+    }
+}
+
+
+
+
+/******************* TEST ANTHOLOGY BRAND PAGE ***************/
+/*  change slideshow images to foreground images */
+@media
+only screen and (max-width:615px) { 
+    .sliderSlide.slick-slide img {
+        object-fit:cover;
+        min-height:300px;
+    }
+}
+@media
+only screen and (min-width:615px) { 
+    .sliderSlide.slick-slide img {
+        object-fit:cover;
+        min-height:500px;
+    }
+}
+
+
+
+/************ TEST **********/
+/* switch slideshow bg imges dep on media queries */
+/* smaller screens */
+@media
+only screen and (min-width:1001px) { 
+
+.anthology-slide1 {
+    background-image: url('../../_images/anthology/x1/blue-white-definition-obsidian-wallpaper-panelanthology-at-style-library.jpg');
+}
+.anthology-slide2 {
+    background-image: url('../../_images/anthology/x1/green-copper-metallic-definition-lustre-wallpaper-fabric-anthology-at-style-library.jpg');
+}
+.anthology-slide3 {
+     background-image: url('../../_images/anthology/x1/multi-orange-metallic-anthology-fabric-anthology-at-style-library.jpg');
+}
+.anthology-slide4 {
+   background-image: url('../../_images/anthology/x1/blue-yellow-green-anthology-04-wallpaper-anthology-at-style-library.jpg');
+}
+}
+ 
+/* smaller screens */
+@media
+only screen and (max-width:1000px) { 
+  
+.anthology-slide1 {
+    background-image: url('../../_images/anthology/mob/blue-white-definition-obsidian-wallpaper-panelanthology-at-style-library.jpg');
+}
+.anthology-slide2 {
+    background-image: url('../../_images/anthology/mob/green-copper-metallic-definition-lustre-wallpaper-fabric-anthology-at-style-library.jpg');
+}
+.anthology-slide3 {
+     background-image: url('../../_images/anthology/mob/multi-orange-metallic-anthology-fabric-anthology-at-style-library.jpg');
+}
+.anthology-slide4 {
+   background-image: url('../../_images/anthology/mob/blue-yellow-green-anthology-04-wallpaper-anthology-at-style-library.jpg');
+}
+}
+
+/* retina */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) { 
+  
+  /* Retina-specific stuff here */
+
+}

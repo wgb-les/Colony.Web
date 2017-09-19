@@ -1,0 +1,61 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.PressMembers.Models.BasketViewModel
+@{
+    ViewBag.Title = "";
+}
+<section class="boxSection imageMiniBasket viewAllOption">
+    <header class="header">
+        <h2 class="icon-picture">Image Basket</h2>
+    </header>
+    <div class="bd">
+
+        <div class="basketMessage">
+            <a href="#">
+                <span class="message">Your basket contains <strong>@Model.Images.Count images</strong>
+                </span>
+                <span class="view">
+                    <span>View</span>
+                </span>
+            </a>
+        </div>
+
+        <ul class="items">
+            @if (Model.Images.Any())
+            {
+                foreach (var image in Model.Images)
+                {
+                    <li>
+                        <div class="media">
+                            <span class="img">
+                            <img src="@Url.ImageUrl(@image.LowResSpoiler, "imagedownloads", "ImageDownloadThumbnail", "")" alt="" />
+                        </span>
+                            <div class="bd details">
+                                <h3 class="itemTitle">@image.Name</h3>
+                                <p>@image.DesignName</p>
+                                <a href="#" class="remove" data-image-id="@image.Id">
+                                    <span>Remove</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <div class="media">
+                        <div class="bd details">
+                            <p>No images</p>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @if (Model.Images.Any())
+        {
+            <div class="viewMore">
+                <a href="./download-request/" class="button">Request images</a>
+            </div>
+        }
+    </div>
+</section>

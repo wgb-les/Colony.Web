@@ -1,0 +1,296 @@
+﻿@model WalkerGreenbank.Modules.PressMembers.Areas.PressMembers.Models.ImageDownloadListViewModel
+@{
+    ViewBag.Title = "Image Library";
+}
+@if (@IsAjax)
+{
+    //Html.RenderPaging(Model.Images, "images", "sortOptions", url: "/ImageDownload/ImageDownload/Index", allowChangePageSize: true);
+    <div class="imageList" id="imageResults">
+        @if (Model.Images.Any())
+        {
+            foreach (var image in Model.Images)
+            {
+                <div class="item ">
+                    <div class="thumb">
+                        <a href="/_assets/imagedownloads/preview/@image.Id">
+                            <img src="@image.ThumbnailImage" alt="@image.Name"/>
+                        </a>
+                        <h3 class="itemTitle">@image.Name</h3>
+                        <p>@image.DesignName</p>
+                    </div>
+                    <div class="action">
+                        @if (Model.Basket.Contains(image.Id))
+                        {
+                            <a href="#" class="button remove" data-image-id="@image.Id">Remove from Basket</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="button" data-image-id="@image.Id">Add to Basket</a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alertInfo message">No images matched your search</div>
+        }
+    </div>
+    //Html.RenderPaging(Model.Images, "images", "sortOptions", allowChangePageSize: true);
+}
+else
+{
+    <div id="content">
+
+        <h1>@ViewBag.Title</h1>
+
+        <!--
+        <nav class="pagination sortOptions" role="navigation">
+            <p>Showing @((Model.Images.Page - 1)*Model.Images.PageSize + 1) to @Model.Images.RecordCount</p>
+            <ul class="pageNumbers">
+                <li class="first">
+                    <a href="#" title="First" rel="start">
+                        <span>First</span></a>
+                </li>
+                <li class="prev">
+                    <a href="#" title="Previous" rel="prev">
+                        <span>Previous</span></a>
+                </li>
+                <li>
+                    <a href="#" class="selected">1</a>
+                </li>
+                <li class="next">
+                    <a href="#" title="Next" rel="next">
+                        <span>Next</span></a>
+                </li>
+                <li class="last">
+                    <a href="#" title="Last">
+                        <span>Last</span></a>
+                </li>
+                <li class="all">
+                    <a href="#">All</a>
+                </li>
+            </ul>
+
+            <div class="contentForm">
+                <form action="">
+                    <div class="field select ">
+                        <label for="selectStandard">
+                            Images per page
+                        </label>
+                        <select name="perPage" id="selectStandard">
+                            <option value="20">20</option>
+                            <option value="40">40</option>
+                            <option value="60">60</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+        </nav>
+        -->
+
+
+        <!--
+        <nav class="pagination sortOptions" role="navigation">
+            <div class="contentForm">
+                <form action="" method="get">
+                    <div class="field select ">
+                        <label for="perPage">
+                            Images per page
+                        </label>
+                        <select name="perPage" id="perPage">
+                            <option value="20">20</option>
+                            <option value="40">40</option>
+                            <option value="60">60</option>
+                        </select>
+                    </div>
+                    <div class="field formControls">
+                        <button class="button">Sort images</button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        -->
+        <div id="imageListContainer">
+
+            @*@{Html.RenderPaging(Model.Images, "images", "sortOptions", url: "/ImageDownload/ImageDownload/Index", allowChangePageSize: true);}*@
+            <div class="imageList" id="imageResults">
+
+                @if (Model.Images.Any())
+                {
+                    foreach (var image in Model.Images)
+                    {
+                        <div class="item ">
+                            <div class="thumb">
+                                <a href="/_assets/imagedownloads/preview/@image.Id">
+                                    <img src="@image.ThumbnailImage" alt="@image.Name"/>
+                                </a>
+                                <h3 class="itemTitle">@image.Name</h3>
+                                <p>@image.DesignName</p>
+                            </div>
+                            <div class="action">
+                                @if (Model.Basket.Contains(image.Id))
+                                {
+                                    <a href="#" class="button remove" data-image-id="@image.Id">Remove from Basket</a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="button" data-image-id="@image.Id">Add to Basket</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alertInfo message">No images matched your search</div>
+                }
+
+            </div>
+            @*@{Html.RenderPaging(Model.Images, "images", "sortOptions", url: "/ImageDownload/ImageDownload/Index", allowChangePageSize: true);}*@
+        </div>
+    </div>
+    <!-- End of content -->
+
+    <aside class="sideCol rightCol">
+
+        @{ Html.RenderAction("Basket"); }
+
+        <a href="#" class="toggleFilters button show-for-small">Filter Products</a>
+        <section id="productFilters" class="medium">
+            <header class="header-reveal-modal">
+                <h2>Image Filters</h2>
+                <a class="close-reveal-modal icon-remove">
+                    <span>Close</span></a>
+            </header>
+            <div class="bd-reveal-modal">
+
+                <form action="" class="filterAccordion" id="imageDownloadSearch">
+
+                    <section class="boxSection filterCategory filterImageType" id="typeFilterArea">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Image Type</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+
+                            <fieldset class="optionList ">
+                                <legend>Filter by category</legend>
+                                <h3>
+                                    Filter by category
+                                </h3>
+
+                                <ul>
+                                    @foreach (var type in Model.ImageType)
+                                    {
+                                        <li>
+                                            <input type="radio" name="imageType" id="imageType_@type.Key" value="@type.Key"/>
+                                            <label for="imageType_@type.Key">
+                                                <span>@type.Value</span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                    <!--
+                    <section class="boxSection filterCategory">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Product category</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+
+                            <fieldset class="optionList ">
+                                <legend>Filter by category</legend>
+                                <h3>
+                                    Filter by category
+                                </h3>
+
+                                <ul>
+
+                                    <li>
+                                        <input type="checkbox" name="productCategory_filterCategory" id="productCategory_filterCategory_1"/>
+                                        <label for="productCategory_filterCategory_1">
+                                            <span>Filter Option 01</span>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input type="checkbox" name="productCategory_filterCategory" id="productCategory_filterCategory_2"/>
+                                        <label for="productCategory_filterCategory_2">
+                                            <span>Filter Option 02</span>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input type="checkbox" name="productCategory_filterCategory" id="productCategory_filterCategory_3"/>
+                                        <label for="productCategory_filterCategory_3">
+                                            <span>Filter Option 03</span>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input type="checkbox" name="productCategory_filterCategory" id="productCategory_filterCategory_4"/>
+                                        <label for="productCategory_filterCategory_4">
+                                            <span>Filter Option 04</span>
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+
+
+                    -->
+                    <section class="boxSection filterCategory">
+                        <div class="header">
+                            <a href="#" class="toggle-filterAccordion">
+                                <h2>Collections</h2>
+                            </a>
+                            <a href="#" class="clearFilter">Clear</a>
+                        </div>
+                        <div class="content-filterAccordion">
+
+                            <fieldset class="optionList ">
+                                <legend>Filter by category</legend>
+                                <h3>
+                                    Filter by category
+                                </h3>
+
+                                <ul>
+                                    @foreach (var collection in Model.Collections)
+                                    {
+                                        <li>
+                                            <input type="checkbox" name="collectionNames" id="collectionNames_@collection" value="@collection"/>
+                                            <label for="collectionNames_@collection">
+                                                <span>@collection</span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+                            </fieldset>
+
+                        </div>
+                    </section>
+                </form>
+            </div>
+            <div class="filterUpdate">
+                <p>
+                    <strong>@Model.Images.RecordCount images</strong> found.
+                </p>
+                <a href="#" class="button">View products</a>
+            </div>
+        </section>
+
+    </aside>
+}

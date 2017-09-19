@@ -1,0 +1,17 @@
+﻿@model string
+
+@{
+    var metaData = ModelMetadata.FromLambdaExpression(x => x, ViewData);
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayText = metaData.GetDisplayName();
+    var description = metaData.Description;
+    var isRequired = metaData.IsRequired;
+    var size = ViewData["size"] ?? string.Empty;
+    var placeholder = ViewData["placeholder"] ?? string.Empty;
+    var labelText = (string) ViewData["labelText"];
+}
+<div class="section field select @size sl-input-block">
+    @Html.CustomLabelFor(x => x, labelText: labelText)
+    @Html.CustomStyledValidationMessageFor(t => t)
+    @Html.TextBoxFor(x => x, new {placeholder})
+</div>

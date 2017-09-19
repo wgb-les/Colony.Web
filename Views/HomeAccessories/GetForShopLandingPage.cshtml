@@ -1,0 +1,11 @@
+﻿@model WalkerGreenbank.Modules.HomeAccessories.Areas.Models.ListRootItemsViewModel
+
+@if (Model.Root != null)
+{
+    <div class="item">
+        <a href="@Model.Root.Category.Uri">
+            <img src="@Url.ImageUrl(Model.Root.Category.ImageAssetID, "Shop", "ProductCategoryThumbnail", @"/_images/placeholders/categoryList.jpg")" alt="@Model.Root.Category.Name"/>
+            <span class="itemTitle">@Model.Root.Category.Name</span>
+        </a>
+    </div>
+}

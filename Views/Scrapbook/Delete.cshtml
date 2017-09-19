@@ -1,0 +1,25 @@
+﻿@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel
+@{
+    Html.SetTitle("Moodboards - Delete Moodboard");
+}
+
+@Html.Partial("~/Views/AccountArea/AccountMenu.cshtml", "Scrapbooks")
+
+<div id="content" class="">
+    <h1>Delete Moodboard</h1>
+
+    <div class="alertInfo message">
+        Are you sure you want to delete the following moodboard <strong>@(Model.Name ?? "[No name]")</strong>?
+        <p>This action cannot be undone.</p>
+    </div>
+    <nav class="pageOptions" role="navigation">
+        <ul>
+            <li>
+                <a href="@Url.Action("IndexForAccountArea")" class="button">Cancel</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Delete", new {id = Model.Id, confirmed = true})" class="button">Delete</a>
+            </li>
+        </ul>
+    </nav>
+</div>

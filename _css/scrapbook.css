@@ -1,0 +1,238 @@
+/*@import url(http://fonts.googleapis.com/css?family=Raleway:400,300,200,500,700,100);
+
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding 0;
+	background-color: #fff;
+	position: relative;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+}*/
+
+/*.clear {
+	clear: both;
+}
+
+#container {
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}*/
+#scrapbookInner {
+    height: 100%;
+    position: static;
+    width: 100%;
+}
+
+#scrapbook {
+    -moz-box-shadow: 0px 6px 10px 0px rgba(50, 50, 50, 0.25);
+    -webkit-box-shadow: 0px 6px 10px 0px rgba(50, 50, 50, 0.25);
+    background-color: #fff;
+    border: 1px solid rgba(50, 50, 50, 0.25);
+    box-shadow: 0px 6px 10px 0px rgba(50, 50, 50, 0.25);
+    height: 480px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+#scrapbook.hover { border: 1px solid rgba(50, 50, 50, 0.40); }
+
+#scrapbookName {
+    background: transparent;
+    border: none;
+    font-family: "Gill Sans W04 Light", arial, sans-serif;
+    font-size: 28px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    outline: none;
+    width: 640px;
+}
+
+.scrapbook-status {
+    -moz-box-shadow: inset 1px 1px 7px 0px rgba(50, 50, 50, 0.5);
+    -moz-transition: opacity .8s ease-out;
+    -o-transition: opacity .8s ease-out;
+    -webkit-box-shadow: inset 1px 1px 7px 0px rgba(50, 50, 50, 0.5);
+    -webkit-transition: opacity .8s ease-out;
+    background-color: #fff;
+    border: 2px solid #fff;
+    bottom: 0px;
+    box-shadow: inset 1px 1px 7px 0px rgba(50, 50, 50, 0.5);
+    box-sizing: border-box;
+    height: 28px;
+    left: 0px;
+    line-height: 24px;
+    opacity: 0;
+    padding: 0px;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.scrapbook-scrap {
+    background-color: #ccc;
+    height: 150px;
+    width: 150px;
+}
+
+.scrapbook-scrap.selected { border: 1px solid #666; }
+
+.scrapbook-scrap .inner {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.ui-resizable-helper { border: 2px dotted #666; }
+
+.scrapbook-scrap .ui-resizable-handle {
+    background-color: #fff;
+    border: 1px solid #000 !important;
+    bottom: -20px;
+    display: none;
+    height: 20px;
+    position: absolute;
+    right: -20px;
+    width: 20px;
+}
+
+.scrapbook-scrap .ui-rotatable-handle {
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 20px;
+    bottom: -10px;
+    display: none;
+    height: 20px;
+    left: 50%;
+    margin-left: -10px;
+    position: absolute;
+    width: 20px;
+}
+
+.scrapbook-scrap.selected .ui-resizable-handle, .scrapbook-scrap.selected .ui-rotatable-handle { display: block; }
+
+.scrapbook-button-bar {
+    -moz-transition: opacity .8s ease-out;
+    -o-transition: opacity .8s ease-out;
+    -webkit-transition: opacity .8s ease-out;
+    clear: both;
+    height: 40px;
+    left: 2px;
+    opacity: 0;
+    position: absolute;
+    top: 2px;
+    transition: opacity .8s ease-out;
+    z-index: 50;
+}
+
+#scrapbook.hover .scrapbook-button-bar { opacity: 1; }
+
+#scrapbook.hover .scrapbook-status { opacity: 0.75; }
+
+.scrapbook-button {
+    border: 1px solid #ccc;
+    float: left;
+    font-size: 12px;
+    margin-right: 2px;
+}
+
+.productList.scrapBookList .actions { padding-top: 0.375em; }
+
+.productList.scrapBookList .actions .remove {
+    color: #666;
+    line-height: 13px;
+}
+
+.productList.scrapBookList .actions a {
+    border: 1px solid #e2e2e2;
+    border-radius: 30px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    height: 25px;
+    margin-left: 5px;
+    padding-left: 7px;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 25px;
+    zoom: 1;
+}
+
+.productList.scrapBookList .actions .remove span {
+    left: -9999px;
+    position: absolute;
+}
+
+.productList.scrapBookList .actions a span {
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin-top: 2px;
+    text-indent: -9999px;
+    vertical-align: middle;
+    zoom: 1;
+}
+
+.productList.scrapBookList .actions .plus:before, .productList.scrapBookList .actions .remove:before {
+    -webkit-font-smoothing: antialiased;
+    float: none;
+    font-family: FontAwesome;
+    font-size: 12px !important;
+    font-weight: normal;
+    margin-right: 0;
+    width: 1em;
+}
+
+.productList.scrapBookList .actions .remove:before { content: "\f014"; }
+
+.productList.scrapBookList .actions .plus:before { content: "\f067"; }
+
+/*.productList {
+	clear: both;
+	float: none;
+	width: 100%;
+}
+
+.productList .item {
+	float: left;
+	display: block;
+	margin: 0 5px 0 0;
+	width: 134px;
+}
+
+.productList .item img {
+	width: 134px;
+	height: 134px;
+}
+
+.productList .grayOut img {
+	opacity: 0.5;
+}*/
+
+@media print {
+    .scrapbook-status, .scrapbookCarousel, .scrapbook-button-bar { display: none; }
+
+    #scrapbook {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        height: 15cm;
+        margin: 1cm;
+        width: 27cm;
+    }
+
+    #scrapbookName {
+        display: block !important;
+        line-height: 1cm;
+        margin: 0;
+        padding: 0;
+        width: 29.7cm;
+    }
+}
+
+@page {
+    size: A4 landscape;
+}

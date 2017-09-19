@@ -1,0 +1,22 @@
+﻿@model Colony.Modules.Timeline.Areas.Models.ViewModels.Edit.TimelineItemViewModel
+
+@{
+    ViewBag.Title = "Edit Event";
+}
+<div id="content">
+    <div class="contentForm">
+        <form action="" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            @Html.EditorForModel()
+
+            <fieldset class="formControls">
+                <legend>Form actions</legend>
+                <ul>
+                    <li>
+                        <input type="submit" class="formButton" name="Submit" value="Submit"/>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@model Colony.Commerce.Areas.ShopPurchase.Models.BasketViewModel
+
+@if (!Model.BasketLines.Any())
+{
+    if (!Model.IsCheckoutBasket)
+    {
+        <div class="alertInfo message" style="margin-top: 15px;">
+            <strong class="icon"></strong>
+            There are no items in your basket.
+
+        </div>
+    }
+}
+else
+{
+    @Html.Partial("_BasketLines", Model.BasketLines, new ViewDataDictionary {{"IsCheckoutBasket", Model.IsCheckoutBasket}, {"HasErrors", Model.Errors.Any()}})
+}

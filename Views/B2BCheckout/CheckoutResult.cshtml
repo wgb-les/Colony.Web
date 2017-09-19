@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BCheckoutResultViewModel>
+@{
+    ViewBag.Title = "Thank you for your order";
+}
+<h1>@ViewBag.Title</h1>
+@foreach (var order in Model)
+{
+    <div class="boxSection b2b">
+        <div class="header">
+            <h2>@order.CustomerName (@order.CustomerReference)</h2>
+        </div>
+        <div class="row inner">
+            <div class="columns large-5">
+                <div class="details">
+                    @{
+                        var result = "";
+                        switch (order.Result.Replace("\"", string.Empty))
+                        {
+                            case "CreditAlloc":
+                            case "CreditFailed":
+                            case "CreditProforma":
+                            case "CreditProformaAlloc":
+                                result = "Warning";
+                                break;
+                            default:
+                                result = "Your order was successful";
+                                break;
+                        }
+                    }
+                    <h2>@result</h2>
+                    <h3>Thank you for your order @(order.OrderNumber)</h3>
+                </div>
+            </div>
+            <div class="columns large-7">
+                <div class="columns large-4 right">
+                    <p>
+                        <strong>@(order.Type)</strong> order.
+                    </p>
+                </div>
+                @if (!string.IsNullOrEmpty(order.Brand))
+                {
+                    <div class="columns large-4 right">
+                        <p>
+                            <strong>Brand</strong> @order.Brand
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns large-12">
+                @switch (order.Result.Replace("\"", string.Empty))
+                {
+                    case "CreditAlloc":
+                        <p>Stock has been allocated to your order however there is a query on your account.</p>
+                        <p>Please contact Credit Control for further assistance.</p>
+                        <p>We will release your order, once authorised by Credit Control.</p>
+                        break;
+                    case "CreditFailed":
+                        <p>Stock has not been allocated to your order as there is a query on your account.</p>
+                        <p>Please contact Credit Control for further assistance.</p>
+                        <p>We will release your order, once authorised by Credit Control and stock will be allocated subject to stock availability.</p>
+                        break;
+                    case "CreditProforma":
+                        <p>Stock has not been allocated to your order as payment is required.</p>
+                        <p>A proforma invoice will be forwarded to you shortly.</p>
+                        <p>Upon receipt of payment, subject to stock availability we will release your order.</p>
+                        break;
+                    case "CreditProformaAlloc":
+                        <p>A proforma invoice will be forwarded to you shortly.</p>
+                        <p>Upon receipt of payment, subject to stock availability we will release your order.</p>
+                        break;
+                    default:
+                        <p>
+                            Your order has been received and is being processed. Please feel free to <a href="/contact-us/" title="contact us">contact us</a> if you have any questions.
+                        </p>
+                        <p>Your order is accepted at the discretion of the Seller. Payment does not indicate order acceptance and your payment will be refunded if your offer is refused.</p>
+                        break;
+                }
+            </div>
+        </div>
+    </div>
+}
+<div class="contentForm">
+    <div class="field formControls">
+        <a href="/b2b-members/webtex/" class="button">
+            <span>Return to Trade Area</span></a>
+    </div>
+</div>

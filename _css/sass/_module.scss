@@ -1,0 +1,580 @@
+﻿
+  .moduleContainerInner{
+    width: 100%;
+    float: left;
+    padding: 5px;
+   
+    //Flex experiment
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .moduleColumn{
+    float: left;
+  }
+
+    .moduleItem{
+      padding: 5px;
+      position:relative;
+      float: left;
+        a {
+            text-decoration:none;
+        }
+      }
+
+    .moduleItem img {
+        object-fit:cover;
+        width:100%;
+    }
+    .xtraXtraSmallModule{
+      height: 300px;
+    }
+    .xtraSmallModule{
+      height: 400px;
+    }
+    .smallModule{
+      height: 500px;
+    }
+    .mediumModule{
+      height: 700px; 
+    }
+    .largeModule{
+      height: 900px;
+    }
+    .videoModule{
+      height: auto;
+    }
+    .historyBannerModule{
+      height: 100px;
+    }
+
+      .moduleItemInner{
+        width: 100%;
+        height: 100%;
+        float: left;
+        padding: 20px 30px;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+        .videoModule .moduleItemInner {
+            padding:0;
+        }
+
+            .videoModule video {
+                width:100%;
+                float:left;
+            }
+
+                .videoLink {
+                    width:100%;
+                    float:left;
+                    padding:10px 20px 0 20px;
+                    text-align:center;
+
+                }
+
+                .videoLink p{
+                    width:100%;
+                    text-align:center !important;
+                }
+
+                    .videoLink p:before {
+                        padding:0 10px 0 0;
+                    }
+
+        .moduleLogo{
+          width: 50%;
+          float: left;
+          padding: 10px 0;
+        }
+
+        .moduleItemInner p{
+          float: left;
+          width: 100%;
+          margin: 0;
+          padding: 10px 0;
+          line-height: 25px;
+          text-align: justify;
+          font-size: 14px;
+          color: inherit;
+
+          a, a:after{
+            color: inherit;
+          }
+        }
+
+.moduleItemInner h1 {
+    color:inherit;
+    font-weight:300;
+}
+
+            .moduleItemInner p:after {
+                color:inherit;
+                padding-left:10px;
+            }
+
+.moduleItemInner ul, .moduleItemInner ul.iconGroup li, .moduleItemInner ul.iconGroup li:before {
+    color:inherit;
+}
+
+.moduleItemInner ul.iconGroup li.whiteIcon a:before {
+    color:$light-1;
+}
+
+
+
+.moduleItemInner input, .moduleItemInner select, .moduleItemInner textarea {
+    border-color:#fff;
+}
+
+        .caption {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            background: rgba(255, 255, 255, $opacity-base);
+            padding: 10px;
+            text-transform: uppercase;
+        }
+
+            .caption.full {
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                bottom: 0px;
+                padding: 40px;
+                background: transparent;
+            }
+
+            .caption.fullWide {
+                width: 100%;
+                left: 0px;
+                top: 0px;
+                bottom: auto;
+                padding: 40px;
+                background: transparent;
+            }
+
+            .caption.alternate {
+                background: #58595b;
+            }
+
+            .caption.wide {
+                width: 100%;
+            }
+
+        .caption.right {
+            left: auto;
+            right: 10px;
+        }
+
+        .caption.top {
+            bottom: auto;
+            top: 10px;
+        }
+
+        .caption.main {
+            left: 0px;
+            bottom: 50px;
+        }
+
+        .caption.main span.nobr {
+            white-space:pre-wrap;
+            padding-right:0px;
+            float:none;
+            display:inline-block;
+        }
+        @media only screen and (max-width:600px) {
+            .caption.main {
+                bottom:20px;
+               // width:80%;
+            }
+
+            .caption.main h2{
+                display:none;
+            }
+
+            .caption.main span {
+                text-align:right;
+                line-height:14px;
+            }
+
+            .caption.main span.nobr {
+                white-space:nowrap;
+                padding-right:0px;
+            }
+
+   
+        }
+
+            .caption.main.top {
+                top: 30px;
+                bottom: auto;
+            }
+
+            .caption.main.right {
+                right: 0px;
+                left: auto;
+            }
+
+        .caption h1, .caption h2, .caption.alternate h1, .caption.alternate h2 {
+            margin: 0 0 10px 0;
+            float: left;
+            width: auto;
+            font-weight: lighter;
+            @include tracking(100);
+           // color: rgba(0, 0, 0, 0.9);
+            display: block;
+            /*font-size: 28px;*/
+            line-height: 1;
+        }
+
+        .caption a {
+            font-weight:inherit;
+            color: inherit;
+        }
+
+        .caption h1 b, .caption h2 b {
+            font-weight: 400;
+        }
+
+        .caption h2, .caption.alternate h2 {
+            /* font-size: 16px;*/
+         }
+
+        .caption span, .caption.alternate span {
+            margin: 0;
+            float: left;
+            width: auto;
+            /*font-weight: 300;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            color: rgba(0, 0, 0, 0.9);*/
+            display: block;
+            clear: both;
+        }
+
+        .moduleItemInner .caption span, .moduleItemInner .caption.alternate span {
+            font-size: 14px;
+        }
+
+        .caption span:after {
+            padding-left: 10px;
+        }
+
+        .caption.alternate span:after {
+            color: #fff;
+        }
+
+        .caption.alternate h1, .caption.alternate h2, .caption.alternate span {
+            color: #fff;
+        }
+
+
+
+        .caption.quote{
+          background: rgba(0, 0, 0, 0.5);
+          width: 100%;
+          height: 100%;
+          padding: 20px;
+          left: 0;
+          bottom: 0;
+          float: left;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+        }
+
+          .caption.quote h2{
+            color: #fff;
+            line-height: 30px;
+            width:100%;
+          }
+
+          .caption.quote span{
+            color: #fff;
+          }
+
+  .brandHistoryTitle{
+    float: left;
+    width: 100%;
+    padding: 10px 0px;
+    margin: 0;
+    text-align: center;
+  }
+
+    .brandHistoryTitle h1{
+      margin: 0;
+      padding: 10px 5px;
+      float: left;
+      width: 100%;
+    }
+
+  .brandHistoryCopy{
+    width: 100%;
+    float: left;
+    padding: 10px 0;
+  }
+
+    .brandHistoryCopy p{
+      line-height: 25px;
+      font-size: 14px;
+      float: left;
+      padding: 10px 5px;
+      text-align: justify;
+      margin: 0;
+    }
+
+.moduleAnchor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.signUpModule .moduleItemInner {
+    padding-top:26px;
+
+    h2{
+        margin-bottom:4px;
+    }
+
+    p {
+        margin-bottom:8px;
+    }
+
+    .inputButtonSplit {
+        margin-bottom:26px;
+    }
+
+    ul.iconGroup {
+        margin-top:-6px;
+    }
+
+}
+@media only screen and (max-width: 768px){
+    /*.sliderContainer.home .slick-initialized .slick-slide {
+        height:auto !important;
+    }*/
+
+    .slick-initialized .slick-slide {
+       /* height:300px !important;*/
+    }
+
+   .slick-initialized .slick-slide .caption h1 {
+       display:none;
+  }
+  .moduleItem, .moduleColumn{
+    width: 100% !important;
+  }
+
+  section.brandOverlap .moduleContainerInner .moduleColumn .moduleItem.smallModule {
+    width:100% !important;
+  }
+
+  section.brandOverlap .moduleContainerInner .moduleItem.smallModule {
+      width: 50% !important;
+      height: 400px;
+
+      &[style*="33.3%"] {
+          width: 33.3% !important;
+      }
+
+      &.textModule {
+        width: 50% !important;
+      }
+
+  }
+
+ 
+
+
+  .smallModule{
+    height: 400px;
+  }
+  .mediumModule{
+    height: 450px;
+  }
+  .longTabletModule {
+      height: auto;
+  }
+  .largeModule{
+    height: 600px;
+  }
+  .textModule{
+    height: auto;
+  }
+  .categoryContainer{
+      width:50% !important;
+  }
+
+    .caption h2, .caption.alternate h2 {
+        font-size: 15px;
+        margin:0px 0px 8px 0px;
+    }
+
+   .moduleItemInner .caption span, .moduleItemInner .caption.alternate span {
+      font-size: 11px;
+    }
+}
+
+.textModule .moduleItemInner h2 {
+    color: #ffffff;
+}
+
+
+.moduleItemInner .caption{
+  width: 100%;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  top: auto !important;
+  text-align: left;
+}
+
+.moduleItemInner .caption.quote{
+  text-align: center;
+}
+
+@media only screen and (max-width: 460px) {
+    .moduleItem, .moduleColumn{
+    width: 100% !important;
+    }
+    
+    .categoryContainer{
+      width:100% !important;
+    }
+
+    section.brandOverlap .moduleContainerInner .moduleItem.smallModule {
+     width: 100% !important;
+
+        &[style*="33.3%"] {
+          width: 100% !important;
+        }
+
+        &.textModule {
+            width: 100% !important;
+            
+        }
+
+    }
+
+
+    // Brand Page Introductions
+
+    .moduleLogo[src*="Sanderson"]{ 
+        width:70% !important; 
+    }
+    .moduleLogo[src*="Harlequin"]{ 
+        width:98% !important; 
+    }
+    .moduleLogo[src*="Scion"]{ 
+        width:40% !important; 
+    }
+    .moduleLogo[src*="Morris"]{ 
+        width:70% !important; 
+    }
+    .moduleLogo[src*="Zoffany"]{ 
+        width:70% !important; 
+    }
+    .moduleLogo[src*="Anthology"]{ 
+        width:80% !important; 
+    }
+    .longTabletModule {
+        height: 450px;
+    }
+
+    .caption h2, .caption.alternate h2 {
+        font-size: 14px;
+    }
+
+    .moduleItemInner .caption span, .moduleItemInner .caption.alternate span {
+        font-size: 11px;
+    }
+
+    .smallModule{
+    height: 300px;
+    }
+}
+
+
+// Truncate brand introductions on small
+
+@media only screen and (max-width : 767px) {
+    .textModule p { 
+        display:none;
+    }
+    .textModule .fa-angle-right-after {
+        display:block;
+    }
+    .textModule p:first-of-type { 
+        display:block !important;
+        margin-top:0px;
+        text-align:left;
+    }
+}
+
+
+
+
+// ------------------- wallpaper calculator -------------
+.calcBtn {
+    margin:10px;
+} 
+
+
+// -------------------- Lists ----------------
+// moved from _newstylelibrary because it was breaking contract site 
+ul, ol {
+    line-height: 30px;
+    list-style-position:outside;
+    margin-left:15px;
+}
+ul li ul  {
+    line-height: 15px;
+}
+
+
+li {
+    text-decoration: none;
+    font-family: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+    padding: 0px 0;
+    margin: 10px 0;
+    line-height:20px;
+}
+
+
+ul li ul li {
+    list-style-type: none;
+    padding: 0px 0;
+    margin: 10px 0;
+    line-height:20px;
+}
+
+ul li ul li:before {
+    content: "-";
+    margin-right:25px;
+    margin-left:-18px;
+}
+
+
+
+
+@media only screen and (max-width: 460px){
+    .moduleItem.smallModule:nth-of-type(2)[style="width:50%;"] {
+        height: 300px;
+    }
+}
+
+// lazyload images
+.lazy, .lazyload {
+    background-color:$seashell;
+    min-height:137px;
+}

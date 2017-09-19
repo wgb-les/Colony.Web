@@ -1,0 +1,34 @@
+﻿@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+
+<div class="collectionDetails">
+    <header>
+        <h1>@Model.Category.Name</h1>
+        <p>@Model.Category.LongDescription</p>
+    </header>
+    <div class="hotspots" style="background: #666; height: 500px;">
+        &nbsp;
+    </div>
+</div>
+
+<div class="tabContainer">
+    <nav class="tabs" role="navigation">
+        <h2>The Collection</h2>
+        <ul>
+            <li>
+                <a href="#" class="selected">Designs (@Model.Products.Count())</a>
+            </li>
+            <li>
+                <a href="#">Colourways (@Model.Products.SelectMany(x => x.Skus).Count())</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="tabSection active">
+        <h2>Designs in this collection (@Model.Products.Count())</h2>
+        @{ Html.RenderPartial("_ProductLists", Model.Products); }
+    </section>
+    <section class="tabSection">
+        <h2>Colourways in this collection (@Model.Products.SelectMany(x => x.Skus).Count())</h2>
+        <div class="productList">
+        </div>
+    </section>
+</div>

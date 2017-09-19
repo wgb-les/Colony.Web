@@ -1,0 +1,16 @@
+﻿@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+
+@foreach (var item in Model.SubCategories.Select((model, index) => new {index, model}))
+{
+    var collectionImageUrl = Url.ImageUrl(item.model.ImageAssetId, "shop", "productcategorythumbnail"); //"/_assets/images/cloud/" + item.model.ImageAssetId + "/shop/productcategorythumbnail/";
+    <div class="item" data-quick-view-id="category_@(item.model.CategoryId)">
+        <a href="/shop/@(item.model.Url)" class="notQuickViewLink">
+            <img src="@collectionImageUrl" alt="@item.model.Name"/>
+            <h3 class="itemTitle">@item.model.Name</h3>
+            @if (item.model.IsNew)
+            {
+                <span class="itemNew">New</span>
+            }
+        </a>
+    </div>
+}

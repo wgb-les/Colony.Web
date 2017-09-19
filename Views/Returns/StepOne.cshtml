@@ -1,0 +1,108 @@
+﻿@model Colony.Commerce.Areas.Returns.ViewModels.StepOneModel
+@{
+    ViewBag.Title = "Returns";
+}
+<header class="pageHeader">
+    <h1>RETURNS</h1>
+</header>
+@using (Html.BeginForm("StepOne", "returns", null, FormMethod.Post,
+    new
+    {
+        @class = "boxSection boxSection-returns returns-type active"
+    }))
+{
+    <header class="returns-header">
+        <h2>1. Your returns request</h2>
+        <span class="icon icon-check"></span>
+    </header>
+    <br/>
+    <div class="alertInfo warning">
+        2.	If you are a trade customer, please use your usual method of returning goods.
+    </div>
+
+    if (ViewBag.OrderedReturned != null && ViewBag.OrderedReturned)
+    {
+        <div class="alertInfo error">
+            Order has been processed for return.
+        </div>
+    }
+    if (ViewBag.SampleOnly != null && ViewBag.SampleOnly)
+    {
+        <div class="alertInfo error">
+            Samples can not be returned.
+        </div>
+    }
+
+
+    if (ViewBag.MustAgreeTerms != null && ViewBag.MustAgreeTerms)
+    {
+        <div class="alertInfo error">
+            Please accept terms to continue.
+        </div>
+    }
+
+    <div class="boxSection-content inset">
+
+        @* <div class="returns-intro">
+      <p>Please select what type of customer you are, then input your Order Reference and Full Name as it appears on your order confirmation.</p>
+    </div>*@
+
+        <div class="contentForm">
+            <div class="boxSection">
+                <header>
+                    <h3>About your order</h3>
+                </header>
+                <div class="boxSection-content">
+
+                    @if (ViewBag.OrderNotFound == true)
+                    {
+                        <div class="alertInfo error">
+                            Order Not Found. Please check your order details and try again.
+                        </div>
+                    }
+
+                    @if (ViewBag.PastOrdersfound == true)
+                    {
+                        <div class="alertInfo error">
+                            Order(s) have been found, information has been sent to the supplied email address.
+                        </div>
+                    }
+                    @if (ViewBag.PastOrdersfound == false)
+                    {
+                        <div class="alertInfo error">
+                            No orders have been found in the past month associated to the supplied email address.
+                        </div>
+                    }
+                    <div class="field text ">
+                        <label for="returnsOrderReference">
+                            Order number @*reference<span class="required">Required</span>*@
+                        </label>
+
+                        @Html.TextBoxFor(model => model.OrderReferenceLookup, new {id = "returnsOrderReference"})
+                    </div>
+                    <div class="field text ">
+                        <label for="returnsOrderName">
+                            Your full name  <span>(as it appears on order confirmation)</span><span class="required">Required</span>
+                        </label>
+
+                        @Html.TextBoxFor(model => model.CustomerName, new {id = "returnsOrderName"})
+                    </div>
+                    <div class="field text">
+                        <label for="returnsContactEmail">6.	If you’re unable to find your order number, enter the email address you used for your email confirmation when ordering and we’ll do our best to find your order.</label>
+                        @Html.TextBoxFor(model => model.EmailAddress, new {id = "returnsContactEmail"})
+
+                    </div>
+                    <div class="field text">
+                        @*@Html.CheckBoxFor(model => model.AgreeTerms, htmlAttributes: new { id = "acceptTerms" })*@
+                        <label for="acceptTerms" class="returns-accept-terms">
+                            <a href="/return/">Click here</a> to read our returns policy.
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="boxSection-action">
+        <input type="submit" value="Next" class="button"/>
+    </div>
+}

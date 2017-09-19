@@ -1,0 +1,34 @@
+﻿@model Colony.Commerce.Areas.Returns.ViewModels.StepThreeModel
+
+@{
+  ViewBag.Title = "Returns";
+}
+
+<header class="pageHeader">
+  <h1>RETURNS</h1>
+</header>
+
+<div class="boxSection boxSection-returns returns-complete active">
+  <header class="returns-header">
+    <h2>4. Return Label Sent</h2>
+    <span class="icon icon-check"></span>
+  </header>
+  <div class="boxSection-content inset">
+
+    <div class="returns-intro">
+      <p> Thank you for submitting you returns request.  
+        <br /><br />Next steps:
+        <ol>
+            <li>We will send you a confirmation email (@(Model.EmailAddress)) with your returns order details and confirm the following steps too</li>
+            <li>UPS will send you your returns postage label</li>
+            <li>Send your items back to us using the postage label</li>
+            <li>We will send you a confirmation email when we receive your package</li>
+            <li>We will send you another email when your returns request has been completed and your refund or replacement is on the way</li>
+        </ol>
+       Email us at <a href="mailto:returns@stylelibrary.com">returns@stylelibrary.com</a> if you have any questions.
+    </p>
+    </div>
+
+  </div>
+</div>
+

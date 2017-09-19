@@ -1,0 +1,125 @@
+﻿@using Colony.CMS
+@model Colony.Web.Areas.Shop.Models.ProductSearchViewModel
+
+<div class="searchSite">
+    <a href="#" class="toggle">
+        <span>Search</span></a>
+    <span class="tooltip">Search @ColonyContext.Current.CurrentSite.Name
+        <span class="arrow"></span>
+    </span>
+</div>
+<div class="searchPanel">
+    <form action="/search/" class="siteSearch row" method="post">
+        <div class="large-10 columns">
+            <div class="field text autocomplete ">
+                <label for="searchPanelKeywords">
+                    <span class="required">Required</span>
+                </label>
+                <div id="searchPanelKeywordsError" class="alertInfo error" style="display: none;">
+                    Search @ColonyContext.Current.CurrentSite.Name by keyword @if (!ViewContext.HttpContext.IsMobile())
+                                                                              {
+                                                                                  <span class="quicksearchnotification">or use the quick search options below</span>
+                                                                              }
+
+                </div>
+                <input type="text" name="keywords" id="searchPanelKeywords" autocomplete="off" placeholder="Search @ColonyContext.Current.CurrentSite.Name by keyword @if (!ViewContext.HttpContext.IsMobile())
+                                                                                                                                                                      {
+                                                                                                                                                                          <text>or use the quick search options below</text>
+                                                                                                                                                                      }"/>
+            </div>
+        </div>
+        <div class="large-2 columns">
+            <div class="field formControls">
+                <button class="button">Search</button>
+            </div>
+        </div>
+    </form>
+    <div class="searchOptions">
+        <!--@Url.Action("Search", "Shop", new {area = "Shops"}) -->
+        <form action="/search/" method="post" class="colours">
+            <h2>Or search by colour</h2>
+            <div id="searchPanelColoursError" class="alertInfo error" style="display: none;">
+                Please select one or more colours to search.
+            </div>
+            @{
+                var i = 1;
+            }
+            @foreach (var cg in Model.ColourFilter.Groups)
+            {
+
+                <div class="colourBand">
+                    <div class="toggleAll">
+                        <label for="colourgroup_@cg.Name" data-colour-group-all="colourgroup_@cg.Name">
+                            <span>Select all @cg.Name</span>
+                            <span class="toggleColours">
+                                <img class="hide newColourSelect" src="/_images/bg/selected-ok-tick.png" data-img ="@i"/>
+                                <span data-colour-code="@cg.Colours[0].Code" style="background-color: #@cg.Colours[0].Colour;" class="labelselected."></span>
+                            </span>
+                            <span class="arrow" style="border-left-color: #@cg.Colours[0].Colour; display: none;"></span>
+                            <input type="checkbox" name="colourgroup_@cg.Name" id="colourgroup_@cg.Name" class="colour-box">
+                        </label>
+                    </div>
+                    <ul style="display: none;">
+                        @foreach (var c in cg.Colours)
+                        {
+                            <li>
+                                <label for="colour_@(c.Code)" data-colour-group="colourgroup_@cg.Name" data-colour-code="@c.Code" @if (Model.SelectedColours.Contains(c.Code))
+                                                                                                                                  {
+                                                                                                                                      <text>class="selected"</text>
+                                                                                                                                  }>
+                                    <span>@c.Name</span>
+                                    <input data-id="@i" type="checkbox" name="SelectedColours" value="@c.Code" data-colour-group="colourgroup_@cg.Name" data-colour-code="@c.Code" id="colour_@c.Code"
+                                           @if (Model.SelectedColours.Contains(c.Code)) { <text> checked="checked" </text>  }>
+
+
+
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                i++;
+            }
+
+            <button class="button">Search</button>
+        </form>
+        <p class="divider"></p>
+        <div class="popular">
+            <h2>Or popular searches</h2>
+            <ul>
+                @foreach (var searchTerm in Model.PopularSearchTerms)
+                {
+                    if (string.IsNullOrWhiteSpace(searchTerm.Value))
+                    {
+                        <li>
+                            <a href="/search/?keywords=@Server.UrlEncode(searchTerm.Key)" class="button">@searchTerm.Key</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="/search/?@searchTerm.Value" class="button">@searchTerm.Key</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@*<script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".toggleColours").click(function() {
+                $(this).children(".newColourSelect").toggle();
+            });
+
+        });
+    </script>*@
+
+<script>
+    $(document).ready(function () {
+        
+
+    });
+</script>

@@ -1,0 +1,201 @@
+﻿@using WalkerGreenbank.Modules.Inspirations.Models
+@model WalkerGreenbank.Modules.Inspirations.Areas.Models.InspirationDetailViewModel
+@{
+    ViewBag.Title = "Inspiration - " + Model.Name;
+
+    var defaultImage = Model.Images.Where(x => x.Type == InspirationImageType.Carousel).OrderBy(x => x.Order).FirstOrDefault();
+    var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "Inspirations", "InspirationalZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg";
+
+    var pinterestImage = Model.Images.OrderBy(x => x.Order).FirstOrDefault(x => x.Type == InspirationImageType.Gallery);
+    var pinterestMediaUrl = new Uri(Request.Url, pinterestImage != null ? @Url.ImageUrl(pinterestImage.ImageAssetID, "Inspirations", "InspirationalZoom", @"/_images/placeholders/article.jpg") : @"/_images/placeholders/article.jpg").AbsoluteUri;
+}
+
+<div id="content">
+
+    <header class="inspirationHeader">
+        <h1>
+            @Model.Name
+            @if (Model.IsNew)
+            {
+                <span class="new">New</span>
+            }
+        </h1>
+        @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+        {
+            <a href="#" class="toggle">
+                <span>Show/Hide Description</span>
+            </a>
+
+            <div class="infoContainer">
+                <div class="info">
+                    <p>@Model.ShortDescription</p>
+                </div>
+            </div>
+        }
+    </header>
+
+    <div class="inspirationActions">
+        <ul class="productOptions">
+            @{
+                var relatedSkus = "";
+                if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
+                {
+                    relatedSkus = string.Join(",", Model.RelatedProducts.Where(x => x != null && x.Sku != null).Select(x => x.Sku.Id));
+                }
+            }
+            @if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
+            {
+                <li>
+                    <a href="#" class="button sample">
+                        <span>Order Samples</span></a>
+                </li>
+@*<li><a href="@Url.Action("BasketCommand", "Basket", new { area = "ShopPurchase", command = "add", redirectUrl = Request.Url.AbsolutePath, skuId = relatedSkus })" class="button sample addToBasket"><span>Order a Sample</span></a></li>*@
+            }
+            @*<li>
+                <a href="#" class="button print">
+                    <span>Print</span></a>
+            </li>*@
+        </ul>
+        <ul class="articleOptions">
+            @*<li>
+                <a href="#" class="share" data-reveal-id="share">
+                    <span>Share</span></a>
+            </li>*@
+        </ul>
+    </div>
+
+    @if (Model.Images.Where(x => x.Type == InspirationImageType.Carousel).Any())
+    {
+        <div class="inspirationCarousel">
+            <div class="carousel imageCarousel">
+                <ul class="items">
+                    @foreach (var img in Model.Images.Where(x => x.Type == InspirationImageType.Carousel).OrderBy(x => x.Order).ThenBy(x => x.Name))
+                    {
+                        <li>
+                            @{ Html.RenderAction("HotspotsForImage", "Hotspots", new {area = "Hotspots", imageAssetId = img.ImageAssetID}); }
+
+                            <img src="@Url.ImageUrl(img.ImageAssetID, "Inspirations", "InspirationalZoom")" alt="@img.Name"/>
+                        </li>
+                    }
+                </ul>
+                @if (Model.Images.Count(x => x.Type == InspirationImageType.Carousel) > 1)
+                {
+                    <a href="#" class="prev">
+                        <span></span>
+                        Previous
+                    </a>
+                    <a href="#" class="next">
+                        <span></span>
+                        Next
+                    </a>
+                }
+                <div class="bullets">
+                    <span class="icon icon-play icon-pause"></span>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div id="productsListContainer">
+        @{ Html.RenderPartial("_RelatedProducts", Model.RelatedProducts); }
+    </div>
+
+    @if (ViewBag.HasBlogs || ViewBag.HasAsSeenIn || Model.Images.Any(x => x.Type == InspirationImageType.Gallery))
+    {
+        <div class="inspirationContent">
+            <div class="tabContainer">
+                <nav class="tabs" role="navigation">
+                    <h2>Related Content</h2>
+                    <ul>
+                        @if (Model.Images.Any(x => x.Type == InspirationImageType.Gallery))
+                        {
+                            <li>
+                                <a href="?selectedtab=InspirationalImages" @if (ViewBag.SelectedTab == "InspirationalImages")
+                                                                           {
+                                                                               <text> class="selected" </text>
+                                                                           } data-tab-content-id="inspirationalImages">
+                                    Inspirational Images
+                                </a>
+                            </li>
+                        }
+                        @*@if (ViewBag.HasBlogs)
+                        {
+                            <li>
+                                <a href="?selectedtab=Blogs" @if (ViewBag.SelectedTab == "Blogs")
+                                                             {
+                                                                 <text> class="selected" </text>
+                                                             } data-tab-content-id="blogs">
+                                    Blog articles
+                                </a>
+                            </li>
+                        }*@
+                        @if (ViewBag.HasAsSeenIn)
+                        {
+                            <li>
+                                <a href="?selectedtab=AsSeenIn" @if (ViewBag.SelectedTab == "AsSeenIn")
+                                                                {
+                                                                    <text> class="selected" </text>
+                                                                } data-tab-content-id="asSeenIn">
+                                    As Seen In
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <section class="tabSection @if (ViewBag.SelectedTab == "InspirationalImages")
+                                           {
+                                               <text>active</text>
+                                           }" id="inspirationalImages">
+                    <h2>Inspirational Images</h2>
+                    <div class="tabContent">
+                        <div class="inspirationCategories inspirationImages">
+                            @foreach (var image in Model.Images.Where(x => x.Type == InspirationImageType.Gallery).OrderBy(x => x.Order).ThenBy(x => x.Name))
+                            {
+                                <a href="#img-@image.ImageAssetID" class="category">
+                                    <img class="thumb" src="@Url.ImageUrl(image.ImageAssetID, "Inspirations", "InspirationalThumb")" alt="@image.Name"/>
+                                    <span class="title" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">@image.ImageAlt</span>
+                                </a>
+                            }
+                        </div>
+                        @foreach (var image in Model.Images.Where(x => x.Type == InspirationImageType.Gallery).OrderBy(x => x.Order).ThenBy(x => x.Name))
+                        {
+                            <div id="img-@image.ImageAssetID" class="hotspot-popup mfp-hide">
+                                <div class="hotspot-popup-image">
+                                    @{ Html.RenderAction("HotspotsForImage", "Hotspots", new {area = "Hotspots", imageAssetId = image.ImageAssetID}); }
+                                    <img class="hotspot-image" src="@Url.ImageUrl(image.ImageAssetID, "Inspirations", "InspirationGalleryZoom")" alt="@image.Name">
+                                </div>
+                                @if (image.ProductCategory != null)
+                                {
+                                    <a class="hotspot-popup-cta" href="/shop/@(@Url.ProductCategoryUrl(image.ProductCategory))"><span>@image.ProductCategory.Name</span>- View collection</a>
+                                }
+                            </div>
+                        }
+                    </div>
+                </section>
+                <section class="tabSection @if (ViewBag.SelectedTab == "Blogs")
+                                           {
+                                               <text>active</text>
+                                           }" id="blogs">
+                    <h2>Blog articles</h2>
+                    <div class="tabContent">
+                        @{ Html.RenderAction("BlogPostForTags", "Blog", new {area = "Blog", tags = new[] {Model.TagID}}); }
+                    </div>
+                </section>
+                <section class="tabSection @if (ViewBag.SelectedTab == "AsSeenIn")
+                                           {
+                                               <text>active</text>
+                                           }" id="asSeenIn">
+                    <h2>As Seen In</h2>
+                    <div class="tabContent">
+                        @{ Html.RenderAction("AsSeenInItemsForTags", "AsSeenIn", new {area = "AsSeenIn", tags = new[] {Model.TagID}}); }
+                    </div>
+                </section>
+            </div>
+        </div>
+    }
+</div>
+@Html.HiddenFor(model => model.ID, new {id = "InspirationID"})
+<section id="share" class="reveal-modal medium">
+    @{ Html.RenderAction("Share", "Share", new {area = "Sharing", MediaUrl = pinterestMediaUrl, Description = Model.Name}); }
+</section>

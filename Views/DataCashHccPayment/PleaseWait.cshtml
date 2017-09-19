@@ -1,0 +1,69 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Payment Page</title>
+
+    <link href="/_css/normalize.min.css" rel="stylesheet"/>
+    <link href="/_css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+
+
+    <link rel="stylesheet" type="text/css" href="/_css/brands/@ColonyContext.Current.CurrentSite.SiteKey/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/_css/dev.css"/>
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="/_css/brands/@ColonyContext.Current.CurrentSite.SiteKey/styles_2.css"/>
+        <link rel="stylesheet" type="text/css" href="/_css/brands/@ColonyContext.Current.CurrentSite.SiteKey/styles_3.css"/>
+        <link rel="stylesheet" type="text/css" href="/_css/framework/ie_fixes.css"/>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/_css/brands/@ColonyContext.Current.CurrentSite.SiteKey/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/_css/print.css" media="print"/>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="/_js/vendor/custom.modernizr.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+        <script src="/_js/shared/selectivizr-min.js" type="text/javascript"></script>
+    <![endif]-->
+
+</head>
+<body class="@(ColonyContext.Current.CurrentSite.SiteKey)Site">
+<div id="container" role="main">
+    <div id="content">
+        <div class="boxSection checkoutPayment editable">
+            <div class="header">
+                <h2>Please wait. Your order is being processed.</h2>
+            </div>
+            <p>Your order is currently being processed. Please do not refresh your browser or navigate to another page.</p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(window.top.document).scrollTop(0);
+    window.top.location.href = '@Model';
+</script>
+@Scripts.Render("~/_js/bundle")
+<script src="~/_js/brands/@ColonyContext.Current.CurrentSite.SiteKey/desktop.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+@*<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js" type="text/javascript"></script>*@
+@if (B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current)))
+{
+    <script src="/_js/shared/b2b.js" type="text/javascript"></script>
+}
+<script src="/_js/shared/scrapbook.js" type="text/javascript"></script>
+<script>
+    $(document).foundation();
+</script>
+<script type="text/javascript">
+    var MTIProjectId = '12f9cc66-8fc6-40a3-bd8a-050837a8d95b';
+    (function() {
+        var mtiTracking = document.createElement('script');
+        mtiTracking.type = 'text/javascript';
+        mtiTracking.async = 'true';
+        mtiTracking.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//fast.fonts.net/t/trackingCode.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mtiTracking);
+    })();
+</script>
+</body>
+</html>

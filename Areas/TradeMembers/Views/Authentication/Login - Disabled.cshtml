@@ -1,0 +1,88 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers.Models.B2BLoginInputViewModel
+@{
+    ViewBag.Title = "Trade Login";
+    Layout = "";
+}
+<div id="content">
+    <nav class="tabs" role="navigation">
+        <h2>Select a login method</h2>
+        @if (!ColonyContext.Current.CurrentSite.SiteKey.Equals("Contracts", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <ul>
+                <li>
+                    <a href="/members/login?returnUrl=@Request["returnUrl"]">@(ColonyContext.Current.CurrentSite.SiteKey == "Wg" ? "Consumer" : "Customer") Login</a>
+                </li>
+                <li>
+                    <a href="/trade-members/login/?returnUrl=@Request["returnUrl"]" class="selected">Trade Login</a>
+                </li>
+                @*<li>
+                    <a href="/press-members/login/?returnUrl=@Request["returnUrl"]">Press Login</a>
+                </li>*@
+            </ul>
+        }
+        else
+        {
+            <ul>
+                <li>
+                    <a href="/trade-members/login/?returnUrl=@Request["returnUrl"]" class="selected">Trade Login</a>
+                </li>
+            </ul>
+        }
+
+    </nav>
+
+    <h1>Login or Register</h1>
+
+    <p>If you are an existing user, enter registered details into the form below to log in.</p>
+    <p>If you have a @ColonyContext.Current.CurrentSite.Name trade account but do not have login details for this service, please register your interest using the ‘Register’ option below. </p>
+    <p>
+        If you would like to enquire about becoming a @ColonyContext.Current.CurrentSite.Name trade account holder, please see our FAQ’s section or <a href="/contact-us/"  title="contact us">contact us</a>.
+    </p>
+    <div class="loginOrRegister">
+        <section class="boxSection login">
+            <header>
+                <h2>Sign in</h2>
+            </header>
+            <div class="bd">
+                <div class="contentForm">
+                    <h3>Login unavailable</h3>
+
+                    <p>Trade login disabled at this time. Sorry for any inconvenience caused.<br />Please check back tomorrow.</p>
+
+                    using (Html.BeginForm("Login", "Authentication", new {area = "TradeMembers", ViewBag.ReturnUrl}, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.CustomValidationSummary(true)
+                        <fieldset>
+                            <legend>Login</legend>
+
+                            @Html.EditorFor(m => m.LoginId)
+
+                            @Html.EditorFor(m => m.Password)
+
+                        </fieldset>
+                        <div class="field formControls">
+                            <button class="button">Log in</button>
+                        </div>
+                    }
+                </div>
+               <!-- <p>
+                    By signing in you agree to our <a href="/terms-and-conditions/">Website Terms and Conditions of Use</a>, our <a href="/privacy-policy/">Privacy Policy</a> and our <a href="/privacy-policy/">Cookie Policy</a>.
+                </p>-->
+            </div>
+        </section>
+        <section class="boxSection register">
+            <header>
+                <h2>Register</h2>
+            </header>
+            <div class="bd">
+                <p>If you already have a @ColonyContext.Current.CurrentSite.Name trade account but do not have online login details then you may register your interest.</p>
+                <p class="continue">
+                    @Html.ActionLink("Register", "Register", "Register", new {area = "TradeMembers"}, new {@class = "button"})
+                </p>
+            </div>
+        </section>
+    </div>
+
+</div>

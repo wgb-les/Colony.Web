@@ -1,0 +1,181 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model Colony.Commerce.Areas.Shops.Models.CategoryViewModel
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+<div class="pageContainerInner">
+    <div class="collectionInfo">
+        <h1>@Model.Category.Name</h1>
+        @Html.Raw(@Model.Category.LongDescription)
+    </div>
+    <div class="collectionSlider">
+        <div class="wide slider home">
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                foreach (var img in Model.Images)
+                {
+                    <div class="sliderSlide">
+                        @{ Html.RenderAction("HotspotsForImage", "Hotspots", new { area = "Hotspots", imageAssetId = img.ImageAssetID }); }
+                        <img class="" src="@Url.ImageUrl(img.ImageAssetID, "Shop", "HotspotsSmaller")" alt="@img.Name" />
+                    </div>
+                                }
+                            }
+        </div>
+    </div>
+</div>
+
+<div class="pageContainerInner noPad">
+    <div class="productList" id="">
+
+        <section class="">
+            @{ var skus = Model.Products.SelectMany(x => x.Skus); }
+            <input type="hidden" name="ProductCodes" id="ProductCodes" value="@(string.Join<string>(",", skus.Select((model, index) => model.Sku.Code)))" />
+            @*<h2>Available Colours (@skus.Count())</h2>*@
+            @foreach (var item in skus.Select((model, index) => new { index, model }))
+            {
+                var defaultItemImage = item.model.Images.OrderBy(x => x.Order).FirstOrDefault();
+                var defaultItemImageUrl = defaultItemImage != null ? @Url.ImageUrl(defaultItemImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail") : @"/_images/placeholders/thumbnail.jpg";
+
+
+
+                <a href="/shop/@Url.ProductUrl(item.model.ProductDetail.Product)?code=@item.model.Sku.Code">
+                    <div class="product wide6" data-quick-view-id="product_@item.model.ProductDetail.Product.Id" data-noprice="true" data-productcode="@item.model.Sku.Code" data-skuid="@item.model.Sku.Id">
+                        <div class="fa-heart favourite"></div>
+                        <img class="lazyload" data-original="@defaultItemImageUrl" alt="@item.model.Sku.Name" data-productcode="@item.model.Sku.Code" class="detail-ordersampleurl" data-productname="@item.model.Sku.Name" data-skuid="@item.model.Sku.Id" @if (defaultItemImage != null) { <text> data-imageAssetId="@defaultItemImage.ImageAssetID" </text>     } data-productimage="@defaultItemImageUrl" data-url="/shop/@Url.ProductUrl(item.model.ProductDetail.Product)?code=@item.model.Sku.Code" @if (isB2B) { <text> data-isb2b="true" </text>     } />
+                        <h4 class="productTitle">@Model.Products.FirstOrDefault(t => t.Skus.Any(v => v.Sku.Id == item.model.Sku.Id)).Product.Name</h4>
+                        @*<p class="itemSubTitle">By @design.Attributes.GetValueOrNull("Brand")</p>*@
+                        <ul>    
+                            <li>@item.model.Attributes.GetValueOrNull("Design Code")</li>
+                            <li>@item.model.Attributes.GetValueOrNull("Product Group")</li>
+                        </ul>
+                    </div>
+                </a>
+
+
+
+            }
+        </section>
+    </div>
+</div>    
+        @if (Model.DisplayRelatedContent)
+        {
+            string activeRelatedContentTab = ViewBag.RelatedContentTab;
+
+            bool? hasBlogs = false;
+            bool? hasVideos = false;
+            bool? hasAsSeenIn = false;
+            bool? hasFaqs = false;
+
+            var blogs = Html.Action("BlogPostForTags", "Blog", new { area = "Blog", tags = Model.Category.TagIds.ToDelimitedString() });
+            hasBlogs = (bool?)TempData["HasBlogs"];
+
+            var videos = Html.Action("VideosForTags", "Videos", new { area = "Videos", tags = Model.Category.TagIds.ToDelimitedString() });
+            hasVideos = (bool?)TempData["HasVideos"];
+
+            var asSeenIn = Html.Action("AsSeenInItemsForTags", "AsSeenIn", new { area = "AsSeenIn", tags = Model.Category.TagIds.ToDelimitedString() });
+            hasAsSeenIn = (bool?)TempData["HasAsSeenIn"];
+
+            var faqs = Html.Action("FAQsForTags", "FAQs", new { area = "FAQs", tags = Model.Category.TagIds.ToDelimitedString() });
+            hasFaqs = (bool?)TempData["HasFAQs"];
+
+            if (hasBlogs == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+            {
+                activeRelatedContentTab = "blogs";
+            }
+            if (hasVideos == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+            {
+                activeRelatedContentTab = "videos";
+            }
+            if (hasAsSeenIn == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+            {
+                activeRelatedContentTab = "asSeenIn";
+            }
+            if (hasFaqs == true && string.IsNullOrWhiteSpace(activeRelatedContentTab))
+            {
+                activeRelatedContentTab = "faqs";
+            }
+
+            <div class="tabContainer">
+                <nav class="tabs" role="navigation">
+                    <h2>Related Content</h2>
+                    <ul>
+                        @*@if (hasBlogs == true)
+                            {
+                                <li>
+                                    <a href="?relatedContentTab=blogs" @if (activeRelatedContentTab == "blogs")
+                                                                       {
+                                                                           <text> class="selected" </text>
+                                                                       } data-tab-content-id="blogs">
+                                        Blog Articles
+                                    </a>
+                                </li>
+                            }*@
+                        @if (hasVideos == true)
+                {
+                            <li>
+                                <a href="?relatedContentTab=videos" data-tab-content-id="videos" @if (activeRelatedContentTab == "videos") { <text> class="selected" </text>     }>
+                                    Videos
+                                </a>
+                            </li>
+                        }
+                        @if (hasAsSeenIn == true)
+                {
+                            <li>
+                                <a href="?relatedContentTab=asSeenIn" data-tab-content-id="asSeenIn" @if (activeRelatedContentTab == "asSeenIn") { <text> class="selected" </text>     }>
+                                    As Seen In
+                                </a>
+                            </li>
+                        }
+                        @if (hasFaqs == true)
+                {
+                            <li>
+                                <a href="?relatedContentTab=faqs" data-tab-content-id="faqs" @if (activeRelatedContentTab == "faqs") { <text> class="selected" </text>     }>
+                                    FAQs
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <section class="tabSection @if (activeRelatedContentTab == "blogs")
+                                   {
+                                       <text>active</text>
+                                   }" id="blogs">
+                    <h2>Blog Articles</h2>
+                    <div class="tabContent">
+                        @Html.Raw(blogs)
+                    </div>
+                </section>
+                <section class="tabSection @if (activeRelatedContentTab == "videos")
+                                   {
+                                       <text>active</text>
+                                   }" id="videos">
+                    <section class="moduleSection videos">
+                        <h2>Videos</h2>
+                        <div class="tabContent">
+                            @Html.Raw(videos)
+                        </div>
+                    </section>
+                </section>
+                <section class="tabSection @if (activeRelatedContentTab == "asSeenIn")
+                                   {
+                                       <text>active</text>
+                                   }" id="asSeenIn">
+                    <h2>As Seen In</h2>
+                    <div class="tabContent">
+                        @Html.Raw(asSeenIn)
+                    </div>
+                </section>
+                <section class="tabSection @if (activeRelatedContentTab == "faqs")
+                                   {
+                                       <text>active</text>
+                                   }" id="faqs">
+                    <section class="moduleSection faqs">
+                        <h2>FAQs</h2>
+                        <div class="tabContent">
+                            @Html.Raw(faqs)
+                        </div>
+                    </section>
+                </section>
+            </div>
+        }

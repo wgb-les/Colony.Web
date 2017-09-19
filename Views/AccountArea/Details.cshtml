@@ -1,0 +1,39 @@
+﻿@using System.Security.Claims
+@using Colony.Models.Core.Security
+@using Colony.Services.Security
+@{
+    Html.SetTitle("Your Details");
+}
+@Html.Partial("AccountMenu", "Details")
+
+<div id="content" class="">
+    <h1>Your Details</h1>
+
+    @Html.CustomValidationSummary(true)
+
+    @if (ViewBag.Edit == "DetailsUpdated")
+    {
+        <div class="alertInfo confirmation">
+            Your details have been updated.
+        </div>
+    }
+    @if (ViewBag.Edit == "PasswordChanged")
+    {
+        <div class="alertInfo confirmation">
+            Your password has been changed.
+        </div>
+    }
+    @{
+        var cp = User as ClaimsPrincipal;
+        var user = cp.GetForTenant(Constants.TenantTypes.ColonyCMSFrontend);
+    }
+    <div class="contentForm">
+
+        @if (user != null && user.AuthenticationType != "facebook")
+        {
+            Html.RenderAction("ChangePassword", "AccountArea");
+        }
+
+        @{ Html.RenderAction("BasicDetails", "AccountArea"); }
+    </div>
+</div>

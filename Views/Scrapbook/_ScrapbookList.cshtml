@@ -1,0 +1,28 @@
+﻿@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.AddScrapbookViewModel
+<div class="fader"></div>
+<div class="scrapBookAdd">
+    <div class="indicator"></div>
+    <header>
+        <h2>Select Moodboard</h2>
+        <a class="close-reveal-modal icon-remove">
+            <span>Close</span></a>
+    </header>
+    <div class="inner">
+
+        <div class="field text ">
+            <label for="Name">
+            </label>
+            <input type="text" name="Name" id="Name" placeholder="Enter a new moodboard name">
+        </div>
+        <a href="#" class="addSrapbookButton button small icon-plus"></a>
+
+        <ul>
+            @foreach (var item in Model.ExistingScrapbooks)
+            {
+                <li>
+                    <a href="#" data-scrapbook-id="@item.Id">@(item.Name ?? "Unknown")</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@using System.Security.Claims
+@using Colony.Models.Core.Security
+@using Colony.Services.Security
+@model Colony.Commerce.Areas.AccountArea.Controllers.Models.DashboardViewModel
+@{
+    Html.SetTitle("Dashboard");
+    var cp = User as ClaimsPrincipal;
+    var user = cp.GetForTenant(Constants.TenantTypes.ColonyCMSFrontend);
+    var isB2B = user.AuthenticationType == "Mertex" && user.Claims.FirstOrDefault(x => x.Type == "http://redant.com/colony/claims/b2b" && x.Value == "true") != null;
+}
+
+@Html.Partial("AccountMenu", "Dashboard")
+<div id="content" class="">
+
+    <h1>Your Dashboard</h1>
+
+    @if (!isB2B)
+    {
+        if (!Model.Transactions.Any())
+        {
+            <div class="alertInfo message">
+                You have not completed any orders.
+            </div>
+        }
+        else
+        {
+            <section class="boxSection orderHistory">
+                <header>
+                    <h2>Recent Orders</h2>
+                    <a href="@Url.Action("OrderHistory")">
+                        <span>History</span></a>
+                    <div class="clear"></div>
+                </header>
+                @{ Html.RenderPartial("OrderList", Model.Transactions); }
+            </section>
+        }
+    }
+    @{ Html.RenderAction("RecentScrapbooks", "Scrapbook", new {area = "Scrapbook"}); }
+</div>

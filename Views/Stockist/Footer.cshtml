@@ -1,0 +1,139 @@
+﻿@using Colony.Commerce
+@model Colony.Commerce.Areas.Stockists.Models.StockistSearchResultsViewModel
+<div class="bottomMenu" id="whereToBuy">
+    <header class="header-reveal-modal">
+        <h2>Find A Retailer</h2>
+        <a class="close-reveal-modal icon-remove closeWTB">
+            <span>Close</span></a>
+    </header>
+
+    @if (Model != null && Model.Results.Any())
+    {
+        <div id="whereToBuyResults">
+            <div class="scroller">
+                <ul class="results stockists" data-lat="@ViewBag.PostcodeLatLng.Latitude" data-lng="@ViewBag.PostcodeLatLng.Longitude" data-region="@ViewBag.Region">
+                    @foreach (var stockist in Model.Results)
+                    {
+                        <li id="result_@stockist.Stockist.Id" data-stockistid="@stockist.Stockist.Id" data-lat="@stockist.Stockist.Latitude" data-lng="@stockist.Stockist.Longitude" data-shop="@ColonyCommerceContext.Current.Shop.CurrentShop.ShopKey">
+                            <div class="distance">
+                                @*@if (Colony.CMS.Security.Helpers.AuthenticationHelpers.IsLoggedIn())
+                                { 
+                                    <a href="@Url.Action("SetDefaultStockist", "Stockist", new { area = "Stockists", stockistId = stockist.Stockist.Id })" class="icon-heart setDefaultStockist @if (stockist.IsDefaultStockist)
+                                                                                                                                                                                                { <text>selected</text>}"></a>
+                                }*@
+                                @if (ViewBag.Region == "1")
+                                {
+                                    <span class="icon-map-marker">@(Math.Round(stockist.Stockist.Distance)) miles away</span>
+                                }
+                                <a class="button showOnMap">View on map</a>
+                            </div>
+
+                            <div class="details" data-othershops="@(string.Join(",", stockist.Stockist.Shops.Select(s => s.ShopKey)))" data-name="@stockist.Stockist.Name" data-address1="@stockist.Stockist.Address1" data-address2="@stockist.Stockist.Address2"
+                                 data-town="@stockist.Stockist.Town" data-county="@stockist.Stockist.County" data-postcode="@stockist.Stockist.Postcode" data-telephonenumber="@stockist.Stockist.TelephoneNumber"
+                                 data-email="@stockist.Stockist.Email" data-url="@stockist.Stockist.Url">
+                                <h2>@stockist.Stockist.Name</h2>
+                                <p>@stockist.Stockist.Address1</p>
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.Address2))
+                                {
+                                    <p>@stockist.Stockist.Address2</p>
+                                }
+                                <p>@stockist.Stockist.Town</p>
+                                <p>@stockist.Stockist.County</p>
+                                <p>@stockist.Stockist.Postcode</p>
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.TelephoneNumber))
+                                {
+                                    <span class="adressAction" href="#"><i class="icon-phone-square"></i><span>@stockist.Stockist.TelephoneNumber</span></span>
+                                }
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.Email))
+                                {
+                                    <a class="adressAction" href="mailto:@stockist.Stockist.Email">
+                                        <i class="icon-envelope"></i><span class="link">@stockist.Stockist.Email</span></a>
+                                }
+                                @if (!string.IsNullOrEmpty(stockist.Stockist.Url))
+                                {
+                                    <a class="adressAction" href="@(stockist.Stockist.Url.Contains(":") ? stockist.Stockist.Url : "http://" + stockist.Stockist.Url)" target="_blank">
+                                        <i class="icon-desktop"></i><span class="link">@stockist.Stockist.Url</span></a>
+                                }
+                            </div>
+
+                            @if (stockist.Stockist.Shops.Any())
+                            {
+                                <div class="stockists-brands">
+                                    <ul>
+                                        @foreach (var shop in stockist.Stockist.Shops)
+                                        {
+                                            <li>
+                                                <span class="brand-@shop.ShopKey.ToLower()"></span>@shop.Name</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                            @if (stockist.Stockist.SellsFabric || stockist.Stockist.SellsWallpaper || stockist.Stockist.SellsHomeAccessories || stockist.Stockist.SellsPaint || stockist.Stockist.SellsTrimmings)
+                            {
+                                <div class="storeProducts">
+                                    <ul>
+                                        @if (stockist.Stockist.SellsFabric)
+                                        {
+                                            <li><span class="fabric"></span>Fabric</li>
+                                        }
+                                        @if (stockist.Stockist.SellsWallpaper)
+                                        {
+                                            <li><span class="wallpaper"></span>Wallpaper</li>
+                                        }
+                                        @if (stockist.Stockist.SellsHomeAccessories)
+                                        {
+                                            <li><span class="homeAccessories"></span>Home Accessories</li>
+                                        }
+                                        @if (stockist.Stockist.SellsPaint)
+                                        {
+                                            <li><span class="paint"></span>Paint</li>
+                                        }
+                                        @if (stockist.Stockist.SellsRugs)
+                                        {
+                                            <li><span class="rugs"></span>Rugs</li>
+                                        }
+                                        @if (stockist.Stockist.SellsTrimmings)
+                                        {
+                                            <li><span class="trimmings"></span>Trimmings</li>
+                                        }
+                                        @if (stockist.Stockist.SellsFurniture)
+                                        {
+                                            <li><span class="furniture"></span>Furniture</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="clear"></div>
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div id="whereToBuyResults">
+            <div class="scroller">
+                <ul class="results">
+                    <li style="height: 60px; width: 376px;">
+                        <div class="deatils">
+                            <div class="alertInfo message">
+                                There are no stockists that match your criteria.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+    @{ Html.RenderPartial("SearchStockists", Model.SearchDetails); }
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".closeWTB").click(function() {
+            $("#whereToBuy").hide();
+        });
+    });
+</script>

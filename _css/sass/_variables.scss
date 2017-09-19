@@ -1,0 +1,133 @@
+
+
+// ---------------- Fonts ----------------
+
+$icon-size: 18px;
+
+$font-size-large: 20px;
+$font-size-medium: 14px;
+$font-size-small: 12px;
+$font-tiny: 10px;
+
+$font-large:$font-size-large;
+$font-base:$font-size-medium;
+$font-small:$font-size-small;
+
+$font-weight-heavy: 700;
+$font-weight-medium: 500;
+$font-weight-light: 300;
+$weight-large: 500;
+$weight-base: 400; 
+$weight-bold: 800; 
+$weight-small: 300;
+
+// Fonts & Copy
+$font: ProximaNovaA-Light, 'Montserrat', 'Open Sans', Verdana, Geneva, sans-serif;
+$letterspacing-base: 1.5px;
+$line-large: 40px;
+$line-base: 25px;
+$line-small: 18px;
+
+// Headings
+$h1: 28px;
+$h2: 24px;
+$h3: 20px;
+$h4: 16px;
+
+// ---------------- Spacings ----------------
+
+$padding-large: 20px;
+$padding-zero: 0px; 
+$padding-medium: 10px;
+$padding-small: 5px;
+
+$margin-large: 20px;
+$margin-medium: 10px;
+$margin-small: 5px;
+
+// ---------------- Colours ----------------
+
+$color-action: #000;
+
+$color-dark3: #999;
+$color-dark2: #000;
+$color-dark1: #222;
+
+$color-light3: #fff;
+$color-light2: #f1f1f1;
+$color-light1: #eee;
+
+$color-success: #66bb6a;
+$color-warning: #ffa726;
+$color-error: #ef5350;
+
+// ---------------- New Colors ---------------
+
+$scorpion: #6a6869;
+$cloud: #cbc9c7;
+$seashell: #f1f1f1;
+$tacha: #d4bc60;
+
+$action:$tacha;
+$primary-color:$scorpion;
+
+$sanderson:#94ac9b;
+$harlequin:#bca529;
+$scion:#7db09a;
+$morris:#808476;
+$zoffany:#282828;
+$anthology:#646464;
+
+
+
+//--------------- misc visuals --------------------
+$transition: all 0.3s ease-in-out;
+$mobmenuBreakpoint:1000px; // mob menu breakpoint
+
+// Colouring
+$light-1: #fff;
+$light-2: $seashell;
+$light-3: #c9d6df;
+$light-4: #ddd;
+$dark-1: #1E2022;
+$dark-2: $scorpion;
+$overlay: rgba(0,0,0,0.6);
+$action: $tacha;
+$red: #ff8880;
+$amber: #ff9800;
+$green: #4caf50;
+// Social
+$twitter: #0084b4;
+$facebook: #3b5998;
+$pinterest: #C92228;
+// Opacity
+$opacity-base: 0.8;
+// Page Width
+$page-width-large: 2000px;
+$page-width-base: 1180px;
+$page-width-small: 1000px;
+$page-width-tiny: 600px;
+// Max Width
+$width-base: 600px;
+// Module Width
+$module-width: 600px;
+// Padding & Margins
+$padding-large: 20px;
+$padding-base: 10px;
+$padding-small: 5px;
+// For product options and spinner
+$option-value: 55px;
+$darken: rgba(black, 0.8);
+
+// border-base
+$border-dark: 1px solid $dark-1;
+$border-base: 1px solid $light-4;
+$border-light: 1px solid $light-1;
+// Radius
+$radius-base: 0px;
+
+
+
+
+
+

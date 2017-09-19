@@ -1,0 +1,13 @@
+﻿<div id="content">
+    <% if (rc.model.ProductSearchResults.length > 0) { %>
+    <div class="alertInfo message">Showing results for <strong>"<%=rc.model.Keywords%>"</strong>.
+    </div>
+    <div class="productList searchResults">
+        <% _.each(rc.model.ProductSearchResults, function(itm) { %>
+        <%=rc.itemTemplate(itm) %>
+        <% }); %>
+    </div>
+    <% } else { %>
+    <div class="alertInfo message">Your search did not return any results.</div>
+    <% } %>
+</div>

@@ -1,0 +1,181 @@
+﻿@using Colony.CMS
+@model CheckoutViewModel
+@using Colony.CMS.Areas.CRM.Models
+@using Colony.Commerce.Areas.ShopPurchase.Models;
+
+@{
+    ViewBag.Title = "Checkout";
+    var cssFileName = string.Format("/_css/sass/{0}.css", ColonyContext.Current.CurrentSite.SiteKey.ToLower());
+}
+
+
+<div class="checkoutContainer">
+  <div class="innerContainer">
+
+<div class="stepContainer">
+  <div class="step wide4 @(Model.IsAboutYou ? "active" : "") @(!Model.IsAboutYou ? "complete" : "")" data-step="Aboutyou">
+    @if (!Model.IsAboutYou)
+    {
+      
+      <a class="inner fa fa-pencil" href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.AboutYouGuest})">
+        <span>About You</span>
+      </a>
+    }
+    else{
+        <input type="hidden" data-steptracking="1"/>
+      <a class="inner fa fa-pencil" href="#">
+        <span>About You</span>
+      </a>
+    }
+      @if (Model.IsDelivery)
+      {
+          <input type="hidden" data-steptracking="2"/>
+      }
+      @if (Model.IsPayment)
+      {
+          <input type="hidden" data-steptracking="3"/>
+      }
+  </div>
+  <div class="step wide4 @(Model.IsDelivery ? "active" : "") @(Model.IsPayment || Model.IsConfirmation ? "complete" : "")" data-step="Delivery">
+    @if (Model.IsPayment || Model.IsConfirmation)
+    {
+      <a class="inner fa fa-truck" href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.Delivery})">
+        <span>Delivery</span>
+      </a>
+    }
+    else{
+      <a class="inner fa fa-truck" href="#">
+        <span>Delivery</span>
+      </a>
+    }
+  </div>
+  <div class="step wide4 @(Model.IsPayment ? "active" : "") @(Model.IsConfirmation ? "complete" : "")" data-step="Payment">
+    @if (Model.IsConfirmation)
+    {
+      <a class="inner fa fa-money" href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.Delivery})">
+        <span>Payment</span>
+      </a>
+    }
+    else{
+      <a class="inner fa fa-money" href="#">
+        <span>Payment</span>
+      </a>
+    }
+  </div>
+  <div class="step wide4 @(Model.IsConfirmation ? "active" : "")" data-step="Confirmation">
+      <a class="inner fa fa-gift" href="#">
+        <span>Confirmation</span>
+      </a>
+  </div>
+</div>
+
+                <!-- <ul class="steps-indicator checkout-steps"> -->
+                    <!-- <li class="@(Model.IsAboutYou ? "active" : "") checkout-step @(!Model.IsAboutYou ? "complete" : "")" data-step="Aboutyou">
+                        @if (Model.IsAboutYou)
+                        {
+                            <input type="hidden" data-steptracking="1"/>
+                            <span class="show-for-sr">Current step:</span>
+                        }
+                        <span class="checkout-step-label">
+                            @if (!Model.IsAboutYou)
+                            {
+                                <span class="icon icon-ok-sign"></span>
+                                @:<a href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.AboutYouGuest})">
+                            }
+                            About you
+                            @if (!Model.IsAboutYou)
+                            {
+                                @:</a>
+                            }
+                                </span>
+                            </li> -->
+                            <!-- <li class="@(Model.IsDelivery ? "active" : "") checkout-step  @(Model.IsPayment || Model.IsConfirmation ? "complete" : "")" data-step="Delivery">
+                                @if (Model.IsDelivery)
+                                {
+                            <input type="hidden" data-steptracking="2"/>
+                                    <span class="show-for-sr">Current step:</span>
+                                }
+                                <span class="checkout-step-label">
+                                    @if (Model.IsPayment || Model.IsConfirmation)
+                                    {
+                                        <span class="icon icon-ok-sign"></span>
+                                        @:<a href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.Delivery})">
+                                    }
+                                    Delivery
+                                    @if (Model.IsPayment || Model.IsConfirmation)
+                                    {
+                                        @:</a>
+                                    }
+                                </span>
+                            </li> -->
+                            <!-- <li class="@(Model.IsPayment ? "active" : "") checkout-step @(Model.IsConfirmation ? "complete" : "")" data-step="Payment">
+                                @if (Model.IsPayment)
+                                {
+                            <input type="hidden" data-steptracking="3"/>
+                                    <span class="show-for-sr">Current step:</span>
+                                }
+                                <span class="checkout-step-label">
+                                    @if (Model.IsConfirmation)
+                                    {
+                                        <span class="icon icon-ok-sign"></span>
+                                        @:<a href="@Url.Action("Summary", "Checkout", new {step = CheckoutStep.Payment})">
+                                    }
+                                    Payment
+                                    @if (Model.IsConfirmation)
+                                    {
+                                        @:</a>
+                                    }
+                                </span>
+                            </li> -->
+                            <!-- <li class="@(Model.IsConfirmation ? "active" : "") checkout-step" data-step="Confirmation">
+                                @if (Model.IsConfirmation)
+                                {
+                                    <span class="show-for-sr">Current step:</span>
+                                }
+                                <span class="checkout-step-label">Order confirmation</span>
+                            </li>
+                        </ul> -->
+
+                <main id="main">
+                    @if (Model.Step == CheckoutStep.AboutYouHome)
+                    {
+                        @Html.Partial("AboutYou/_Home", Model.AboutYou)
+                    }
+                    else if (Model.Step == CheckoutStep.AboutYouGuest)
+                    {
+                        @Html.Partial("AboutYou/_Guest", Model.AboutYou)
+                    }
+                    else if (Model.Step == CheckoutStep.Delivery)
+                    {
+                        @Html.Partial("Delivery/_Delivery", Model.Delivery)
+                    }
+                    else if (Model.Step == CheckoutStep.NewAddress)
+                    {
+                        @Html.Partial("Delivery/_NewAddress", Model.Delivery == null
+                ? new DeliveryAddressViewModel()
+                : new DeliveryAddressViewModel { Address = Model.Delivery.Address })
+                    }
+                    else if (Model.Step == CheckoutStep.Payment)
+                    {
+                        @Html.Partial("Payment/_Payment", Model.Payment)
+                    }
+                    else if (Model.Step == CheckoutStep.DatacashPayment)
+                    {
+                        @Html.Partial("Payment/_Datacash")
+                    }
+                    else if (Model.Step == CheckoutStep.Confirmation)
+                    {
+                        @Html.Partial("Confirmation/_Confirmation", Model)
+                    }
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <a href="@Url.Action("Summary", "Basket")" class="button primaryButton">
+                                Back to Basket
+                            </a>
+                        </div>
+                    </div>
+                </main>
+
+
+              </div>
+              </div>

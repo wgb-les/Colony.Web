@@ -1,0 +1,28 @@
+﻿@model WalkerGreenbank.Modules.Inspirations.Areas.Models.InspirationIndexViewModel
+@if (Model.StylesCategory != null)
+{
+    <div class="section">
+        <a href="@Url.Action("Index", "Inspirations", new {area = "Inspirations", selectedView = "bystyle"})" class="category">
+            <img class="thumb" src="@Url.ImageUrl(Model.StylesCategory.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/article.jpg")" alt=""/>
+            <span class="title">Style</span>
+        </a>
+    </div>
+}
+@if (Model.RoomsCategory != null)
+{
+    <div class="section">
+        <a href="@Url.Action("Index", "Inspirations", new {area = "Inspirations", selectedView = "byroom"})" class="category">
+            <img class="thumb" src="@Url.ImageUrl(Model.RoomsCategory.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/article.jpg")" alt=""/>
+            <span class="title">Room</span>
+        </a>
+    </div>
+}
+@if (Model.ColoursCategory != null)
+{
+    <div class="section">
+        <a href="@Url.Action("Index", "Inspirations", new {area = "Inspirations", selectedView = "bycolour"})" class="category">
+            <img class="thumb" src="@Url.ImageUrl(Model.ColoursCategory.ImageAssetID, "Inspirations", "InspirationalThumb", @"/_images/placeholders/article.jpg")" alt=""/>
+            <span class="title">Colour</span>
+        </a>
+    </div>
+}

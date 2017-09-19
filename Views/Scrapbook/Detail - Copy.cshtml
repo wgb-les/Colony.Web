@@ -1,0 +1,179 @@
+﻿@using Colony.CMS
+@using Colony.Util.Web
+@model WalkerGreenbank.Modules.Scrapbook.Areas.Models.ScrapbookViewModel
+@{
+    Html.SetTitle("Moodboards - " + (!string.IsNullOrWhiteSpace(Model.Name) ? Model.Name : "New Moodboard"));
+    var shareUrl = Url.Action("Detail", "Scrapbook", new {area = "Scrapbook", id = Model.Id}).AbsoluteUrl();
+    var defaultMediaImage = Model.Items.FirstOrDefault();
+    var pinterestMediaUrl = defaultMediaImage != null ? Url.ImageUrl(defaultMediaImage.ImageAssetId, "ProductCatalogue", "ProductDetailZoom", @"/_images/placeholders/thumbnail.jpg") : "/_images/placeholders/thumbnail.jpg";
+}
+<div id="content">
+
+    @if (!ViewBag.IsReadonly)
+    {
+        <input id="scrapbookName" name="ScrapbookName" type="text" maxlength="100" value="@Model.Name" placeholder="Enter a name for your moodboard">
+    }
+    else
+    {
+        <div id="scrapbookName">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    }
+
+    <div class="scrapControls right">
+        @if (!ViewBag.IsReadonly)
+        {
+            <a class="button save-scrapbook" href="/account/manage/scrapbooks/"><b class="icon-save"></b>Save</a>
+        }
+        <a class="button" href="#" id="shareButton" @if (Model.Id == 0)
+                                                    {
+                                                        <text>style="display: none;"</text>
+                                                    }>
+            <b class="icon-share"></b>Share
+        </a>
+        <a class="button" id="printButton" href="/"><b class="icon-print"></b>Print</a>
+
+
+        <a class="button sample" @if (Model.Items.All(x => x.SkuId == null) || Model.Items.All(t => int.Parse(t.Attributes.GetValueOrNull("Sample Code") ?? "0") == 0))
+                                 {
+                                     <text>style="display: none;"</text>
+                                 }>
+            <b class="icon-shopping-cart"></b>Order Samples
+        </a>
+
+    </div>
+
+    <div class="clear"></div>
+
+    <style type="text/css" media="print">
+        @@media print {
+            #scrapBookContainer { width: 1010px; }
+
+            #scrapbookName { display: block !important; }
+        }
+
+        @@page {
+            size: landscape;
+        }
+    </style>
+
+
+    <div id="scrapBookContainer" class="elementContainer">
+        @if (!ViewBag.IsReadonly)
+        {
+            <div id="scrapControls" class="scrapControls">
+                <a class="button" id="top" href="#"><b class="icon-arrow-up"></b>Move to front</a>
+                <a class="button" id="bottom" href="#"><b class="icon-arrow-down"></b>Move to back</a>
+                <a class="button" id="zup" href="#"><b class="icon-level-up"></b>Move Forwards</a>
+                <a class="button" id="zdown" href="#"><b class="icon-level-down"></b>Move Backwards</a>
+                <a class="button" id="remove" href="#"><b class="icon-trash"></b>Remove</a>
+            </div>
+        }
+        <div id="scrapBook" class="ui-droppable">
+
+            <!-- MAIN SCRAPBOOK -->
+            <div class="scrapBoobWelcome">
+                <h1>
+                    Drag and drop a swatch onto your moodboard
+                    <br>
+                    to create your scheme
+                </h1>
+            </div>
+
+        </div>
+    </div>
+    <div class="loading-scrapbook">
+        <h1>Loading</h1>
+        <div class="ajaxLoader @if (ColonyContext.Current.CurrentSite.SiteKey == "Zoffany")
+                               {
+                                   <text>dark</text>
+                               } ">
+        </div>
+        <h2>Drag items into your scrapbook from the available list below...</h2>
+    </div>
+    <div class="elementContainer shadow">
+        <div class="scrapBookContainerShadow"></div>
+    </div>
+
+    @Html.Partial("_ScrapbookItems", Model.Items)
+
+    <div id="productsListContainer">
+        @{ Html.RenderAction("Products", "Scrapbook", new {scrapbookId = Model.Id}); }
+    </div>
+
+    @if (!ViewBag.IsReadonly)
+    {
+        @Html.Partial("_StudioItems", Model.Studio)
+    }
+
+    @Html.HiddenFor(model => model.Id, new {id = "ScrapbookId"})
+
+    <script type="text/template" class="scrapbookTemplate">
+		<% _.each( rc.scrapbookItems, function( scrap ){ %>
+				  @if (!ViewBag.IsReadonly)
+				  {
+				      // editable scrapbook
+				      <div id="scrapbookItem_<%= scrap.scrapbookItemId %>" data-scrapbookitemid="<%= scrap.scrapbookItemId %>" data-imageassetid="<%= scrap.imageAssetId %>" data-description="<%= scrap.description %>" class="scrap added" style="z-index: <%= scrap.zIndex %>; width: 200px; height: 200px; left: <%= scrap.left %>px; top: <%= scrap.top %>px; position: absolute;">
+						  <div class="scrapInner">
+							  <div id="scrapbookItemInner_<%= scrap.scrapbookItemId %>" style="width: <%= scrap.width %>px; height: <%= scrap.height %>px;">
+								  <img height="200" src="<%= _.escape(scrap.imageUrl) %>" data-scrapbookitemid="<%= scrap.scrapbookItemId %>" class="ui-resizable" style="margin: 0px; resize: none; position: static; zoom: 1; display: block; height: <%= scrap.height %>px; width: <%= scrap.width %>px;">
+							  </div>
+						  </div>
+					  </div>
+				  }
+				  else
+				  {
+				      // read-only scrapbook
+				      <div class="scrap" data-scrapbookitemid="<%= scrap.scrapbookItemId %>" style="z-index: <%= scrap.zIndex %>; width: 100px; height: 100px; left: <%= scrap.left %>px; top: <%= scrap.top %>px; position: absolute;">
+						  <div class="scrapInner">
+							  <div style="width: <%= scrap.width %>px; height: <%= scrap.height %>px;">
+								  <img height="200" src="<%= _.escape(scrap.imageUrl) %>" data-scrapbookitemid="<%= scrap.scrapbookItemId %>" style="margin: 0px; resize: none; position: static; zoom: 1; display: block; height: <%= scrap.height %>px; width: <%= scrap.width %>px;">
+							  </div>
+						  </div>
+					  </div>
+				  }
+		<% }); %>
+	</script>
+</div>
+<section id="print-info" class="reveal-modal medium">
+    <div class="bd-reveal-modal text-center">
+        <h1>Information</h1>
+        <p>For best results printing your moodboard, please switch your page orientation settings to landscape.</p>
+        <a href="" class="button large print">OK</a>
+        <div class="clear"></div>
+    </div>
+</section>
+<section id="share" class="reveal-modal medium">
+    @Html.Action("Share", "Share", new {area = "Sharing", ShareUrl = shareUrl, MediaUrl = pinterestMediaUrl, Description = Model.Name})
+</section>
+
+<script>
+    function simulateDblClickTouchEvent(oo) {
+        var $oo = !oo ? {} : $(oo);
+        if (!$oo[0]) {
+            return false;
+        }
+        $oo[0].__taps = 0;
+        $oo.bind('touchend', function(e) {
+            var ot = this;
+            ++ot.__taps;
+            $d(ot.__taps);
+            if (!ot.__tabstm) /* don't start it twice */
+            {
+                ot.__tabstm = setTimeout(function() {
+                    if (ot.__taps >= 2) {
+                        ot.__taps = 0;
+                        $(ot).trigger('dblclick');
+                    }
+                    ot.__tabstm = 0;
+                    ot.__taps = 0;
+                }, 800);
+            }
+        });
+        return true;
+    }
+
+    $(document).ready(function() {
+        /*simulateDblClickTouchEvent($('.oderSample'));*/
+    });
+</script>

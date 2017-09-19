@@ -1,0 +1,26 @@
+﻿@using Colony.CMS
+@using WalkerGreenbank.Modules.PressMembers.Areas.B2BMembers
+@model IEnumerable<Colony.Commerce.Models.ProductCatalogue.ProductSearchResult>
+@{
+    var isB2B = B2BCheckoutService.IsB2BUserLoggedIn(new HttpContextWrapper(HttpContext.Current));
+}
+
+
+
+@foreach (var product in Model)
+{
+ //   var defaultImage = design.Images.OrderBy(x => x.Order).FirstOrDefault();
+ //   var defaultImageUrl = defaultImage != null ? @Url.ImageUrl(defaultImage.ImageAssetID, "ProductCatalogue", "ProductThumbnail", @"/_images/placeholders/thumbnail.jpg") : @"/_images/placeholders/thumbnail.jpg";
+    var _descriptiveColour = product.Attributes.ContainsKey("Descriptive Colour") ? product.Attributes["Descriptive Colour"] : "";
+    var _productGroup = product.Attributes.ContainsKey("Product Group") ? product.Attributes["Product Group"] : "";
+
+    <a href="@product.Uri" class="sl-slide sl-item sl-small-pad">
+      <div class="sl-item-inner" data-value="productThumb" >
+        <img class="lazyload" data-original="@product.ImageUri" alt="@product.Name"/>
+        <div class="details">
+          <text class="sl-text" data-value="productTitle">@product.Name</text>
+          <text class="sl-text" data-value="productBrand">@_productGroup  by @product.Attributes.GetValueOrNull("Brand")</text>
+        </div>
+      </div>
+    </a>
+}

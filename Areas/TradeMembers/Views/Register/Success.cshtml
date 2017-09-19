@@ -1,0 +1,30 @@
+﻿@using Colony.CMS
+@model WalkerGreenbank.Modules.PressMembers.Areas.TradeMembers.ViewModels.TradeRegisterInputViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+@if (ColonyContext.Current.CurrentSite.SiteKey == "Wg")
+{
+    <h2>Thank you for registering your details for access to Style Library. </h2>
+
+    <p>The approval process takes approximately 10 working days and we will contact you with your login details in due course. </p>
+
+    <p>In the meantime, if you have any questions please don’t hesitate to contact us using the details below.</p>
+
+    <p>Call from the US: 201-399-0500</p>
+
+    <p>Call from the UK: 0844 543 4749</p>
+
+    <p>
+        Email on <a href="mailto:enquiries@stylelibrary.com">enquiries@stylelibrary.com</a>
+    </p>
+}
+else
+{
+    <h2>Thanks for registering your interest</h2>
+    <p>
+        One of our representatives will review your request and you will be notified in due course.
+        Access to the trade area will not be possible until your account has been reviewed and accepted.
+    </p>
+}
