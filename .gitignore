@@ -49,3 +49,6 @@ Temporary Items
 *.config
 *.pdb
 *.dll
+bin/*
+obj/*
+
